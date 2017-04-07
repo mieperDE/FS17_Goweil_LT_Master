@@ -114,7 +114,7 @@
     </inputAttacherJoints>
     <cylinderedHydraulicSound file="$data/sounds/hydraulicUp.wav" pitchOffset="1.00" volume="1.20" />
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75"/>
-    <foldingParts posDirectionText="action_unfoldOBJECT" negDirectionText="action_foldOBJECT">
+    <foldingParts startAnimTime="1">
         <foldingPart animationName="folding" speedScale="1" />
     </foldingParts>
     <animations>
