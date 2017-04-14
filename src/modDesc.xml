@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="37">
     <author>Team FSI Modding</author>
-    <version>1.0.0.0</version>
+    <version>1.0.0</version>
     <title>
-        <it>Goweil Lt Master</it>
-        <en>Goweil Lt Master</en>
-        <de>Goweil Lt Master</de>
+        <it>Goweil LT Master</it>
+        <en>Goweil LT Master</en>
+        <de>Goweil LT Master</de>
     </title>
     <description>
-        <it>Goweil Lt Master</it>
-        <en>Goweil Lt Master</en>
-        <de>Goweil Lt Master</de>
+        <it>Goweil LT Master</it>
+        <en>Goweil LT Master</en>
+        <de>Goweil LT Master</de>
     </description>
     <iconFilename>store.dds</iconFilename>
     <multiplayer supported="true"/>
     <inputBindings></inputBindings>
     <specializations></specializations>
     <vehicleTypes>
-        <type name="Goweil" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
+        <type name="goweil" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
             <specialization name="attacherJoints" />
             <specialization name="lights" />
             <specialization name="workArea" />
@@ -29,18 +29,9 @@
             <specialization name="foldable" />
             <specialization name="fillable" />
             <specialization name="fillVolume" />
-            <specialization name="pickup" />
-            <specialization name="baler" />
             <specialization name="powerConsumer" />
             <specialization name="washable" />
             <specialization name="mountable" />
-            <!--    <specialization name="LockSteeringaxles"/>		-->
-            <!-- rotopressa--
-        <specialization name="attacherJoints" /><specialization name="lights" /><specialization name="workArea" /><specialization name="speedRotatingParts" /><specialization name="attachable" /><specialization name="turnOnVehicle" /><specialization name="animatedVehicle" /><specialization name="cylindered" /><specialization name="foldable" /><specialization name="fillable" /><specialization name="fillVolume" /><specialization name="pickup" /><specialization name="baler" /><specialization name="powerConsumer" /><specialization name="washable" /><specialization name="mountable" />
-            <!-- Nastro--
-        <specialization name="motorized" /><specialization name="steerable" /><specialization name="drivable" /><specialization name="overloading" /><specialization name="pipe" /><specialization name="conveyorBelt" /><specialization name="aiVehicle" /><specialization name="nonTabbable" />	-->
-            <!-- Wrapper--	
-        <specialization name="baleWrapper" />-->
         </type>
     </vehicleTypes>
     <storeItems>

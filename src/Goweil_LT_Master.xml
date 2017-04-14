@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<vehicle type="Goweil">
+<vehicle type="goweil">
     <annotation>Attention exclusive model, with copyright and license patented Goweil. Project, Model for Farming Simulator by Team FSI Modding, All Rights Reserved.</annotation>
     <storeData>
         <name>
@@ -26,7 +26,7 @@
     <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8"/>
     <speedLimit value="20" />
-    <powerConsumer ptoRpm="540" neededPtoPower="89"/>
+    <powerConsumer ptoRpm="540" neededPtoPower="100"/>
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>
