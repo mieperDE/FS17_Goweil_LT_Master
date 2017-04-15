@@ -112,6 +112,37 @@
     <inputAttacherJoints>
         <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5"/>
     </inputAttacherJoints>
+    <!-- settings for receivingHopper-->
+    <fillRootNode index="0>7" />
+    <fillMassNode updateFillLevelMass="false" />
+    <exactFillRootNode index="0>8|6" />
+    <fillAutoAimTargetNode index="0>8|6|0" />
+    <allowFillFromAir value="true" />
+    <allowTipDischarge value="false" />
+    <fillUnits>
+        <fillUnit unit="$l10n_unit_literShort" fillTypeCategories="bulk" capacity="4000" showOnHud="true" showInShop="true" fillVolumeIndex="0"/>
+        <fillUnit unit="$l10n_unit_literShort" fillTypeCategories="bulk" capacity="10000" showOnHud="true" showInShop="true" fillVolumeIndex="1"/>
+    </fillUnits>
+    <fillSound file="$data/maps/sounds/siloFillSound.wav" pitchOffset="1.00" volume="0.70" indoorVolumeFactor="0.55" indoorLowpassGain="0.75"/>
+    <fillVolumes>
+        <volumes>
+            <volume index="0>7|8|0" maxDelta="1" />
+        </volumes>
+        <dischargeInfos>
+            <dischargeInfo>
+                <node index="0>8|6|0" width="0.4" length="0.4" />
+            </dischargeInfo>
+        </dischargeInfos>
+    </fillVolumes>
+    <overloading capacity="100" stopOverloadIfEmpty="false" forceActive="true" allowFoldWhileOverloading="true">
+        <trailerTriggers>
+            <trailerTrigger index="0>8|7" />
+        </trailerTriggers>
+    </overloading>
+    <pipe numStates="1" unloadingStates="1" raycastNodeIndex="0>8|6|0" raycastDistance="12" automaticOverload="true" delayEffectIndex="3" effectExtraDistanceOnTrailer="-1"/>
+    <conveyorBelt>
+        <tipTrigger index="0>7|8|1" fillUnitIndex="2"/>
+    </conveyorBelt>
     <cylinderedHydraulicSound file="$data/sounds/hydraulicUp.wav" pitchOffset="1.00" volume="1.20" />
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75"/>
     <foldingParts startAnimTime="1" detachingMaxLimit="0" detachingMinLimit="0" turnOnFoldMinLimit="1" turnOnFoldMaxLimit="1" turnOffOnFold="true">
@@ -256,21 +287,10 @@
     <speedRotatingParts>
         <speedRotatingPart index="0>15|8" radius="0.5" refNodeIndex="0" turnOnFadeTime="1" turnOffFadeTime="2" onlyActiveWhenLowered="true" rotateOnlyIfFillLevelIncreased="true" />
     </speedRotatingParts>
-    <fillUnits>
-        <fillUnit unit="$l10n_unit_literShort" fillTypeCategories="windrow" capacity="4000" />
-    </fillUnits>
-    <workAreas>
-        <workArea startIndex="0>21|0" widthIndex="0>21|1" heightIndex="0>21|2" type="baler" />
-    </workAreas>
-    <groundReferenceNodes>
-        <groundReferenceNode index="0>6|36|4" threshold="0.5" />
-    </groundReferenceNodes>
-    <allowFillFromAir value="false" />
-    <allowTipDischarge value="false" />
     <baleTypes>
         <baleType minBaleWidth="1.2" maxBaleWidth="1.2" minBaleHeight="0.8" maxBaleHeight="0.9" minBaleLength="2.2" maxBaleLength="2.4"/>
     </baleTypes>
-    <baler>
+    <baler fillUnitIndex="1">
         <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
         <balerAlarm file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="0.45" indoorVolumeFactor="1.35" indoorLowpassGain="0.95" />
         <balerBaleEject file="$data/sounds/rollBelt150Eject.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
@@ -289,7 +309,7 @@
             <uvScrollPart index="0>8|4|2" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
         </uvScrollParts>
         <fillEffect>
-            <effectNode effectClass="MorphPositionEffect" effectNode="0>25" materialType="pickup" materialTypeId="1" delay="0" fadeTime="0.5" speed="0.9" scrollLength="1.5" scrollSpeed="2"/>
+            <effectNode effectClass="MorphPositionEffect" effectNode="0>25|0|0" materialType="pickup" materialTypeId="1" delay="0" fadeTime="0.5" speed="0.9" scrollLength="1.5" scrollSpeed="2"/>
         </fillEffect>
         <fillParticleSystems>
             <emitterShape node="0>24|0" particleType="PICKUP" emitCountScale="6" worldSpace="false" />

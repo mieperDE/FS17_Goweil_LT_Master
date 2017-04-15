@@ -29,9 +29,14 @@
             <specialization name="foldable" />
             <specialization name="fillable" />
             <specialization name="fillVolume" />
+            <specialization name="pickup" />
+            <specialization name="baler" />
             <specialization name="powerConsumer" />
             <specialization name="washable" />
             <specialization name="mountable" />
+            <specialization name="overloading" />
+            <specialization name="pipe" />
+            <specialization name="conveyorBelt" />
         </type>
     </vehicleTypes>
     <storeItems>
