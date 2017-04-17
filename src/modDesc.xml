@@ -15,7 +15,9 @@
     <iconFilename>store.dds</iconFilename>
     <multiplayer supported="true"/>
     <inputBindings></inputBindings>
-    <specializations></specializations>
+    <specializations>
+        <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua"/>
+    </specializations>
     <vehicleTypes>
         <type name="goweil" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
             <specialization name="attacherJoints" />
@@ -27,6 +29,8 @@
             <specialization name="foldable" />
             <specialization name="washable" />
             <specialization name="mountable" />
+            <specialization name="cylindered" />
+            <specialization name="ltmaster" />
         </type>
     </vehicleTypes>
     <storeItems>

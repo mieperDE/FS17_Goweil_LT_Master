@@ -135,6 +135,12 @@
             <inputAttacherJoint value="true" />
         </movingTool>
     </movingTools>
+    <LTMaster>
+        <triggers>
+            <triggerLeft index="0>27|0|0" />
+            <triggerRight index="0>27|0|1" />
+        </triggers>
+    </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4"/>
     <components count="1">
         <component1 centerOfMass="0 0.6 -0.5" solverIterationCount="10" />
