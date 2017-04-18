@@ -53,7 +53,22 @@ function LTMaster:load(savegame)
 end
 
 function LTMaster:postLoad(savegame)
-    
+    if self.isServer then
+        if savegame ~= nil and not savegame.resetVehicles then
+            self.LTMaster.hoods["left"].status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#leftHoodStatus"), self.LTMaster.hoods["left"].status);
+            self.LTMaster.hoods["right"].status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#rightHoodStatus"), self.LTMaster.hoods["right"].status);
+        end
+        LTMaster.finalizeLoad(self);
+    end
+end
+
+function LTMaster:getSaveAttributesAndNodes(nodeIdent)
+    local attributes = string.format("leftHoodStatus=\"%s\" rightHoodStatus=\"%s\"", self.LTMaster.hoods["left"].status, self.LTMaster.hoods["right"].status);
+    local nodes = nil;
+    return attributes, nodes;
+end
+
+function LTMaster:finalizeLoad()
     self:updateHoodStatus(self.LTMaster.hoods["left"], nil, true);
     self:updateHoodStatus(self.LTMaster.hoods["right"], nil, true);
 end
@@ -115,6 +130,7 @@ function LTMaster:readStream(streamId, connection)
     if connection:getIsServer() then
         self.LTMaster.hoods["left"].status = streamReadUInt8(streamId);
         self.LTMaster.hoods["right"].status = streamReadUInt8(streamId);
+        LTMaster.finalizeLoad(self);
     end
 end
 
