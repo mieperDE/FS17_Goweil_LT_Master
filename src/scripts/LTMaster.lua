@@ -25,59 +25,32 @@ end
 
 function LTMaster:load(savegame)
     self.LTMaster = {};
-    local triggerId = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#index"));
-    addTrigger(triggerId, "playerTriggerLeft", self);
-    triggerId = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#index"));
-    addTrigger(triggerId, "playerTriggerRight", self);
+    local trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#index"));
+    self.LTMaster.triggerLeft = PlayerTrigger:new(trigger, 2);
+    trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#index"));
+    self.LTMaster.triggerRight = PlayerTrigger:new(trigger, 2);
 end
 
 function LTMaster:postLoad(savegame)
-
 end
 
 function LTMaster:delete()
-
+    self.LTMaster.triggerLeft:delete();
+    self.LTMaster.triggerRight:delete();
 end
 
 function LTMaster:mouseEvent(posX, posY, isDown, isUp, button)
-
 end
 
 function LTMaster:keyEvent(unicode, sym, modifier, isDown)
-
 end
 
 function LTMaster:update(dt)
 end
 
 function LTMaster:updateTick(dt)
-
+    PlayerTriggers:update();
 end
 
 function LTMaster:draw()
-
-end
-
-function LTMaster:playerTriggerLeft(triggerId, otherId, onEnter, onLeave)
-    if g_currentMission.player ~= nil and g_currentMission.player.rootNode == otherId then
-        if onEnter then
-            self.triggerLeftActive = true;
-        end
-        if onLeave then
-            self.triggerLeftActive = false;
-        end
-        LTMaster.debug("self.triggerLeftActive:%s", self.triggerLeftActive);
-    end
-end
-
-function LTMaster:playerTriggerRight(triggerId, otherId, onEnter, onLeave)
-    if g_currentMission.player ~= nil and g_currentMission.player.rootNode == otherId then
-        if onEnter then
-            self.triggerRightActive = true;
-        end
-        if onLeave then
-            self.triggerRightActive = false;
-        end
-        LTMaster.debug("self.triggerRightActive:%s", self.triggerRightActive);
-    end
 end

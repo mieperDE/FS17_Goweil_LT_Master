@@ -15,6 +15,9 @@
     <iconFilename>store.dds</iconFilename>
     <multiplayer supported="true"/>
     <inputBindings></inputBindings>
+    <extraSourceFiles>
+        <sourceFile filename="scripts/PlayerTrigger.lua"/>
+    </extraSourceFiles>
     <specializations>
         <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua"/>
     </specializations>
