@@ -12,6 +12,8 @@ LTMaster.STATUS_OC_OPENING = 2;
 LTMaster.STATUS_OC_CLOSE = 3;
 LTMaster.STATUS_OC_CLOSING = 4;
 
+source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
+
 function LTMaster.print(text, ...)
     if LTMaster.debug then
         local start = string.format("[%s(%s)] -> ", "LTMaster", getDate("%H:%M:%S"));
@@ -32,18 +34,20 @@ function LTMaster:load(savegame)
     self.LTMaster = {};
     
     local trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#index"));
-    self.LTMaster.triggerLeft = PlayerTrigger:new(trigger, 2.5);
+    self.LTMaster.triggerLeft = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#index"));
-    self.LTMaster.triggerRight = PlayerTrigger:new(trigger, 2.5);
+    self.LTMaster.triggerRight = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#radius"), 2.5));
     
     self.LTMaster.hoods = {};
     self.LTMaster.hoods.openingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.openingSound", nil, self.baseDirectory);
     self.LTMaster.hoods.closingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.closingSound", nil, self.baseDirectory);
     self.LTMaster.hoods["left"] = {};
+    self.LTMaster.hoods["left"].name = "left";
     self.LTMaster.hoods["left"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.hoods.leftDoor#animationName");
     self.LTMaster.hoods["left"].status = LTMaster.STATUS_OC_CLOSE;
     
     self.LTMaster.hoods["right"] = {};
+    self.LTMaster.hoods["right"].name = "right";
     self.LTMaster.hoods["right"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.hoods.rightDoor#animationName");
     self.LTMaster.hoods["right"].status = LTMaster.STATUS_OC_CLOSE;
 end
@@ -100,6 +104,34 @@ function LTMaster:update(dt)
     end
 end
 
+function LTMaster:writeStream(streamId, connection)
+    if not connection:getIsServer() then
+        streamWriteUInt8(streamId, self.LTMaster.hoods["left"].status);
+        streamWriteUInt8(streamId, self.LTMaster.hoods["right"].status);
+    end
+end
+
+function LTMaster:readStream(streamId, connection)
+    if connection:getIsServer() then
+        self.LTMaster.hoods["left"].status = streamReadUInt8(streamId);
+        self.LTMaster.hoods["right"].status = streamReadUInt8(streamId);
+    end
+end
+
+function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
+    if not connection:getIsServer() then
+        streamWriteUInt8(streamId, self.LTMaster.hoods["left"].status);
+        streamWriteUInt8(streamId, self.LTMaster.hoods["right"].status);
+    end
+end
+
+function LTMaster:readUpdateStream(streamId, timestamp, connection)
+    if connection:getIsServer() then
+        self.LTMaster.hoods["left"].status = streamReadUInt8(streamId);
+        self.LTMaster.hoods["right"].status = streamReadUInt8(streamId);
+    end
+end
+
 function LTMaster:updateTick(dt)
     PlayerTriggers:update();
 end
@@ -109,21 +141,23 @@ end
 
 function LTMaster:updateHoodStatus(hood, newStatus, setTime)
     local status = newStatus or hood.status;
+    if g_client ~= nil then
+        g_client:getServerConnection():sendEvent(HoodStatusEvent:new(status, hood.name, self));
+    end
     if status == LTMaster.STATUS_OC_OPEN then
-        SoundUtil.playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
         if setTime then
             self:playAnimation(hood.animation, math.huge);
         else
+            SoundUtil.playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
             self:playAnimation(hood.animation, 1);
         end
     end
     if status == LTMaster.STATUS_OC_CLOSE then
-        SoundUtil.playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
         if setTime then
             self:playAnimation(hood.animation, -math.huge);
         else
             self:playAnimation(hood.animation, -1);
+            SoundUtil.playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
         end
     end
-    hood.status = status;
 end
