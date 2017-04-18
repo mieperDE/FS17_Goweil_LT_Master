@@ -43,10 +43,10 @@
     </vehicleTypes>
     <inputBindings></inputBindings>
     <l10n>
-        <text name="GLTM_OPEN_DOOR">
+        <text name="GLTM_OPEN_HOOD">
             <it>Apri portellone</it>
         </text>
-        <text name="GLTM_CLOSE_DOOR">
+        <text name="GLTM_CLOSE_HOOD">
             <it>Chiudi portellone</it>
         </text>
     </l10n>

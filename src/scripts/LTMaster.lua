@@ -25,7 +25,7 @@ function LTMaster.prerequisitesPresent(specializations)
 end
 
 function LTMaster:preLoad(savegame)
-    self.updateDoorAnim = LTMaster.updateDoorAnim;
+    self.updateHoodStatus = LTMaster.updateHoodStatus;
 end
 
 function LTMaster:load(savegame)
@@ -36,25 +36,29 @@ function LTMaster:load(savegame)
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#index"));
     self.LTMaster.triggerRight = PlayerTrigger:new(trigger, 2.5);
     
-    self.LTMaster.doors = {};
-    self.LTMaster.doors["left"] = {};
-    self.LTMaster.doors["left"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.doors.leftDoor#animationName");
-    self.LTMaster.doors["left"].status = LTMaster.STATUS_OC_CLOSE;
+    self.LTMaster.hoods = {};
+    self.LTMaster.hoods.openingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.openingSound", nil, self.baseDirectory);
+    self.LTMaster.hoods.closingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.closingSound", nil, self.baseDirectory);
+    self.LTMaster.hoods["left"] = {};
+    self.LTMaster.hoods["left"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.hoods.leftDoor#animationName");
+    self.LTMaster.hoods["left"].status = LTMaster.STATUS_OC_CLOSE;
     
-    self.LTMaster.doors["right"] = {};
-    self.LTMaster.doors["right"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.doors.rightDoor#animationName");
-    self.LTMaster.doors["right"].status = LTMaster.STATUS_OC_CLOSE;
+    self.LTMaster.hoods["right"] = {};
+    self.LTMaster.hoods["right"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.hoods.rightDoor#animationName");
+    self.LTMaster.hoods["right"].status = LTMaster.STATUS_OC_CLOSE;
 end
 
 function LTMaster:postLoad(savegame)
     
-    self:updateDoorAnim(self.LTMaster.doors["left"], nil, true);
-    self:updateDoorAnim(self.LTMaster.doors["right"], nil, true);
+    self:updateHoodStatus(self.LTMaster.hoods["left"], nil, true);
+    self:updateHoodStatus(self.LTMaster.hoods["right"], nil, true);
 end
 
 function LTMaster:delete()
     self.LTMaster.triggerLeft:delete();
     self.LTMaster.triggerRight:delete();
+    SoundUtil.deleteSample(self.LTMaster.hoods.openingSound);
+    SoundUtil.deleteSample(self.LTMaster.hoods.closingSound);
 end
 
 function LTMaster:mouseEvent(posX, posY, isDown, isUp, button)
@@ -65,29 +69,31 @@ end
 
 function LTMaster:update(dt)
     if self.isClient then
+        -- Open/Close of the left door
         if self.LTMaster.triggerLeft.active then
-            if self.LTMaster.doors["left"].status == LTMaster.STATUS_OC_OPEN then
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_DOOR"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+            if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_OPEN then
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateDoorAnim(self.LTMaster.doors["left"], LTMaster.STATUS_OC_CLOSE);
+                    self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_CLOSE);
                 end
             else
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_DOOR"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateDoorAnim(self.LTMaster.doors["left"], LTMaster.STATUS_OC_OPEN);
+                    self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_OPEN);
                 end
             end
         end
+        -- Open/Close of the right door
         if self.LTMaster.triggerRight.active then
-            if self.LTMaster.doors["right"].status == LTMaster.STATUS_OC_OPEN then
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_DOOR"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+            if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_OPEN then
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateDoorAnim(self.LTMaster.doors["right"], LTMaster.STATUS_OC_CLOSE);
+                    self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_CLOSE);
                 end
             else
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_DOOR"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateDoorAnim(self.LTMaster.doors["right"], LTMaster.STATUS_OC_OPEN);
+                    self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_OPEN);
                 end
             end
         end
@@ -101,21 +107,23 @@ end
 function LTMaster:draw()
 end
 
-function LTMaster:updateDoorAnim(door, newStatus, setTime)
-    local status = newStatus or door.status;
+function LTMaster:updateHoodStatus(hood, newStatus, setTime)
+    local status = newStatus or hood.status;
     if status == LTMaster.STATUS_OC_OPEN then
+        SoundUtil.playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
         if setTime then
-            self:playAnimation(door.animation, math.huge);
+            self:playAnimation(hood.animation, math.huge);
         else
-            self:playAnimation(door.animation, 1);
+            self:playAnimation(hood.animation, 1);
         end
     end
     if status == LTMaster.STATUS_OC_CLOSE then
+        SoundUtil.playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
         if setTime then
-            self:playAnimation(door.animation, -math.huge);
+            self:playAnimation(hood.animation, -math.huge);
         else
-            self:playAnimation(door.animation, -1);
+            self:playAnimation(hood.animation, -1);
         end
     end
-    door.status = status;
+    hood.status = status;
 end
