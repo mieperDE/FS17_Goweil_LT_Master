@@ -14,7 +14,12 @@
     </description>
     <iconFilename>store.dds</iconFilename>
     <multiplayer supported="true"/>
-    <inputBindings></inputBindings>
+    <brands>
+        <brand name="GOWEIL" title="$l10n_shopItemBrand_Goweil" image="brand_goweil.dds"/>
+    </brands>
+    <storeItems>
+        <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle"/>
+    </storeItems>
     <extraSourceFiles>
         <sourceFile filename="scripts/PlayerTrigger.lua"/>
     </extraSourceFiles>
@@ -36,10 +41,13 @@
             <specialization name="ltmaster" />
         </type>
     </vehicleTypes>
-    <storeItems>
-        <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle"/>
-    </storeItems>
-    <brands>
-        <brand name="GOWEIL" title="$l10n_shopItemBrand_Goweil" image="brand_goweil.dds"/>
-    </brands>
+    <inputBindings></inputBindings>
+    <l10n>
+        <text name="GLTM_OPEN_DOOR">
+            <it>Apri portellone</it>
+        </text>
+        <text name="GLTM_CLOSE_DOOR">
+            <it>Chiudi portellone</it>
+        </text>
+    </l10n>
 </modDesc>
