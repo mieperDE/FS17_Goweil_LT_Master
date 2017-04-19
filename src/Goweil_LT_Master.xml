@@ -111,6 +111,7 @@
         <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5" />
     </inputAttacherJoints>
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75" />
+    <cylinderedHydraulicSound file="$data/sounds/cultivatorHydraulic.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
     <foldingParts posDirectionText="action_unfoldOBJECT" negDirectionText="action_foldOBJECT" detachingMaxLimit="0" detachingMinLimit="0" turnOnFoldMinLimit="1" turnOnFoldMaxLimit="1" turnOffOnFold="true">
         <foldingPart animationName="folding" />
     </foldingParts>
@@ -131,6 +132,32 @@
         <animation name="folding">
             <!-- timone -->
             <part node="0>20" startTime="0" duration="3" startRot="0 0 0" endRot="0 30 0" />
+        </animation>
+        <animation name="folding2">
+            <!-- scivoloUP -->
+            <part node="0>7" startTime="0" duration="5" startRot="-43.9 0 0" endRot="-30.624 0 0" />
+            <part node="0>7" startTime="5" duration="6" startRot="-30.624 0 0" endRot="-16.2 0 0" />
+            <part node="0>7" startTime="0" duration="5" startTrans="0 3.95 -0.482" endTrans="0 2.394 -2.019" />
+            <part node="0>7" startTime="5" duration="6" startTrans="0 2.394 -2.019" endTrans="0 1.449 -2.741" />
+            <!-- apertura_scivoloUP-->
+            <part node="0>7|4|0" startTime="11" duration="2" startRot="0 0 0" endRot="0 0 90" />
+            <part node="0>7|4|1" startTime="11" duration="2" startRot="0 0 0" endRot="0 0 -90" />
+            <!-- sponde_scivolo1-->
+            <part node="0>8|1|1|0" startTime="13" duration="3" startRot="0 84 0" endRot="0 0 0" />
+            <part node="0>8|1|0|0" startTime="13" duration="3" startRot="0 -84 0" endRot="0 0 0" />
+            <!-- rotoli_rete -->
+            <part node="0>15|1" startTime="19" duration="2" startRot="0 0 0" endRot="0 0 65" />
+            <part node="0>15|2" startTime="20" duration="1" startRot="180 0 180" endRot="180 0 112" />
+            <!-- scala -->
+            <part node="0>15|7" startTime="21" duration="1" startRot="0 0 0" endRot="0 0 180" />
+            <!-- scarico_balla -->
+            <part node="0>15|6|0" startTime="2" duration="0.5" startRot="90 0 0" endRot="0 0 0" />
+            <part node="0>15|6|1" startTime="2.5" duration="1.5" startRot="-56.698 0 0" endRot="50 0 0" />
+            <!-- luci -->
+            <part node="0>7|4|0|11|0" startTime="10" duration="2" startRot="0 0 0" endRot="0 -80 0" />
+            <part node="0>7|4|0|11|0|0" startTime="10" duration="2" startTrans="0 0 0.03" endTrans="0 0 0.065" />
+            <part node="0>7|4|1|13|0" startTime="10" duration="2" startRot="0 0 0" endRot="0 -80 0" />
+            <part node="0>7|4|1|13|0|0" startTime="10" duration="2" startTrans="0 0 0.03" endTrans="0 0 0.065" />
         </animation>
         <animation name="leftDoor">
             <!-- portone sinistro up/down -->
@@ -165,6 +192,9 @@
         <supports animationName="moveSupport2">
             <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="0.7" volume="1.0" indoorVolumeFactor="0.85" />
         </supports>
+        <folding animationName="folding2">
+            <sound file="$data/sounds/cultivatorHydraulic.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
+        </folding>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
     <components count="1">
