@@ -9,9 +9,10 @@ LTMaster.debug = true
 
 LTMaster.STATUS_OC_OPEN = 1;
 LTMaster.STATUS_OC_OPENING = 2;
-LTMaster.STATUS_OC_CLOSE = 3;
+LTMaster.STATUS_OC_CLOSED = 3;
 LTMaster.STATUS_OC_CLOSING = 4;
 
+source(g_currentModDirectory .. "scripts/helpers/delayedCallBack.lua");
 source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
 
 function LTMaster.print(text, ...)
@@ -41,15 +42,17 @@ function LTMaster:load(savegame)
     self.LTMaster.hoods = {};
     self.LTMaster.hoods.openingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.openingSound", nil, self.baseDirectory);
     self.LTMaster.hoods.closingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.closingSound", nil, self.baseDirectory);
+    --function(self, hood, status)LTMaster.updateHoodStatus(self, hood, status); end
+    self.LTMaster.hoods.delayedUpdateHoodStatus = DelayedCallBack:new(LTMaster.updateHoodStatus, self);
     self.LTMaster.hoods["left"] = {};
     self.LTMaster.hoods["left"].name = "left";
     self.LTMaster.hoods["left"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.hoods.leftDoor#animationName");
-    self.LTMaster.hoods["left"].status = LTMaster.STATUS_OC_CLOSE;
+    self.LTMaster.hoods["left"].status = LTMaster.STATUS_OC_CLOSED;
     
     self.LTMaster.hoods["right"] = {};
     self.LTMaster.hoods["right"].name = "right";
     self.LTMaster.hoods["right"].animation = getXMLString(self.xmlFile, "vehicle.LTMaster.hoods.rightDoor#animationName");
-    self.LTMaster.hoods["right"].status = LTMaster.STATUS_OC_CLOSE;
+    self.LTMaster.hoods["right"].status = LTMaster.STATUS_OC_CLOSED;
 end
 
 function LTMaster:postLoad(savegame)
@@ -87,18 +90,20 @@ function LTMaster:keyEvent(unicode, sym, modifier, isDown)
 end
 
 function LTMaster:update(dt)
+    self.LTMaster.hoods.delayedUpdateHoodStatus:update(dt);
     if self.isClient then
         -- Open/Close of the left door
         if self.LTMaster.triggerLeft.active then
             if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_OPEN then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_CLOSE);
+                    self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_CLOSING);
                 end
-            else
+            end
+            if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_CLOSED then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_OPEN);
+                    self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_OPENING);
                 end
             end
         end
@@ -107,12 +112,13 @@ function LTMaster:update(dt)
             if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_OPEN then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_CLOSE);
+                    self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_CLOSING);
                 end
-            else
+            end
+            if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_CLOSED then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                    self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_OPEN);
+                    self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_OPENING);
                 end
             end
         end
@@ -155,25 +161,27 @@ end
 function LTMaster:draw()
 end
 
-function LTMaster:updateHoodStatus(hood, newStatus, setTime)
+function LTMaster:updateHoodStatus(hood, newStatus)
     local status = newStatus or hood.status;
-    if g_client ~= nil then
+    if not self.isServer then
         g_client:getServerConnection():sendEvent(HoodStatusEvent:new(status, hood.name, self));
+    else
+        hood.status = status;
     end
     if status == LTMaster.STATUS_OC_OPEN then
-        if setTime then
-            self:playAnimation(hood.animation, math.huge);
-        else
-            SoundUtil.playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
-            self:playAnimation(hood.animation, 1);
-        end
+        self:playAnimation(hood.animation, math.huge);
     end
-    if status == LTMaster.STATUS_OC_CLOSE then
-        if setTime then
-            self:playAnimation(hood.animation, -math.huge);
-        else
-            self:playAnimation(hood.animation, -1);
-            SoundUtil.playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
-        end
+    if status == LTMaster.STATUS_OC_OPENING then
+        SoundUtil.playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
+        self:playAnimation(hood.animation, 1);
+        self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_OPEN);
+    end
+    if status == LTMaster.STATUS_OC_CLOSED then
+        self:playAnimation(hood.animation, -math.huge);
+    end
+    if status == LTMaster.STATUS_OC_CLOSING then
+        self:playAnimation(hood.animation, -1);
+        SoundUtil.playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
+        self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_CLOSED);
     end
 end

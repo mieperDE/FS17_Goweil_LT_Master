@@ -1451,7 +1451,7 @@
         </TransformGroup>
       </TransformGroup>
     </Shape>
-    <Camera name="work" translation="6.38525 1.99343 2.65396" rotation="3.48468 70.4272 -1.95123e-06" nodeId="1460" fov="60" nearClip="0.1" farClip="10000" orthographicHeight="1">
+    <Camera name="work" translation="2.16235 3.93418 10.2971" rotation="-24.4757 18.8597 -1.36036e-06" nodeId="1460" fov="60" nearClip="0.1" farClip="10000" orthographicHeight="1">
       <Light name="light" rotation="-40 0 -30" nodeId="1461" type="directional" color="1 1 1" emitDiffuse="true" emitSpecular="true" castShadowMap="true" depthMapBias="0.0012" depthMapSlopeScaleBias="2" depthMapSlopeClamp="0.0005" depthMapResolution="1024" shadowFarDistance="80" shadowExtrusionDistance="200" shadowPerspective="false" numShadowMapSplits="3" shadowMapSplitDistancesParameter="0.4" decayRate="4" range="500"/>
     </Camera>
   </Scene>
