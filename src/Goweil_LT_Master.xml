@@ -122,6 +122,12 @@
             <part node="0>5|2|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.518 0" />
             <part node="0>5|3|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.518 0" />
         </animation>
+        <animation name="moveSupport2">
+            <part node="0>5|0|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
+            <part node="0>5|1|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
+            <part node="0>5|2|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
+            <part node="0>5|3|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
+        </animation>
         <animation name="folding">
             <!-- timone -->
             <part node="0>20" startTime="0" duration="3" startRot="0 0 0" endRot="0 30 0" />
@@ -156,6 +162,9 @@
             <leftDoor animationName="leftDoor" />
             <rightDoor animationName="rightDoor" />
         </hoods>
+        <supports animationName="moveSupport2">
+            <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="0.7" volume="1.0" indoorVolumeFactor="0.85" />
+        </supports>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
     <components count="1">

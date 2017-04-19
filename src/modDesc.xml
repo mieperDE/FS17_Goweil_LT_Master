@@ -49,11 +49,11 @@
         <text name="GLTM_CLOSE_HOOD">
             <it>Chiudi portellone</it>
         </text>
-        <text name="GLTM_LOWER_PARKING_F">
-            <it>Abbassa i piedini di stazionamento</it>
+        <text name="GLTM_LOWER_SUPPORTS">
+            <it>Abbassa i piedini</it>
         </text>
-        <text name="GLTM_RISE_PARKING_F">
-            <it>Alza i piedini di stazionamento</it>
+        <text name="GLTM_RAISE_SUPPORTS">
+            <it>Alza i piedini</it>
         </text>
     </l10n>
 </modDesc>
