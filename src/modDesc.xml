@@ -30,15 +30,15 @@
         <type name="goweil" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
             <specialization name="attacherJoints" />
             <specialization name="lights" />
-            <specialization name="speedRotatingParts" />
             <specialization name="attachable" />
-            <specialization name="turnOnVehicle" />
+            <specialization name="ltmaster" />
             <specialization name="animatedVehicle" />
+            <specialization name="speedRotatingParts" />
+            <specialization name="cylindered" />
+            <specialization name="turnOnVehicle" />
             <specialization name="foldable" />
             <specialization name="washable" />
             <specialization name="mountable" />
-            <specialization name="cylindered" />
-            <specialization name="ltmaster" />
         </type>
     </vehicleTypes>
     <inputBindings></inputBindings>
@@ -54,6 +54,12 @@
         </text>
         <text name="GLTM_RAISE_SUPPORTS">
             <it>Alza i piedini</it>
+        </text>
+        <text name="GLTM_LOWER_LADDER">
+            <it>Abbassa la scaletta</it>
+        </text>
+        <text name="GLTM_RAISE_LADDER">
+            <it>Alza la scaletta</it>
         </text>
     </l10n>
 </modDesc>
