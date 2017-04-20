@@ -51,6 +51,9 @@ function LTMaster:animationsInput(dt)
                 if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED then
                     g_currentMission:addHelpButtonText(g_i18n:getText("action_foldOBJECT"), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
                     if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA) then
+                        if self.setIsTurnedOn ~= nil and self:getIsTurnedOn() then
+                            self:setIsTurnedOn(false, true);
+                        end
                         self:updateFoldingStatus(LTMaster.STATUS_FU_FOLDING);
                     end
                 end

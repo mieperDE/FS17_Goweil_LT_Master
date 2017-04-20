@@ -46,10 +46,13 @@ function LTMaster:preLoad(savegame)
     self.updateSupportsStatus = LTMaster.updateSupportsStatus;
     self.updateFoldingStatus = LTMaster.updateFoldingStatus;
     self.updateLadderStatus = LTMaster.updateLadderStatus;
-    self.applyInitialAnimation = Utils.overwrittenFunction(self.applyInitialAnimation, LTMaster.applyInitialAnimation);
 end
 
 function LTMaster:load(savegame)
+    self.applyInitialAnimation = Utils.overwrittenFunction(self.applyInitialAnimation, LTMaster.applyInitialAnimation);
+    self.getIsTurnedOnAllowed = Utils.overwrittenFunction(self.getIsTurnedOnAllowed, LTMaster.getIsTurnedOnAllowed);
+    self.getTurnedOnNotAllowedWarning = Utils.overwrittenFunction(self.getTurnedOnNotAllowedWarning, LTMaster.getTurnedOnNotAllowedWarning);
+    
     self.LTMaster = {};
     
     local trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#index"));
@@ -195,4 +198,26 @@ function LTMaster:updateTick(dt)
 end
 
 function LTMaster:draw()
+end
+
+function LTMaster:getIsTurnedOnAllowed(superFunc, isTurnOn)
+    if isTurnOn then
+        if self.LTMaster.folding.status ~= LTMaster.STATUS_FU_UNFOLDED then
+            return false;
+        end
+    end
+    if superFunc ~= nil then
+        return superFunc(self, isTurnOn);
+    end
+    return true;
+end
+
+function LTMaster:getTurnedOnNotAllowedWarning(superFunc)
+    if self.LTMaster.folding.status ~= LTMaster.STATUS_FU_UNFOLDED then
+        return "qui si deve mettere il messaggio di errore";
+    end
+    if superFunc ~= nil then
+        return superFunc(self);
+    end
+    return nil;
 end

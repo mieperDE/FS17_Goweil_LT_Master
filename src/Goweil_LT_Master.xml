@@ -112,7 +112,7 @@
     </inputAttacherJoints>
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75" />
     <cylinderedHydraulicSound file="$data/sounds/cultivatorHydraulic.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
-    <foldingParts posDirectionText="action_unfoldOBJECT" negDirectionText="action_foldOBJECT" detachingMaxLimit="0" detachingMinLimit="0" turnOnFoldMinLimit="1" turnOnFoldMaxLimit="1" turnOffOnFold="true">
+    <foldingParts startAnimTime="1" detachingMaxLimit="1" detachingMinLimit="1" turnOnFoldMinLimit="0" turnOnFoldMaxLimit="0">
         <foldingPart animationName="folding" />
     </foldingParts>
     <animations>
@@ -128,7 +128,7 @@
         </animation>
         <animation name="folding">
             <!-- timone -->
-            <part node="0>20" startTime="0" duration="3" startRot="0 0 0" endRot="0 30 0" />
+            <part node="0>20" startTime="0" duration="3" startRot="0 30 0" endRot="0 0 0" />
         </animation>
         <animation name="folding2">
             <!-- scivoloUP -->
