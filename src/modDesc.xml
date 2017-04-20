@@ -21,7 +21,7 @@
         <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle"/>
     </storeItems>
     <extraSourceFiles>
-        <sourceFile filename="scripts/PlayerTrigger.lua"/>
+        <sourceFile filename="scripts/helpers/PlayerTrigger.lua"/>
     </extraSourceFiles>
     <specializations>
         <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua"/>
