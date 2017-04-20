@@ -37,6 +37,7 @@
             <specialization name="cylindered" />
             <specialization name="turnOnVehicle" />
             <specialization name="foldable" />
+            <specialization name="powerConsumer" />
             <specialization name="washable" />
             <specialization name="mountable" />
         </type>

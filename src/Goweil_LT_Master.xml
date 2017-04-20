@@ -26,6 +26,7 @@
     <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8" />
     <speedLimit value="20" />
+    <powerConsumer ptoRpm="540" neededPtoPower="100"/>
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>

@@ -52,6 +52,8 @@ function LTMaster:load(savegame)
     self.applyInitialAnimation = Utils.overwrittenFunction(self.applyInitialAnimation, LTMaster.applyInitialAnimation);
     self.getIsTurnedOnAllowed = Utils.overwrittenFunction(self.getIsTurnedOnAllowed, LTMaster.getIsTurnedOnAllowed);
     self.getTurnedOnNotAllowedWarning = Utils.overwrittenFunction(self.getTurnedOnNotAllowedWarning, LTMaster.getTurnedOnNotAllowedWarning);
+    self.getConsumedPtoTorque = Utils.overwrittenFunction(self.getConsumedPtoTorque, LTMaster.getConsumedPtoTorque);
+    self.getPtoRpm = Utils.overwrittenFunction(self.getPtoRpm, LTMaster.getPtoRpm);
     
     self.LTMaster = {};
     
@@ -220,4 +222,32 @@ function LTMaster:getTurnedOnNotAllowedWarning(superFunc)
         return superFunc(self);
     end
     return nil;
+end
+
+function LTMaster:getConsumedPtoTorque(superFunc)
+    local torque = 0;
+    if superFunc ~= nil then
+        torque = superFunc(self);
+    end
+    if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
+        torque = torque + (50 / (540 * math.pi / 30));
+    end
+    if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING or self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
+        torque = torque + (120 / (760 * math.pi / 30));
+    end
+    return torque;
+end
+
+function LTMaster:getPtoRpm(superFunc)
+    local ptoRpm = 0;
+    if superFunc ~= nil then
+        ptoRpm = superFunc(self);
+    end
+    if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
+        ptoRpm = math.max(ptoRpm, 540);
+    end
+    if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING or self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
+        ptoRpm = math.max(ptoRpm, 760);
+    end
+    return ptoRpm;
 end
