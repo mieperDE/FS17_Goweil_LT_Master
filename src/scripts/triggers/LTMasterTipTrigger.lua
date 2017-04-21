@@ -12,10 +12,12 @@ function LTMasterTipTrigger:new(isServer, isClient, customMt)
     return self;
 end
 
-function LTMasterTipTrigger:load(id, owner, fillUnitIndex)
+function LTMasterTipTrigger:load(id, owner, fillUnitIndex, rightFillUnitIndex, leftFillUnitIndex)
     local isSuccessfull = LTMasterTipTrigger:superClass().load(self, id);
     self.owner = owner;
     self.fillUnitIndex = fillUnitIndex;
+    self.rightFillUnitIndex = rightFillUnitIndex;
+    self.leftFillUnitIndex = leftFillUnitIndex;
     for fillType, active in pairs(self.owner.fillUnits[fillUnitIndex].fillTypes) do
         if active then
             self:addAcceptedFillType(fillType, 0, 0, true, {TipTrigger.TOOL_TYPE_TRAILER, TipTrigger.TOOL_TYPE_SHOVEL, TipTrigger.TOOL_TYPE_PIPE, TipTrigger.TOOL_TYPE_PALLET})
@@ -45,14 +47,33 @@ end
 
 function LTMasterTipTrigger:addFillLevelFromTool(trailer, fillDelta, fillType, toolType)
     if fillDelta > 0 then
-        local capacity = self.owner:getUnitCapacity(self.fillUnitIndex);
-        local fillLevel = self.owner:getUnitFillLevel(self.fillUnitIndex);
-        local delta = math.min(fillDelta, capacity - fillLevel);
-        if delta <= 0 then
-            trailer:onEndTip(true);
-        else
-            self.owner:setUnitFillLevel(self.fillUnitIndex, fillLevel + delta, fillType);
+        local mainFillDelta = fillDelta / 2;
+        local leftRightFillDelta = fillDelta / 4;
+        
+        local mainCapacity = self.owner:getUnitCapacity(self.fillUnitIndex);
+        local mainFillLevel = self.owner:getUnitFillLevel(self.fillUnitIndex);
+        local mainDelta = math.min(mainFillDelta, mainCapacity - mainFillLevel);
+        if mainDelta > 0 then
+            self.owner:setUnitFillLevel(self.fillUnitIndex, mainFillLevel + mainDelta, fillType);
         end
-        return delta;
+        
+        local rightCapacity = self.owner:getUnitCapacity(self.rightFillUnitIndex);
+        local rightFillLevel = self.owner:getUnitFillLevel(self.rightFillUnitIndex);
+        local rightDelta = math.min(leftRightFillDelta, rightCapacity - rightFillLevel);
+        if rightDelta > 0 then
+            self.owner:setUnitFillLevel(self.rightFillUnitIndex, rightFillLevel + rightDelta, fillType);
+        end
+        
+        local leftCapacity = self.owner:getUnitCapacity(self.leftFillUnitIndex);
+        local leftFillLevel = self.owner:getUnitFillLevel(self.leftFillUnitIndex);
+        local leftDelta = math.min(leftRightFillDelta, leftCapacity - leftFillLevel);
+        if leftDelta > 0 then
+            self.owner:setUnitFillLevel(self.leftFillUnitIndex, leftFillLevel + leftDelta, fillType);
+        end
+        
+        if mainDelta <= 0 and rightDelta <= 0 and leftDelta <= 0 then
+            trailer:onEndTip(true);
+        end
+        return mainDelta + rightDelta + leftDelta;
     end
 end

@@ -58,6 +58,14 @@ function LTMaster:load(savegame)
     
     self.LTMaster = {};
     
+    self.LTMaster.fillUnits = {};
+    self.LTMaster.fillUnits["main"] = {};
+    self.LTMaster.fillUnits["main"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#fillUnitIndex"), 1);
+    self.LTMaster.fillUnits["right"] = {};
+    self.LTMaster.fillUnits["right"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#rightFillUnitIndex"), 2);
+    self.LTMaster.fillUnits["left"] = {};
+    self.LTMaster.fillUnits["left"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#leftFillUnitIndex"), 3);
+    
     local trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#index"));
     self.LTMaster.triggerLeft = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#index"));
@@ -66,10 +74,9 @@ function LTMaster:load(savegame)
     self.LTMaster.triggerLadder = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerLadder#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#index"));
     self.LTMaster.tipTrigger = LTMasterTipTrigger:new(self.isServer, self.isClient);
-    self.LTMaster.tipTrigger:load(trigger, self, Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#fillUnitIndex"), 1));
+    self.LTMaster.tipTrigger:load(trigger, self, self.LTMaster.fillUnits["main"].index, self.LTMaster.fillUnits["right"].index, self.LTMaster.fillUnits["left"].index);
     self.LTMaster.tipTrigger:register(true);
-    --self.LTMaster.tipTrigger:addUpdateEventListener(self);
-    
+
     self.LTMaster.hoods = {};
     self.LTMaster.hoods.openingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.openingSound", nil, self.baseDirectory);
     self.LTMaster.hoods.closingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.closingSound", nil, self.baseDirectory);

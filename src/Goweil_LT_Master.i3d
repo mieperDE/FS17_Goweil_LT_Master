@@ -550,32 +550,33 @@
                 </Shape>
               </Shape>
             </Shape>
+            <Shape shapeId="164" name="fillVolume" translation="-0.00874833 0.365984 -0.0274098" rotation="-1.70755e-05 -2.56132e-06 -90" scale="0.334745 1.62695 0.797184" clipDistance="300" nodeId="1470" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
           </TransformGroup>
           <TransformGroup name="apertura_Sx" translation="1.199 2.156 -7.345" rotation="-1.70755e-05 -1.10991e-05 -90" nodeId="782">
-            <Shape shapeId="164" name="stop1" translation="-0.253892 0.893897 -1.74216" rotation="43.9 -0 0" nodeId="783" materialIds="23" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="165" name="apertura_SX" translation="8.52651e-16 0.000451341 0.000234495" nodeId="784" materialIds="41" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="166" name="emergency8" translation="-1.087 0.804187 -1.52666" rotation="43.9 -0 0" nodeId="785" materialIds="41" castsShadows="true" receiveShadows="true">
-              <Shape shapeId="167" name="pCylinder475" translation="6.0998e-07 -0.00149338 -0.0483369" rotation="-43.9 -0 0" scale="1.59158 1.59158 1.59158" nodeId="786" materialIds="15" castsShadows="true" receiveShadows="true"/>
-              <Shape shapeId="168" name="tubo" translation="0.000156659 -0.0562755 -0.0614741" rotation="-133.9 -0 0" nodeId="787" materialIds="15" castsShadows="true" receiveShadows="true"/>
-              <Shape shapeId="169" name="button" translation="-0.000127816 0.0459745 0.0214935" rotation="-1.22429e-14 43.9 90" nodeId="788" materialIds="15" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="165" name="stop1" translation="-0.253892 0.893897 -1.74216" rotation="43.9 -0 0" nodeId="783" materialIds="23" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="166" name="apertura_SX" translation="8.52651e-16 0.000451341 0.000234495" nodeId="784" materialIds="41" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="167" name="emergency8" translation="-1.087 0.804187 -1.52666" rotation="43.9 -0 0" nodeId="785" materialIds="41" castsShadows="true" receiveShadows="true">
+              <Shape shapeId="168" name="pCylinder475" translation="6.0998e-07 -0.00149338 -0.0483369" rotation="-43.9 -0 0" scale="1.59158 1.59158 1.59158" nodeId="786" materialIds="15" castsShadows="true" receiveShadows="true"/>
+              <Shape shapeId="169" name="tubo" translation="0.000156659 -0.0562755 -0.0614741" rotation="-133.9 -0 0" nodeId="787" materialIds="15" castsShadows="true" receiveShadows="true"/>
+              <Shape shapeId="170" name="button" translation="-0.000127816 0.0459745 0.0214935" rotation="-1.22429e-14 43.9 90" nodeId="788" materialIds="15" castsShadows="true" receiveShadows="true"/>
             </Shape>
-            <Shape shapeId="170" name="faro" translation="-0.253892 0.870529 -1.71767" rotation="43.6258 -0 0" nodeId="789" materialIds="41" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="171" name="portatarga" translation="-0.654992 0.883706 -1.69241" rotation="43.6258 -0 0" nodeId="790" materialIds="41" castsShadows="true" receiveShadows="true">
-              <Shape shapeId="172" name="targa" translation="-7.10543e-17 -8.52651e-16 0" nodeId="791" materialIds="9" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="171" name="faro" translation="-0.253892 0.870529 -1.71767" rotation="43.6258 -0 0" nodeId="789" materialIds="41" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="172" name="portatarga" translation="-0.654992 0.883706 -1.69241" rotation="43.6258 -0 0" nodeId="790" materialIds="41" castsShadows="true" receiveShadows="true">
+              <Shape shapeId="173" name="targa" translation="-7.10543e-17 -8.52651e-16 0" nodeId="791" materialIds="9" castsShadows="true" receiveShadows="true"/>
             </Shape>
-            <Shape shapeId="173" name="LUCE" translation="-0.93303 0.908165 -1.70834" rotation="43.6258 -0 0" scale="0.610025 0.610025 0.610025" nodeId="792" materialIds="41" castsShadows="true" receiveShadows="true">
-              <Shape shapeId="174" name="light" translation="0.0183096 0 2.27374e-15" nodeId="793" materialIds="33" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="174" name="LUCE" translation="-0.93303 0.908165 -1.70834" rotation="43.6258 -0 0" scale="0.610025 0.610025 0.610025" nodeId="792" materialIds="41" castsShadows="true" receiveShadows="true">
+              <Shape shapeId="175" name="light" translation="0.0183096 0 2.27374e-15" nodeId="793" materialIds="33" castsShadows="true" receiveShadows="true"/>
             </Shape>
-            <Shape shapeId="175" name="ref_piston" translation="0.00561747 0.772005 -0.0052186" rotation="-90 -0 3.80439" nodeId="794" materialIds="41" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="176" name="pCube257" translation="-0.288 0.859299 -1.67482" rotation="43.6258 -0 0" nodeId="795" materialIds="41" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="177" name="Fissaggio_telo_SX" translation="-0.032068 0.168409 -1.87351" rotation="3.83705e-05 -0 0" nodeId="796" materialIds="41" castsShadows="true" receiveShadows="true">
-              <Shape shapeId="178" name="bullone1" translation="0.0213034 0.135879 -0.0111026" rotation="1.3969e-14 0 0" nodeId="797" materialIds="41" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="176" name="ref_piston" translation="0.00561747 0.772005 -0.0052186" rotation="-90 -0 3.80439" nodeId="794" materialIds="41" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="177" name="pCube257" translation="-0.288 0.859299 -1.67482" rotation="43.6258 -0 0" nodeId="795" materialIds="41" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="178" name="Fissaggio_telo_SX" translation="-0.032068 0.168409 -1.87351" rotation="3.83705e-05 -0 0" nodeId="796" materialIds="41" castsShadows="true" receiveShadows="true">
+              <Shape shapeId="179" name="bullone1" translation="0.0213034 0.135879 -0.0111026" rotation="1.3969e-14 0 0" nodeId="797" materialIds="41" castsShadows="true" receiveShadows="true"/>
               <Shape shapeId="150" name="bullone2" translation="0.0213034 0.048 -0.0111026" nodeId="798" materialIds="41" castsShadows="true" receiveShadows="true"/>
               <Shape shapeId="150" name="bullone3" translation="0.0213034 -0.0488184 -0.0111026" nodeId="799" materialIds="41" castsShadows="true" receiveShadows="true"/>
               <Shape shapeId="150" name="bullone4" translation="0.0213034 -0.134883 -0.0111026" nodeId="800" materialIds="41" castsShadows="true" receiveShadows="true"/>
             </Shape>
-            <Shape shapeId="179" name="catarifrangente1" translation="-1.03426 0.813352 -1.86758" rotation="90 -0 0" scale="0.970785 0.185973 0.813375" nodeId="801" materialIds="23" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="180" name="coll_DX" translation="-0.574 0.440342 -0.004" compoundChild="true" clipDistance="300" nodeId="802" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
+            <Shape shapeId="180" name="catarifrangente1" translation="-1.03426 0.813352 -1.86758" rotation="90 -0 0" scale="0.970785 0.185973 0.813375" nodeId="801" materialIds="23" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="181" name="coll_DX" translation="-0.574 0.440342 -0.004" compoundChild="true" clipDistance="300" nodeId="802" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
             <TransformGroup name="ref_piston2" translation="0.005 0.769 -0.003" rotation="90 -0 -176.3" nodeId="803"/>
             <TransformGroup name="Light" nodeId="804">
               <TransformGroup name="defaultLights2" translation="-1.199 -3.2526 0.0135322" rotation="43.9 -0 0" nodeId="805">
@@ -613,8 +614,8 @@
               <Shape shapeId="159" name="pCylinder564" translation="-1.81188e-15 4.26326e-16 0" rotation="-8.86639e-06 0 -0.000279784" nodeId="826" materialIds="9" castsShadows="true" receiveShadows="true">
                 <Shape shapeId="160" name="pCylinder565" translation="-2.8402e-15 1.55255e-09 0.03" rotation="-90 3.18055e-15 0" nodeId="827" materialIds="9" castsShadows="true" receiveShadows="true">
                   <TransformGroup name="faro_poteriore" translation="-0.0715801 -0.0341923 -0.000232704" rotation="93.4781 89.3007 -180" nodeId="828">
-                    <Shape shapeId="181" name="vetro" translation="0 0.058246 1.52588e-07" nodeId="829" materialIds="47" castsShadows="true" receiveShadows="true"/>
-                    <Shape shapeId="182" name="interno" translation="0 -0.0390061 1.52588e-07" nodeId="830" materialIds="9" castsShadows="true" receiveShadows="true"/>
+                    <Shape shapeId="182" name="vetro" translation="0 0.058246 1.52588e-07" nodeId="829" materialIds="47" castsShadows="true" receiveShadows="true"/>
+                    <Shape shapeId="183" name="interno" translation="0 -0.0390061 1.52588e-07" nodeId="830" materialIds="9" castsShadows="true" receiveShadows="true"/>
                     <Shape shapeId="163" name="esterno" translation="-1.42109e-16 -0.162243 1.52588e-07" nodeId="831" materialIds="9" castsShadows="true" receiveShadows="true"/>
                     <TransformGroup name="workLights" translation="0 -0.00260609 0" nodeId="832">
                       <TransformGroup name="workLightBack" nodeId="833">
@@ -644,20 +645,21 @@
                 </Shape>
               </Shape>
             </Shape>
+            <Shape shapeId="164" name="fillVolume" translation="-0.00874833 0.365984 -0.0274098" rotation="-1.70755e-05 -2.56132e-06 90" scale="0.334745 1.62695 0.797184" clipDistance="300" nodeId="1471" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
           </TransformGroup>
         </TransformGroup>
         <TransformGroup name="ref_SX_fascia" translation="1.15 0.277 -4.296" rotation="87.8 -0.144 0.064" nodeId="851"/>
         <TransformGroup name="ref_DX_fascia" translation="-1.15 0.277 -4.296" rotation="87.8 -0.144 0.064" nodeId="852"/>
         <TransformGroup name="effect_scivolo_up" translation="0 0.0253978 -4.23863" rotation="179.406 6.75079e-15 180" visibility="false" nodeId="853">
           <TransformGroup name="effect9" nodeId="854">
-            <Shape shapeId="183" name="move1" translation="0.000159135 0.0363769 -2.14264" rotation="0 -0 -1.85384e-30" clipDistance="300" nodeId="855" materialIds="11" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="184" name="move1_target" translation="0.000159135 -0.105682 -2.09874" rotation="0 -0 -1.85384e-30" visibility="false" clipDistance="300" nodeId="856" materialIds="11" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="185" name="move_no" translation="0.000159135 -0.611534 -1.86354" rotation="0 -0 -1.85384e-30" visibility="false" clipDistance="300" nodeId="857" materialIds="11" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="184" name="move1" translation="0.000159135 0.0363769 -2.14264" rotation="0 -0 -1.85384e-30" clipDistance="300" nodeId="855" materialIds="11" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="185" name="move1_target" translation="0.000159135 -0.105682 -2.09874" rotation="0 -0 -1.85384e-30" visibility="false" clipDistance="300" nodeId="856" materialIds="11" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="186" name="move_no" translation="0.000159135 -0.611534 -1.86354" rotation="0 -0 -1.85384e-30" visibility="false" clipDistance="300" nodeId="857" materialIds="11" castsShadows="true" receiveShadows="true"/>
           </TransformGroup>
         </TransformGroup>
-        <Shape shapeId="186" name="fillVolume" translation="-0.0087484 0.029231 -2.40122" scale="0.930221 1.62695 0.797184" clipDistance="300" nodeId="1463" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
+        <Shape shapeId="164" name="fillVolume" translation="-0.0087484 0.029231 -2.40122" scale="0.930221 1.62695 0.797184" clipDistance="300" nodeId="1463" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
         <Shape shapeId="187" name="exactFillRootNode" translation="-0.0300382 0.332663 -2.47656" visibility="false" kinematic="true" compound="true" collisionMask="1073741824" nodeId="1466" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
-        <Shape shapeId="188" name="tipTrigger" translation="0 0 -4.24441" kinematic="true" compound="true" trigger="true" collisionMask="8388608" nodeId="1469" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
+        <Shape shapeId="188" name="tipTrigger" translation="0 0 -4.48323" kinematic="true" compound="true" trigger="true" collisionMask="8388608" nodeId="1469" materialIds="33" castsShadows="true" receiveShadows="true" nonRenderable="true"/>
       </TransformGroup>
       <TransformGroup name="scivolo1" translation="0 2.70238 -1.09385" nodeId="858">
         <TransformGroup name="static" nodeId="859">
@@ -1455,16 +1457,12 @@
         <TransformGroup name="scaletta" translation="-0.747 1.266 -0.673" nodeId="1456"/>
       </TransformGroup>
     </Shape>
-    <Camera name="work" translation="0.770212 5.53352 -8.83056" rotation="149.108 6.66717 -180" nodeId="1457" fov="60" nearClip="0.1" farClip="10000" orthographicHeight="1">
+    <Camera name="work" translation="-2.25604 2.37421 -8.98463" rotation="172.026 -3.41688 -180" nodeId="1457" fov="60" nearClip="0.1" farClip="10000" orthographicHeight="1">
       <Light name="light" rotation="-40 0 -30" nodeId="1458" type="directional" color="1 1 1" emitDiffuse="true" emitSpecular="true" castShadowMap="true" depthMapBias="0.0012" depthMapSlopeScaleBias="2" depthMapSlopeClamp="0.0005" depthMapResolution="1024" shadowFarDistance="80" shadowExtrusionDistance="200" shadowPerspective="false" numShadowMapSplits="3" shadowMapSplitDistancesParameter="0.4" decayRate="4" range="500"/>
     </Camera>
   </Scene>
 
   <UserAttributes>
-    <UserAttribute nodeId="1469">
-      <Attribute name="fillTypes" type="string" value="potato sugarBeet"/>
-      <Attribute name="priceMultiplier" type="string" value="1 1"/>
-    </UserAttribute>
     <UserAttribute nodeId="1259">
       <Attribute name="liw" type="boolean" value="false"/>
     </UserAttribute>

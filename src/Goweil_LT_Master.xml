@@ -221,11 +221,19 @@
         </movingTool>
     </movingTools>
     <fillUnits>
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="12000" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="12000" fillVolumeIndex="1" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="2" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="3" />
     </fillUnits>
     <fillVolumes>
         <volumes>
-            <volume index="0>7|8" maxDelta="0.23" maxAllowedHeapAngle="18"/>
+            <volume index="0>7|8" fillUnitIndex="1" />
+        </volumes>
+        <volumes>
+            <volume index="0>7|4|0|12" fillUnitIndex="2" />
+        </volumes>
+        <volumes>
+            <volume index="0>7|4|1|14" fillUnitIndex="3" />
         </volumes>
     </fillVolumes>
     <fillRootNode index="0>" />
@@ -237,7 +245,7 @@
             <triggerLeft index="0>27|0|0" radius="3" />
             <triggerRight index="0>27|0|1" radius="3"/>
             <triggerLadder index="0>27|1" radius="3" />
-            <tipTrigger index="0>7|10" fillUnitIndex="1" />
+            <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="2" leftFillUnitIndex="3" />
         </triggers>
         <hoods>
             <openingSound file="sounds/hood-opening.wav" />
