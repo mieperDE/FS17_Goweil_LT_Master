@@ -31,15 +31,17 @@
             <specialization name="attacherJoints" />
             <specialization name="lights" />
             <specialization name="attachable" />
-            <specialization name="ltmaster" />
             <specialization name="animatedVehicle" />
             <specialization name="speedRotatingParts" />
             <specialization name="cylindered" />
             <specialization name="turnOnVehicle" />
             <specialization name="foldable" />
+            <specialization name="fillable" />
+            <specialization name="fillVolume" />
             <specialization name="powerConsumer" />
             <specialization name="washable" />
             <specialization name="mountable" />
+            <specialization name="ltmaster" />
         </type>
     </vehicleTypes>
     <inputBindings></inputBindings>

@@ -220,11 +220,24 @@
             <inputAttacherJoint value="true" />
         </movingTool>
     </movingTools>
+    <fillUnits>
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="12000" />
+    </fillUnits>
+    <fillVolumes>
+        <volumes>
+            <volume index="0>7|8" maxDelta="0.23" maxAllowedHeapAngle="18"/>
+        </volumes>
+    </fillVolumes>
+    <fillRootNode index="0>" />
+    <exactFillRootNode index="0>7|9" />
+    <fillMassNode updateFillLevelMass="false" />
+    <allowFillFromAir value="true"/>
     <LTMaster>
         <triggers>
             <triggerLeft index="0>27|0|0" radius="3" />
             <triggerRight index="0>27|0|1" radius="3"/>
             <triggerLadder index="0>27|1" radius="3" />
+            <tipTrigger index="0>7|10" fillUnitIndex="1" />
         </triggers>
         <hoods>
             <openingSound file="sounds/hood-opening.wav" />

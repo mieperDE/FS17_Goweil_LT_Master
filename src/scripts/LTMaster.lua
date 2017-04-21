@@ -28,6 +28,7 @@ source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/supportsStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/ladderStatusEvent.lua");
+source(g_currentModDirectory .. "scripts/triggers/LTMasterTipTrigger.lua");
 
 function LTMaster.print(text, ...)
     if LTMaster.debug then
@@ -63,6 +64,11 @@ function LTMaster:load(savegame)
     self.LTMaster.triggerRight = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLadder#index"));
     self.LTMaster.triggerLadder = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerLadder#radius"), 2.5));
+    trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#index"));
+    self.LTMaster.tipTrigger = LTMasterTipTrigger:new(self.isServer, self.isClient);
+    self.LTMaster.tipTrigger:load(trigger, self, Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#fillUnitIndex"), 1));
+    self.LTMaster.tipTrigger:register(true);
+    --self.LTMaster.tipTrigger:addUpdateEventListener(self);
     
     self.LTMaster.hoods = {};
     self.LTMaster.hoods.openingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.openingSound", nil, self.baseDirectory);
@@ -131,6 +137,7 @@ function LTMaster:delete()
     self.LTMaster.triggerLeft:delete();
     self.LTMaster.triggerRight:delete();
     self.LTMaster.triggerLadder:delete();
+    self.LTMaster.tipTrigger:delete();
     SoundUtil.deleteSample(self.LTMaster.hoods.openingSound);
     SoundUtil.deleteSample(self.LTMaster.hoods.closingSound);
     SoundUtil.deleteSample(self.LTMaster.supports.sound);
@@ -161,6 +168,9 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteUInt8(streamId, self.LTMaster.supports.status);
         streamWriteUInt8(streamId, self.LTMaster.folding.status);
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
+        streamWriteInt32(streamId, self.LTMaster.tipTrigger.id);
+        self.LTMaster.tipTrigger:writeStream(streamId, connection);
+        g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
     end
 end
 
@@ -171,6 +181,9 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.supports.status = streamReadUInt8(streamId);
         self.LTMaster.folding.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
+        local tipTriggerId = streamReadInt32(streamId);
+        self.LTMaster.tipTrigger:readStream(streamId, connection);
+        g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
         LTMaster.finalizeLoad(self);
     end
 end
