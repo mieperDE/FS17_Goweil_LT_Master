@@ -3,9 +3,9 @@
     <annotation>Attention exclusive model, with copyright and license patented Goweil. Project, Model for Farming Simulator by Team FSI Modding, All Rights Reserved.</annotation>
     <storeData>
         <name>
-            <it>Goweil Lt Master</it>
-            <en>Goweil Lt Master</en>
-            <de>Goweil Lt Master</de>
+        <it>Goweil Lt Master</it>
+        <en>Goweil Lt Master</en>
+        <de>Goweil Lt Master</de>
         </name>
         <functions>
             <function>$l10n_function_baler</function>
@@ -15,107 +15,105 @@
             <workingWidth>5</workingWidth>
         </specs>
         <image>store.dds</image>
-        <price>75000</price>
+        <price>75100</price>
         <dailyUpkeep>20</dailyUpkeep>
         <lifetime>600</lifetime>
         <rotation>0</rotation>
         <brand>GOWEIL</brand>
         <category>baling</category>
-    </storeData>
-    <typeDesc>$l10n_typeDesc_baler</typeDesc>
+    </storeData>	
+	
+
+	<typeDesc>$l10n_typeDesc_baler</typeDesc>
     <filename>Goweil_LT_Master.i3d</filename>
-    <size width="5.5" length="8" />
+	
+    <size width="5.5" length="8"/>
     <speedLimit value="20" />
-    <powerConsumer ptoRpm="540" neededPtoPower="100"/>
+    <powerConsumer ptoRpm="540" neededPtoPower="89"/>
+	
+	
     <wheelConfigurations>
-        <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
-            <wheels>
-                <wheel repr="0>0" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
-                <wheel repr="0>1" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
-                <wheel repr="0>2" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
-                <wheel repr="0>3" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
-                <wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25" />
-            </wheels>
+        <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">	
+		<wheels>
+			<wheel repr="0>0" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
+			<wheel repr="0>1" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true"/>
+			<wheel repr="0>2" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
+			<wheel repr="0>3" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true"/>
+		    <wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25"/>
+		</wheels>		
         </wheelConfiguration>
-    </wheelConfigurations>
+    </wheelConfigurations>	
+	
+	
+    <steeringAxleAngleScale startSpeed="5" endSpeed="70" />
     <brakeForce>1.2</brakeForce>
-    <maximalAirConsumptionPerFullStop value="0.3" />
+    <maximalAirConsumptionPerFullStop value="0.3" />	
+
     <lights>
         <low>
-            <light realLight="0>7|4|1|12|0|2" decoration="0>7|4|1|12|0|0" lightTypes="0 3" />
-            <light realLight="0>7|4|1|12|0|3" decoration="0>7|4|1|12|0|1" lightTypes="0 3" />
-            <light realLight="0>7|4|0|10|0|1" decoration="0>7|4|0|10|0|0" lightTypes="0 3" />
-            <light realLight="0>19|1|0|1" decoration="0>19|1|0|0" lightTypes="1" />
-            <!--WorklightBack-->
-            <light realLight="0>19|1|1|1" decoration="0>19|1|1|0" lightTypes="2" />
-            <!--WorklightFront-->
-            <light realLight="0>7|4|0|11|0|0|0|3|0|1" decoration="0>7|4|0|11|0|0|0|3|0|0" lightTypes="1" />
-            <!--WorklightBack - RETRO-->
-            <light realLight="0>7|4|0|11|0|0|0|3|1|1" decoration="0>7|4|0|11|0|0|0|3|1|0" lightTypes="2" />
-            <!--WorklightFront - RETRO-->
-            <light realLight="0>7|4|1|13|0|0|0|3|0|1" decoration="0>7|4|1|13|0|0|0|3|0|0" lightTypes="1" />
-            <!--WorklightBack - RETRO-->
-            <light realLight="0>7|4|1|13|0|0|0|3|1|1" decoration="0>7|4|1|13|0|0|0|3|1|0" lightTypes="2" />
-            <!--WorklightFront - RETRO-->
-            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="1" />
-            <!--WorklightFront - neon-->
-            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="2" />
-            <!--WorklightFront - neon-->
-            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="1" />
-            <!--WorklightFront - neon-->
-            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="2" />
-            <!--WorklightFront - neon-->
+            <light realLight="0>7|4|1|12|0|2"  decoration="0>7|4|1|12|0|0" lightTypes="0 3" />
+            <light realLight="0>7|4|1|12|0|3"  decoration="0>7|4|1|12|0|1" lightTypes="0 3" />
+            <light realLight="0>7|4|0|10|0|1"  decoration="0>7|4|0|10|0|0" lightTypes="0 3" />
+            <light realLight="0>19|1|0|1" decoration="0>19|1|0|0" lightTypes="1"/> <!--WorklightBack-->
+            <light realLight="0>19|1|1|1" decoration="0>19|1|1|0" lightTypes="2"/> <!--WorklightFront-->
+            <light realLight="0>7|4|0|11|0|0|0|3|0|1" decoration="0>7|4|0|11|0|0|0|3|0|0" lightTypes="1"/> <!--WorklightBack - RETRO-->
+            <light realLight="0>7|4|0|11|0|0|0|3|1|1" decoration="0>7|4|0|11|0|0|0|3|1|0" lightTypes="2"/> <!--WorklightFront - RETRO-->
+            <light realLight="0>7|4|1|13|0|0|0|3|0|1" decoration="0>7|4|1|13|0|0|0|3|0|0" lightTypes="1"/> <!--WorklightBack - RETRO-->
+            <light realLight="0>7|4|1|13|0|0|0|3|1|1" decoration="0>7|4|1|13|0|0|0|3|1|0" lightTypes="2"/> <!--WorklightFront - RETRO-->
+            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="1"/> <!--WorklightFront - neon-->	
+            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="2"/> <!--WorklightFront - neon-->
+            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="1"/> <!--WorklightFront - neon-->	
+            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="2"/> <!--WorklightFront - neon-->					
         </low>
         <high>
-            <light realLight="0>7|4|1|12|0|2" decoration="0>7|4|1|12|0|0" lightTypes="0 3" />
-            <light realLight="0>7|4|1|12|0|3" decoration="0>7|4|1|12|0|1" lightTypes="0 3" />
-            <light realLight="0>7|4|0|10|0|1" decoration="0>7|4|0|10|0|0" lightTypes="0 3" />
-            <light realLight="0>19|1|0|1" decoration="0>19|1|0|0" lightTypes="1" />
-            <!--WorklightBack-->
-            <light realLight="0>19|1|1|1" decoration="0>19|1|1|0" lightTypes="2" />
-            <!--WorklightFront-->
-            <light realLight="0>7|4|0|11|0|0|0|3|0|1" decoration="0>7|4|0|11|0|0|0|3|0|0" lightTypes="1" />
-            <!--WorklightBack - RETRO-->
-            <light realLight="0>7|4|0|11|0|0|0|3|1|1" decoration="0>7|4|0|11|0|0|0|3|1|0" lightTypes="2" />
-            <!--WorklightFront - RETRO-->
-            <light realLight="0>7|4|1|13|0|0|0|3|0|1" decoration="0>7|4|1|13|0|0|0|3|0|0" lightTypes="1" />
-            <!--WorklightBack - RETRO-->
-            <light realLight="0>7|4|1|13|0|0|0|3|1|1" decoration="0>7|4|1|13|0|0|0|3|1|0" lightTypes="2" />
-            <!--WorklightFront - RETRO-->
-            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="1" />
-            <!--WorklightFront - neon-->
-            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="2" />
-            <!--WorklightFront - neon-->
-            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="1" />
-            <!--WorklightFront - neon-->
-            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="2" />
-            <!--WorklightFront - neon-->
+            <light realLight="0>7|4|1|12|0|2"  decoration="0>7|4|1|12|0|0" lightTypes="0 3" />
+            <light realLight="0>7|4|1|12|0|3"  decoration="0>7|4|1|12|0|1" lightTypes="0 3" />
+            <light realLight="0>7|4|0|10|0|1"  decoration="0>7|4|0|10|0|0" lightTypes="0 3" />
+            <light realLight="0>19|1|0|1" decoration="0>19|1|0|0" lightTypes="1"/> <!--WorklightBack-->
+            <light realLight="0>19|1|1|1" decoration="0>19|1|1|0" lightTypes="2"/> <!--WorklightFront-->
+	        <light realLight="0>7|4|0|11|0|0|0|3|0|1" decoration="0>7|4|0|11|0|0|0|3|0|0" lightTypes="1"/> <!--WorklightBack - RETRO-->
+            <light realLight="0>7|4|0|11|0|0|0|3|1|1" decoration="0>7|4|0|11|0|0|0|3|1|0" lightTypes="2"/> <!--WorklightFront - RETRO-->
+            <light realLight="0>7|4|1|13|0|0|0|3|0|1" decoration="0>7|4|1|13|0|0|0|3|0|0" lightTypes="1"/> <!--WorklightBack - RETRO-->
+            <light realLight="0>7|4|1|13|0|0|0|3|1|1" decoration="0>7|4|1|13|0|0|0|3|1|0" lightTypes="2"/> <!--WorklightFront - RETRO-->
+            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="1"/> <!--WorklightFront - neon-->	
+            <light realLight="0>15|4|6|3|0|1" decoration="0>15|4|6|3|0|0" lightTypes="2"/> <!--WorklightFront - neon-->
+            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="1"/> <!--WorklightFront - neon-->	
+            <light realLight="0>15|5|6|3|0|1" decoration="0>15|5|6|3|0|0" lightTypes="2"/> <!--WorklightFront - neon-->					
         </high>
     </lights>
+
     <brakeLights>
         <brakeLight realLight="0>7|4|0|10|2|1" decoration="0>7|4|0|10|2|0" />
-        <brakeLight realLight="0>7|4|1|12|2|1" decoration="0>7|4|1|12|2|0" />
+		<brakeLight realLight="0>7|4|1|12|2|1" decoration="0>7|4|1|12|2|0" />
     </brakeLights>
+
     <turnLights>
         <turnLightLeft realLight="0>7|4|1|12|1|0|1" decoration="0>7|4|1|12|1|0|0" />
         <turnLightRight realLight="0>7|4|0|10|1|0|1" decoration="0>7|4|0|10|1|0|0" />
     </turnLights>
+	
     <reverseLights>
         <reverseLight realLight="0>7|4|0|10|3|1" decoration="0>7|4|0|10|3|0" />
-        <reverseLight realLight="0>7|4|1|12|3|1" decoration="0>7|4|1|12|3|0" />
-    </reverseLights>
-    <beaconLights>
-        <beaconLight index="0>20|0|3" speed="0.015" filename="$data/shared/beaconLights/beaconLight03.i3d" />
-        <beaconLight index="0>16" speed="0.015" filename="$data/shared/beaconLights/beaconLight03.i3d" />
+		<reverseLight realLight="0>7|4|1|12|3|1" decoration="0>7|4|1|12|3|0" />
+    </reverseLights>	
+	
+	<beaconLights>
+        <beaconLight index="0>20|0|3" speed="0.015" filename="$data/shared/beaconLights/beaconLight03.i3d"/>
+		<beaconLight index="0>16" speed="0.015" filename="$data/shared/beaconLights/beaconLight03.i3d"/>
     </beaconLights>
+
+	
     <inputAttacherJoints>
         <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5" />
     </inputAttacherJoints>
+	
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75" />
     <cylinderedHydraulicSound file="$data/sounds/cultivatorHydraulic.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
+	
     <foldingParts startAnimTime="1" detachingMaxLimit="1" detachingMinLimit="1" turnOnFoldMinLimit="0" turnOnFoldMaxLimit="0">
         <foldingPart animationName="folding" />
     </foldingParts>
+	
     <animations>
         <!-- move support down/up -->
         <animation name="moveSupport">
@@ -144,7 +142,6 @@
             <part node="0>8|1|1|0" startTime="13" duration="3" startRot="0 84 0" endRot="0 0 0" />
             <part node="0>8|1|0|0" startTime="13" duration="3" startRot="0 -84 0" endRot="0 0 0" />
             <!-- rotoli_rete -->
-            <part node="0>15|1" startTime="19" duration="2" startRot="0 0 0" endRot="0 0 65" />
             <part node="0>15|2" startTime="20" duration="1" startRot="180 0 180" endRot="180 0 112" />
             <!-- scarico_balla -->
             <part node="0>15|6|0" startTime="2" duration="0.5" startRot="90 0 0" endRot="0 0 0" />
@@ -164,12 +161,14 @@
             <!-- portone destro up/down -->
             <part node="0>15|4" startTime="0.25" duration="0.25" startRot="0 0 90" endRot="0 0 70" />
             <part node="0>15|4" startTime="0.5" duration="2.7" startRot="0 0 70" endRot="0 0 0" />
+            <part node="0>15|1" startTime="2.8" duration="1" startRot="0 0 0" endRot="0 0 65" />			
         </animation>
         <animation name="ladder">
             <!-- scala -->
             <part node="0>15|7" startTime="0" duration="2" startRot="0 0 0" endRot="0 0 180" />
         </animation>
     </animations>
+	
     <movingParts>
         <!-- piston_scivoloUP -->
         <movingPart index="0>7|1|0" referencePoint="0>7|4|1|11" referenceFrame="0>7|4|1|11" isActiveDirty="true">
@@ -212,7 +211,9 @@
             <translatingPart index="0>15|0|5|0" />
         </movingPart>
     </movingParts>
+	
     <support animationName="moveSupport" />
+	
     <movingTools>
         <movingTool index="0>7" wheelIndices="5" />
         <!-- timone -->
@@ -220,26 +221,55 @@
             <inputAttacherJoint value="true" />
         </movingTool>
     </movingTools>
+	
+    <turnedOnRotationNodes>
+	<!--coclea-->
+        <turnedOnRotationNode index="0>7|2|7" type="baler" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+		<turnedOnRotationNode index="0>7|2|6" type="baler" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />	
+	<!--camera-->
+        <turnedOnRotationNode index="0>12|1"  type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />  	
+        <turnedOnRotationNode index="0>12|3"  type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />        
+        <turnedOnRotationNode index="0>12|4"  type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" /> 
+	<!--camera secondaria-->		
+        <turnedOnRotationNode index="0>12|8|0" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+		<turnedOnRotationNode index="0>12|8|3" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+		<turnedOnRotationNode index="0>12|8|5" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" /> 
+	<!--camera terza-->
+		<turnedOnRotationNode index="0>13|0|3" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+		<turnedOnRotationNode index="0>13|0|4" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+		<turnedOnRotationNode index="0>13|0|5" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+		<turnedOnRotationNode index="0>13|0|6" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+		<turnedOnRotationNode index="0>13|0|7" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+        <turnedOnRotationNode index="0>13|0|8" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+        <turnedOnRotationNode index="0>13|0|9" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+	<!--rotolo-->		
+        <turnedOnRotationNode index="0>15|10|0" type="baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+    </turnedOnRotationNodes>	
+	
+    
+    <speedRotatingParts>
+        <speedRotatingPart index="0>15|8" radius="0.5" refNodeIndex="0" turnOnFadeTime="1" turnOffFadeTime="2" onlyActiveWhenLowered="true" rotateOnlyIfFillLevelIncreased="true" />
+    </speedRotatingParts>	
+	
     <fillUnits>
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="12000" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="2" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="3" />
     </fillUnits>
+	
     <fillVolumes>
         <volumes>
             <volume index="0>7|8" fillUnitIndex="1" />
-        </volumes>
-        <volumes>
-            <volume index="0>7|4|0|12" fillUnitIndex="2" />
-        </volumes>
-        <volumes>
-            <volume index="0>7|4|1|14" fillUnitIndex="3" />
+			<volume index="0>7|4|0|12" fillUnitIndex="2" />
+			<volume index="0>7|4|1|14" fillUnitIndex="3" />
         </volumes>
     </fillVolumes>
+	
     <fillRootNode index="0>" />
     <exactFillRootNode index="0>7|9" />
     <fillMassNode updateFillLevelMass="false" />
     <allowFillFromAir value="true"/>
+	
     <LTMaster>
         <triggers>
             <triggerLeft index="0>27|0|0" radius="3" />
@@ -263,9 +293,70 @@
             <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
         </ladder>
     </LTMaster>
+	
+	
+    <baleTypes>
+        <baleType minBaleWidth="1.2"  maxBaleWidth="1.2" minBaleHeight="0.8" maxBaleHeight="0.9" minBaleLength="2.2" maxBaleLength="2.4"/>
+    </baleTypes>
+
+    <baler>
+        <balerSound file="$data/sounds/rollBelt150Sound.wav"      pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
+        <balerAlarm file="$data/sounds/rollBelt150Alarm.wav"      pitchOffset="1.00" volume="0.45" indoorVolumeFactor="1.35" indoorLowpassGain="0.95" />
+        <balerBaleEject file="$data/sounds/rollBelt150Eject.wav"  pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
+        <balerDoor file="$data/sounds/rollBelt150Door.wav"        pitchOffset="0.98" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
+        <baleTypes>
+            <baleType isRoundBale="true" width="1.12" diameter="1.3" />
+        </baleTypes>
+        <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" baleDropAnimTime="2.9" />
+        <uvScrollParts>
+	<!--camera-->		
+            <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            <uvScrollPart index="0>12|6" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            <uvScrollPart index="0>12|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+	<!--camera Ssecondaria-->	
+            <uvScrollPart index="0>12|8|4" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            <uvScrollPart index="0>12|8|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            <uvScrollPart index="0>12|8|8" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            <uvScrollPart index="0>12|8|9" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            <uvScrollPart index="0>12|8|10" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+	<!--camera terza-->	
+            <uvScrollPart index="0>13|0|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            <uvScrollPart index="0>13|0|2" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />	
+            <uvScrollPart index="0>13|0|1" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />		
+	<!--scivolo Superiore-->		
+		    <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />	
+		    <uvScrollPart index="0>7|3|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+			<uvScrollPart index="0>7|3|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+	<!--scivolo-->	
+			<uvScrollPart index="0>8|4|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />	
+			<uvScrollPart index="0>8|4|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />			
+			<uvScrollPart index="0>8|4|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />	
+	<!--rotolo-->	
+			<uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+
+        </uvScrollParts>
+        <fillEffect>
+            <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="pickup" materialTypeId="1" delay="0" fadeTime="0.5" speed="0.9" scrollLength="1.5" scrollSpeed="2"/>
+        </fillEffect>
+        <fillParticleSystems>
+            <emitterShape node="0>24|0" particleType="PICKUP"         emitCountScale="6" worldSpace="false" />
+            <emitterShape node="0>24|1" particleType="SMOKE"          emitCountScale="1"/>
+
+            <emitterShape node="0>26" particleType="PICKUP"         emitCountScale="6" worldSpace="false" />
+            <!--emitterShape node="0>16|1"     particleType="PICKUP_FALLING" emitCountScale="2" worldSpace="false"/-->
+        </fillParticleSystems>
+    </baler>	
+
+    <workAreas>
+        <workArea startIndex="0>21|0" widthIndex="0>21|1" heightIndex="0>21|2" type="baler" />
+    </workAreas>	
+	
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
+	
     <components count="1">
-        <component1 centerOfMass="0 0.6 -0.5" solverIterationCount="10" />
+        <component1 centerOfMass="0 0.6 0.2" solverIterationCount="10" />
     </components>
+	
     <schemaOverlay file="$dataS2/menu/schemas/implementSchema.png" fileSelected="$dataS2/menu/schemas/implementSchemaSelected.png" fileTurnedOn="$dataS2/menu/schemas/implementSchemaTurnedOn.png" fileSelectedTurnedOn="$dataS2/menu/schemas/implementSchemaSelectedTurnedOn.png" width="0.5" height="0.5" attacherJointPosition="0 0" />
+
 </vehicle>
