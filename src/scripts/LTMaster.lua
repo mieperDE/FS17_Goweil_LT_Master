@@ -28,6 +28,7 @@ source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/supportsStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/ladderStatusEvent.lua");
+source(g_currentModDirectory .. "scripts/events/baleSlideStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/triggers/LTMasterTipTrigger.lua");
 
 function LTMaster.print(text, ...)
@@ -47,6 +48,8 @@ function LTMaster:preLoad(savegame)
     self.updateSupportsStatus = LTMaster.updateSupportsStatus;
     self.updateFoldingStatus = LTMaster.updateFoldingStatus;
     self.updateLadderStatus = LTMaster.updateLadderStatus;
+    self.updateBaleSlideStatus = LTMaster.updateBaleSlideStatus;
+
 end
 
 function LTMaster:load(savegame)
@@ -72,11 +75,13 @@ function LTMaster:load(savegame)
     self.LTMaster.triggerRight = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerRight#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLadder#index"));
     self.LTMaster.triggerLadder = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerLadder#radius"), 2.5));
+    trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerBaleSlide#index"));
+    self.LTMaster.triggerBaleSlide = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerBaleSlide#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#index"));
     self.LTMaster.tipTrigger = LTMasterTipTrigger:new(self.isServer, self.isClient);
     self.LTMaster.tipTrigger:load(trigger, self, self.LTMaster.fillUnits["main"].index, self.LTMaster.fillUnits["right"].index, self.LTMaster.fillUnits["left"].index);
     self.LTMaster.tipTrigger:register(true);
-
+    
     self.LTMaster.hoods = {};
     self.LTMaster.hoods.openingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.openingSound", nil, self.baseDirectory);
     self.LTMaster.hoods.closingSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.hoods.closingSound", nil, self.baseDirectory);
@@ -108,6 +113,12 @@ function LTMaster:load(savegame)
     self.LTMaster.ladder.status = LTMaster.STATUS_RL_RAISED;
     self.LTMaster.ladder.delayedUpdateLadderStatus = DelayedCallBack:new(LTMaster.updateLadderStatus, self);
     self.LTMaster.ladder.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.ladder.sound", nil, self.baseDirectory);
+    
+    self.LTMaster.baleSlide = {};
+    self.LTMaster.baleSlide.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.baleSlide#animationName");
+    self.LTMaster.baleSlide.status = LTMaster.STATUS_RL_RAISED;
+    self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus = DelayedCallBack:new(LTMaster.updateBaleSlideStatus, self);
+    self.LTMaster.baleSlide.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baleSlide.sound", nil, self.baseDirectory);
 end
 
 function LTMaster:postLoad(savegame)
@@ -118,6 +129,7 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.supports.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#supportsStatus"), self.LTMaster.supports.status);
             self.LTMaster.folding.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#foldingStatus"), self.LTMaster.folding.status);
             self.LTMaster.ladder.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#ladderStatus"), self.LTMaster.ladder.status);
+            self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
         end
         LTMaster.finalizeLoad(self);
     end
@@ -128,6 +140,7 @@ function LTMaster:getSaveAttributesAndNodes(nodeIdent)
     attributes = attributes .. string.format("supportsStatus=\"%s\" ", self.LTMaster.supports.status);
     attributes = attributes .. string.format("foldingStatus=\"%s\" ", self.LTMaster.folding.status);
     attributes = attributes .. string.format("ladderStatus=\"%s\" ", self.LTMaster.ladder.status);
+    attributes = attributes .. string.format("baleSlideStatus=\"%s\" ", self.LTMaster.baleSlide.status);
     local nodes = nil;
     return attributes, nodes;
 end
@@ -138,18 +151,21 @@ function LTMaster:finalizeLoad()
     self:updateSupportsStatus(self.LTMaster.supports.status, true);
     self:updateFoldingStatus(self.LTMaster.folding.status, true);
     self:updateLadderStatus(self.LTMaster.ladder.status, true);
+    self:updateBaleSlideStatus(self.LTMaster.baleSlide.status, true);
 end
 
 function LTMaster:delete()
     self.LTMaster.triggerLeft:delete();
     self.LTMaster.triggerRight:delete();
     self.LTMaster.triggerLadder:delete();
+    self.LTMaster.triggerBaleSlide:delete();
     self.LTMaster.tipTrigger:delete();
     SoundUtil.deleteSample(self.LTMaster.hoods.openingSound);
     SoundUtil.deleteSample(self.LTMaster.hoods.closingSound);
     SoundUtil.deleteSample(self.LTMaster.supports.sound);
     SoundUtil.deleteSample(self.LTMaster.folding.sound);
     SoundUtil.deleteSample(self.LTMaster.ladder.sound);
+    SoundUtil.deleteSample(self.LTMaster.baleSlide.sound);
 end
 
 function LTMaster:mouseEvent(posX, posY, isDown, isUp, button)
@@ -163,6 +179,7 @@ function LTMaster:update(dt)
     self.LTMaster.supports.delayedUpdateSupportsStatus:update(dt);
     self.LTMaster.folding.delayedUpdateFoldingStatus:update(dt);
     self.LTMaster.ladder.delayedUpdateLadderStatus:update(dt);
+    self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:update(dt);
     if self.isClient then
         LTMaster.animationsInput(self, dt);
     end
@@ -175,6 +192,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteUInt8(streamId, self.LTMaster.supports.status);
         streamWriteUInt8(streamId, self.LTMaster.folding.status);
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
+        streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteInt32(streamId, self.LTMaster.tipTrigger.id);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
@@ -188,6 +206,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.supports.status = streamReadUInt8(streamId);
         self.LTMaster.folding.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
+        self.LTMaster.baleSlide.status = streamReadUInt8(streamId);
         local tipTriggerId = streamReadInt32(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
@@ -202,6 +221,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteUInt8(streamId, self.LTMaster.supports.status);
         streamWriteUInt8(streamId, self.LTMaster.folding.status);
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
+        streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
     end
 end
 
@@ -212,6 +232,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.supports.status = streamReadUInt8(streamId);
         self.LTMaster.folding.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
+        self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
     end
 end
 

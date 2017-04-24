@@ -18,6 +18,7 @@ function LTMaster:setRelativePosition(positionX, offsetY, positionZ, yRot)
     self.LTMaster.supports.status = LTMaster.STATUS_RL_RAISED;
     self.LTMaster.folding.status = LTMaster.STATUS_FU_FOLDED;
     self.LTMaster.ladder.status = LTMaster.STATUS_RL_RAISED;
+    self.LTMaster.baleSlide.status = LTMaster.STATUS_RL_RAISED;
     LTMaster.finalizeLoad(self);
 end
 
@@ -100,7 +101,23 @@ function LTMaster:animationsInput(dt)
             end
         end
     end
---Raise/Lower of the ladder <--
+    --Raise/Lower of the ladder <--
+    --Raise/Lower of the bale slide -->
+    if self.LTMaster.triggerBaleSlide.active then
+        if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISED then
+            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                self:updateBaleSlideStatus(LTMaster.STATUS_RL_LOWERING);
+            end
+        end
+        if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERED then
+            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                self:updateBaleSlideStatus(LTMaster.STATUS_RL_RAISING);
+            end
+        end
+    end
+--Raise/Lower of the bale slide <--
 end
 
 function LTMaster:updateHoodStatus(hood, newStatus, noEventSend)
@@ -210,5 +227,33 @@ function LTMaster:updateLadderStatus(newStatus, noEventSend)
         SoundUtil.playSample(self.LTMaster.ladder.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.ladder.animation, -1);
         self.LTMaster.ladder.delayedUpdateLadderStatus:call(self:getAnimationDuration(self.LTMaster.ladder.animation), LTMaster.STATUS_RL_RAISED);
+    end
+end
+
+function LTMaster:updateBaleSlideStatus(newStatus, noEventSend)
+    local status = newStatus or self.LTMaster.baleSlide.status;
+    if not self.isServer and (noEventSend == nil or not noEventSend) then
+        g_client:getServerConnection():sendEvent(BaleSlideStatusEvent:new(status, self));
+    end
+    if self.isServer then
+        self.LTMaster.baleSlide.status = status;
+    end
+    if status == LTMaster.STATUS_RL_LOWERED then
+        SoundUtil.stopSample(self.LTMaster.baleSlide.sound, true);
+        self:playAnimation(self.LTMaster.baleSlide.animation, math.huge);
+    end
+    if status == LTMaster.STATUS_RL_LOWERING then
+        SoundUtil.playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
+        self:playAnimation(self.LTMaster.baleSlide.animation, 1);
+        self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_LOWERED);
+    end
+    if status == LTMaster.STATUS_RL_RAISED then
+        SoundUtil.stopSample(self.LTMaster.baleSlide.sound, true);
+        self:playAnimation(self.LTMaster.baleSlide.animation, -math.huge);
+    end
+    if status == LTMaster.STATUS_RL_RAISING then
+        SoundUtil.playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
+        self:playAnimation(self.LTMaster.baleSlide.animation, -1);
+        self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_RAISED);
     end
 end

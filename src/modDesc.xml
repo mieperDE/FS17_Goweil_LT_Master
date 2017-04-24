@@ -68,5 +68,11 @@
         <text name="GLTM_RAISE_LADDER">
             <it>Alza la scaletta</it>
         </text>
+        <text name="GLTM_LOWER_BALE_SLIDE">
+            <it>Abbassa lo scivolo delle balle</it>
+        </text>
+        <text name="GLTM_RAISE_BALE_SLIDE">
+            <it>Alza lo scivolo delle balle</it>
+        </text>
     </l10n>
 </modDesc>
