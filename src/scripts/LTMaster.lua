@@ -30,6 +30,7 @@ source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/ladderStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/baleSlideStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/sideUnloadEvent.lua");
+source(g_currentModDirectory .. "scripts/events/conveyorStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/triggers/LTMasterTipTrigger.lua");
 
 function LTMaster.print(text, ...)
@@ -51,6 +52,7 @@ function LTMaster:preLoad(savegame)
     self.updateLadderStatus = LTMaster.updateLadderStatus;
     self.updateBaleSlideStatus = LTMaster.updateBaleSlideStatus;
     self.unloadSide = LTMaster.unloadSide;
+    self.setConveyorStatus = LTMaster.setConveyorStatus;
 end
 
 function LTMaster:load(savegame)
@@ -73,7 +75,22 @@ function LTMaster:load(savegame)
     self.LTMaster.fillUnits["left"].unloadSpeed = 0;
     
     self.LTMaster.conveyor = {};
+    self.LTMaster.conveyor.effects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.conveyor.effects", self.components, self);
+    self.LTMaster.conveyor.currentDelay = 0;
+    for _, effect in pairs(self.LTMaster.conveyor.effects) do
+        if effect.planeFadeTime ~= nil then
+            self.LTMaster.conveyor.currentDelay = self.LTMaster.conveyor.currentDelay + effect.planeFadeTime;
+        end
+    end
+    self.LTMaster.conveyor.maxDelay = self.LTMaster.conveyor.currentDelay;
+    self.LTMaster.conveyor.lastLoadingTime = 0;
+    self.LTMaster.conveyor.lastUnloadingTime = 0;
+    self.LTMaster.conveyor.lastFillLevelChangedTime = 0;
+    self.LTMaster.conveyor.lastFilllevel = 0;
+    self.LTMaster.conveyor.startFillLevel = self:getUnitCapacity(self.LTMaster.fillUnits["main"].index);
+    self.LTMaster.conveyor.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.conveyor.uvScrollParts.uvScrollPart", {}, false);
     self.LTMaster.conveyor.overloadingCapacity = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingCapacity"), 100);
+    self.LTMaster.conveyor.isTurnedOn = false;
     
     self.LTMaster.sideUnload = {};
     self.LTMaster.sideUnload.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.sideUnload#animationName");
@@ -130,9 +147,12 @@ function LTMaster:load(savegame)
     self.LTMaster.baleSlide.status = LTMaster.STATUS_RL_RAISED;
     self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus = DelayedCallBack:new(LTMaster.updateBaleSlideStatus, self);
     self.LTMaster.baleSlide.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baleSlide.sound", nil, self.baseDirectory);
+    
+    self.fillLevelChangedDirtyFlag = self:getNextDirtyFlag();
 end
 
 function LTMaster:postLoad(savegame)
+    self.setUnitFillLevel = Utils.overwrittenFunction(self.setUnitFillLevel, LTMaster.setUnitFillLevel);
     if self.isServer then
         if savegame ~= nil and not savegame.resetVehicles then
             self.LTMaster.hoods["left"].status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#leftHoodStatus"), self.LTMaster.hoods["left"].status);
@@ -141,6 +161,7 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.folding.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#foldingStatus"), self.LTMaster.folding.status);
             self.LTMaster.ladder.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#ladderStatus"), self.LTMaster.ladder.status);
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
+            self.LTMaster.conveyor.isTurnedOn = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#isConveyorTurnedOn"), self.LTMaster.conveyor.isTurnedOn);
         end
         LTMaster.finalizeLoad(self);
     end
@@ -152,6 +173,7 @@ function LTMaster:getSaveAttributesAndNodes(nodeIdent)
     attributes = attributes .. string.format("foldingStatus=\"%s\" ", self.LTMaster.folding.status);
     attributes = attributes .. string.format("ladderStatus=\"%s\" ", self.LTMaster.ladder.status);
     attributes = attributes .. string.format("baleSlideStatus=\"%s\" ", self.LTMaster.baleSlide.status);
+    attributes = attributes .. string.format("isConveyorTurnedOn=\"%s\" ", self.LTMaster.conveyor.isTurnedOn);
     local nodes = nil;
     return attributes, nodes;
 end
@@ -177,6 +199,7 @@ function LTMaster:delete()
     SoundUtil.deleteSample(self.LTMaster.folding.sound);
     SoundUtil.deleteSample(self.LTMaster.ladder.sound);
     SoundUtil.deleteSample(self.LTMaster.baleSlide.sound);
+    EffectManager:deleteEffects(self.LTMaster.conveyor.effects);
 end
 
 function LTMaster:mouseEvent(posX, posY, isDown, isUp, button)
@@ -195,6 +218,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteInt32(streamId, self.LTMaster.tipTrigger.id);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
+        streamWriteBool(streamId, self.LTMaster.conveyor.isTurnedOn);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
     end
@@ -210,6 +234,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.baleSlide.status = streamReadUInt8(streamId);
         local tipTriggerId = streamReadInt32(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
+        self.LTMaster.conveyor.isTurnedOn = streamReadBool(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
         LTMaster.finalizeLoad(self);
@@ -225,6 +250,8 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
+        streamWriteBool(streamId, self.LTMaster.conveyor.isTurnedOn);
+        streamWriteInt32(streamId, self.LTMaster.conveyor.lastFillLevelChangedTime);
     end
 end
 
@@ -237,6 +264,8 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
+        self.LTMaster.conveyor.isTurnedOn = streamReadBool(streamId);
+        self.LTMaster.conveyor.lastFillLevelChangedTime = streamReadInt32(streamId);
     end
 end
 
@@ -257,6 +286,17 @@ function LTMaster:update(dt)
                 end
             end
         end
+        if self.LTMaster.triggerLeft.active then
+            if self.LTMaster.conveyor.isTurnedOn then
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_TURNOFF_CONVEYOR"), InputBinding.TOGGLE_PIPE, nil, GS_PRIO_HIGH);
+            else
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_TURNON_CONVEYOR"), InputBinding.TOGGLE_PIPE, nil, GS_PRIO_HIGH);
+            end
+            if InputBinding.hasEvent(InputBinding.TOGGLE_PIPE) then
+                g_client:getServerConnection():sendEvent(ConveyorStatusEvent:new(self));
+            end
+        end
+        Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, self:getIsActive() and self.LTMaster.conveyor.isTurnedOn);
     end
 end
 
@@ -264,12 +304,14 @@ function LTMaster:updateTick(dt)
     local normalizedDt = dt / 1000;
     PlayerTriggers:update();
     if self.isServer then
-        if self:getIsTurnedOn() then
+        if self.LTMaster.conveyor.isTurnedOn then
             local fillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
             local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
             local delta = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
             if delta > 0 then
                 self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - delta, fillType);
+            else
+                self:setConveyorStatus(false);
             end
         end
         if self.LTMaster.sideUnload.isUnloading then
@@ -292,9 +334,30 @@ function LTMaster:updateTick(dt)
             end
         end
     end
+    if self.isClient then
+        if self.LTMaster.conveyor.lastFillLevelChangedTime + 100 < g_currentMission.time then
+            for _, effect in pairs(self.LTMaster.conveyor.effects) do
+                if effect.setScrollUpdate ~= nil then
+                    effect:setScrollUpdate(false);
+                end
+            end
+        end
+    end
 end
 
 function LTMaster:draw()
+end
+
+function LTMaster:unloadSide()
+    self:playAnimation(self.LTMaster.sideUnload.animation, 1);
+    local animationDuration = self:getAnimationDuration(self.LTMaster.sideUnload.animation) / 2;
+    self.LTMaster.fillUnits["left"].unloadSpeed = self:getUnitFillLevel(self.LTMaster.fillUnits["left"].index) / animationDuration;
+    self.LTMaster.fillUnits["right"].unloadSpeed = self:getUnitFillLevel(self.LTMaster.fillUnits["right"].index) / animationDuration;
+    self.LTMaster.sideUnload.isUnloading = true;
+end
+
+function LTMaster:setConveyorStatus(isTurnedOn)
+    self.LTMaster.conveyor.isTurnedOn = isTurnedOn;
 end
 
 function LTMaster:getIsTurnedOnAllowed(superFunc, isTurnOn)
@@ -347,12 +410,58 @@ function LTMaster:getPtoRpm(superFunc)
     return ptoRpm;
 end
 
-function LTMaster:unloadSide()
-    self:playAnimation(self.LTMaster.sideUnload.animation, 1);
-    local animationDuration = self:getAnimationDuration(self.LTMaster.sideUnload.animation) / 2;
-    self.LTMaster.fillUnits["left"].unloadSpeed = self:getUnitFillLevel(self.LTMaster.fillUnits["left"].index) / animationDuration;
-    --LTMaster.print("%s / %s = %s", self:getUnitFillLevel(self.LTMaster.fillUnits["left"].index), animationDuration, self:getUnitFillLevel(self.LTMaster.fillUnits["left"].index) / animationDuration);
-    self.LTMaster.fillUnits["right"].unloadSpeed = self:getUnitFillLevel(self.LTMaster.fillUnits["right"].index) / animationDuration;
-    --LTMaster.print("%s / %s = %s", self:getUnitFillLevel(self.LTMaster.fillUnits["right"].index), animationDuration, self:getUnitFillLevel(self.LTMaster.fillUnits["right"].index) / animationDuration);
-    self.LTMaster.sideUnload.isUnloading = true;
+function LTMaster:setUnitFillLevel(superFunc, fillUnitIndex, fillLevel, fillType, force, fillInfo)
+    local isLoading = fillLevel > self.LTMaster.conveyor.lastFilllevel;
+    local isUnLoading = fillLevel < self.LTMaster.conveyor.lastFilllevel;
+    
+    if fillUnitIndex == self.LTMaster.fillUnits["main"].index then
+        if self.isClient then
+            if self.LTMaster.conveyor.effects ~= nil then
+                if fillType ~= FillUtil.FILLTYPE_UNKNOWN then
+                    EffectManager:setFillType(self.LTMaster.conveyor.effects, fillType)
+                    EffectManager:startEffects(self.LTMaster.conveyor.effects)
+                else
+                    EffectManager:stopEffects(self.LTMaster.conveyor.effects)
+                end
+            end
+            for _, effect in pairs(self.LTMaster.conveyor.effects) do
+                if effect.setMorphPosition ~= nil then
+                    if isLoading then
+                        local globalPos = Utils.clamp(fillLevel / self.LTMaster.conveyor.startFillLevel, 0, 1)
+                        local localPos = (globalPos - (effect.startDelay / self.LTMaster.conveyor.currentDelay)) / (effect.planeFadeTime / self.LTMaster.conveyor.currentDelay);
+                        local offset = effect.offset / effect.planeFadeTime;
+                        effect:setMorphPosition(offset, Utils.clamp(localPos + offset, offset, 1));
+                    elseif isUnLoading and not isLoading then
+                        local globalPos = 1 - Utils.clamp(fillLevel / self.LTMaster.conveyor.startFillLevel, 0, 1);
+                        local localPos = (globalPos - (effect.startDelay / self.LTMaster.conveyor.currentDelay)) / (effect.planeFadeTime / self.LTMaster.conveyor.currentDelay);
+                        local offset = effect.offset / effect.planeFadeTime;
+                        effect:setMorphPosition(Utils.clamp(localPos + offset, offset, 1), 1)
+                    end
+                end
+            end
+            for _, effect in pairs(self.LTMaster.conveyor.effects) do
+                if effect.setScrollUpdate ~= nil then
+                    effect:setScrollUpdate(true);
+                end
+            end
+        end
+    end
+    
+    if isLoading then
+        self.LTMaster.conveyor.lastLoadingTime = g_currentMission.time;
+    elseif isUnLoading then
+        self.LTMaster.conveyor.lastUnloadingTime = g_currentMission.time;
+    end
+    
+    self.LTMaster.conveyor.lastFilllevel = fillLevel;
+    
+    if self.isServer then
+        self.LTMaster.conveyor.lastFillLevelChangedTime = g_currentMission.time;
+        self:raiseDirtyFlags(self.fillLevelChangedDirtyFlag);
+    end
+    
+    if superFunc ~= nil then
+        return superFunc(self, fillUnitIndex, fillLevel, fillType, force, fillInfo);
+    end
+    return nil;
 end

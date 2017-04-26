@@ -77,5 +77,11 @@
         <text name="GLTM_UNLOAD_SIDE">
             <it>Svuota le sponde laterali</it>
         </text>
+        <text name="GLTM_TURNON_CONVEYOR">
+            <it>Avvia il nastro</it>
+        </text>
+        <text name="GLTM_TURNOFF_CONVEYOR">
+            <it>Arresta il nastro</it>
+        </text>
     </l10n>
 </modDesc>

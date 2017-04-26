@@ -301,7 +301,21 @@
             <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
         </baleSlide>
         <sideUnload animationName="unloadSide" minAmount="5000" />
-        <conveyor overloadingCapacity="80"></conveyor>
+        <conveyor overloadingCapacity="80">
+            <uvScrollParts>
+                <!--scivolo Superiore-->
+                <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>7|3|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>7|3|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <!--scivolo-->
+                <uvScrollPart index="0>8|4|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>8|4|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>8|4|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            </uvScrollParts>
+            <effects>
+                <effectNode effectClass="ConveyorBeltEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="3" speed="0.9" scrollLength="9" scrollSpeed="0.8" />
+            </effects>
+        </conveyor>
     </LTMaster>
     <baleTypes>
         <baleType minBaleWidth="1.2" maxBaleWidth="1.2" minBaleHeight="0.8" maxBaleHeight="0.9" minBaleLength="2.2" maxBaleLength="2.4"/>
@@ -330,14 +344,6 @@
             <uvScrollPart index="0>13|0|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             <uvScrollPart index="0>13|0|2" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             <uvScrollPart index="0>13|0|1" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-            <!--scivolo Superiore-->
-            <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-            <uvScrollPart index="0>7|3|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-            <uvScrollPart index="0>7|3|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-            <!--scivolo-->
-            <uvScrollPart index="0>8|4|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-            <uvScrollPart index="0>8|4|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-            <uvScrollPart index="0>8|4|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             <!--rotolo-->
             <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
         </uvScrollParts>
