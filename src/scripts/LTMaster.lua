@@ -29,6 +29,7 @@ source(g_currentModDirectory .. "scripts/events/supportsStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/ladderStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/baleSlideStatusEvent.lua");
+source(g_currentModDirectory .. "scripts/events/sideUnloadEvent.lua");
 source(g_currentModDirectory .. "scripts/triggers/LTMasterTipTrigger.lua");
 
 function LTMaster.print(text, ...)
@@ -49,7 +50,7 @@ function LTMaster:preLoad(savegame)
     self.updateFoldingStatus = LTMaster.updateFoldingStatus;
     self.updateLadderStatus = LTMaster.updateLadderStatus;
     self.updateBaleSlideStatus = LTMaster.updateBaleSlideStatus;
-
+    self.unloadSide = LTMaster.unloadSide;
 end
 
 function LTMaster:load(savegame)
@@ -66,8 +67,18 @@ function LTMaster:load(savegame)
     self.LTMaster.fillUnits["main"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#fillUnitIndex"), 1);
     self.LTMaster.fillUnits["right"] = {};
     self.LTMaster.fillUnits["right"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#rightFillUnitIndex"), 2);
+    self.LTMaster.fillUnits["right"].unloadSpeed = 0;
     self.LTMaster.fillUnits["left"] = {};
     self.LTMaster.fillUnits["left"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#leftFillUnitIndex"), 3);
+    self.LTMaster.fillUnits["left"].unloadSpeed = 0;
+    
+    self.LTMaster.conveyor = {};
+    self.LTMaster.conveyor.overloadingCapacity = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingCapacity"), 100);
+    
+    self.LTMaster.sideUnload = {};
+    self.LTMaster.sideUnload.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.sideUnload#animationName");
+    self.LTMaster.sideUnload.minAmount = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.sideUnload#minAmount"), 0);
+    self.LTMaster.sideUnload.isUnloading = false;
     
     local trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#index"));
     self.LTMaster.triggerLeft = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#radius"), 2.5));
@@ -174,17 +185,6 @@ end
 function LTMaster:keyEvent(unicode, sym, modifier, isDown)
 end
 
-function LTMaster:update(dt)
-    self.LTMaster.hoods.delayedUpdateHoodStatus:update(dt);
-    self.LTMaster.supports.delayedUpdateSupportsStatus:update(dt);
-    self.LTMaster.folding.delayedUpdateFoldingStatus:update(dt);
-    self.LTMaster.ladder.delayedUpdateLadderStatus:update(dt);
-    self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:update(dt);
-    if self.isClient then
-        LTMaster.animationsInput(self, dt);
-    end
-end
-
 function LTMaster:writeStream(streamId, connection)
     if not connection:getIsServer() then
         streamWriteUInt8(streamId, self.LTMaster.hoods["left"].status);
@@ -194,6 +194,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteInt32(streamId, self.LTMaster.tipTrigger.id);
+        streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
     end
@@ -208,6 +209,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
         self.LTMaster.baleSlide.status = streamReadUInt8(streamId);
         local tipTriggerId = streamReadInt32(streamId);
+        self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
         LTMaster.finalizeLoad(self);
@@ -222,6 +224,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteUInt8(streamId, self.LTMaster.folding.status);
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
+        streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
     end
 end
 
@@ -233,11 +236,62 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.folding.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
+        self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
+    end
+end
+
+function LTMaster:update(dt)
+    self.LTMaster.hoods.delayedUpdateHoodStatus:update(dt);
+    self.LTMaster.supports.delayedUpdateSupportsStatus:update(dt);
+    self.LTMaster.folding.delayedUpdateFoldingStatus:update(dt);
+    self.LTMaster.ladder.delayedUpdateLadderStatus:update(dt);
+    self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:update(dt);
+    if self.isClient then
+        LTMaster.animationsInput(self, dt);
+        if self.LTMaster.triggerLeft.active and not self.LTMaster.sideUnload.isUnloading then
+            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.minAmount then
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_UNLOAD_SIDE"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
+                if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
+                    g_client:getServerConnection():sendEvent(SideUnloadEvent:new(self));
+                    self.LTMaster.sideUnload.isUnloading = true;
+                end
+            end
+        end
     end
 end
 
 function LTMaster:updateTick(dt)
+    local normalizedDt = dt / 1000;
     PlayerTriggers:update();
+    if self.isServer then
+        if self:getIsTurnedOn() then
+            local fillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
+            local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
+            local delta = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
+            if delta > 0 then
+                self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - delta, fillType);
+            end
+        end
+        if self.LTMaster.sideUnload.isUnloading then
+            for _, fillUnit in pairs({self.LTMaster.fillUnits["left"], self.LTMaster.fillUnits["right"]}) do
+                local fillType = self:getUnitLastValidFillType(fillUnit.index);
+                local fillLevel = self:getUnitFillLevel(fillUnit.index);
+                local delta = math.min(fillLevel, fillUnit.unloadSpeed * dt);
+                if delta > 0 then
+                    local mainCapacity = self:getUnitCapacity(self.LTMaster.fillUnits["main"].index);
+                    local mainFillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
+                    local mainDelta = math.min(delta, mainCapacity - mainFillLevel);
+                    if mainDelta > 0 then
+                        self:setUnitFillLevel(fillUnit.index, fillLevel - mainDelta, fillType);
+                        self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, mainFillLevel + mainDelta, fillType);
+                    end
+                end
+            end
+            if self:getAnimationTime(self.LTMaster.sideUnload.animation) >= 1 then
+                self.LTMaster.sideUnload.isUnloading = false;
+            end
+        end
+    end
 end
 
 function LTMaster:draw()
@@ -291,4 +345,14 @@ function LTMaster:getPtoRpm(superFunc)
         ptoRpm = math.max(ptoRpm, 760);
     end
     return ptoRpm;
+end
+
+function LTMaster:unloadSide()
+    self:playAnimation(self.LTMaster.sideUnload.animation, 1);
+    local animationDuration = self:getAnimationDuration(self.LTMaster.sideUnload.animation) / 2;
+    self.LTMaster.fillUnits["left"].unloadSpeed = self:getUnitFillLevel(self.LTMaster.fillUnits["left"].index) / animationDuration;
+    --LTMaster.print("%s / %s = %s", self:getUnitFillLevel(self.LTMaster.fillUnits["left"].index), animationDuration, self:getUnitFillLevel(self.LTMaster.fillUnits["left"].index) / animationDuration);
+    self.LTMaster.fillUnits["right"].unloadSpeed = self:getUnitFillLevel(self.LTMaster.fillUnits["right"].index) / animationDuration;
+    --LTMaster.print("%s / %s = %s", self:getUnitFillLevel(self.LTMaster.fillUnits["right"].index), animationDuration, self:getUnitFillLevel(self.LTMaster.fillUnits["right"].index) / animationDuration);
+    self.LTMaster.sideUnload.isUnloading = true;
 end

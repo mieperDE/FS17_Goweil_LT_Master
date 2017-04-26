@@ -21,7 +21,7 @@
         <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle"/>
     </storeItems>
     <extraSourceFiles>
-        <sourceFile filename="scripts/helpers/PlayerTrigger.lua"/>
+        <sourceFile filename="scripts/triggers/PlayerTrigger.lua"/>
     </extraSourceFiles>
     <specializations>
         <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua"/>
@@ -73,6 +73,9 @@
         </text>
         <text name="GLTM_RAISE_BALE_SLIDE">
             <it>Alza lo scivolo delle balle</it>
+        </text>
+        <text name="GLTM_UNLOAD_SIDE">
+            <it>Svuota le sponde laterali</it>
         </text>
     </l10n>
 </modDesc>
