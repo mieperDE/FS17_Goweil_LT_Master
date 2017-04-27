@@ -76,9 +76,10 @@ function LTMaster:load(savegame)
     if self.isClient then
         self.LTMaster.conveyor.effects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.conveyor.effects", self.components, self);
         self.LTMaster.conveyor.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.conveyor.uvScrollParts.uvScrollPart", {}, false);
+        self.LTMaster.conveyor.rotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.conveyor.rotatingParts.rotatingPart", "LTMaster.conveyor", self.components)
     end
     self.LTMaster.conveyor.overloadingCapacity = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingCapacity"), 100);
-    --self.LTMaster.conveyor.isTurnedOn = false;
+    self.LTMaster.conveyor.overloadingDelay = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingDelay"), 3);
     self.LTMaster.conveyor.isOverloading = false;
     
     self.LTMaster.sideUnload = {};
@@ -136,8 +137,6 @@ function LTMaster:load(savegame)
     self.LTMaster.baleSlide.status = LTMaster.STATUS_RL_RAISED;
     self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus = DelayedCallBack:new(LTMaster.updateBaleSlideStatus, self);
     self.LTMaster.baleSlide.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baleSlide.sound", nil, self.baseDirectory);
-    
-    self.fillLevelChangedDirtyFlag = self:getNextDirtyFlag();
 end
 
 function LTMaster:postLoad(savegame)
@@ -294,11 +293,11 @@ function LTMaster:updateTick(dt)
     if self.isServer then
         self.LTMaster.conveyor.isOverloading = false;
         if self:getIsTurnedOn() then
+            self.LTMaster.conveyor.isOverloading = true;
             local fillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
             local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
             local delta = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
             if delta > 0 then
-                self.LTMaster.conveyor.isOverloading = true;
                 self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - delta, fillType);
             end
         end
@@ -323,14 +322,32 @@ function LTMaster:updateTick(dt)
         end
     end
     if self.isClient then
-        Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, self.LTMaster.conveyor.isOverloading, self.LTMaster.conveyor.isOverloading);
         if self.LTMaster.conveyor.effects ~= nil then
-            if self.LTMaster.conveyor.isOverloading then
-                local lastValidFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
-                EffectManager:setFillType(self.LTMaster.conveyor.effects, lastValidFillType);
-                EffectManager:startEffects(self.LTMaster.conveyor.effects);
+            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 10 then
+                if self.LTMaster.conveyor.isOverloading then
+                    local lastValidFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
+                    EffectManager:setFillType(self.LTMaster.conveyor.effects, lastValidFillType);
+                    EffectManager:startEffects(self.LTMaster.conveyor.effects);
+                    for _, effect in pairs(self.LTMaster.conveyor.effects) do
+                        if effect.setScrollUpdate ~= nil then
+                            effect:setScrollUpdate(true);
+                        end
+                    end
+                    Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, true);
+                    Utils.updateRotationNodes(self, self.LTMaster.conveyor.rotatingParts, dt, true);
+                else
+                    for _, effect in pairs(self.LTMaster.conveyor.effects) do
+                        if effect.setScrollUpdate ~= nil then
+                            effect:setScrollUpdate(false);
+                        end
+                    end
+                    Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, false, false);
+                    Utils.updateRotationNodes(self, self.LTMaster.conveyor.rotatingParts, dt, false);
+                end
             else
                 EffectManager:stopEffects(self.LTMaster.conveyor.effects);
+                Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, false);
+                Utils.updateRotationNodes(self, self.LTMaster.conveyor.rotatingParts, dt, false);
             end
         end
     end
@@ -398,4 +415,16 @@ function LTMaster:getPtoRpm(superFunc)
         ptoRpm = math.max(ptoRpm, 760);
     end
     return ptoRpm;
+end
+
+function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)
+    if fillLevel > 0 then
+        if self.isClient then
+            if self.LTMaster.conveyor.effects ~= nil and fillUnitIndex == self.LTMaster.fillUnits["main"].index then
+                if fillLevel < 10 then
+                    EffectManager:stopEffects(self.LTMaster.conveyor.effects);
+                end
+            end
+        end
+    end
 end

@@ -233,9 +233,6 @@
         </movingTool>
     </movingTools>
     <turnedOnRotationNodes>
-        <!--coclea-->
-        <turnedOnRotationNode index="0>7|2|7" type="baler" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>7|2|6" type="baler" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
         <!--camera-->
         <turnedOnRotationNode index="0>12|1" type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
         <turnedOnRotationNode index="0>12|3" type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
@@ -301,19 +298,24 @@
             <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
         </baleSlide>
         <sideUnload animationName="unloadSide" minAmount="5000" />
-        <conveyor overloadingCapacity="80">
+        <conveyor overloadingCapacity="250" overloadingDelay="5">
             <uvScrollParts>
                 <!--scivolo Superiore-->
-                <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>7|3|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>7|3|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
+                <uvScrollPart index="0>7|3|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
+                <uvScrollPart index="0>7|3|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
                 <!--scivolo-->
-                <uvScrollPart index="0>8|4|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>8|4|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>8|4|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>8|4|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
+                <uvScrollPart index="0>8|4|1" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
+                <uvScrollPart index="0>8|4|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
             </uvScrollParts>
+            <rotatingParts>
+                <!--coclea-->
+                <rotatingPart index="0>7|2|7" type="LTMaster.conveyor" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="3" />
+                <rotatingPart index="0>7|2|6" type="LTMaster.conveyor" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="3" />
+            </rotatingParts>
             <effects>
-                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|2" materialType="belt" delay="0" fadeTime="3" speed="0.09" scrollLength="9" scrollSpeed="0.08" />
+                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
             </effects>
         </conveyor>
     </LTMaster>
