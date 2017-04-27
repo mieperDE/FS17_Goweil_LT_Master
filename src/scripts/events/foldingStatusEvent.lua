@@ -1,9 +1,9 @@
 --
--- Goweil LT Master
+--Goweil LT Master
 --
--- Team FSI Modding
+--TyKonKet (Team FSI Modding)
 --
--- 19/04/2017
+--19/04/2017
 FoldingStatusEvent = {};
 FoldingStatusEvent_mt = Class(FoldingStatusEvent, Event);
 InitEventClass(FoldingStatusEvent, "FoldingStatusEvent");

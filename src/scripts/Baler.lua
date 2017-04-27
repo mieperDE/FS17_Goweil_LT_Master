@@ -1,17 +1,17 @@
 --
--- Baler
+--Baler
 --
--- @author  Stefan Geiger
--- @date  10/09/08
+--@author  Stefan Geiger
+--@date  10/09/08
 --
--- Copyright (C) GIANTS Software GmbH, Confidential, All Rights Reserved.
+--Copyright (C) GIANTS Software GmbH, Confidential, All Rights Reserved.
 source("dataS/scripts/vehicles/specializations/events/SetTurnedOnEvent.lua")
 source("dataS/scripts/vehicles/specializations/events/BalerSetIsUnloadingBaleEvent.lua")
 source("dataS/scripts/vehicles/specializations/events/BalerSetBaleTimeEvent.lua")
 source("dataS/scripts/vehicles/specializations/events/BalerCreateBaleEvent.lua")
 
 ---Class for all Balers
--- @category Specializations
+--@category Specializations
 Baler = {}
 
 Baler.UNLOADING_CLOSED = 1
@@ -20,30 +20,30 @@ Baler.UNLOADING_OPEN = 3
 Baler.UNLOADING_CLOSING = 4
 
 ---Called on specialization initializing
--- @includeCode
+--@includeCode
 function Baler.initSpecialization()
     WorkArea.registerAreaType("baler")
 end
 
 ---Checks if all prerequisite specializations are loaded
--- @param table specializations specializations
--- @return boolean hasPrerequisite true if all prerequisite specializations are loaded
--- @includeCode
+--@param table specializations specializations
+--@return boolean hasPrerequisite true if all prerequisite specializations are loaded
+--@includeCode
 function Baler.prerequisitesPresent(specializations)
     return SpecializationUtil.hasSpecialization(Fillable, specializations) and SpecializationUtil.hasSpecialization(WorkArea, specializations) and SpecializationUtil.hasSpecialization(TurnOnVehicle, specializations) and SpecializationUtil.hasSpecialization(Pickup, specializations)
 end
 
 ---Called before loading
--- @param table savegame savegame
--- @includeCode
+--@param table savegame savegame
+--@includeCode
 function Baler:preLoad(savegame)
     self.loadWorkAreaFromXML = Utils.overwrittenFunction(self.loadWorkAreaFromXML, Baler.loadWorkAreaFromXML)
     self.loadSpeedRotatingPartFromXML = Utils.overwrittenFunction(self.loadSpeedRotatingPartFromXML, Baler.loadSpeedRotatingPartFromXML)
 end
 
 ---Called on loading
--- @param table savegame savegame
--- @includeCode
+--@param table savegame savegame
+--@includeCode
 function Baler:load(savegame)
     
     Utils.checkDeprecatedXMLElements(self.xmlFile, self.configFileName, "vehicle.fillScale#value", "vehicle.baler#fillScale")
@@ -108,7 +108,7 @@ function Baler:load(savegame)
         self.baler.baleAnimRoot = self.components[1].node
         self.baler.baleAnimRootComponent = self.components[1].node
     end
-    -- there is no standard bale animation, load the unload animation (for round baler)
+    --there is no standard bale animation, load the unload animation (for round baler)
     if self.baler.firstBaleMarker == nil then
         local unloadAnimationName = getXMLString(self.xmlFile, "vehicle.baler.baleAnimation#unloadAnimationName")
         local closeAnimationName = getXMLString(self.xmlFile, "vehicle.baler.baleAnimation#closeAnimationName")
@@ -209,8 +209,8 @@ function Baler:load(savegame)
 end
 
 ---Called after loading
--- @param table savegame savegame
--- @includeCode
+--@param table savegame savegame
+--@includeCode
 function Baler:postLoad(savegame)
     
     for fillType, enabled in pairs(self:getUnitFillTypes(self.baler.fillUnitIndex)) do
@@ -267,7 +267,7 @@ function Baler:postLoad(savegame)
 end
 
 ---Called on deleting
--- @includeCode
+--@includeCode
 function Baler:delete()
     for k, _ in pairs(self.baler.bales) do
         self:dropBale(k)
@@ -294,9 +294,9 @@ function Baler:delete()
 end
 
 ---Called on client side on join
--- @param integer streamId streamId
--- @param integer connection connection
--- @includeCode
+--@param integer streamId streamId
+--@param integer connection connection
+--@includeCode
 function Baler:readStream(streamId, connection)
     if self.baler.baleUnloadAnimationName ~= nil then
         local state = streamReadUIntN(streamId, 7)
@@ -325,9 +325,9 @@ function Baler:readStream(streamId, connection)
 end
 
 ---Called on server side on join
--- @param integer streamId streamId
--- @param integer connection connection
--- @includeCode
+--@param integer streamId streamId
+--@param integer connection connection
+--@includeCode
 function Baler:writeStream(streamId, connection)
     
     if self.baler.baleUnloadAnimationName ~= nil then
@@ -355,10 +355,10 @@ function Baler:writeStream(streamId, connection)
 end
 
 ---Called on on update
--- @param integer streamId stream ID
--- @param integer timestamp timestamp
--- @param table connection connection
--- @includeCode
+--@param integer streamId stream ID
+--@param integer timestamp timestamp
+--@param table connection connection
+--@includeCode
 function Baler:readUpdateStream(streamId, timestamp, connection)
     if connection:getIsServer() then
         self.baler.lastAreaBiggerZero = streamReadBool(streamId)
@@ -366,10 +366,10 @@ function Baler:readUpdateStream(streamId, timestamp, connection)
 end
 
 ---Called on on update
--- @param integer streamId stream ID
--- @param table connection connection
--- @param integer dirtyMask dirty mask
--- @includeCode
+--@param integer streamId stream ID
+--@param table connection connection
+--@param integer dirtyMask dirty mask
+--@includeCode
 function Baler:writeUpdateStream(streamId, connection, dirtyMask)
     if not connection:getIsServer() then
         streamWriteBool(streamId, self.baler.lastAreaBiggerZero)
@@ -377,10 +377,10 @@ function Baler:writeUpdateStream(streamId, connection, dirtyMask)
 end
 
 ---Returns attributes and nodes to save
--- @param table nodeIdent node ident
--- @return string attributes attributes
--- @return string nodes nodes
--- @includeCode
+--@param table nodeIdent node ident
+--@return string attributes attributes
+--@return string nodes nodes
+--@includeCode
 function Baler:getSaveAttributesAndNodes(nodeIdent)
     
     local attributes = 'numBales="' .. table.getn(self.baler.bales) .. '"'
@@ -414,8 +414,8 @@ function Baler:keyEvent(unicode, sym, modifier, isDown)
 end
 
 ---Called on update
--- @param float dt time since last call in ms
--- @includeCode
+--@param float dt time since last call in ms
+--@includeCode
 function Baler:update(dt)
     
     if self.firstTimeRun and self.baler.balesToLoad ~= nil then
@@ -469,8 +469,8 @@ function Baler:update(dt)
 end
 
 ---Called on update tick
--- @param float dt time since last call in ms
--- @includeCode
+--@param float dt time since last call in ms
+--@includeCode
 function Baler:updateTick(dt)
     self.baler.isSpeedLimitActive = false
     
@@ -501,7 +501,7 @@ function Baler:updateTick(dt)
                             local deltaLevel = totalLiters * self.baler.fillScale
                             
                             if self.baler.baleUnloadAnimationName == nil then
-                                -- move all bales
+                                --move all bales
                                 local deltaTime = self:getTimeFromLevel(deltaLevel)
                                 self:moveBales(deltaTime)
                             end
@@ -510,7 +510,7 @@ function Baler:updateTick(dt)
                             self:setUnitFillLevel(self.baler.fillUnitIndex, oldFillLevel + deltaLevel, usedFillType, true)
                             if self:getUnitFillLevel(self.baler.fillUnitIndex) >= self:getUnitCapacity(self.baler.fillUnitIndex) then
                                 if self.baler.baleTypes ~= nil then
-                                    -- create bale
+                                    --create bale
                                     if self.baler.baleAnimCurve ~= nil then
                                         local restDeltaFillLevel = deltaLevel - (self:getUnitFillLevel(self.baler.fillUnitIndex) - oldFillLevel)
                                         self:setUnitFillLevel(self.baler.fillUnitIndex, restDeltaFillLevel, usedFillType, true)
@@ -521,7 +521,7 @@ function Baler:updateTick(dt)
                                         local bale = self.baler.bales[numBales]
                                         
                                         self:moveBale(numBales, self:getTimeFromLevel(restDeltaFillLevel), true)
-                                        -- note: self.baler.bales[numBales] can not be accessed anymore since the bale might be dropped already
+                                        --note: self.baler.bales[numBales] can not be accessed anymore since the bale might be dropped already
                                         g_server:broadcastEvent(BalerCreateBaleEvent:new(self, usedFillType, bale.time), nil, nil, self)
                                     elseif self.baler.baleUnloadAnimationName ~= nil then
                                         
@@ -595,7 +595,7 @@ function Baler:updateTick(dt)
             end
             
             if self:getIsTurnedOn() and self:getUnitFillLevel(self.baler.fillUnitIndex) > (self:getUnitCapacity(self.baler.fillUnitIndex) * 0.68) and self:getUnitFillLevel(self.baler.fillUnitIndex) < self:getUnitCapacity(self.baler.fillUnitIndex) then
-                -- start alarm sound
+                --start alarm sound
                 if self:getIsActiveForSound() then
                     SoundUtil.playSample(self.baler.sampleBalerAlarm, 0, 0, nil)
                 end
@@ -642,7 +642,7 @@ function Baler:updateTick(dt)
 end
 
 ---Called on draw
--- @includeCode
+--@includeCode
 function Baler:draw()
     if self.isClient then
         if self:getIsActiveForInput(true) then
@@ -664,9 +664,9 @@ function Baler:draw()
 end
 
 ---Returns if fold is allowed
--- @param boolean onAiTurnOn called on ai turn on
--- @return boolean allowsFold allows folding
--- @includeCode
+--@param boolean onAiTurnOn called on ai turn on
+--@return boolean allowsFold allows folding
+--@includeCode
 function Baler:getIsFoldAllowed(superFunc, onAiTurnOn)
     if (table.getn(self.baler.bales) > 0 and self:getUnitFillLevel(self.baler.fillUnitIndex) > self.baler.baleFoldThreshold) or table.getn(self.baler.bales) > 1 or self:getIsTurnedOn() then
         return false
@@ -680,7 +680,7 @@ function Baler:getIsFoldAllowed(superFunc, onAiTurnOn)
 end
 
 ---Called on deactivate
--- @includeCode
+--@includeCode
 function Baler:onDeactivate()
     if self.baler.balingAnimationName ~= "" then
         self:stopAnimation(self.baler.balingAnimationName, true)
@@ -698,7 +698,7 @@ function Baler:onDeactivate()
 end
 
 ---Called on deactivating sounds
--- @includeCode
+--@includeCode
 function Baler:onDeactivateSounds()
     if self.isClient then
         SoundUtil.stopSample(self.baler.sampleBaler, true)
@@ -710,12 +710,12 @@ function Baler:onDeactivateSounds()
 end
 
 ---Set unit fill level
--- @param integer fillUnitIndex index of fill unit
--- @param float fillLevel new fill level
--- @param integer fillType fill type
--- @param boolean force force action
--- @param table fillInfo fill info for fill volume
--- @includeCode
+--@param integer fillUnitIndex index of fill unit
+--@param float fillLevel new fill level
+--@param integer fillType fill type
+--@param boolean force force action
+--@param table fillInfo fill info for fill volume
+--@includeCode
 function Baler:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)
     if fillUnitIndex == self.baler.fillUnitIndex then
         if self.baler.dummyBale.baleNode ~= nil and fillLevel > 0 and fillLevel < self:getUnitCapacity(fillUnitIndex) and (self.baler.dummyBale.currentBale == nil or self.baler.dummyBale.currentBaleFillType ~= fillType) then
@@ -748,8 +748,8 @@ function Baler:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillI
 end
 
 ---Called on turn on
--- @param boolean noEventSend no event send
--- @includeCode
+--@param boolean noEventSend no event send
+--@includeCode
 function Baler:onTurnedOn(noEventSend)
     if self.setFoldState ~= nil then
         self:setFoldState(-1)
@@ -760,8 +760,8 @@ function Baler:onTurnedOn(noEventSend)
 end
 
 ---Called on turn off
--- @param boolean noEventSend no event send
--- @includeCode
+--@param boolean noEventSend no event send
+--@includeCode
 function Baler:onTurnedOff(noEventSend)
     if self.baler.balingAnimationName ~= "" then
         self:stopAnimation(self.baler.balingAnimationName, true)
@@ -779,8 +779,8 @@ function Baler:onTurnedOff(noEventSend)
 end
 
 ---Returns if speed limit should be checked
--- @return boolean checkSpeedlimit check speed limit
--- @includeCode
+--@return boolean checkSpeedlimit check speed limit
+--@includeCode
 function Baler:doCheckSpeedLimit(superFunc)
     local parent = false
     if superFunc ~= nil then
@@ -791,8 +791,8 @@ function Baler:doCheckSpeedLimit(superFunc)
 end
 
 ---Returns if unloading is allowed
--- @return boolean isAllowed unloading is allowed
--- @includeCode
+--@return boolean isAllowed unloading is allowed
+--@includeCode
 function Baler:isUnloadingAllowed()
     if self.hasBaleWrapper == nil or not self.hasBaleWrapper then
         return not self.baler.allowsBaleUnloading or (self.baler.allowsBaleUnloading and not self:getIsTurnedOn() and not self.baler.isBaleUnloading)
@@ -802,9 +802,9 @@ function Baler:isUnloadingAllowed()
 end
 
 ---Set bale unloading
--- @param boolean isUnloadingBale is unloading bale
--- @param boolean noEventSend no event send
--- @includeCode
+--@param boolean isUnloadingBale is unloading bale
+--@param boolean noEventSend no event send
+--@includeCode
 function Baler:setIsUnloadingBale(isUnloadingBale, noEventSend)
     if self.baler.baleUnloadAnimationName ~= nil then
         if isUnloadingBale then
@@ -836,12 +836,12 @@ function Baler:setIsUnloadingBale(isUnloadingBale, noEventSend)
 end
 
 ---Returns time on animation depending on fill level
--- @param float level current bale fill level
--- @float float time animation time
--- @includeCode
+--@param float level current bale fill level
+--@float float time animation time
+--@includeCode
 function Baler:getTimeFromLevel(level)
-    -- level = capacity -> time = firstBaleMarker
-    -- level = 0           -> time = 0
+    --level = capacity -> time = firstBaleMarker
+    --level = 0           -> time = 0
     if self.baler.firstBaleMarker ~= nil then
         return level / self:getCapacity() * self.baler.firstBaleMarker
     end
@@ -849,8 +849,8 @@ function Baler:getTimeFromLevel(level)
 end
 
 ---Move bales
--- @param float dt time since last call in ms
--- @includeCode
+--@param float dt time since last call in ms
+--@includeCode
 function Baler:moveBales(dt)
     for i = table.getn(self.baler.bales), 1, -1 do
         self:moveBale(i, dt)
@@ -858,20 +858,20 @@ function Baler:moveBales(dt)
 end
 
 ---Move bale
--- @param integer i index of bale to move
--- @param float dt time since last call in ms
--- @param boolean noEventSend no event send
--- @includeCode
+--@param integer i index of bale to move
+--@param float dt time since last call in ms
+--@param boolean noEventSend no event send
+--@includeCode
 function Baler:moveBale(i, dt, noEventSend)
     local bale = self.baler.bales[i]
     self:setBaleTime(i, bale.time + dt, noEventSend)
 end
 
 ---Set bale animation time
--- @param integer i index of bale to move
--- @param float baleTime new bale time
--- @param boolean noEventSend no event send
--- @includeCode
+--@param integer i index of bale to move
+--@param float baleTime new bale time
+--@param boolean noEventSend no event send
+--@includeCode
 function Baler:setBaleTime(i, baleTime, noEventSend)
     if self.baler.baleAnimCurve ~= nil then
         local bale = self.baler.bales[i]
@@ -901,16 +901,16 @@ function Baler:setBaleTime(i, baleTime, noEventSend)
 end
 
 ---Returns if fill type is allowed
--- @param integer fillType fill type
--- @return boolean isAllowed fill type is allowed
--- @includeCode
+--@param integer fillType fill type
+--@return boolean isAllowed fill type is allowed
+--@includeCode
 function Baler:allowFillType(fillType)
     return self.baler.pickupFillTypes[fillType] ~= nil
 end
 
 ---Returns if picking up is allowed
--- @return boolean isAllowed picking up is allowed
--- @includeCode
+--@return boolean isAllowed picking up is allowed
+--@includeCode
 function Baler:allowPickingUp(superFunc)
     if self.baler.baleUnloadAnimationName ~= nil then
         if table.getn(self.baler.bales) > 0 or self.baler.unloadingState ~= Baler.UNLOADING_CLOSED then
@@ -925,9 +925,9 @@ function Baler:allowPickingUp(superFunc)
 end
 
 ---Create new bale in baler
--- @param integer baleFillType fill type of bale to create
--- @param float fillLevel fill level of bale
--- @includeCode
+--@param integer baleFillType fill type of bale to create
+--@param float fillLevel fill level of bale
+--@includeCode
 function Baler:createBale(baleFillType, fillLevel)
     
     if self.baler.knotingAnimation ~= nil then
@@ -990,8 +990,8 @@ function Baler:createBale(baleFillType, fillLevel)
 end
 
 ---Drop bale
--- @param integer baleIndex index of bale
--- @includeCode
+--@param integer baleIndex index of bale
+--@includeCode
 function Baler:dropBale(baleIndex)
     local bale = self.baler.bales[baleIndex]
     
@@ -1013,12 +1013,12 @@ function Baler:dropBale(baleIndex)
         end
         
         if (not self.hasBaleWrapper or self.moveBaleToWrapper == nil) and baleObject.nodeId ~= nil then
-            -- release bale if there's no bale wrapper
+            --release bale if there's no bale wrapper
             local x, y, z = getWorldTranslation(baleObject.nodeId)
             local vx, vy, vz = getVelocityAtWorldPos(self.baler.baleAnimRootComponent, x, y, z)
             setLinearVelocity(baleObject.nodeId, vx, vy, vz)
         elseif self.moveBaleToWrapper ~= nil then
-            -- move bale to wrapper
+            --move bale to wrapper
             self:moveBaleToWrapper(baleObject)
         end
     end
@@ -1030,9 +1030,9 @@ function Baler:dropBale(baleIndex)
 end
 
 ---Returns if turn on is allowed
--- @param boolean isTurnedOn is turned on
--- @return boolean allow allow turn on
--- @includeCode
+--@param boolean isTurnedOn is turned on
+--@return boolean allow allow turn on
+--@includeCode
 function Baler:getIsTurnedOnAllowed(superFunc, isTurnedOn)
     if isTurnedOn and self.baler.isBaleUnloading then
         return false
@@ -1046,11 +1046,11 @@ function Baler:getIsTurnedOnAllowed(superFunc, isTurnedOn)
 end
 
 ---Loads work areas from xml
--- @param table workArea workArea
--- @param integer xmlFile id of xml object
--- @param string key key
--- @return boolean success success
--- @includeCode
+--@param table workArea workArea
+--@param integer xmlFile id of xml object
+--@param string key key
+--@return boolean success success
+--@includeCode
 function Baler:loadWorkAreaFromXML(superFunc, workArea, xmlFile, key)
     local retValue = true
     if superFunc ~= nil then
@@ -1065,11 +1065,11 @@ function Baler:loadWorkAreaFromXML(superFunc, workArea, xmlFile, key)
 end
 
 ---Loads speed rotating parts from xml
--- @param table speedRotatingPart speedRotatingPart
--- @param integer xmlFile id of xml object
--- @param string key key
--- @return boolean success success
--- @includeCode
+--@param table speedRotatingPart speedRotatingPart
+--@param integer xmlFile id of xml object
+--@param string key key
+--@return boolean success success
+--@includeCode
 function Baler:loadSpeedRotatingPartFromXML(superFunc, speedRotatingPart, xmlFile, key)
     if superFunc ~= nil then
         if not superFunc(self, speedRotatingPart, xmlFile, key) then
@@ -1083,9 +1083,9 @@ function Baler:loadSpeedRotatingPartFromXML(superFunc, speedRotatingPart, xmlFil
 end
 
 ---Returns true if speed rotating part is active
--- @param table speedRotatingPart speedRotatingPart
--- @return boolean isActive speed rotating part is active
--- @includeCode
+--@param table speedRotatingPart speedRotatingPart
+--@return boolean isActive speed rotating part is active
+--@includeCode
 function Baler:getIsSpeedRotatingPartActive(superFunc, speedRotatingPart)
     if speedRotatingPart.rotateOnlyIfFillLevelIncreased ~= nil then
         if speedRotatingPart.rotateOnlyIfFillLevelIncreased and not self.baler.lastAreaBiggerZero then
@@ -1100,18 +1100,18 @@ function Baler:getIsSpeedRotatingPartActive(superFunc, speedRotatingPart)
 end
 
 ---Returns default speed limit
--- @return float speedLimit speed limit
--- @includeCode
+--@return float speedLimit speed limit
+--@includeCode
 function Baler.getDefaultSpeedLimit()
     return 25
 end
 
 ---Process baler areas
--- @param table workAreas work areas to process
--- @param table fillTypes fill types
--- @return float totalLiters total liters picked up
--- @return integer usedFillType fill type picked up
--- @includeCode
+--@param table workAreas work areas to process
+--@param table fillTypes fill types
+--@return float totalLiters total liters picked up
+--@return integer usedFillType fill type picked up
+--@includeCode
 function Baler:processBalerAreas(workAreas, fillTypes)
     
     local totalLiters = 0

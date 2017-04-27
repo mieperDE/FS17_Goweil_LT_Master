@@ -1,9 +1,9 @@
 --
--- Goweil LT Master
+--Goweil LT Master
 --
--- Team FSI Modding
+--TyKonKet (Team FSI Modding)
 --
--- 19/04/2017
+--19/04/2017
 LadderStatusEvent = {};
 LadderStatusEvent_mt = Class(LadderStatusEvent, Event);
 InitEventClass(LadderStatusEvent, "LadderStatusEvent");

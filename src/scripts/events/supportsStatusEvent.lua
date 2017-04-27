@@ -1,9 +1,9 @@
 --
--- Goweil LT Master
+--Goweil LT Master
 --
--- Team FSI Modding
+--TyKonKet (Team FSI Modding)
 --
--- 19/04/2017
+--19/04/2017
 SupportsStatusEvent = {};
 SupportsStatusEvent_mt = Class(SupportsStatusEvent, Event);
 InitEventClass(SupportsStatusEvent, "SupportsStatusEvent");

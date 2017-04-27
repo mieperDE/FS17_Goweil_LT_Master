@@ -112,7 +112,7 @@
     <inputAttacherJoints>
         <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5"/>
     </inputAttacherJoints>
-    <!-- settings for receivingHopper-->
+    <!--settings for receivingHopper-->
     <fillRootNode index="0>7" />
     <fillMassNode updateFillLevelMass="false" />
     <exactFillRootNode index="0>8|6" />
@@ -149,7 +149,7 @@
         <foldingPart animationName="folding" speedScale="1" />
     </foldingParts>
     <animations>
-        <!-- move support down/up -->
+        <!--move support down/up -->
         <animation name="moveSupport">
             <part node="0>5|0|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.57 0"/>
             <part node="0>5|1|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.57 0"/>
@@ -157,54 +157,54 @@
             <part node="0>5|3|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.518 0"/>
         </animation>
         <animation name="folding">
-            <!-- timone -->
+            <!--timone -->
             <part node="0>20" startTime="0" duration="3" startRot="0 0 0" endRot="0 -30 0"/>
-            <!-- stabilizzatori -->
+            <!--stabilizzatori -->
             <part node="0>5|0|0" startTime="2.5" duration="0.55" startTrans="0 -0.164 0" endTrans="0 -0.57 0"/>
             <part node="0>5|1|0" startTime="2.5" duration="0.65" startTrans="0 -0.164 0" endTrans="0 -0.57 0"/>
             <part node="0>5|2|0" startTime="2.5" duration="0.6" startTrans="0 -0.164 0" endTrans="0 -0.518 0"/>
             <part node="0>5|3|0" startTime="2.5" duration="0.7" startTrans="0 -0.164 0" endTrans="0 -0.518 0"/>
-            <!-- scivoloUP -->
+            <!--scivoloUP -->
             <part node="0>7" startTime="3" duration="5" startRot="-43.9 0 0" endRot="-30.624 0 0" />
             <part node="0>7" startTime="8" duration="6" startRot="-30.624 0 0" endRot="-16.2 0 0" />
             <part node="0>7" startTime="3" duration="5" startTrans="0 3.95 -0.482" endTrans="0 2.394 -2.019" />
             <part node="0>7" startTime="8" duration="6" startTrans="0 2.394 -2.019" endTrans="0 1.449 -2.741" />
-            <!-- apertura_scivoloUP-->
+            <!--apertura_scivoloUP-->
             <part node="0>7|4|0" startTime="14" duration="2" startRot="0 0 0" endRot="0 0 90" />
             <part node="0>7|4|1" startTime="14" duration="2" startRot="0 0 0" endRot="0 0 -90" />
-            <!-- sponde_scivolo1-->
+            <!--sponde_scivolo1-->
             <part node="0>8|1|1|0" startTime="16" duration="3" startRot="0 84 0" endRot="0 0 0" />
             <part node="0>8|1|0|0" startTime="16" duration="3" startRot="0 -84 0" endRot="0 0 0" />
-            <!-- aperura_Portelli -->
+            <!--aperura_Portelli -->
             <part node="0>15|4" startTime="19.5" duration="1.5" startRot="0 0 90" endRot="0 0 0" />
             <part node="0>15|5" startTime="19" duration="2" startRot="0 0 0" endRot="0 0 90" />
-            <!-- rotoli_rete -->
+            <!--rotoli_rete -->
             <part node="0>15|1" startTime="22" duration="2" startRot="0 0 0" endRot="0 0 65" />
             <part node="0>15|2" startTime="23" duration="1" startRot="180 0 180" endRot="180 0 112" />
-            <!-- scala -->
+            <!--scala -->
             <part node="0>15|7" startTime="24" duration="1" startRot="0 0 0" endRot="0 0 180" />
-            <!-- scarico_balla -->
+            <!--scarico_balla -->
             <part node="0>15|6|0" startTime="5" duration="0.5" startRot="90 0 0" endRot="0 0 0" />
             <part node="0>15|6|1" startTime="5.5" duration="1.5" startRot="-56.698 0 0" endRot="50 0 0" />
-            <!-- luci -->
+            <!--luci -->
             <part node="0>7|4|0|11|0" startTime="13" duration="2" startRot="0 0 0" endRot="0 -80 0" />
             <part node="0>7|4|0|11|0|0" startTime="13" duration="2" startTrans="0 0 0.03" endTrans="0 0 0.065" />
             <part node="0>7|4|1|13|0" startTime="13" duration="2" startRot="0 0 0" endRot="0 -80 0" />
             <part node="0>7|4|1|13|0|0" startTime="13" duration="2" startTrans="0 0 0.03" endTrans="0 0 0.065" />
         </animation>
-        <!-- unload bale - apertura camera -->
+        <!--unload bale - apertura camera -->
         <animation name="unloadBale">
             <part node="0>12" startTime="0" endTime="2" startRot="0 0 0" endRot="-120 0 0" />
             <part node="0>12|5" startTime="0" endTime="2" startRot="0 0 0" endRot="65 0 0" />
-            <!-- unload bale - animazione balla -->
+            <!--unload bale - animazione balla -->
             <part node="0>23" startTime="0" endTime="1" startRot="0 0 0" endRot="25 0 0" startTrans="0 2.632 1.442" endTrans="0 2.062 2.143" />
             <part node="0>23" startTime="1" endTime="1.5" startRot="25 0 0" endRot="40 0 0" startTrans="0 2.062 2.143" endTrans="0.004 2.176 2.617" />
             <part node="0>23" startTime="1.5" endTime="1.75" startRot="40 0 0" endRot="90 0 0" startTrans="0.004 2.176 2.617" endTrans="0 2.047 3.101" />
-            <!-- unload bale - animazione carico wrapper -->
+            <!--unload bale - animazione carico wrapper -->
             <part node="0>10|1" startTime="1.75" endTime="2" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 -1.017" />
             <part node="0>10|1" startTime="2" endTime="2.2" startRot="0 0 0" endRot="-10 0 0" />
         </animation>
-        <!-- close door -->
+        <!--close door -->
         <animation name="closeDoor">
             <part node="0>12" startTime="2.2" endTime="2.5" startRot="-120 0 0" endRot="0 0 0" />
             <part node="0>12|5" startTime="2.2" endTime="2.5" startRot="65 0 0" endRot="0 0 0" />
@@ -215,20 +215,20 @@
     <support animationName="moveSupport"/>
     <movingTools>
         <movingTool index="0>7" wheelIndices="5"/>
-        <!-- timone -->
+        <!--timone -->
         <movingTool index="0>20">
             <inputAttacherJoint value="true" />
         </movingTool>
     </movingTools>
     <movingParts>
-        <!-- piston_scivoloUP -->
+        <!--piston_scivoloUP -->
         <movingPart index="0>7|1|0" referencePoint="0>7|4|1|11" referenceFrame="0>7|4|1|11" isActiveDirty="true">
             <translatingPart index="0>7|1|0|0" />
         </movingPart>
         <movingPart index="0>7|1|1" referencePoint="0>7|4|0|9" referenceFrame="0>7|4|0|9" isActiveDirty="true">
             <translatingPart index="0>7|1|1|1" />
         </movingPart>
-        <!-- sponde_scivolo1-->
+        <!--sponde_scivolo1-->
         <movingPart index="0>8|3|0|0" referencePoint="0>8|1|1|0|3" referenceFrame="0>8|1|1|0|3" isActiveDirty="true">
             <translatingPart index="0>8|3|0|0|1" />
         </movingPart>
@@ -241,7 +241,7 @@
         <movingPart index="0>8|3|3|0" referencePoint="0>8|1|0|0|4" referenceFrame="0>8|1|0|0|4" isActiveDirty="true">
             <translatingPart index="0>8|3|3|0|1" />
         </movingPart>
-        <!-- portelli -->
+        <!--portelli -->
         <movingPart index="0>15|0|0" referencePoint="0>15|4|4" referenceFrame="0>15|4|4" isActiveDirty="true">
             <translatingPart index="0>15|0|0|1" />
         </movingPart>
@@ -254,7 +254,7 @@
         <movingPart index="0>15|0|3" referencePoint="0>15|5|5" referenceFrame="0>15|5|5" isActiveDirty="true">
             <translatingPart index="0>15|0|3|1" />
         </movingPart>
-        <!-- rotoli	-->
+        <!--rotoli	-->
         <movingPart index="0>15|0|4" referencePoint="0>15|2|6" referenceFrame="0>15|2|6" isActiveDirty="true">
             <translatingPart index="0>15|0|4|0" />
         </movingPart>
@@ -319,7 +319,7 @@
         </fillParticleSystems>
     </baler>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4"/>
-    <!-- <components count="1"><component1 centerOfMass="0 1.2 0" solverIterationCount="10"/></components> -->
+    <!--<components count="1"><component1 centerOfMass="0 1.2 0" solverIterationCount="10"/></components> -->
     <components count="1">
         <component1 centerOfMass="0 0.6 -0.5" solverIterationCount="10" />
     </components>

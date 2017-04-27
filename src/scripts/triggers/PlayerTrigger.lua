@@ -1,9 +1,9 @@
 --
--- Goweil LT Master
+--Goweil LT Master
 --
--- Team FSI Modding
+--TyKonKet (Team FSI Modding)
 --
--- 18/04/2017
+--18/04/2017
 PlayerTriggers = {};
 PlayerTriggers.triggers = {};
 

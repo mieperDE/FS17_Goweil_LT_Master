@@ -13,39 +13,42 @@
         <de>Goweil LT Master</de>
     </description>
     <iconFilename>store.dds</iconFilename>
-    <multiplayer supported="true"/>
+    <multiplayer supported="true" />
     <brands>
-        <brand name="GOWEIL" title="$l10n_shopItemBrand_Goweil" image="brand_goweil.dds"/>
+        <brand name="GOWEIL" title="$l10n_shopItemBrand_Goweil" image="brand_goweil.dds" />
     </brands>
     <storeItems>
-        <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle"/>
+        <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle" />
     </storeItems>
     <extraSourceFiles>
-        <sourceFile filename="scripts/triggers/PlayerTrigger.lua"/>
+        <sourceFile filename="scripts/triggers/PlayerTrigger.lua" />
+        <sourceFile filename="scripts/triggers/LTMasterTipTrigger.lua" />
+        <sourceFile filename="scripts/helpers/globalFunctions.lua" />
+        <sourceFile filename="scripts/helpers/delayedCallBack.lua" />
+        <sourceFile filename="scripts/effects/LTMasterConveyorEffect.lua" />
     </extraSourceFiles>
     <specializations>
-        <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua"/>
+        <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua" />
     </specializations>
     <vehicleTypes>
         <type name="goweil" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
-        <specialization name="attacherJoints" />
-        <specialization name="lights" />
-    <specialization name="workArea" />
-        <specialization name="speedRotatingParts" />
-        <specialization name="attachable" />
-        <specialization name="turnOnVehicle" />
-        <specialization name="animatedVehicle" />
-        <specialization name="cylindered" />
-        <specialization name="foldable" />
-        <specialization name="fillable" />
-        <specialization name="fillVolume" />
-    <specialization name="pickup" />
-    <specialization name="baler" />
-        <specialization name="powerConsumer" />
-        <specialization name="washable" />
-        <specialization name="mountable" />	
-		<specialization name="ltmaster" />
-
+            <specialization name="attacherJoints" />
+            <specialization name="lights" />
+            <specialization name="workArea" />
+            <specialization name="speedRotatingParts" />
+            <specialization name="attachable" />
+            <specialization name="turnOnVehicle" />
+            <specialization name="animatedVehicle" />
+            <specialization name="cylindered" />
+            <specialization name="foldable" />
+            <specialization name="fillable" />
+            <specialization name="fillVolume" />
+            <specialization name="pickup" />
+            <specialization name="baler" />
+            <specialization name="powerConsumer" />
+            <specialization name="washable" />
+            <specialization name="mountable" />
+            <specialization name="ltmaster" />
         </type>
     </vehicleTypes>
     <inputBindings></inputBindings>

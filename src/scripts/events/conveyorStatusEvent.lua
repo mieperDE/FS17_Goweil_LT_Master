@@ -1,9 +1,9 @@
 --
--- Goweil LT Master
+--Goweil LT Master
 --
--- Team FSI Modding
+--TyKonKet (Team FSI Modding)
 --
--- 26/04/2017
+--26/04/2017
 ConveyorStatusEvent = {};
 ConveyorStatusEvent_mt = Class(ConveyorStatusEvent, Event);
 InitEventClass(ConveyorStatusEvent, "ConveyorStatusEvent");

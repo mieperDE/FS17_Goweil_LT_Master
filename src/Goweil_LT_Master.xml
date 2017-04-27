@@ -118,7 +118,7 @@
         <foldingPart animationName="folding" />
     </foldingParts>
     <animations>
-        <!-- move support down/up -->
+        <!--move support down/up -->
         <animation name="moveSupport">
             <!--<part node="0>5|0|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.57 0" /><part node="0>5|1|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.57 0" /><part node="0>5|2|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.518 0" /><part node="0>5|3|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.518 0" />-->
         </animation>
@@ -129,42 +129,42 @@
             <part node="0>5|3|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
         </animation>
         <animation name="folding">
-            <!-- timone -->
+            <!--timone -->
             <part node="0>20" startTime="0" duration="3" startRot="0 30 0" endRot="0 0 0" />
         </animation>
         <animation name="folding2">
-            <!-- scivoloUP -->
+            <!--scivoloUP -->
             <part node="0>7" startTime="0" duration="5" startRot="-43.9 0 0" endRot="-30.624 0 0" />
             <part node="0>7" startTime="5" duration="6" startRot="-30.624 0 0" endRot="-16.2 0 0" />
             <part node="0>7" startTime="0" duration="5" startTrans="0 3.95 -0.482" endTrans="0 2.394 -2.019" />
             <part node="0>7" startTime="5" duration="6" startTrans="0 2.394 -2.019" endTrans="0 1.449 -2.741" />
-            <!-- apertura_scivoloUP-->
+            <!--apertura_scivoloUP-->
             <part node="0>7|4|0" startTime="11" duration="2" startRot="0 0 0" endRot="0 0 90" />
             <part node="0>7|4|1" startTime="11" duration="2" startRot="0 0 0" endRot="0 0 -90" />
-            <!-- sponde_scivolo1-->
+            <!--sponde_scivolo1-->
             <part node="0>8|1|1|0" startTime="13" duration="3" startRot="0 84 0" endRot="0 0 0" />
             <part node="0>8|1|0|0" startTime="13" duration="3" startRot="0 -84 0" endRot="0 0 0" />
-            <!-- rotoli_rete -->
+            <!--rotoli_rete -->
             <part node="0>15|2" startTime="20" duration="1" startRot="180 0 180" endRot="180 0 112" />
-            <!-- luci -->
+            <!--luci -->
             <part node="0>7|4|0|11|0" startTime="10" duration="2" startRot="0 0 0" endRot="0 -80 0" />
             <part node="0>7|4|0|11|0|0" startTime="10" duration="2" startTrans="0 0 0.03" endTrans="0 0 0.065" />
             <part node="0>7|4|1|13|0" startTime="10" duration="2" startRot="0 0 0" endRot="0 -80 0" />
             <part node="0>7|4|1|13|0|0" startTime="10" duration="2" startTrans="0 0 0.03" endTrans="0 0 0.065" />
         </animation>
         <animation name="leftDoor">
-            <!-- portone sinistro up/down -->
+            <!--portone sinistro up/down -->
             <part node="0>15|5" startTime="0.25" duration="0.25" startRot="0 0 0" endRot="0 0 20" />
             <part node="0>15|5" startTime="0.5" duration="2.7" startRot="0 0 20" endRot="0 0 90" />
         </animation>
         <animation name="rightDoor">
-            <!-- portone destro up/down -->
+            <!--portone destro up/down -->
             <part node="0>15|4" startTime="0.25" duration="0.25" startRot="0 0 90" endRot="0 0 70" />
             <part node="0>15|4" startTime="0.5" duration="2.7" startRot="0 0 70" endRot="0 0 0" />
             <part node="0>15|1" startTime="2.8" duration="1" startRot="0 0 0" endRot="0 0 65" />
         </animation>
         <animation name="unloadSide">
-            <!-- apertura/chiusura scivoloUP-->
+            <!--apertura/chiusura scivoloUP-->
             <part node="0>7|4|0" startTime="0" duration="5" startRot="0 0 90" endRot="0 0 15" />
             <part node="0>7|4|1" startTime="0" duration="5" startRot="0 0 -90" endRot="0 0 -15" />
             <part node="0>7|4|0" startTime="5" duration="2" startRot="0 0 15" endRot="0 0 15" />
@@ -173,24 +173,24 @@
             <part node="0>7|4|1" startTime="7" duration="5" startRot="0 0 -15" endRot="0 0 -90" />
         </animation>
         <animation name="ladder">
-            <!-- scala -->
+            <!--scala -->
             <part node="0>15|7" startTime="0" duration="2" startRot="0 0 0" endRot="0 0 180" />
         </animation>
         <animation name="baleSlide">
-            <!-- scarico_balla -->
+            <!--scarico_balla -->
             <part node="0>15|6|0" startTime="0" duration="0.75" startRot="90 0 0" endRot="0 0 0" />
             <part node="0>15|6|1" startTime="0.5" duration="2" startRot="-56.698 0 0" endRot="50 0 0" />
         </animation>
     </animations>
     <movingParts>
-        <!-- piston_scivoloUP -->
+        <!--piston_scivoloUP -->
         <movingPart index="0>7|1|0" referencePoint="0>7|4|1|11" referenceFrame="0>7|4|1|11" isActiveDirty="true">
             <translatingPart index="0>7|1|0|0" />
         </movingPart>
         <movingPart index="0>7|1|1" referencePoint="0>7|4|0|9" referenceFrame="0>7|4|0|9" isActiveDirty="true">
             <translatingPart index="0>7|1|1|1" />
         </movingPart>
-        <!-- sponde_scivolo1-->
+        <!--sponde_scivolo1-->
         <movingPart index="0>8|3|0|0" referencePoint="0>8|1|1|0|3" referenceFrame="0>8|1|1|0|3" isActiveDirty="true">
             <translatingPart index="0>8|3|0|0|1" />
         </movingPart>
@@ -203,7 +203,7 @@
         <movingPart index="0>8|3|3|0" referencePoint="0>8|1|0|0|4" referenceFrame="0>8|1|0|0|4" isActiveDirty="true">
             <translatingPart index="0>8|3|3|0|1" />
         </movingPart>
-        <!-- portelli -->
+        <!--portelli -->
         <movingPart index="0>15|0|0" referencePoint="0>15|4|4" referenceFrame="0>15|4|4" isActiveDirty="true">
             <translatingPart index="0>15|0|0|1" />
         </movingPart>
@@ -216,7 +216,7 @@
         <movingPart index="0>15|0|3" referencePoint="0>15|5|5" referenceFrame="0>15|5|5" isActiveDirty="true">
             <translatingPart index="0>15|0|3|1" />
         </movingPart>
-        <!-- rotoli	-->
+        <!--rotoli	-->
         <movingPart index="0>15|0|4" referencePoint="0>15|2|6" referenceFrame="0>15|2|6" isActiveDirty="true">
             <translatingPart index="0>15|0|4|0" />
         </movingPart>
@@ -227,7 +227,7 @@
     <support animationName="moveSupport" />
     <movingTools>
         <movingTool index="0>7" wheelIndices="5" />
-        <!-- timone -->
+        <!--timone -->
         <movingTool index="0>20">
             <inputAttacherJoint value="true" />
         </movingTool>
@@ -313,7 +313,7 @@
                 <uvScrollPart index="0>8|4|2" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </uvScrollParts>
             <effects>
-                <effectNode effectClass="ConveyorBeltEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="3" speed="0.9" scrollLength="9" scrollSpeed="0.8" />
+                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|2" materialType="belt" delay="0" fadeTime="3" speed="0.09" scrollLength="9" scrollSpeed="0.08" />
             </effects>
         </conveyor>
     </LTMaster>

@@ -1,7 +1,7 @@
 --
 --Goweil LT Master
 --
---Team FSI Modding
+--TyKonKet (Team FSI Modding)
 --
 --20/04/2017
 function LTMaster:applyInitialAnimation()

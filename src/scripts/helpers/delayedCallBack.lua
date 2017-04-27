@@ -1,8 +1,8 @@
 --
--- DelayedCallBack
+--DelayedCallBack
 --
--- @author TyKonKet
--- @date  08/03/17
+--@author TyKonKet
+--@date  08/03/17
 DelayedCallBack = {};
 local DelayedCallBack_mt = Class(DelayedCallBack);
 

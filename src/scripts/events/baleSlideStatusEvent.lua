@@ -1,9 +1,9 @@
 --
--- Goweil LT Master
+--Goweil LT Master
 --
--- Team FSI Modding
+--TyKonKet (Team FSI Modding)
 --
--- 19/04/2017
+--19/04/2017
 BaleSlideStatusEvent = {};
 BaleSlideStatusEvent_mt = Class(BaleSlideStatusEvent, Event);
 InitEventClass(BaleSlideStatusEvent, "BaleSlideStatusEvent");
