@@ -31,6 +31,7 @@ source(g_currentModDirectory .. "scripts/events/ladderStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/baleSlideStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/sideUnloadEvent.lua");
 source(g_currentModDirectory .. "scripts/events/conveyorStatusEvent.lua");
+source(g_currentModDirectory .. "scripts/events/balerCreateBaleEvent.lua");
 
 function LTMaster.print(text, ...)
     if LTMaster.debug then
@@ -60,6 +61,7 @@ function LTMaster:load(savegame)
     self.getTurnedOnNotAllowedWarning = Utils.overwrittenFunction(self.getTurnedOnNotAllowedWarning, LTMaster.getTurnedOnNotAllowedWarning);
     self.getConsumedPtoTorque = Utils.overwrittenFunction(self.getConsumedPtoTorque, LTMaster.getConsumedPtoTorque);
     self.getPtoRpm = Utils.overwrittenFunction(self.getPtoRpm, LTMaster.getPtoRpm);
+    self.getIsFoldAllowed = Utils.overwrittenFunction(self.getIsFoldAllowed, LTMaster.getIsFoldAllowed);
     
     self.LTMaster = {};
     
@@ -264,6 +266,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
 end
 
 function LTMaster:update(dt)
+    LTMaster.updateBaler(self, dt);
     self.LTMaster.hoods.delayedUpdateHoodStatus:update(dt);
     self.LTMaster.supports.delayedUpdateSupportsStatus:update(dt);
     self.LTMaster.folding.delayedUpdateFoldingStatus:update(dt);
@@ -294,19 +297,10 @@ function LTMaster:update(dt)
 end
 
 function LTMaster:updateTick(dt)
+    LTMaster.updateTickBaler(self, dt);
     local normalizedDt = dt / 1000;
     PlayerTriggers:update();
     if self.isServer then
-        self.LTMaster.conveyor.isOverloading = false;
-        if self:getIsTurnedOn() then
-            self.LTMaster.conveyor.isOverloading = true;
-            local fillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
-            local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
-            local delta = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
-            if delta > 0 then
-                self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - delta, fillType);
-            end
-        end
         if self.LTMaster.sideUnload.isUnloading then
             for _, fillUnit in pairs({self.LTMaster.fillUnits["left"], self.LTMaster.fillUnits["right"]}) do
                 local fillType = self:getUnitLastValidFillType(fillUnit.index);
@@ -370,17 +364,24 @@ function LTMaster:unloadSide()
     self.LTMaster.sideUnload.isUnloading = true;
 end
 
---function LTMaster:setConveyorStatus(isTurnedOn)
---    self.LTMaster.conveyor.isTurnedOn = isTurnedOn;
---end
-function LTMaster:getIsTurnedOnAllowed(superFunc, isTurnOn)
-    if isTurnOn then
+function LTMaster:getIsFoldAllowed(superFunc, onAiTurnOn)
+    if self:getIsTurnedOn() then
+        return false;
+    end
+    if superFunc ~= nil then
+        return superFunc(self, onAiTurnOn)
+    end
+    return true;
+end
+
+function LTMaster:getIsTurnedOnAllowed(superFunc, isTurnedOn)
+    if isTurnedOn then
         if self.LTMaster.folding.status ~= LTMaster.STATUS_FU_UNFOLDED then
             return false;
         end
     end
     if superFunc ~= nil then
-        return superFunc(self, isTurnOn);
+        return superFunc(self, isTurnedOn);
     end
     return true;
 end
