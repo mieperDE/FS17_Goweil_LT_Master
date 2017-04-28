@@ -297,8 +297,8 @@ function LTMaster:update(dt)
 end
 
 function LTMaster:updateTick(dt)
-    LTMaster.updateTickBaler(self, dt);
     local normalizedDt = dt / 1000;
+    LTMaster.updateTickBaler(self, dt, normalizedDt);
     PlayerTriggers:update();
     if self.isServer then
         if self.LTMaster.sideUnload.isUnloading then
@@ -354,6 +354,7 @@ function LTMaster:updateTick(dt)
 end
 
 function LTMaster:draw()
+    LTMaster.drawBaler(self);
 end
 
 function LTMaster:unloadSide()

@@ -141,13 +141,30 @@ function LTMaster:updateBaler(dt)
         self:createBale(v.fillType, v.fillLevel);
         self.LTMaster.baler.balesToLoad = nil;
     end
+    if self:getIsActiveForInput() then
+        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
+            if self:isUnloadingAllowed() then
+                if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+                    if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
+                        if table.getn(self.LTMaster.baler.bales) > 0 then
+                            self:setIsUnloadingBale(true);
+                        end
+                    elseif self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
+                        if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+                            self:setIsUnloadingBale(false);
+                        end
+                    end
+                end
+            end
+        end
+    end
     if self.isClient then
         Utils.updateRotationNodes(self, self.LTMaster.baler.turnedOnRotationNodes, dt, self:getIsActive() and self:getIsTurnedOn());
         Utils.updateScrollers(self.LTMaster.baler.uvScrollParts, dt, self:getIsActive() and self:getIsTurnedOn());
     end
 end
 
-function LTMaster:updateTickBaler(dt)
+function LTMaster:updateTickBaler(dt, normalizedDt)
     self.LTMaster.conveyor.isOverloading = false;
     if self:getIsActive() then
         if self:getIsTurnedOn() then
@@ -214,6 +231,26 @@ function LTMaster:updateTickBaler(dt)
                 self.LTMaster.baler.unloadingState = Baler.UNLOADING_CLOSED;
                 if self.isClient then
                     SoundUtil.stopSample(self.LTMaster.baler.sampleBalerDoor);
+                end
+            end
+        end
+    end
+end
+
+function LTMaster:drawBaler()
+    if self.isClient then
+        if self:getIsActiveForInput(true) then
+            if self:isUnloadingAllowed() then
+                if self.LTMaster.balerbaleUnloadAnimationName ~= nil then
+                    if self.LTMaster.balerunloadingState == Baler.UNLOADING_CLOSED then
+                        if table.getn(self.LTMaster.balerbales) > 0 then
+                            g_currentMission:addHelpButtonText(g_i18n:getText("action_unloadBaler"), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
+                        end
+                    elseif self.LTMaster.balerunloadingState == Baler.UNLOADING_OPEN then
+                        if self.LTMaster.balerbaleUnloadAnimationName ~= nil then
+                            g_currentMission:addHelpButtonText(g_i18n:getText("action_closeBack"), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
+                        end
+                    end
                 end
             end
         end
