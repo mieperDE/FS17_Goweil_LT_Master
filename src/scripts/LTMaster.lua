@@ -23,6 +23,7 @@ LTMaster.STATUS_FU_FOLDED = 3;
 LTMaster.STATUS_FU_FOLDING = 4;
 
 source(g_currentModDirectory .. "scripts/LTMaster.animations.lua");
+source(g_currentModDirectory .. "scripts/LTMaster.baler.lua");
 source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/supportsStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
@@ -71,6 +72,8 @@ function LTMaster:load(savegame)
     self.LTMaster.fillUnits["left"] = {};
     self.LTMaster.fillUnits["left"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#leftFillUnitIndex"), 3);
     self.LTMaster.fillUnits["left"].unloadSpeed = 0;
+    self.LTMaster.fillUnits["baler"] = {};
+    self.LTMaster.fillUnits["baler"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#fillUnitIndex"), 4);
     
     self.LTMaster.conveyor = {};
     if self.isClient then
@@ -137,10 +140,12 @@ function LTMaster:load(savegame)
     self.LTMaster.baleSlide.status = LTMaster.STATUS_RL_RAISED;
     self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus = DelayedCallBack:new(LTMaster.updateBaleSlideStatus, self);
     self.LTMaster.baleSlide.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baleSlide.sound", nil, self.baseDirectory);
+    LTMaster.loadBaler(self);
 end
 
 function LTMaster:postLoad(savegame)
     --self.setUnitFillLevel = Utils.appendedFunction(self.setUnitFillLevel, LTMaster.setUnitFillLevel);
+    LTMaster.postLoadBaler(self, savegame);
     if self.isServer then
         if savegame ~= nil and not savegame.resetVehicles then
             self.LTMaster.hoods["left"].status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#leftHoodStatus"), self.LTMaster.hoods["left"].status);
@@ -162,8 +167,8 @@ function LTMaster:getSaveAttributesAndNodes(nodeIdent)
     attributes = attributes .. string.format("ladderStatus=\"%s\" ", self.LTMaster.ladder.status);
     attributes = attributes .. string.format("baleSlideStatus=\"%s\" ", self.LTMaster.baleSlide.status);
     --attributes = attributes .. string.format("isConveyorTurnedOn=\"%s\" ", self.LTMaster.conveyor.isTurnedOn);
-    local nodes = nil;
-    return attributes, nodes;
+    local bAttributes, bNodes = LTMaster.getSaveAttributesAndNodesBaler(self, nodeIdent);
+    return attributes .. " " .. bAttributes, bNodes;
 end
 
 function LTMaster:finalizeLoad()
@@ -190,6 +195,7 @@ function LTMaster:delete()
     if self.isClient then
         EffectManager:deleteEffects(self.LTMaster.conveyor.effects);
     end
+    LTMaster.deleteBaler(self);
 end
 
 function LTMaster:mouseEvent(posX, posY, isDown, isUp, button)

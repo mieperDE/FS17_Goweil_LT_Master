@@ -232,26 +232,6 @@
             <inputAttacherJoint value="true" />
         </movingTool>
     </movingTools>
-    <turnedOnRotationNodes>
-        <!--camera-->
-        <turnedOnRotationNode index="0>12|1" type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>12|3" type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>12|4" type="baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <!--camera secondaria-->
-        <turnedOnRotationNode index="0>12|8|0" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>12|8|3" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>12|8|5" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <!--camera terza-->
-        <turnedOnRotationNode index="0>13|0|3" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>13|0|4" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>13|0|5" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>13|0|6" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>13|0|7" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>13|0|8" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <turnedOnRotationNode index="0>13|0|9" type="baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-        <!--rotolo-->
-        <turnedOnRotationNode index="0>15|10|0" type="baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-    </turnedOnRotationNodes>
     <speedRotatingParts>
         <speedRotatingPart index="0>15|8" radius="0.5" refNodeIndex="0" turnOnFadeTime="1" turnOffFadeTime="2" onlyActiveWhenLowered="true" rotateOnlyIfFillLevelIncreased="true" />
     </speedRotatingParts>
@@ -259,6 +239,7 @@
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="12000" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="2" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="3" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="4000" />
     </fillUnits>
     <fillVolumes>
         <volumes>
@@ -318,11 +299,56 @@
                 <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
             </effects>
         </conveyor>
+        <baler fillUnitIndex="4">
+            <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
+            <balerBaleEject file="$data/sounds/rollBelt150Eject.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
+            <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="0.98" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
+            <baleAnimation node="0>9|0" scaleNode="0>9" baleNode="0>9|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" baleDropAnimTime="2.9" />
+            <knotingAnimation name="knoting" />
+            <baleTypes>
+                <baleType width="1.12" diameter="1.3" />
+            </baleTypes>
+            <uvScrollParts>
+                <!--camera-->
+                <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|6" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <!--camera Ssecondaria-->
+                <uvScrollPart index="0>12|8|4" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|8|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|8|8" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|8|9" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|8|10" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <!--camera terza-->
+                <uvScrollPart index="0>13|0|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>13|0|2" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>13|0|1" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <!--rotolo-->
+                <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            </uvScrollParts>
+            <rotatingParts>
+                <!--camera-->
+                <rotatingPart index="0>12|1" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|3" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|4" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <!--camera secondaria-->
+                <rotatingPart index="0>12|8|0" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|8|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|8|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <!--camera terza-->
+                <rotatingPart index="0>13|0|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|4" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|6" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|7" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|8" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|9" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <!--rotolo-->
+                <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+            </rotatingParts>
+        </baler>
     </LTMaster>
-    <baleTypes>
-        <baleType minBaleWidth="1.2" maxBaleWidth="1.2" minBaleHeight="0.8" maxBaleHeight="0.9" minBaleLength="2.2" maxBaleLength="2.4"/>
-    </baleTypes>
-    <baler>
+    <baler fillUnitIndex="4">
         <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
         <balerAlarm file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="0.45" indoorVolumeFactor="1.35" indoorLowpassGain="0.95" />
         <balerBaleEject file="$data/sounds/rollBelt150Eject.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />

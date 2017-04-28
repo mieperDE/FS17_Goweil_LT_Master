@@ -34,7 +34,6 @@
         <type name="goweil" className="Vehicle" filename="$dataS/scripts/vehicles/Vehicle.lua">
             <specialization name="attacherJoints" />
             <specialization name="lights" />
-            <specialization name="workArea" />
             <specialization name="speedRotatingParts" />
             <specialization name="attachable" />
             <specialization name="turnOnVehicle" />
@@ -43,8 +42,6 @@
             <specialization name="foldable" />
             <specialization name="fillable" />
             <specialization name="fillVolume" />
-            <specialization name="pickup" />
-            <specialization name="baler" />
             <specialization name="powerConsumer" />
             <specialization name="washable" />
             <specialization name="mountable" />
