@@ -70,10 +70,11 @@ function LTMaster:loadBaler()
         self.LTMaster.baler.sampleBaler = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerSound", nil, self.baseDirectory);
         self.LTMaster.baler.sampleBalerEject = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerBaleEject", nil, self.baseDirectory);
         self.LTMaster.baler.sampleBalerDoor = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerDoor", nil, self.baseDirectory);
+        self.LTMaster.baler.sampleKnotting = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.knottingSound", nil, self.baseDirectory);
         self.LTMaster.baler.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.baler.uvScrollParts.uvScrollPart", {}, false);
         self.LTMaster.baler.turnedOnRotationNodes = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.baler.rotatingParts.rotatingPart", "LTMaster.baler", self.components);
-        self.LTMaster.baler.knotingAnimation = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.knotingAnimation#name"), "");
-        self.LTMaster.baler.knotingAnimationSpeed = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.knotingAnimation#speed"), 1);
+        self.LTMaster.baler.knottingAnimation = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#name"), "");
+        self.LTMaster.baler.knottingAnimationSpeed = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#speed"), 1);
         self.LTMaster.baler.balingAnimationName = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.balingAnimation#name"), "");
     end
     self.LTMaster.baler.unloadingState = LTMaster.BALER_UNLOADING_CLOSED;
@@ -84,6 +85,8 @@ function LTMaster:loadBaler()
     self.LTMaster.baler.dummyBale.currentBaleFillType = FillUtil.FILLTYPE_UNKNOWN;
     self.LTMaster.baler.dummyBale.currentBale = nil;
     self.LTMaster.baler.isBaleUnloading = false;
+    self.LTMaster.baler.knottingTime = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler#knottingTime"), 0) * 1000;
+    self.LTMaster.baler.autoUnloadTime = nil;
 end
 
 function LTMaster:postLoadBaler(savegame)
@@ -92,15 +95,13 @@ function LTMaster:postLoadBaler(savegame)
         local numBales = getXMLInt(savegame.xmlFile, savegame.key .. "#numBales");
         if numBales ~= nil and numBales > 0 then
             self.LTMaster.baler.balesToLoad = {};
-            for i = 1, numBales do
-                local baleKey = savegame.key .. string.format(".bale(%d)", i - 1);
-                local bale = {};
-                local fillTypeStr = getXMLString(savegame.xmlFile, baleKey .. "#fillType");
-                local fillType = FillUtil.fillTypeNameToInt[fillTypeStr];
-                bale.fillType = fillType;
-                bale.fillLevel = getXMLFloat(savegame.xmlFile, baleKey .. "#fillLevel");
-                table.insert(self.LTMaster.baler.balesToLoad, bale);
-            end
+            local baleKey = savegame.key .. ".bale(0)";
+            local bale = {};
+            local fillTypeStr = getXMLString(savegame.xmlFile, baleKey .. "#fillType");
+            local fillType = FillUtil.fillTypeNameToInt[fillTypeStr];
+            bale.fillType = fillType;
+            bale.fillLevel = getXMLFloat(savegame.xmlFile, baleKey .. "#fillLevel");
+            table.insert(self.LTMaster.baler.balesToLoad, bale);
         end
     end
 end
@@ -117,6 +118,7 @@ function LTMaster:deleteBaler()
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBaler);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerDoor);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerEject);
+        SoundUtil.deleteSample(self.LTMaster.baler.sampleKnotting);
     end
 end
 
@@ -135,28 +137,50 @@ function LTMaster:getSaveAttributesAndNodesBaler(nodeIdent)
     return attributes, nodes;
 end
 
+function LTMaster:writeStreamBaler(streamId, connection)
+    if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+        streamWriteUIntN(streamId, self.LTMaster.baler.unloadingState, 7);
+        local animTime = 0;
+        if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED or self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSING then
+            animTime = self:getRealAnimationTime(self.LTMaster.baler.baleCloseAnimationName);
+        elseif self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN or self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPENING then
+            animTime = self:getRealAnimationTime(self.LTMaster.baler.baleUnloadAnimationName);
+        end
+        streamWriteFloat32(streamId, animTime);
+    end
+    streamWriteUInt8(streamId, table.getn(self.LTMaster.baler.bales));
+    for i = 1, table.getn(self.LTMaster.baler.bales) do
+        local bale = self.LTMaster.baler.bales[i];
+        streamWriteInt8(streamId, bale.fillType);
+        streamWriteFloat32(streamId, bale.fillLevel);
+    end
+end
+
+function LTMaster:readStreamBaler(streamId, connection)
+    if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+        local state = streamReadUIntN(streamId, 7);
+        local animTime = streamReadFloat32(streamId);
+        if state == Baler.UNLOADING_CLOSED or state == Baler.UNLOADING_CLOSING then
+            self:setIsUnloadingBale(false, true);
+            self:setRealAnimationTime(self.LTMaster.baler.baleCloseAnimationName, animTime);
+        elseif state == Baler.UNLOADING_OPEN or state == Baler.UNLOADING_OPENING then
+            self:setIsUnloadingBale(true, true);
+            self:setRealAnimationTime(self.LTMaster.baler.baleUnloadAnimationName, animTime);
+        end
+    end
+    local numBales = streamReadUInt8(streamId);
+    for i = 1, numBales do
+        local fillType = streamReadInt8(streamId);
+        local fillLevel = streamReadFloat32(streamId);
+        self:createBale(fillType, fillLevel);
+    end
+end
+
 function LTMaster:updateBaler(dt)
     if self.LTMaster.baler.balesToLoad ~= nil and self.firstTimeRun then
         local v = self.LTMaster.baler.balesToLoad[1];
         self:createBale(v.fillType, v.fillLevel);
         self.LTMaster.baler.balesToLoad = nil;
-    end
-    if self:getIsActiveForInput() then
-        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
-            if self:isUnloadingAllowed() then
-                if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
-                    if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
-                        if table.getn(self.LTMaster.baler.bales) > 0 then
-                            self:setIsUnloadingBale(true);
-                        end
-                    elseif self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
-                        if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
-                            self:setIsUnloadingBale(false);
-                        end
-                    end
-                end
-            end
-        end
     end
     if self.isClient then
         Utils.updateRotationNodes(self, self.LTMaster.baler.turnedOnRotationNodes, dt, self:getIsActive() and self:getIsTurnedOn());
@@ -185,6 +209,7 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                             if self.LTMaster.baler.baleTypes ~= nil then
                                 self:createBale(usedFillType, self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex));
                                 g_server:broadcastEvent(LTMasterBalerCreateBaleEvent:new(self, usedFillType), nil, nil, self);
+                                self.LTMaster.baler.autoUnloadTime = g_currentMission.time + self.LTMaster.baler.knottingTime;
                             end
                         end
                     end
@@ -235,23 +260,14 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
             end
         end
     end
-end
-
-function LTMaster:drawBaler()
-    if self.isClient then
-        if self:getIsActiveForInput(true) then
-            if self:isUnloadingAllowed() then
-                if self.LTMaster.balerbaleUnloadAnimationName ~= nil then
-                    if self.LTMaster.balerunloadingState == Baler.UNLOADING_CLOSED then
-                        if table.getn(self.LTMaster.balerbales) > 0 then
-                            g_currentMission:addHelpButtonText(g_i18n:getText("action_unloadBaler"), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
-                        end
-                    elseif self.LTMaster.balerunloadingState == Baler.UNLOADING_OPEN then
-                        if self.LTMaster.balerbaleUnloadAnimationName ~= nil then
-                            g_currentMission:addHelpButtonText(g_i18n:getText("action_closeBack"), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
-                        end
-                    end
-                end
+    if self.isServer then
+        if self.LTMaster.baler.autoUnloadTime ~= nil and g_currentMission.time >= self.LTMaster.baler.autoUnloadTime then
+            if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
+                self:setIsUnloadingBale(true);
+            end
+            if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
+                self:setIsUnloadingBale(false);
+                self.LTMaster.baler.autoUnloadTime = nil;
             end
         end
     end
@@ -288,13 +304,9 @@ function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fi
             self.LTMaster.baler.dummyBale.currentBale = baleId;
             self.LTMaster.baler.dummyBale.currentBaleFillType = fillType;
         end
-        
         if self.LTMaster.baler.dummyBale.currentBale ~= nil then
             local percent = fillLevel / self:getUnitCapacity(fillUnitIndex);
-            local y = 1;
-            if getUserAttribute(self.LTMaster.baler.dummyBale.currentBale, "isRoundbale") then
-                y = percent;
-            end
+            local y = percent;
             setScale(self.LTMaster.baler.dummyBale.scaleNode, 1, y, percent);
         end
     end
@@ -357,8 +369,11 @@ function LTMaster:allowPickingUp(superFunc)
 end
 
 function LTMaster:createBale(baleFillType, fillLevel)
-    if self.LTMaster.baler.knotingAnimation ~= "" then
-        self:playAnimation(self.LTMaster.baler.knotingAnimation, self.LTMaster.baler.knotingAnimationSpeed, nil, true);
+    if self.LTMaster.baler.knottingAnimation ~= "" then
+        self:playAnimation(self.LTMaster.baler.knottingAnimation, self.LTMaster.baler.knottingAnimationSpeed, nil, true);
+    end
+    if self:getIsActiveForSound() then
+        SoundUtil.playSample(self.LTMaster.baler.sampleKnotting, 1, 0, nil);
     end
     if self.LTMaster.baler.dummyBale.currentBale ~= nil then
         delete(self.LTMaster.baler.dummyBale.currentBale);

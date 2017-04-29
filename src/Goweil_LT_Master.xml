@@ -247,7 +247,7 @@
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="12000" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="2" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="3" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="4000" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="4000" showOnHud="false" showInShop="false" />
     </fillUnits>
     <fillVolumes>
         <volumes>
@@ -307,13 +307,14 @@
                 <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
             </effects>
         </conveyor>
-        <baler fillUnitIndex="4">
+        <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
             <balerBaleEject file="$data/sounds/rollBelt150Eject.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
             <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="0.98" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
+            <knottingSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="0.45" indoorVolumeFactor="1.35" indoorLowpassGain="0.95" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
-            <knotingAnimation name="" />
+            <knottingAnimation name="" />
             <baleTypes>
                 <baleType width="1.12" diameter="1.3" />
             </baleTypes>

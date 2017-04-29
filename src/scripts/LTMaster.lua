@@ -207,6 +207,7 @@ function LTMaster:keyEvent(unicode, sym, modifier, isDown)
 end
 
 function LTMaster:writeStream(streamId, connection)
+    LTMaster.writeStreamBaler(self, streamId, connection);
     if not connection:getIsServer() then
         streamWriteUInt8(streamId, self.LTMaster.hoods["left"].status);
         streamWriteUInt8(streamId, self.LTMaster.hoods["right"].status);
@@ -223,6 +224,7 @@ function LTMaster:writeStream(streamId, connection)
 end
 
 function LTMaster:readStream(streamId, connection)
+    LTMaster.readStreamBaler(self, streamId, connection);
     if connection:getIsServer() then
         self.LTMaster.hoods["left"].status = streamReadUInt8(streamId);
         self.LTMaster.hoods["right"].status = streamReadUInt8(streamId);
@@ -354,7 +356,6 @@ function LTMaster:updateTick(dt)
 end
 
 function LTMaster:draw()
-    LTMaster.drawBaler(self);
 end
 
 function LTMaster:unloadSide()
