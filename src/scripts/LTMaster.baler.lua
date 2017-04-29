@@ -90,7 +90,7 @@ function LTMaster:postLoadBaler(savegame)
     self.setUnitFillLevel = Utils.appendedFunction(self.setUnitFillLevel, LTMaster.setUnitFillLevel);
     if savegame ~= nil and not savegame.resetVehicles then
         local numBales = getXMLInt(savegame.xmlFile, savegame.key .. "#numBales");
-        if numBales ~= nil then
+        if numBales ~= nil and numBales > 0 then
             self.LTMaster.baler.balesToLoad = {};
             for i = 1, numBales do
                 local baleKey = savegame.key .. string.format(".bale(%d)", i - 1);
