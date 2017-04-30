@@ -9,7 +9,8 @@
         <it>Goweil LT Master</it>
     </title>
     <description>
-        <de><![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
+        <de>
+            <![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
 Not only corn but also corn cobs, lucerne, sugar beet, cereals, waste, wood chips, biomass, animal feed, etc. can be fully pressed into bales and wrapped.
 
 Price: 280000 €
@@ -17,8 +18,8 @@ Maintenance: 250 € / day
 Required power: 140 hp
 ]]>
         </de>
-
-        <en><![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
+        <en>
+            <![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
 Not only corn but also corn cobs, lucerne, sugar beet, cereals, waste, wood chips, biomass, animal feed, etc. can be fully pressed into bales and wrapped.
 
 Price: 280000 €
@@ -26,8 +27,8 @@ Maintenance: 250 € / day
 Required power: 140 hp
 ]]>
         </en>
-
-        <fr><![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
+        <fr>
+            <![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
 Not only corn but also corn cobs, lucerne, sugar beet, cereals, waste, wood chips, biomass, animal feed, etc. can be fully pressed into bales and wrapped.
 
 Price: 280000 €
@@ -35,7 +36,8 @@ Maintenance: 250 € / day
 Required power: 140 hp
 ]]>
         </fr>
-        <it><![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
+        <it>
+            <![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
 Not only corn but also corn cobs, lucerne, sugar beet, cereals, waste, wood chips, biomass, animal feed, etc. can be fully pressed into bales and wrapped.
 
 Price: 280000 €
@@ -43,9 +45,7 @@ Maintenance: 250 € / day
 Required power: 140 hp
 ]]>
         </it>
-
     </description>
-
     <iconFilename>store.dds</iconFilename>
     <multiplayer supported="true" />
     <brands>
@@ -78,6 +78,7 @@ Required power: 140 hp
             <specialization name="fillable" />
             <specialization name="fillVolume" />
             <specialization name="powerConsumer" />
+            <specialization name="baleWrapper" />
             <specialization name="washable" />
             <specialization name="mountable" />
             <specialization name="ltmaster" />
@@ -134,10 +135,10 @@ Required power: 140 hp
             <it>Abbassa lo scivolo delle balle</it>
         </text>
         <text name="GLTM_RAISE_BALE_SLIDE">
-            <de>Alze lo scivolo delle balle</de>
-            <en>Alze lo scivolo delle balle</en>
-            <fr>Alze lo scivolo delle balle</fr>
-            <it>Alze lo scivolo delle balle</it>
+            <de>Alza lo scivolo delle balle</de>
+            <en>Alza lo scivolo delle balle</en>
+            <fr>Alza lo scivolo delle balle</fr>
+            <it>Alza lo scivolo delle balle</it>
         </text>
         <text name="GLTM_UNLOAD_SIDE">
             <de>Svuota le sponde laterali</de>
