@@ -11,12 +11,12 @@
             <function>$l10n_function_baler</function>
         </functions>
         <specs>
-            <neededPower>200</neededPower>
+            <neededPower>140</neededPower>
             <workingWidth>5</workingWidth>
         </specs>
         <image>store.dds</image>
-        <price>75100</price>
-        <dailyUpkeep>20</dailyUpkeep>
+        <price>280000</price>
+        <dailyUpkeep>250</dailyUpkeep>
         <lifetime>600</lifetime>
         <rotation>0</rotation>
         <brand>GOWEIL</brand>
