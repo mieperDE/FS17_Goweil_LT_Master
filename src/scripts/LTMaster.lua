@@ -296,6 +296,11 @@ function LTMaster:update(dt)
     --    end
     --end
     end
+    if self.isServer then
+        if self.baleWrapperState ~= nil and self.baleWrapperState == BaleWrapper.STATE_WRAPPER_FINSIHED then
+            self:doStateChange(BaleWrapper.CHANGE_BUTTON_EMPTY);
+        end
+    end
 end
 
 function LTMaster:updateTick(dt)
