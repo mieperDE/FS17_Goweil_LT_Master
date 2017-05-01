@@ -56,6 +56,7 @@ Required power: 140 hp
         <storeItem xmlFilename="GoweilAdditiveTank.xml" rootNode="object" />
     </storeItems>
     <extraSourceFiles>
+        <sourceFile filename="scripts/register.lua" />
         <sourceFile filename="scripts/triggers/PlayerTrigger.lua" />
         <sourceFile filename="scripts/triggers/LTMasterTipTrigger.lua" />
         <sourceFile filename="scripts/helpers/globalFunctions.lua" />
@@ -91,6 +92,12 @@ Required power: 140 hp
             <en>Silage Additives is used to get higher resolution.</en>
             <fr>Silage Additives is used to get higher resolution.</fr>
             <it>Additivo per migliorare la resa dei prodotti insilati.</it>
+        </text>
+        <text name="fillType_silageAdditive">
+            <de>Siliermittel</de>
+            <en>Silage Additives</en>
+            <fr>Silage Additives</fr>
+            <it>Additivo Insilati.</it>
         </text>
         <text name="GLTM_OPEN_HOOD">
             <de>Apri portellone</de>
