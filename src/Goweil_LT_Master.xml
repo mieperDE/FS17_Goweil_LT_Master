@@ -156,7 +156,7 @@
             <!--portone sinistro up/down -->
             <part node="0>15|5" startTime="0.25" duration="0.25" startRot="0 0 0" endRot="0 0 20" />
             <part node="0>15|5" startTime="0.5" duration="2.7" startRot="0 0 20" endRot="0 0 90" />
-			<part node="0>15|2" startTime="2.8" duration="1" startRot="180 0 180" endRot="180 0 112" />
+            <part node="0>15|2" startTime="2.8" duration="1" startRot="180 0 180" endRot="180 0 112" />
         </animation>
         <animation name="rightDoor">
             <!--portone destro up/down -->
@@ -184,60 +184,52 @@
         </animation>
         <!-- unload bale -->
         <animation name="unloadBale">
-			<part node="0>12" startTime="0" duration="0.75" startRot="0 0 0" endRot="-90 0 0" />
-			<part node="0>12|8" startTime="0" duration="0.75" startRot="0 0 0" endRot="25 0 0" />
-			<part node="0>10|1" startTime="0.75" duration="1" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 -1.025" />
-			<part node="0>10|1" startTime="1" duration="1.25" startRot="0 0 0" endRot="-20 0 0" />
+            <part node="0>12" startTime="0" duration="0.75" startRot="0 0 0" endRot="-90 0 0" />
+            <part node="0>12|8" startTime="0" duration="0.75" startRot="0 0 0" endRot="25 0 0" />
+            <part node="0>10|1" startTime="0.75" duration="1" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 -1.025" />
+            <part node="0>10|1" startTime="1" duration="1.25" startRot="0 0 0" endRot="-20 0 0" />
             <!-- balla1 -->
-			<part node="0>23" startTime="1.26" duration="1.50" startTrans="0 2.632 1.442" endTrans="0 2.362 1.88" />
-			<part node="0>23" startTime="1.26" duration="1.50" startRot="0 0 0" endRot="35 0 0" />
-			 <!-- balla2 -->
+            <part node="0>23" startTime="1.26" duration="1.50" startTrans="0 2.632 1.442" endTrans="0 2.362 1.88" />
+            <part node="0>23" startTime="1.26" duration="1.50" startRot="0 0 0" endRot="35 0 0" />
+            <!-- balla2 -->
             <part node="0>23" startTime="1.50" duration="1.75" startTrans="0 2.362 1.88" endTrans="0 2.103 2.447" />
-			<part node="0>23" startTime="1.50" duration="1.75" startRot="35 0 0" endRot="50 0 0" />	
-			<!-- balla3 -->
+            <part node="0>23" startTime="1.50" duration="1.75" startRot="35 0 0" endRot="50 0 0" />
+            <!-- balla3 -->
             <part node="0>23" startTime="1.75" duration="2" startTrans="0 2.103 2.447" endTrans="0 2.04 2.982" />
-			<part node="0>23" startTime="1.75" duration="2" startRot="50 0 0" endRot="90 0 0" />					
-			<!-- Animazione balla5 -->
-			<part node="0>10|1" startTime="2" duration="2.25" startRot="-20 0 0" endRot="0 0 0" />
+            <part node="0>23" startTime="1.75" duration="2" startRot="50 0 0" endRot="90 0 0" />
+            <!-- Animazione balla5 -->
+            <part node="0>10|1" startTime="2" duration="2.25" startRot="-20 0 0" endRot="0 0 0" />
             <part node="0>23" startTime="2" duration="2.25" startTrans="0 2.04 2.982" endTrans="0 2.079 3.202" />
-			<part node="0>23" startTime="2" duration="2.25" startRot="90 0 0" endRot="110 0 0" />
-			<!-- Animazione balla6 -->	
-			<part node="0>10|1" startTime="2.25" duration="2.75" startTrans="0 -0.969 -1.025" endTrans="0 -0.969 -0.178" />	
+            <part node="0>23" startTime="2" duration="2.25" startRot="90 0 0" endRot="110 0 0" />
+            <!-- Animazione balla6 -->
+            <part node="0>10|1" startTime="2.25" duration="2.75" startTrans="0 -0.969 -1.025" endTrans="0 -0.969 -0.178" />
             <part node="0>23" startTime="2.25" duration="2.75" startTrans="0 2.079 3.202" endTrans="0 2.079 4.049" />
-		
         </animation>
         <!-- close door -->
         <animation name="closeDoor">
-			<part node="0>12" startTime="0" duration="0.75" startRot="-90 0 0" endRot="0 0 0" />
-			<part node="0>12|8" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />
-			<part node="0>10|1" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />	
+            <part node="0>12" startTime="0" duration="0.75" startRot="-90 0 0" endRot="0 0 0" />
+            <part node="0>12|8" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />
+            <part node="0>10|1" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />
         </animation>
-		
-		 <!--Wrapper -->
+        <!--Wrapper -->
         <animation name="moveBaleToWrapper">
             <part node="0>10|1|3|0" startTime="0" duration="0.1" startTrans="0 0 0" endTrans="0 0 0" />
-			<part node="0>10|1|3|0" startTime="0" duration="0.1" startRot="0 0 0" endRot="0 0 0" />	
+            <part node="0>10|1|3|0" startTime="0" duration="0.1" startRot="0 0 0" endRot="0 0 0" />
         </animation>
-		
         <animation name="dropBaleFromWrapper">
-			<part node="0>10|1" startTime="0" duration="2" startRot="0 0 0" endRot="25 0 0" />
-
+            <part node="0>10|1" startTime="0" duration="2" startRot="0 0 0" endRot="25 0 0" />
             <part node="0>10|1|9|0" startTime="0.1" endTime="2" startRot="0 0 0" endRot="0 0 180" startTrans="0 0 0" endTrans="0.463 -1.393 0" />
-
         </animation>
         <animation name="resetWrapperAfterBaleDrop">
             <part node="0>10|1" startTime="2" endTime="2.5" startRot="25 0 0" endRot="0 0 0" />
             <part node="0>10|1|9|0" startTime="2" endTime="5" startRot="0 0 0" endRot="0 0 0" startTrans="0 0 0" endTrans="0 0 0"/>
-        </animation>		
+        </animation>
     </animations>
-	
-    <wrapperStartSound          file="$data/sounds/bale_wrapping_start.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60"  />
-    <wrapperSound               file="$data/sounds/bale_wrapping.wav"       pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" />
-
+    <wrapperStartSound file="$data/sounds/bale_wrapping_start.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" />
+    <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" />
     <baleGrabber index="0>10|1|3|0" nearestDistance="0" />
-
-    <wrapper foldMinLimit="0.0" foldMaxLimit="0.0" >
-        <roundBaleWrapper baleIndex="0>10|1|9|0" wrapperIndex="0>10|0" wrapperRotAxis="2" wrappingTime="10" >
+    <wrapper foldMinLimit="0.0" foldMaxLimit="0.0">
+        <roundBaleWrapper baleIndex="0>10|1|9|0" wrapperIndex="0>10|0" wrapperRotAxis="2" wrappingTime="10">
             <animations>
                 <moveToWrapper animName="moveBaleToWrapper" animSpeed="1" reverseAfterMove="true" />
                 <dropFromWrapper animName="dropBaleFromWrapper" animSpeed="1" />
@@ -248,13 +240,12 @@
                 <baleType fillType="dryGrass_windrow" wrapperBaleFilename="$data/objects/roundbales/roundbaleSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
             </baleTypes>
             <wrapperAnimation>
-                <key time="0"       baleRot="0 0 0"     wrapperRot="0 0 0" />
-                <key time="0.38095" baleRot="0 0 150"   wrapperRot="0 1440 0" />
-                <key time="1"       baleRot="0 0 360"   wrapperRot="0 3780 0" />
+                <key time="0" baleRot="0 0 0" wrapperRot="0 0 0" />
+                <key time="0.38095" baleRot="0 0 150" wrapperRot="0 1440 0" />
+                <key time="1" baleRot="0 0 360" wrapperRot="0 3780 0" />
             </wrapperAnimation>
             <wrapNodes>
-              <!--  <wrapNode index="0>13" wrapVisibility="true" emptyVisibility="false" />
-                <wrapNode index="0>10|0|4" wrapVisibility="false" emptyVisibility="true" /> -->
+                <!--  <wrapNode index="0>13" wrapVisibility="true" emptyVisibility="false" /><wrapNode index="0>10|0|4" wrapVisibility="false" emptyVisibility="true" /> -->
                 <wrapNode index="0>10|0|4" wrapVisibility="true" emptyVisibility="false" maxWrapperRot="576"/>
             </wrapNodes>
             <wrapAnimNodes>
@@ -295,10 +286,7 @@
                 </wrapAnimNode>
             </wrapAnimNodes>
         </roundBaleWrapper>
-    </wrapper>	
-	
-	
-	
+    </wrapper>
     <movingParts>
         <!--piston_scivoloUP -->
         <movingPart index="0>7|1|0" referencePoint="0>7|4|1|11" referenceFrame="0>7|4|1|11" isActiveDirty="true">
@@ -357,6 +345,7 @@
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="2" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="3" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="4000" showOnHud="false" showInShop="false" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
     </fillUnits>
     <fillVolumes>
         <volumes>
