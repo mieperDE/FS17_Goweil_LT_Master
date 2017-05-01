@@ -76,6 +76,8 @@ function LTMaster:load(savegame)
     self.LTMaster.fillUnits["left"].unloadSpeed = 0;
     self.LTMaster.fillUnits["baler"] = {};
     self.LTMaster.fillUnits["baler"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#fillUnitIndex"), 4);
+    self.LTMaster.fillUnits["silageAdditive"] = {};
+    self.LTMaster.fillUnits["silageAdditive"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillUnitIndex"), 4);
     
     self.LTMaster.conveyor = {};
     if self.isClient then
@@ -157,6 +159,8 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.ladder.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#ladderStatus"), self.LTMaster.ladder.status);
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
         --self.LTMaster.conveyor.isTurnedOn = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#isConveyorTurnedOn"), self.LTMaster.conveyor.isTurnedOn);
+        elseif savegame == nil then
+            self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, self:getUnitCapacity(self.LTMaster.fillUnits["silageAdditive"].index), FillUtil.FILLTYPE_SILAGEADDITIVE);
         end
         LTMaster.finalizeLoad(self);
     end
