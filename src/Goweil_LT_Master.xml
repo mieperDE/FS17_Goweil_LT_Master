@@ -359,6 +359,7 @@
     <fillMassNode updateFillLevelMass="false" />
     <allowFillFromAir value="true"/>
     <LTMaster>
+        <silageAdditive fillUnitIndex="5" />
         <triggers>
             <triggerLeft index="0>27|0|0" radius="3" />
             <triggerRight index="0>27|0|1" radius="3"/>
