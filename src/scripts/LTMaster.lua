@@ -144,6 +144,19 @@ function LTMaster:load(savegame)
     self.LTMaster.baleSlide.status = LTMaster.STATUS_RL_RAISED;
     self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus = DelayedCallBack:new(LTMaster.updateBaleSlideStatus, self);
     self.LTMaster.baleSlide.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baleSlide.sound", nil, self.baseDirectory);
+    
+    self.LTMaster.silageAdditive = {};
+    self.LTMaster.silageAdditive.enabled = true;
+    self.LTMaster.silageAdditive.gain = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#gain"), 1.1);
+    self.LTMaster.silageAdditive.usage = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#usage"), 0.001);
+    local fillTypeNames = getXMLString(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillTypes");
+    self.LTMaster.silageAdditive.fillTypes = FillUtil.getFillTypesByNames(fillTypeNames);
+    self.LTMaster.silageAdditive.acceptedFillTypes = {};
+    if self.LTMaster.silageAdditive.fillTypes ~= nil then
+        for _, fillType in pairs(self.LTMaster.silageAdditive.fillTypes) do
+            self.LTMaster.silageAdditive.acceptedFillTypes[fillType] = true;
+        end
+    end
     LTMaster.loadBaler(self);
 end
 
@@ -160,7 +173,7 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
         --self.LTMaster.conveyor.isTurnedOn = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#isConveyorTurnedOn"), self.LTMaster.conveyor.isTurnedOn);
         elseif savegame == nil then
-            self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, self:getUnitCapacity(self.LTMaster.fillUnits["silageAdditive"].index), FillUtil.FILLTYPE_SILAGEADDITIVE);
+            self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
         end
         LTMaster.finalizeLoad(self);
     end

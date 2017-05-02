@@ -11,8 +11,7 @@
             <function>$l10n_function_baler</function>
         </functions>
         <specs>
-            <neededPower>140</neededPower>
-            <workingWidth>5</workingWidth>
+            <neededPower>200</neededPower>
         </specs>
         <image>store.dds</image>
         <price>280000</price>
@@ -25,8 +24,7 @@
     <typeDesc>$l10n_typeDesc_baler</typeDesc>
     <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8"/>
-    <speedLimit value="20" />
-    <powerConsumer ptoRpm="540" neededPtoPower="89"/>
+    <powerConsumer ptoRpm="760" neededPtoPower="200"/>
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>
@@ -340,6 +338,8 @@
     <speedRotatingParts>
         <speedRotatingPart index="0>15|8" radius="0.5" refNodeIndex="0" turnOnFadeTime="1" turnOffFadeTime="2" />
     </speedRotatingParts>
+    <supportsFillTriggers value="true" />
+    <fillLitersPerSecond>20</fillLitersPerSecond>
     <fillUnits>
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="12000" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="3500" fillVolumeIndex="2" />
@@ -359,7 +359,7 @@
     <fillMassNode updateFillLevelMass="false" />
     <allowFillFromAir value="true"/>
     <LTMaster>
-        <silageAdditive fillUnitIndex="5" />
+        <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012" />
         <triggers>
             <triggerLeft index="0>27|0|0" radius="3" />
             <triggerRight index="0>27|0|1" radius="3"/>

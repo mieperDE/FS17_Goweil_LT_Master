@@ -203,6 +203,14 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                     end
                     if totalLiters > 0 then
                         local deltaLevel = totalLiters * self.LTMaster.baler.fillScale;
+                        if self.LTMaster.silageAdditive.enabled and self.LTMaster.silageAdditive.acceptedFillTypes[usedFillType] then
+                            local additiveLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index);
+                            if additiveLevel > 0 then
+                                additiveLevel = additiveLevel - deltaLevel * self.LTMaster.silageAdditive.usage;
+                                self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, additiveLevel, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
+                                deltaLevel = deltaLevel * self.LTMaster.silageAdditive.gain;
+                            end
+                        end
                         local oldFillLevel = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex);
                         self:setUnitFillLevel(self.LTMaster.baler.fillUnitIndex, oldFillLevel + deltaLevel, usedFillType, true);
                         if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) >= self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex) then
@@ -221,7 +229,6 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                 end
             end
         end
-        
         if self.isClient then
             if not self:getIsTurnedOn() then
                 SoundUtil.stopSample(self.LTMaster.baler.sampleBaler);
@@ -232,7 +239,6 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                 end
             end
         end
-        
         if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPENING then
             local isPlaying = self:getIsAnimationPlaying(self.LTMaster.baler.baleUnloadAnimationName);
             local animTime = self:getRealAnimationTime(self.LTMaster.baler.baleUnloadAnimationName);
@@ -288,6 +294,7 @@ function LTMaster:onDeactivateSounds()
 end
 
 function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)
+    LTMaster.print("setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)");
     if fillUnitIndex == self.LTMaster.baler.fillUnitIndex then
         if self.LTMaster.baler.dummyBale.baleNode ~= nil and fillLevel > 0 and fillLevel < self:getUnitCapacity(fillUnitIndex) and (self.LTMaster.baler.dummyBale.currentBale == nil or self.LTMaster.baler.dummyBale.currentBaleFillType ~= fillType) then
             if self.LTMaster.baler.dummyBale.currentBale ~= nil then
@@ -385,7 +392,8 @@ function LTMaster:createBale(baleFillType, fillLevel)
     bale.filename = Utils.getFilename(baleType.filename, self.baseDirectory);
     bale.time = 0;
     bale.fillType = baleFillType;
-    bale.fillLevel = fillLevel;
+    local randomFillLevel = math.random(0, fillLevel * 0.06) - fillLevel * 0.03;
+    bale.fillLevel = fillLevel + randomFillLevel;
     if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
         local baleRoot = Utils.loadSharedI3DFile(baleType.filename, self.baseDirectory, false, false);
         local baleId = getChildAt(baleRoot, 0);
