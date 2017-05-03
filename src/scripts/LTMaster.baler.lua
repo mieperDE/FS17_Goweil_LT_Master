@@ -195,29 +195,34 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
             if self:allowPickingUp() then
                 if self.isServer then
                     self.LTMaster.conveyor.isOverloading = true;
-                    local usedFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
-                    local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
-                    local totalLiters = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
-                    if totalLiters > 0 then
-                        self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - totalLiters, usedFillType);
-                    end
-                    if totalLiters > 0 then
-                        local deltaLevel = totalLiters * self.LTMaster.baler.fillScale;
-                        if self.LTMaster.silageAdditive.enabled and self.LTMaster.silageAdditive.acceptedFillTypes[usedFillType] then
-                            local additiveLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index);
-                            if additiveLevel > 0 then
-                                additiveLevel = additiveLevel - deltaLevel * self.LTMaster.silageAdditive.usage;
-                                self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, additiveLevel, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
-                                deltaLevel = deltaLevel * self.LTMaster.silageAdditive.gain;
-                            end
+                    if self:getIsConveyorOverloading() then
+                        local usedFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
+                        local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
+                        local totalLiters = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
+                        if totalLiters > 0 then
+                            self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - totalLiters, usedFillType);
                         end
-                        local oldFillLevel = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex);
-                        self:setUnitFillLevel(self.LTMaster.baler.fillUnitIndex, oldFillLevel + deltaLevel, usedFillType, true);
-                        if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) >= self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex) then
-                            if self.LTMaster.baler.baleTypes ~= nil then
-                                self:createBale(usedFillType, self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex));
-                                g_server:broadcastEvent(LTMasterBalerCreateBaleEvent:new(self, usedFillType), nil, nil, self);
-                                self.LTMaster.baler.autoUnloadTime = g_currentMission.time + self.LTMaster.baler.knottingTime;
+                        if totalLiters > 0 then
+                            local deltaLevel = totalLiters * self.LTMaster.baler.fillScale;
+                            if self.LTMaster.silageAdditive.enabled and self.LTMaster.silageAdditive.acceptedFillTypes[usedFillType] then
+                                local additiveLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index);
+                                if additiveLevel > 0 then
+                                    additiveLevel = additiveLevel - deltaLevel * self.LTMaster.silageAdditive.usage;
+                                    self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, additiveLevel, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
+                                    deltaLevel = deltaLevel * self.LTMaster.silageAdditive.gain;
+                                    self.LTMaster.silageAdditive.isUsing = true;
+                                else
+                                    self.LTMaster.silageAdditive.isUsing = false;
+                                end
+                            end
+                            local oldFillLevel = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex);
+                            self:setUnitFillLevel(self.LTMaster.baler.fillUnitIndex, oldFillLevel + deltaLevel, usedFillType, true);
+                            if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) >= self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex) then
+                                if self.LTMaster.baler.baleTypes ~= nil then
+                                    self:createBale(usedFillType, self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex));
+                                    g_server:broadcastEvent(LTMasterBalerCreateBaleEvent:new(self, usedFillType), nil, nil, self);
+                                    self.LTMaster.baler.autoUnloadTime = g_currentMission.time + self.LTMaster.baler.knottingTime;
+                                end
                             end
                         end
                     end
@@ -294,7 +299,7 @@ function LTMaster:onDeactivateSounds()
 end
 
 function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)
-    LTMaster.print("setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)");
+    --LTMaster.print("setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)");
     if fillUnitIndex == self.LTMaster.baler.fillUnitIndex then
         if self.LTMaster.baler.dummyBale.baleNode ~= nil and fillLevel > 0 and fillLevel < self:getUnitCapacity(fillUnitIndex) and (self.LTMaster.baler.dummyBale.currentBale == nil or self.LTMaster.baler.dummyBale.currentBaleFillType ~= fillType) then
             if self.LTMaster.baler.dummyBale.currentBale ~= nil then

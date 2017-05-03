@@ -359,7 +359,6 @@
     <fillMassNode updateFillLevelMass="false" />
     <allowFillFromAir value="true"/>
     <LTMaster>
-        <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012" />
         <triggers>
             <triggerLeft index="0>27|0|0" radius="3" />
             <triggerRight index="0>27|0|1" radius="3"/>
@@ -385,8 +384,8 @@
         <baleSlide animationName="baleSlide">
             <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
         </baleSlide>
-        <sideUnload animationName="unloadSide" minAmount="5000" />
-        <conveyor overloadingCapacity="250" overloadingDelay="5">
+        <sideUnload animationName="unloadSide" maxAmount="0" />
+        <conveyor overloadingCapacity="250">
             <uvScrollParts>
                 <!--scivolo Superiore-->
                 <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
@@ -403,8 +402,11 @@
                 <rotatingPart index="0>7|2|6" type="LTMaster.conveyor" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="3" />
             </rotatingParts>
             <effects>
-                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
+                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="BELT" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
             </effects>
+            <unloadParticleSystems>
+                <emitterShape node="0>29|2" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
+            </unloadParticleSystems>
         </conveyor>
         <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
@@ -456,6 +458,11 @@
                 <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </rotatingParts>
         </baler>
+        <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
+            <effects>materialType                
+                <effectNode effectNode="0>29|3" materialType="SPRAYER" />
+            </effects>
+        </silageAdditive>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
     <components count="1">

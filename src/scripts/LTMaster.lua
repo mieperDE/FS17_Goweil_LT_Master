@@ -53,6 +53,7 @@ function LTMaster:preLoad(savegame)
     self.updateBaleSlideStatus = LTMaster.updateBaleSlideStatus;
     self.unloadSide = LTMaster.unloadSide;
     self.setConveyorStatus = LTMaster.setConveyorStatus;
+    self.getIsConveyorOverloading = LTMaster.getIsConveyorOverloading;
 end
 
 function LTMaster:load(savegame)
@@ -84,14 +85,37 @@ function LTMaster:load(savegame)
         self.LTMaster.conveyor.effects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.conveyor.effects", self.components, self);
         self.LTMaster.conveyor.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.conveyor.uvScrollParts.uvScrollPart", {}, false);
         self.LTMaster.conveyor.rotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.conveyor.rotatingParts.rotatingPart", "LTMaster.conveyor", self.components)
+        self.LTMaster.conveyor.unloadParticleSystems = {};
+        local i = 0;
+        while true do
+            local key = string.format("vehicle.LTMaster.conveyor.unloadParticleSystems.emitterShape(%d)", i);
+            if not hasXMLProperty(self.xmlFile, key) then
+                break;
+            end
+            local emitterShape = Utils.indexToObject(self.components, getXMLString(self.xmlFile, key .. "#node"));
+            local particleType = getXMLString(self.xmlFile, key .. "#particleType");
+            if emitterShape ~= nil then
+                for fillType, _ in pairs(self:getUnitFillTypes(self.LTMaster.fillUnits["main"].index)) do
+                    local particleSystem = MaterialUtil.getParticleSystem(fillType, particleType);
+                    if particleSystem ~= nil then
+                        if self.LTMaster.conveyor.unloadParticleSystems[fillType] == nil then
+                            self.LTMaster.conveyor.unloadParticleSystems[fillType] = {};
+                        end
+                        local currentPS = ParticleUtil.copyParticleSystem(self.xmlFile, key, particleSystem, emitterShape);
+                        table.insert(self.LTMaster.conveyor.unloadParticleSystems[fillType], currentPS);
+                    end
+                end
+            end
+            i = i + 1;
+        end
     end
     self.LTMaster.conveyor.overloadingCapacity = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingCapacity"), 100);
-    self.LTMaster.conveyor.overloadingDelay = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingDelay"), 3);
+    --self.LTMaster.conveyor.overloadingDelay = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingDelay"), 3);
     self.LTMaster.conveyor.isOverloading = false;
     
     self.LTMaster.sideUnload = {};
     self.LTMaster.sideUnload.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.sideUnload#animationName");
-    self.LTMaster.sideUnload.minAmount = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.sideUnload#minAmount"), 0);
+    self.LTMaster.sideUnload.maxAmount = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.sideUnload#maxAmount"), 0);
     self.LTMaster.sideUnload.isUnloading = false;
     
     local trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.triggerLeft#index"));
@@ -147,6 +171,7 @@ function LTMaster:load(savegame)
     
     self.LTMaster.silageAdditive = {};
     self.LTMaster.silageAdditive.enabled = true;
+    self.LTMaster.silageAdditive.isUsing = false;
     self.LTMaster.silageAdditive.gain = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#gain"), 1.1);
     self.LTMaster.silageAdditive.usage = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#usage"), 0.001);
     local fillTypeNames = getXMLString(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillTypes");
@@ -157,11 +182,15 @@ function LTMaster:load(savegame)
             self.LTMaster.silageAdditive.acceptedFillTypes[fillType] = true;
         end
     end
+    self.LTMaster.silageAdditive.fillType = FillUtil.FILLTYPE_LIQUIDFERTILIZER;
+    if self.isClient then
+        self.LTMaster.silageAdditive.effects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.silageAdditive.effects", self.components, self);
+    end
+    
     LTMaster.loadBaler(self);
 end
 
 function LTMaster:postLoad(savegame)
-    --self.setUnitFillLevel = Utils.appendedFunction(self.setUnitFillLevel, LTMaster.setUnitFillLevel);
     LTMaster.postLoadBaler(self, savegame);
     if self.isServer then
         if savegame ~= nil and not savegame.resetVehicles then
@@ -171,7 +200,6 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.folding.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#foldingStatus"), self.LTMaster.folding.status);
             self.LTMaster.ladder.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#ladderStatus"), self.LTMaster.ladder.status);
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
-        --self.LTMaster.conveyor.isTurnedOn = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#isConveyorTurnedOn"), self.LTMaster.conveyor.isTurnedOn);
         elseif savegame == nil then
             self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
         end
@@ -185,7 +213,6 @@ function LTMaster:getSaveAttributesAndNodes(nodeIdent)
     attributes = attributes .. string.format("foldingStatus=\"%s\" ", self.LTMaster.folding.status);
     attributes = attributes .. string.format("ladderStatus=\"%s\" ", self.LTMaster.ladder.status);
     attributes = attributes .. string.format("baleSlideStatus=\"%s\" ", self.LTMaster.baleSlide.status);
-    --attributes = attributes .. string.format("isConveyorTurnedOn=\"%s\" ", self.LTMaster.conveyor.isTurnedOn);
     local bAttributes, bNodes = LTMaster.getSaveAttributesAndNodesBaler(self, nodeIdent);
     return attributes .. " " .. bAttributes, bNodes;
 end
@@ -213,6 +240,10 @@ function LTMaster:delete()
     SoundUtil.deleteSample(self.LTMaster.baleSlide.sound);
     if self.isClient then
         EffectManager:deleteEffects(self.LTMaster.conveyor.effects);
+        EffectManager:deleteEffects(self.LTMaster.silageAdditive.effects);
+        for _, particleSystems in pairs(self.LTMaster.conveyor.unloadParticleSystems) do
+            ParticleUtil.deleteParticleSystems(particleSystems);
+        end
     end
     LTMaster.deleteBaler(self);
 end
@@ -235,6 +266,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteInt32(streamId, self.LTMaster.tipTrigger.id);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
+        streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
     end
@@ -252,6 +284,7 @@ function LTMaster:readStream(streamId, connection)
         local tipTriggerId = streamReadInt32(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
+        self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
         LTMaster.finalizeLoad(self);
@@ -268,6 +301,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
+        streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
     end
 end
 
@@ -281,6 +315,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
+        self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
     end
 end
 
@@ -294,7 +329,7 @@ function LTMaster:update(dt)
     if self.isClient then
         LTMaster.animationsInput(self, dt);
         if self.LTMaster.triggerLeft.active and not self.LTMaster.sideUnload.isUnloading then
-            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.minAmount then
+            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.maxAmount then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_UNLOAD_SIDE"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
                     g_client:getServerConnection():sendEvent(SideUnloadEvent:new(self));
@@ -302,16 +337,6 @@ function LTMaster:update(dt)
                 end
             end
         end
-    --if self.LTMaster.triggerLeft.active then
-    --    if self.LTMaster.conveyor.isTurnedOn then
-    --        g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_TURNOFF_CONVEYOR"), InputBinding.TOGGLE_PIPE, nil, GS_PRIO_HIGH);
-    --    else
-    --        g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_TURNON_CONVEYOR"), InputBinding.TOGGLE_PIPE, nil, GS_PRIO_HIGH);
-    --    end
-    --    if InputBinding.hasEvent(InputBinding.TOGGLE_PIPE) then
-    --        g_client:getServerConnection():sendEvent(ConveyorStatusEvent:new(self));
-    --    end
-    --end
     end
     if self.isServer then
         if self.baleWrapperState ~= nil and self.baleWrapperState == BaleWrapper.STATE_WRAPPER_FINSIHED then
@@ -346,6 +371,14 @@ function LTMaster:updateTick(dt)
         end
     end
     if self.isClient then
+        if self.LTMaster.silageAdditive.effects ~= nil then
+            if self.LTMaster.silageAdditive.isUsing and self:getIsConveyorOverloading() then
+                EffectManager:setFillType(self.LTMaster.silageAdditive.effects, self.LTMaster.silageAdditive.fillType);
+                EffectManager:startEffects(self.LTMaster.silageAdditive.effects);
+            else
+                EffectManager:stopEffects(self.LTMaster.silageAdditive.effects);
+            end
+        end
         if self.LTMaster.conveyor.effects ~= nil then
             if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 10 then
                 if self.LTMaster.conveyor.isOverloading then
@@ -372,6 +405,29 @@ function LTMaster:updateTick(dt)
                 EffectManager:stopEffects(self.LTMaster.conveyor.effects);
                 Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, false);
                 Utils.updateRotationNodes(self, self.LTMaster.conveyor.rotatingParts, dt, false);
+            end
+        end
+        if self:getIsConveyorOverloading() then
+            local currentUnloadParticleSystems = self.LTMaster.conveyor.unloadParticleSystems[self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index)];
+            if currentUnloadParticleSystems ~= self.LTMaster.conveyor.currentUnloadParticleSystems then
+                if self.LTMaster.conveyor.currentUnloadParticleSystems ~= nil then
+                    for _, ps in pairs(self.LTMaster.conveyor.currentUnloadParticleSystems) do
+                        ParticleUtil.setEmittingState(ps, false);
+                    end
+                end
+                self.LTMaster.conveyor.currentUnloadParticleSystems = currentUnloadParticleSystems;
+                if self.LTMaster.conveyor.currentUnloadParticleSystems ~= nil then
+                    for _, ps in pairs(self.LTMaster.conveyor.currentUnloadParticleSystems) do
+                        ParticleUtil.setEmittingState(ps, true);
+                    end
+                end
+            end
+        else
+            if self.LTMaster.conveyor.currentUnloadParticleSystems ~= nil then
+                for _, ps in pairs(self.LTMaster.conveyor.currentUnloadParticleSystems) do
+                    ParticleUtil.setEmittingState(ps, false)
+                end
+                self.LTMaster.conveyor.currentUnloadParticleSystems = nil;
             end
         end
     end
@@ -448,14 +504,6 @@ function LTMaster:getPtoRpm(superFunc)
     return ptoRpm;
 end
 
-function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)
-    if fillLevel > 0 then
-        if self.isClient then
-            if self.LTMaster.conveyor.effects ~= nil and fillUnitIndex == self.LTMaster.fillUnits["main"].index then
-                if fillLevel < 10 then
-                    EffectManager:stopEffects(self.LTMaster.conveyor.effects);
-                end
-            end
-        end
-    end
+function LTMaster:getIsConveyorOverloading()
+    return self.LTMaster.conveyor.isOverloading and self.LTMaster.conveyor.effects[1].state == ShaderPlaneEffect.STATE_ON;
 end
