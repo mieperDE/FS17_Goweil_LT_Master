@@ -108,6 +108,29 @@ function LTMaster:load(savegame)
             end
             i = i + 1;
         end
+        self.LTMaster.conveyor.augerParticleSystems = {};
+        local i = 0;
+        while true do
+            local key = string.format("vehicle.LTMaster.conveyor.augerParticleSystems.emitterShape(%d)", i);
+            if not hasXMLProperty(self.xmlFile, key) then
+                break;
+            end
+            local emitterShape = Utils.indexToObject(self.components, getXMLString(self.xmlFile, key .. "#node"));
+            local particleType = getXMLString(self.xmlFile, key .. "#particleType");
+            if emitterShape ~= nil then
+                for fillType, _ in pairs(self:getUnitFillTypes(self.LTMaster.fillUnits["main"].index)) do
+                    local particleSystem = MaterialUtil.getParticleSystem(fillType, particleType);
+                    if particleSystem ~= nil then
+                        if self.LTMaster.conveyor.augerParticleSystems[fillType] == nil then
+                            self.LTMaster.conveyor.augerParticleSystems[fillType] = {};
+                        end
+                        local currentPS = ParticleUtil.copyParticleSystem(self.xmlFile, key, particleSystem, emitterShape);
+                        table.insert(self.LTMaster.conveyor.augerParticleSystems[fillType], currentPS);
+                    end
+                end
+            end
+            i = i + 1;
+        end
     end
     self.LTMaster.conveyor.overloadingCapacity = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingCapacity"), 100);
     --self.LTMaster.conveyor.overloadingDelay = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.conveyor#overloadingDelay"), 3);
@@ -242,6 +265,9 @@ function LTMaster:delete()
         EffectManager:deleteEffects(self.LTMaster.conveyor.effects);
         EffectManager:deleteEffects(self.LTMaster.silageAdditive.effects);
         for _, particleSystems in pairs(self.LTMaster.conveyor.unloadParticleSystems) do
+            ParticleUtil.deleteParticleSystems(particleSystems);
+        end
+        for _, particleSystems in pairs(self.LTMaster.conveyor.augerParticleSystems) do
             ParticleUtil.deleteParticleSystems(particleSystems);
         end
     end
@@ -428,6 +454,29 @@ function LTMaster:updateTick(dt)
                     ParticleUtil.setEmittingState(ps, false)
                 end
                 self.LTMaster.conveyor.currentUnloadParticleSystems = nil;
+            end
+        end
+        if self.LTMaster.conveyor.isOverloading then
+            local currentAugerParticleSystems = self.LTMaster.conveyor.augerParticleSystems[self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index)];
+            if currentAugerParticleSystems ~= self.LTMaster.conveyor.currentAugerParticleSystems then
+                if self.LTMaster.conveyor.currentAugerParticleSystems ~= nil then
+                    for _, ps in pairs(self.LTMaster.conveyor.currentAugerParticleSystems) do
+                        ParticleUtil.setEmittingState(ps, false);
+                    end
+                end
+                self.LTMaster.conveyor.currentAugerParticleSystems = currentAugerParticleSystems;
+                if self.LTMaster.conveyor.currentAugerParticleSystems ~= nil then
+                    for _, ps in pairs(self.LTMaster.conveyor.currentAugerParticleSystems) do
+                        ParticleUtil.setEmittingState(ps, true);
+                    end
+                end
+            end
+        else
+            if self.LTMaster.conveyor.currentAugerParticleSystems ~= nil then
+                for _, ps in pairs(self.LTMaster.conveyor.currentAugerParticleSystems) do
+                    ParticleUtil.setEmittingState(ps, false)
+                end
+                self.LTMaster.conveyor.currentAugerParticleSystems = nil;
             end
         end
     end

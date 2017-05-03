@@ -407,6 +407,9 @@
             <unloadParticleSystems>
                 <emitterShape node="0>29|2" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
             </unloadParticleSystems>
+            <augerParticleSystems>
+                <emitterShape node="0>7|11" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
+            </augerParticleSystems>
         </conveyor>
         <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
@@ -459,7 +462,7 @@
             </rotatingParts>
         </baler>
         <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
-            <effects>materialType                
+            <effects>              
                 <effectNode effectNode="0>29|3" materialType="SPRAYER" />
             </effects>
         </silageAdditive>
