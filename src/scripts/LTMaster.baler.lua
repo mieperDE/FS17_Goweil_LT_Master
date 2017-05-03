@@ -13,6 +13,8 @@ function LTMaster:loadBaler()
     self.createBale = LTMaster.createBale;
     self.setIsUnloadingBale = LTMaster.setIsUnloadingBale;
     self.isUnloadingAllowed = LTMaster.isUnloadingAllowed;
+    self.setBaleVolume = LTMaster.setBaleVolume;
+    self.getNextVolumesIndex = LTMaster.getNextVolumesIndex;
     self.allowPickingUp = Utils.overwrittenFunction(self.allowPickingUp, LTMaster.allowPickingUp);
     
     self.LTMaster.baler = {};
@@ -87,12 +89,25 @@ function LTMaster:loadBaler()
     self.LTMaster.baler.isBaleUnloading = false;
     self.LTMaster.baler.knottingTime = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler#knottingTime"), 0) * 1000;
     self.LTMaster.baler.autoUnloadTime = nil;
+    
+    self.LTMaster.baler.baleVolumes = {};
+    self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.baleVolumes#defaultVolumeIndex"), 1);
+    local i = 0;
+    while true do
+        local key = string.format("vehicle.LTMaster.baler.baleVolumes.volume(%d)", i);
+        if not hasXMLProperty(self.xmlFile, key) then
+            break;
+        end
+        table.insert(self.LTMaster.baler.baleVolumes, i + 1, Utils.getNoNil(getXMLFloat(self.xmlFile, key .. "#liters"), 4000));
+        i = i + 1;
+    end
 end
 
 function LTMaster:postLoadBaler(savegame)
     self.setUnitFillLevel = Utils.appendedFunction(self.setUnitFillLevel, LTMaster.setUnitFillLevel);
     if savegame ~= nil and not savegame.resetVehicles then
         local numBales = getXMLInt(savegame.xmlFile, savegame.key .. "#numBales");
+        self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleVolumesIndex"),self.LTMaster.baler.baleVolumesIndex);
         if numBales ~= nil and numBales > 0 then
             self.LTMaster.baler.balesToLoad = {};
             local baleKey = savegame.key .. ".bale(0)";
@@ -124,6 +139,7 @@ end
 
 function LTMaster:getSaveAttributesAndNodesBaler(nodeIdent)
     local attributes = 'numBales="' .. table.getn(self.LTMaster.baler.bales) .. '"';
+    attributes = attributes .. ' baleVolumesIndex="' .. self.LTMaster.baler.baleVolumesIndex .. '"';
     local nodes = "";
     if table.getn(self.LTMaster.baler.bales) > 0 then
         local bale = self.LTMaster.baler.bales[1];
@@ -185,6 +201,11 @@ function LTMaster:updateBaler(dt)
     if self.isClient then
         Utils.updateRotationNodes(self, self.LTMaster.baler.turnedOnRotationNodes, dt, self:getIsActive() and self:getIsTurnedOn());
         Utils.updateScrollers(self.LTMaster.baler.uvScrollParts, dt, self:getIsActive() and self:getIsTurnedOn());
+    end
+    if self:getIsActiveForInput() then
+        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
+            self:setBaleVolume(self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex));
+        end
     end
 end
 
@@ -280,6 +301,17 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                 self:setIsUnloadingBale(false);
                 self.LTMaster.baler.autoUnloadTime = nil;
             end
+        end
+    end
+end
+
+function LTMaster:drawBaler()
+    --LTMaster.print("LTMaster:drawBaler()");
+    if self.isClient then
+        if self:getIsActiveForInput(true) then
+            local cLiters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
+            local nLiters = self.LTMaster.baler.baleVolumes[self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex)];
+            g_currentMission:addHelpButtonText(string.format(g_i18n:getText("GLTM_CHANGE_BALE_VOLUME"), cLiters, nLiters), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
         end
     end
 end
@@ -397,6 +429,7 @@ function LTMaster:createBale(baleFillType, fillLevel)
     bale.filename = Utils.getFilename(baleType.filename, self.baseDirectory);
     bale.time = 0;
     bale.fillType = baleFillType;
+    self.ssSilageSource = baleFillType;
     local randomFillLevel = math.random(0, fillLevel * 0.06) - fillLevel * 0.03;
     bale.fillLevel = fillLevel + randomFillLevel;
     if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
@@ -429,4 +462,22 @@ function LTMaster:dropBale(baleIndex)
     Utils.releaseSharedI3DFile(bale.filename, nil, true);
     table.remove(self.LTMaster.baler.bales, baleIndex);
     g_currentMission.missionStats:updateStats("baleCount", 1);
+end
+
+function LTMaster:setBaleVolume(baleVolumesIndex)
+    if self.isServer then
+        self.LTMaster.baler.baleVolumesIndex = baleVolumesIndex;
+        local liters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
+        self:setUnitCapacity(self.LTMaster.baler.fillUnitIndex, liters);
+    else
+        g_client:getServerConnection():sendEvent(BalerChangeVolumeEvent:new(baleVolumesIndex, self));
+    end
+end
+
+function LTMaster:getNextVolumesIndex(baleVolumesIndex)
+    local nextVolumesIndex = baleVolumesIndex + 1;
+    if nextVolumesIndex > #self.LTMaster.baler.baleVolumes then
+        nextVolumesIndex = 1;
+    end
+    return nextVolumesIndex;
 end

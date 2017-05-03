@@ -235,7 +235,6 @@
             </animations>
             <baleTypes>
                 <baleType fillType="grass_windrow" wrapperBaleFilename="$data/objects/roundbales/roundbaleSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
-                <baleType fillType="dryGrass_windrow" wrapperBaleFilename="$data/objects/roundbales/roundbaleSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
             </baleTypes>
             <wrapperAnimation>
                 <key time="0" baleRot="0 0 0" wrapperRot="0 0 0" />
@@ -422,6 +421,13 @@
             <baleTypes>
                 <baleType width="1.12" diameter="1.3" />
             </baleTypes>
+            <baleVolumes defaultVolumeIndex="3">
+                <volume liters="3000" />
+                <volume liters="3500" />
+                <volume liters="4000" />
+                <volume liters="4500" />
+                <volume liters="5000" />
+            </baleVolumes>
             <uvScrollParts>
                 <!--camera-->
                 <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
@@ -462,7 +468,7 @@
             </rotatingParts>
         </baler>
         <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
-            <effects>              
+            <effects>
                 <effectNode effectNode="0>29|3" materialType="SPRAYER" />
             </effects>
         </silageAdditive>

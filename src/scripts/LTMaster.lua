@@ -32,6 +32,7 @@ source(g_currentModDirectory .. "scripts/events/baleSlideStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/sideUnloadEvent.lua");
 source(g_currentModDirectory .. "scripts/events/conveyorStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/balerCreateBaleEvent.lua");
+source(g_currentModDirectory .. "scripts/events/balerChangeVolumeEvent.lua");
 
 function LTMaster.print(text, ...)
     if LTMaster.debug then
@@ -247,6 +248,7 @@ function LTMaster:finalizeLoad()
     self:updateFoldingStatus(self.LTMaster.folding.status, true);
     self:updateLadderStatus(self.LTMaster.ladder.status, true);
     self:updateBaleSlideStatus(self.LTMaster.baleSlide.status, true);
+    self:setBaleVolume(self.LTMaster.baler.baleVolumesIndex);
 end
 
 function LTMaster:delete()
@@ -293,6 +295,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
+        streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
     end
@@ -311,6 +314,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
+        self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
         LTMaster.finalizeLoad(self);
@@ -325,6 +329,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteUInt8(streamId, self.LTMaster.folding.status);
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
+        streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
@@ -339,6 +344,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.folding.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
+        self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
@@ -483,6 +489,7 @@ function LTMaster:updateTick(dt)
 end
 
 function LTMaster:draw()
+    LTMaster.drawBaler(self);
 end
 
 function LTMaster:unloadSide()

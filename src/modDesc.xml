@@ -165,5 +165,11 @@ Required power: 140 hp
             <fr>Arresta il nastro</fr>
             <it>Arresta il nastro</it>
         </text>
+        <text name="GLTM_CHANGE_BALE_VOLUME">
+            <de>Cambia il volume delle balle da %s a %s</de>
+            <en>Cambia il volume delle balle da %s a %s</en>
+            <fr>Cambia il volume delle balle da %s a %s</fr>
+            <it>Cambia il volume delle balle da %s a %s</it>
+        </text>
     </l10n>
 </modDesc>
