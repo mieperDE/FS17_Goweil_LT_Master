@@ -361,7 +361,7 @@ function LTMaster:update(dt)
     if self.isClient then
         LTMaster.animationsInput(self, dt);
         if self.LTMaster.triggerLeft.active and not self.LTMaster.sideUnload.isUnloading and self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED and self:getRootAttacherVehicle().isMotorStarted then
-            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.maxAmount + 10 then
+            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.maxAmount then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_UNLOAD_SIDE"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
                     g_client:getServerConnection():sendEvent(SideUnloadEvent:new(self));
@@ -375,6 +375,7 @@ function LTMaster:update(dt)
             self:doStateChange(BaleWrapper.CHANGE_BUTTON_EMPTY);
         end
     end
+    self.LTMaster.conveyor.lastEffectStateOn = self.LTMaster.conveyor.effects[1].state;
 end
 
 function LTMaster:updateTick(dt)
@@ -412,7 +413,7 @@ function LTMaster:updateTick(dt)
             end
         end
         if self.LTMaster.conveyor.effects ~= nil then
-            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 10 then
+            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 0 then
                 if self.LTMaster.conveyor.isOverloading then
                     local lastValidFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
                     EffectManager:setFillType(self.LTMaster.conveyor.effects, lastValidFillType);
@@ -462,7 +463,7 @@ function LTMaster:updateTick(dt)
                 self.LTMaster.conveyor.currentUnloadParticleSystems = nil;
             end
         end
-        if self.LTMaster.conveyor.isOverloading then
+        if self.LTMaster.conveyor.isOverloading and self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 0 then
             local currentAugerParticleSystems = self.LTMaster.conveyor.augerParticleSystems[self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index)];
             if currentAugerParticleSystems ~= self.LTMaster.conveyor.currentAugerParticleSystems then
                 if self.LTMaster.conveyor.currentAugerParticleSystems ~= nil then
@@ -566,5 +567,6 @@ function LTMaster:getPtoRpm(superFunc)
 end
 
 function LTMaster:getIsConveyorOverloading()
-    return self.LTMaster.conveyor.isOverloading and self.LTMaster.conveyor.effects[1].state == ShaderPlaneEffect.STATE_ON;
+    local stateOn = self.LTMaster.conveyor.lastEffectStateOn == ShaderPlaneEffect.STATE_ON or self.LTMaster.conveyor.effects[1].state == ShaderPlaneEffect.STATE_ON;
+    return self.LTMaster.conveyor.isOverloading and stateOn;
 end

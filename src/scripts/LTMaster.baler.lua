@@ -306,7 +306,6 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
 end
 
 function LTMaster:drawBaler()
-    --LTMaster.print("LTMaster:drawBaler()");
     if self.isClient then
         if self:getIsActiveForInput(true) then
             local cLiters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
@@ -331,7 +330,6 @@ function LTMaster:onDeactivateSounds()
 end
 
 function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)
-    --LTMaster.print("setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fillInfo)");
     if fillUnitIndex == self.LTMaster.baler.fillUnitIndex then
         if self.LTMaster.baler.dummyBale.baleNode ~= nil and fillLevel > 0 and fillLevel < self:getUnitCapacity(fillUnitIndex) and (self.LTMaster.baler.dummyBale.currentBale == nil or self.LTMaster.baler.dummyBale.currentBaleFillType ~= fillType) then
             if self.LTMaster.baler.dummyBale.currentBale ~= nil then
@@ -450,6 +448,9 @@ function LTMaster:dropBale(baleIndex)
         baleObject:load(bale.filename, x, y, z, rx, ry, rz, bale.fillLevel);
         baleObject:register();
         delete(bale.id);
+        if baleObject:getFillType() == FillUtil.FILLTYPE_DRYGRASS_WINDROW then
+            baleObject.supportsWrapping = false;
+        end
         if (not self.hasBaleWrapper or self.moveBaleToWrapper == nil) and baleObject.nodeId ~= nil then
             local x, y, z = getWorldTranslation(baleObject.nodeId);
             local vx, vy, vz = getVelocityAtWorldPos(self.LTMaster.baler.baleAnimRootComponent, x, y, z);
