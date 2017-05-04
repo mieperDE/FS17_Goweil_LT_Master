@@ -118,7 +118,7 @@ function LTMaster:animationsInput(dt)
                 self:updateBaleSlideStatus(LTMaster.STATUS_RL_LOWERING);
             end
         end
-        if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERED then
+        if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERED and not self:getIsTurnedOn() then
             g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
             if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
                 self:updateBaleSlideStatus(LTMaster.STATUS_RL_RAISING);
