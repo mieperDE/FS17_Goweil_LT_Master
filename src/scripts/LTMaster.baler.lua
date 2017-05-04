@@ -107,7 +107,7 @@ function LTMaster:postLoadBaler(savegame)
     self.setUnitFillLevel = Utils.appendedFunction(self.setUnitFillLevel, LTMaster.setUnitFillLevel);
     if savegame ~= nil and not savegame.resetVehicles then
         local numBales = getXMLInt(savegame.xmlFile, savegame.key .. "#numBales");
-        self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleVolumesIndex"),self.LTMaster.baler.baleVolumesIndex);
+        self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleVolumesIndex"), self.LTMaster.baler.baleVolumesIndex);
         if numBales ~= nil and numBales > 0 then
             self.LTMaster.baler.balesToLoad = {};
             local baleKey = savegame.key .. ".bale(0)";
@@ -429,7 +429,6 @@ function LTMaster:createBale(baleFillType, fillLevel)
     bale.filename = Utils.getFilename(baleType.filename, self.baseDirectory);
     bale.time = 0;
     bale.fillType = baleFillType;
-    self.ssSilageSource = baleFillType;
     local randomFillLevel = math.random(0, fillLevel * 0.06) - fillLevel * 0.03;
     bale.fillLevel = fillLevel + randomFillLevel;
     if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
