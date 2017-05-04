@@ -360,8 +360,8 @@ function LTMaster:update(dt)
     self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:update(dt);
     if self.isClient then
         LTMaster.animationsInput(self, dt);
-        if self.LTMaster.triggerLeft.active and not self.LTMaster.sideUnload.isUnloading then
-            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.maxAmount then
+        if self.LTMaster.triggerLeft.active and not self.LTMaster.sideUnload.isUnloading and self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED and self:getRootAttacherVehicle().isMotorStarted then
+            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.maxAmount + 10 then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_UNLOAD_SIDE"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
                 if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
                     g_client:getServerConnection():sendEvent(SideUnloadEvent:new(self));
@@ -501,18 +501,18 @@ function LTMaster:unloadSide()
 end
 
 function LTMaster:getIsFoldAllowed(superFunc, onAiTurnOn)
-    if self:getIsTurnedOn() then
+    if self:getIsTurnedOn() or self.LTMaster.baleSlide.status ~= LTMaster.STATUS_RL_RAISED or self.LTMaster.supports.status ~= LTMaster.STATUS_RL_RAISED then
         return false;
     end
     if superFunc ~= nil then
-        return superFunc(self, onAiTurnOn)
+        return superFunc(self, onAiTurnOn);
     end
     return true;
 end
 
 function LTMaster:getIsTurnedOnAllowed(superFunc, isTurnedOn)
     if isTurnedOn then
-        if self.LTMaster.folding.status ~= LTMaster.STATUS_FU_UNFOLDED then
+        if self.LTMaster.folding.status ~= LTMaster.STATUS_FU_UNFOLDED or self.LTMaster.baleSlide.status ~= LTMaster.STATUS_RL_LOWERED then
             return false;
         end
     end
@@ -523,8 +523,13 @@ function LTMaster:getIsTurnedOnAllowed(superFunc, isTurnedOn)
 end
 
 function LTMaster:getTurnedOnNotAllowedWarning(superFunc)
-    if self.LTMaster.folding.status ~= LTMaster.STATUS_FU_UNFOLDED then
-        return "qui si deve mettere il messaggio di errore";
+    if self:getRootAttacherVehicle().isMotorStarted then
+        if self.LTMaster.folding.status ~= LTMaster.STATUS_FU_UNFOLDED then
+            return g_i18n:getText("GLTM_TURNON_NOT_ALLOWED_UNFOLD");
+        end
+        if self.LTMaster.baleSlide.status ~= LTMaster.STATUS_RL_LOWERED then
+            return g_i18n:getText("GLTM_TURNON_NOT_ALLOWED_BALESLIDE");
+        end
     end
     if superFunc ~= nil then
         return superFunc(self);

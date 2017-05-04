@@ -171,5 +171,23 @@ Required power: 140 hp
             <fr>Cambia il volume delle balle da %s a %s</fr>
             <it>Cambia il volume delle balle da %s a %s</it>
         </text>
+        <text name="GLTM_TURNON_VEHICLE">
+            <de>Accendi il mezzo per altre azioni</de>
+            <en>Accendi il mezzo per altre azioni</en>
+            <fr>Accendi il mezzo per altre azioni</fr>
+            <it>Accendi il mezzo per altre azioni</it>
+        </text>
+        <text name="GLTM_TURNON_NOT_ALLOWED_UNFOLD">
+            <de>Dispiega sta cazzo di goweil su!</de>
+            <en>Dispiega sta cazzo di goweil su!</en>
+            <fr>Dispiega sta cazzo di goweil su!</fr>
+            <it>Dispiega sta cazzo di goweil su!</it>
+        </text>
+        <text name="GLTM_TURNON_NOT_ALLOWED_BALESLIDE">
+            <de>Abbassa sto cazzo di scivolo per le balle su!</de>
+            <en>Abbassa sto cazzo di scivolo per le balle su!</en>
+            <fr>Abbassa sto cazzo di scivolo per le balle su!</fr>
+            <it>Abbassa sto cazzo di scivolo per le balle su!</it>
+        </text>
     </l10n>
 </modDesc>

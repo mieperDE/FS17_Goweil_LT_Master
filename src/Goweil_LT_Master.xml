@@ -362,10 +362,10 @@
     <allowFillFromAir value="true"/>
     <LTMaster>
         <triggers>
-            <triggerLeft index="0>27|0|0" radius="3" />
+            <triggerLeft index="0>27|0|0" radius="2" />
             <triggerRight index="0>27|0|1" radius="3"/>
             <triggerLadder index="0>27|1" radius="3" />
-            <triggerBaleSlide index="0>27|2" radius="3" />
+            <triggerBaleSlide index="0>27|2" radius="2" />
             <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="2" leftFillUnitIndex="3" />
         </triggers>
         <hoods>

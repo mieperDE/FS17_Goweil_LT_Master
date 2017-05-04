@@ -23,70 +23,79 @@ function LTMaster:setRelativePosition(positionX, offsetY, positionZ, yRot)
 end
 
 function LTMaster:animationsInput(dt)
-    --Open/Close of the left door -->
-    if self.LTMaster.triggerLeft.active then
-        if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_OPEN then
-            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_CLOSING);
-            end
-            --Raise/Lower of the supports -->
-            if self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISED then
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_SUPPORTS"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
-                if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
-                    self:updateSupportsStatus(LTMaster.STATUS_RL_LOWERING);
-                end
-            end
-            if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERED then
-                --Fold/Unfold -->
-                if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDED then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_SUPPORTS"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
-                        self:updateSupportsStatus(LTMaster.STATUS_RL_RAISING);
-                    end
-                    g_currentMission:addHelpButtonText(g_i18n:getText("action_unfoldOBJECT"), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA) then
-                        self:updateFoldingStatus(LTMaster.STATUS_FU_UNFOLDING);
+    if self.LTMaster.triggerLeft.active or self.LTMaster.triggerRight.active then
+        if self:getRootAttacherVehicle().isMotorStarted then
+            --Open/Close of the left door
+            if self.LTMaster.triggerLeft.active then
+                if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_CLOSED then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                        self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_OPENING);
                     end
                 end
-                if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("action_foldOBJECT"), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA) then
-                        if self.setIsTurnedOn ~= nil and self:getIsTurnedOn() then
-                            self:setIsTurnedOn(false, true);
+                if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_OPEN then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                        self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_CLOSING);
+                    end
+                end
+            end
+            --Open/Close of the right door
+            if self.LTMaster.triggerRight.active then
+                if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_CLOSED then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                        self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_OPENING);
+                    end
+                end
+                if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_OPEN then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                        self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_CLOSING);
+                    end
+                end
+            end
+            if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_OPEN then
+                --Raise/Lower of the supports
+                if self.LTMaster.triggerLeft.active then
+                    if self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISED and self:getIsUnfolded() then
+                        g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_SUPPORTS"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
+                        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
+                            self:updateSupportsStatus(LTMaster.STATUS_RL_LOWERING);
                         end
-                        self:updateFoldingStatus(LTMaster.STATUS_FU_FOLDING);
+                    end
+                    if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERED and self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDED then
+                        g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_SUPPORTS"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
+                        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
+                            self:updateSupportsStatus(LTMaster.STATUS_RL_RAISING);
+                        end
                     end
                 end
-            --Fold/Unfold <--
+                --Fold/Unfold
+                if self.LTMaster.triggerLeft.active then
+                    if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDED and self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERED then
+                        g_currentMission:addHelpButtonText(g_i18n:getText("action_unfoldOBJECT"), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
+                        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA) then
+                            self:updateFoldingStatus(LTMaster.STATUS_FU_UNFOLDING);
+                        end
+                    end
+                    if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED then
+                        g_currentMission:addHelpButtonText(g_i18n:getText("action_foldOBJECT"), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
+                        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA) then
+                            if self.setIsTurnedOn ~= nil and self:getIsTurnedOn() then
+                                self:setIsTurnedOn(false, true);
+                            end
+                            self:updateFoldingStatus(LTMaster.STATUS_FU_FOLDING);
+                        end
+                    end
+                end
             end
-        --Raise/Lower of the supports <--
-        end
-        if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_CLOSED then
-            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_OPENING);
-            end
-        end
-    end
-    --Open/Close of the left door <--
-    --Open/Close of the right door -->
-    if self.LTMaster.triggerRight.active then
-        if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_OPEN then
-            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_CLOSING);
-            end
-        end
-        if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_CLOSED then
-            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_OPENING);
-            end
+        else
+            g_currentMission:addExtraPrintText(g_i18n:getText("GLTM_TURNON_VEHICLE"));
         end
     end
-    --Open/Close of the right door <--
-    --Raise/Lower of the ladder -->
+    
+    --Raise/Lower of the ladder
     if self.LTMaster.triggerLadder.active then
         if self.LTMaster.ladder.status == LTMaster.STATUS_RL_RAISED then
             g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_LADDER"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
@@ -101,9 +110,8 @@ function LTMaster:animationsInput(dt)
             end
         end
     end
-    --Raise/Lower of the ladder <--
-    --Raise/Lower of the bale slide -->
-    if self.LTMaster.triggerBaleSlide.active then
+    --Raise/Lower of the bale slide
+    if self.LTMaster.triggerBaleSlide.active and self:getIsUnfolded() then
         if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISED then
             g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
             if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
@@ -117,7 +125,6 @@ function LTMaster:animationsInput(dt)
             end
         end
     end
---Raise/Lower of the bale slide <--
 end
 
 function LTMaster:updateHoodStatus(hood, newStatus, noEventSend)
