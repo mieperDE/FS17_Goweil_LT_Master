@@ -18,8 +18,8 @@ FillUtil.registerFillType(
 );
 
 BaleUtil.registerBaleType(
-    "bales_old/roundbaleChaff_w112_d130.i3d",
-    "chaff",
+    "bales/roundbaleGrass_w112_d130.i3d",
+    "grass_windrow",
     1.12,
     nil,
     nil,
@@ -28,7 +28,7 @@ BaleUtil.registerBaleType(
 );
 
 BaleUtil.registerBaleType(
-    "bales_old/roundbaleSilage_Chaff_w112_d130.i3d",
+    "bales/roundbaleGrassSilage_w112_d130.i3d",
     "silage",
     1.12,
     nil,
@@ -38,7 +38,47 @@ BaleUtil.registerBaleType(
 );
 
 BaleUtil.registerBaleType(
-    "bales/wood_Chips.i3d",
+    "bales/roundbaleHay_w112_d130.i3d",
+    "dryGrass_windrow",
+    1.12,
+    nil,
+    nil,
+    1.3,
+    true
+);
+
+BaleUtil.registerBaleType(
+    "bales/roundbaleStraw_w112_d130.i3d",
+    "straw",
+    1.12,
+    nil,
+    nil,
+    1.3,
+    true
+);
+
+BaleUtil.registerBaleType(
+    "bales/roundbaleChaff_w112_d130.i3d",
+    "chaff",
+    1.12,
+    nil,
+    nil,
+    1.3,
+    true
+);
+
+BaleUtil.registerBaleType(
+    "bales/roundbaleChaffSilage_w112_d130.i3d",
+    "silage",
+    1.13,
+    nil,
+    nil,
+    1.3,
+    true
+);
+
+BaleUtil.registerBaleType(
+    "bales/roundbaleWoodChips_w112_d130.i3d",
     "woodChips",
     1.12,
     nil,

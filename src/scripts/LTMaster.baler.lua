@@ -449,7 +449,7 @@ function LTMaster:dropBale(baleIndex)
         baleObject:register();
         delete(bale.id);
         if baleObject:getFillType() == FillUtil.FILLTYPE_DRYGRASS_WINDROW then
-            baleObject.supportsWrapping = false;
+            --baleObject.supportsWrapping = false;
         end
         if (not self.hasBaleWrapper or self.moveBaleToWrapper == nil) and baleObject.nodeId ~= nil then
             local x, y, z = getWorldTranslation(baleObject.nodeId);
