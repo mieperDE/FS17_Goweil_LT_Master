@@ -12,10 +12,11 @@
         </functions>
         <specs>
             <neededPower>200</neededPower>
+            <workingWidth>5</workingWidth>
         </specs>
         <image>store.dds</image>
-        <price>280000</price>
-        <dailyUpkeep>250</dailyUpkeep>
+        <price>75100</price>
+        <dailyUpkeep>20</dailyUpkeep>
         <lifetime>600</lifetime>
         <rotation>0</rotation>
         <brand>GOWEIL</brand>
@@ -24,7 +25,8 @@
     <typeDesc>$l10n_typeDesc_baler</typeDesc>
     <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8"/>
-    <powerConsumer ptoRpm="760" neededPtoPower="200"/>
+    <speedLimit value="20" />
+    <powerConsumer ptoRpm="540" neededPtoPower="89"/>
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>
@@ -132,10 +134,10 @@
         </animation>
         <animation name="folding2">
             <!--scivoloUP -->
-            <part node="0>7" startTime="0" duration="5" startRot="-43.9 0 0" endRot="-30.624 0 0" />
-            <part node="0>7" startTime="5" duration="6" startRot="-30.624 0 0" endRot="-16.2 0 0" />
-            <part node="0>7" startTime="0" duration="5" startTrans="0 3.95 -0.482" endTrans="0 2.394 -2.019" />
-            <part node="0>7" startTime="5" duration="6" startTrans="0 2.394 -2.019" endTrans="0 1.449 -2.741" />
+            <part node="0>7" startTime="0" duration="5" startRot="-43.9 0 0" endRot="-33.524 0 0" />
+            <part node="0>7" startTime="5" duration="6" startRot="-33.524 0 0" endRot="-13.8 0 0" />
+            <part node="0>7" startTime="0" duration="5" startTrans="0 4.347 -0.067" endTrans="0 3.112 -1.35" />
+            <part node="0>7" startTime="5" duration="6" startTrans="0 3.112 -1.35" endTrans="0 1.449 -2.741" />
             <!--apertura_scivoloUP-->
             <part node="0>7|4|0" startTime="11" duration="2" startRot="0 0 0" endRot="0 0 90" />
             <part node="0>7|4|1" startTime="11" duration="2" startRot="0 0 0" endRot="0 0 -90" />
@@ -186,6 +188,8 @@
             <part node="0>12|8" startTime="0" duration="0.75" startRot="0 0 0" endRot="25 0 0" />
             <part node="0>10|1" startTime="0.75" duration="1" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 -1.025" />
             <part node="0>10|1" startTime="1" duration="1.25" startRot="0 0 0" endRot="-20 0 0" />
+            <part node="0>10|1" startTime="3.50" duration="1.25" startRot="-20 0 0" endRot="0 0 0" />
+            <part node="0>10|1" startTime="4.25" duration="2.25" startTrans="0 -0.969 -1.025" endTrans="0 -0.969 -0.178" />
             <!-- balla1 -->
             <part node="0>23" startTime="1.26" duration="1.50" startTrans="0 2.632 1.442" endTrans="0 2.362 1.88" />
             <part node="0>23" startTime="1.26" duration="1.50" startRot="0 0 0" endRot="35 0 0" />
@@ -196,19 +200,18 @@
             <part node="0>23" startTime="1.75" duration="2" startTrans="0 2.103 2.447" endTrans="0 2.04 2.982" />
             <part node="0>23" startTime="1.75" duration="2" startRot="50 0 0" endRot="90 0 0" />
             <!-- Animazione balla5 -->
-            <part node="0>10|1" startTime="2" duration="2.25" startRot="-20 0 0" endRot="0 0 0" />
             <part node="0>23" startTime="2" duration="2.25" startTrans="0 2.04 2.982" endTrans="0 2.079 3.202" />
             <part node="0>23" startTime="2" duration="2.25" startRot="90 0 0" endRot="110 0 0" />
             <!-- Animazione balla6 -->
-            <part node="0>10|1" startTime="2.25" duration="2.75" startTrans="0 -0.969 -1.025" endTrans="0 -0.969 -0.178" />
-            <part node="0>23" startTime="2.25" duration="2.75" startTrans="0 2.079 3.202" endTrans="0 2.079 4.049" />
+            <part node="0>23" startTime="4.25" duration="2.25" startTrans="0 2.079 3.202" endTrans="0 2.079 4.049" />
         </animation>
         <!-- close door -->
         <animation name="closeDoor">
-            <part node="0>23" startTime="0" duration="0" endTrans="0 2.632 1.442" />
             <part node="0>12" startTime="0" duration="0.75" startRot="-90 0 0" endRot="0 0 0" />
             <part node="0>12|8" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />
             <part node="0>10|1" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />
+            <part node="0>23" startTime="0" duration="0.75" startTrans="0 2.079 4.049" endTrans="0 2.632 1.442" />
+            <part node="0>23" startTime="0" duration="0.75" startRot="110 0 0" endRot="0 0 0" />
         </animation>
         <!--Wrapper -->
         <animation name="moveBaleToWrapper">
@@ -220,8 +223,18 @@
             <part node="0>10|1|9|0" startTime="0.1" endTime="2" startRot="0 0 0" endRot="0 0 180" startTrans="0 0 0" endTrans="0.463 -1.393 0" />
         </animation>
         <animation name="resetWrapperAfterBaleDrop">
-            <part node="0>10|1" startTime="2" endTime="2.5" startRot="25 0 0" endRot="0 0 0" />
-            <part node="0>10|1|9|0" startTime="2" endTime="5" startRot="0 0 0" endRot="0 0 0" startTrans="0 0 0" endTrans="0 0 0"/>
+            <part node="0>10|1" startTime="0" endTime="1.5" startRot="25 0 0" endRot="0 0 0" />
+            <part node="0>10|1|9|0" startTime="0" endTime="0.5" startRot="0 0 0" endRot="0 0 0" startTrans="0 0 0" endTrans="0 0 0"/>
+            <part node="0>10|1|4" startTime="0" endTime="0.1" shaderParameter="offsetUV" shaderStartValues="20 0 0 0" shaderEndValues="0 0 0 0" />
+            <part node="0>10|1|5" startTime="0" endTime="0.1" shaderParameter="offsetUV" shaderStartValues="20 0 0 0" shaderEndValues="0 0 0 0" />
+            <part node="0>10|1|0|0" startTime="0" endTime="0.1" startRot="2000 0 0" endRot="0 0 0" />
+            <part node="0>10|1|0|1" startTime="0" endTime="0.1" startRot="2000 0 0" endRot="0 0 0" />
+        </animation>
+        <animation name="wrapBale">
+            <part node="0>10|1|4" startTime="0" endTime="10" shaderParameter="offsetUV" shaderStartValues="0 0 0 0" shaderEndValues="20 0 0 0" />
+            <part node="0>10|1|5" startTime="0" endTime="10" shaderParameter="offsetUV" shaderStartValues="0 0 0 0" shaderEndValues="20 0 0 0" />
+            <part node="0>10|1|0|0" startTime="0" endTime="10" startRot="0 0 0" endRot="2000 0 0" />
+            <part node="0>10|1|0|1" startTime="0" endTime="10" startRot="0 0 0" endRot="2000 0 0" />
         </animation>
     </animations>
     <wrapperStartSound file="$data/sounds/bale_wrapping_start.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" />
@@ -233,10 +246,11 @@
                 <moveToWrapper animName="moveBaleToWrapper" animSpeed="1" reverseAfterMove="true" />
                 <dropFromWrapper animName="dropBaleFromWrapper" animSpeed="1" />
                 <resetAfterDrop animName="resetWrapperAfterBaleDrop" animSpeed="1" />
+                <wrapBale animName="wrapBale" animSpeed="1" />
             </animations>
             <baleTypes>
                 <baleType fillType="grass_windrow" wrapperBaleFilename="$data/objects/roundbales/roundbaleSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
-                <baleType fillType="chaff" wrapperBaleFilename="bales/roundbaleSilage_Chaff_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
+                <baleType fillType="dryGrass_windrow" wrapperBaleFilename="$data/objects/roundbales/roundbaleSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
             </baleTypes>
             <wrapperAnimation>
                 <key time="0" baleRot="0 0 0" wrapperRot="0 0 0" />
@@ -339,14 +353,11 @@
     <speedRotatingParts>
         <speedRotatingPart index="0>15|8" radius="0.5" refNodeIndex="0" turnOnFadeTime="1" turnOffFadeTime="2" />
     </speedRotatingParts>
-    <supportsFillTriggers value="true" />
-    <fillLitersPerSecond>20</fillLitersPerSecond>
     <fillUnits>
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="24000" fillVolumeIndex="1" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="1800" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="0" fillVolumeIndex="2" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="0" fillVolumeIndex="3" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="4000" showOnHud="false" showInShop="false" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
     </fillUnits>
     <fillVolumes>
         <volumes>
@@ -354,6 +365,21 @@
             <volume index="0>7|4|0|12" fillUnitIndex="2" />
             <volume index="0>7|4|1|14" fillUnitIndex="3" />
         </volumes>
+        <loadInfos>
+            <loadInfo fillVolumeIndex="1">
+                <node index="0>7|11|0" width="1.0" length="0.5" />
+                <node index="0>7|11|1" width="1.0" length="0.5" />
+            </loadInfo>
+        </loadInfos>
+        <unloadInfos>
+            <unloadInfo fillVolumeIndex="1">
+                <!-- left -->
+                <node index="0>7|12|0" width="1.0" length="0.5" minHeight="1.9" priority="2" />
+                <node index="0>7|12|1" width="1.0" length="0.5" minHeight="1.9" priority="2" />
+                <node index="0>7|12|2" width="1.0" length="3.6" />
+                <node index="0>7|12|3" width="1.0" length="3.6" />
+            </unloadInfo>
+        </unloadInfos>
     </fillVolumes>
     <fillRootNode index="0>" />
     <exactFillRootNode index="0>7|9" />
@@ -361,10 +387,10 @@
     <allowFillFromAir value="true"/>
     <LTMaster>
         <triggers>
-            <triggerLeft index="0>27|0|0" radius="2" />
+            <triggerLeft index="0>27|0|0" radius="3" />
             <triggerRight index="0>27|0|1" radius="3"/>
             <triggerLadder index="0>27|1" radius="3" />
-            <triggerBaleSlide index="0>27|2" radius="2" />
+            <triggerBaleSlide index="0>27|2" radius="3" />
             <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="2" leftFillUnitIndex="3" />
         </triggers>
         <hoods>
@@ -385,8 +411,8 @@
         <baleSlide animationName="baleSlide">
             <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
         </baleSlide>
-        <sideUnload animationName="unloadSide" maxAmount="0" />
-        <conveyor overloadingCapacity="250">
+        <sideUnload animationName="unloadSide" minAmount="5000" />
+        <conveyor overloadingCapacity="250" overloadingDelay="5">
             <uvScrollParts>
                 <!--scivolo Superiore-->
                 <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
@@ -403,14 +429,8 @@
                 <rotatingPart index="0>7|2|6" type="LTMaster.conveyor" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="3" />
             </rotatingParts>
             <effects>
-                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="BELT" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
+                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
             </effects>
-            <unloadParticleSystems>
-                <emitterShape node="0>29|2" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
-            </unloadParticleSystems>
-            <augerParticleSystems>
-                <emitterShape node="0>7|11" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
-            </augerParticleSystems>
         </conveyor>
         <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
@@ -423,13 +443,6 @@
             <baleTypes>
                 <baleType width="1.12" diameter="1.3" />
             </baleTypes>
-            <baleVolumes defaultVolumeIndex="3">
-                <volume liters="3000" />
-                <volume liters="3500" />
-                <volume liters="4000" />
-                <volume liters="4500" />
-                <volume liters="5000" />
-            </baleVolumes>
             <uvScrollParts>
                 <!--camera-->
                 <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
@@ -469,11 +482,6 @@
                 <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </rotatingParts>
         </baler>
-        <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
-            <effects>
-                <effectNode effectNode="0>29|3" materialType="SPRAYER" />
-            </effects>
-        </silageAdditive>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
     <components count="1">
