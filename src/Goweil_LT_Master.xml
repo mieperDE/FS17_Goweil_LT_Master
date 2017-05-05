@@ -12,11 +12,10 @@
         </functions>
         <specs>
             <neededPower>200</neededPower>
-            <workingWidth>5</workingWidth>
         </specs>
         <image>store.dds</image>
-        <price>75100</price>
-        <dailyUpkeep>20</dailyUpkeep>
+        <price>280000</price>
+        <dailyUpkeep>250</dailyUpkeep>
         <lifetime>600</lifetime>
         <rotation>0</rotation>
         <brand>GOWEIL</brand>
@@ -25,8 +24,7 @@
     <typeDesc>$l10n_typeDesc_baler</typeDesc>
     <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8"/>
-    <speedLimit value="20" />
-    <powerConsumer ptoRpm="540" neededPtoPower="89"/>
+    <powerConsumer ptoRpm="760" neededPtoPower="200"/>
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>
@@ -250,7 +248,7 @@
             </animations>
             <baleTypes>
                 <baleType fillType="grass_windrow" wrapperBaleFilename="$data/objects/roundbales/roundbaleSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
-                <baleType fillType="dryGrass_windrow" wrapperBaleFilename="$data/objects/roundbales/roundbaleSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
+                <baleType fillType="chaff" wrapperBaleFilename="bales/roundbaleSilage_Chaff_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
             </baleTypes>
             <wrapperAnimation>
                 <key time="0" baleRot="0 0 0" wrapperRot="0 0 0" />
@@ -353,11 +351,14 @@
     <speedRotatingParts>
         <speedRotatingPart index="0>15|8" radius="0.5" refNodeIndex="0" turnOnFadeTime="1" turnOffFadeTime="2" />
     </speedRotatingParts>
+    <supportsFillTriggers value="true" />
+    <fillLitersPerSecond>20</fillLitersPerSecond>
     <fillUnits>
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="1800" fillVolumeIndex="1" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="24000" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="0" fillVolumeIndex="2" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="0" fillVolumeIndex="3" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="4000" showOnHud="false" showInShop="false" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
     </fillUnits>
     <fillVolumes>
         <volumes>
@@ -387,10 +388,10 @@
     <allowFillFromAir value="true"/>
     <LTMaster>
         <triggers>
-            <triggerLeft index="0>27|0|0" radius="3" />
+            <triggerLeft index="0>27|0|0" radius="2" />
             <triggerRight index="0>27|0|1" radius="3"/>
             <triggerLadder index="0>27|1" radius="3" />
-            <triggerBaleSlide index="0>27|2" radius="3" />
+            <triggerBaleSlide index="0>27|2" radius="2" />
             <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="2" leftFillUnitIndex="3" />
         </triggers>
         <hoods>
@@ -411,8 +412,8 @@
         <baleSlide animationName="baleSlide">
             <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
         </baleSlide>
-        <sideUnload animationName="unloadSide" minAmount="5000" />
-        <conveyor overloadingCapacity="250" overloadingDelay="5">
+        <sideUnload animationName="unloadSide" maxAmount="0" />
+        <conveyor overloadingCapacity="250">
             <uvScrollParts>
                 <!--scivolo Superiore-->
                 <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
@@ -429,8 +430,14 @@
                 <rotatingPart index="0>7|2|6" type="LTMaster.conveyor" rotSpeed="-700" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="3" />
             </rotatingParts>
             <effects>
-                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="belt" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
+                <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="BELT" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
             </effects>
+            <unloadParticleSystems>
+                <emitterShape node="0>29|2" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
+            </unloadParticleSystems>
+            <augerParticleSystems>
+                <emitterShape node="0>7|11" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
+            </augerParticleSystems>
         </conveyor>
         <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
@@ -443,6 +450,13 @@
             <baleTypes>
                 <baleType width="1.12" diameter="1.3" />
             </baleTypes>
+            <baleVolumes defaultVolumeIndex="3">
+                <volume liters="3000" />
+                <volume liters="3500" />
+                <volume liters="4000" />
+                <volume liters="4500" />
+                <volume liters="5000" />
+            </baleVolumes>
             <uvScrollParts>
                 <!--camera-->
                 <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
@@ -482,6 +496,11 @@
                 <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </rotatingParts>
         </baler>
+        <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
+            <effects>
+                <effectNode effectNode="0>29|3" materialType="SPRAYER" />
+            </effects>
+        </silageAdditive>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
     <components count="1">
