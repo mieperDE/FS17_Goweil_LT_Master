@@ -432,11 +432,15 @@
             <effects>
                 <effectNode effectClass="MorphPositionEffect" effectNode="0>28|0" materialType="BELT" delay="0" fadeTime="4" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
             </effects>
+            <unloadEffects>
+                <effectNode effectClass="MorphPositionEffect" effectNode="0>8|5|0|2" materialType="BELT" fadeTime="1" speed="0.5" scrollLength="9" scrollSpeed="0.5" />
+            </unloadEffects>
             <unloadParticleSystems>
-                <emitterShape node="0>29|2" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
+                <!--Qui ci puoi mettere particle come il fumo che esce dalla camera di pressatura-->
             </unloadParticleSystems>
             <augerParticleSystems>
-                <emitterShape node="0>7|13" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
+                <!--Qui ci puoi mettere particle come il fumo che nella zona delle coclee prima del nastro-->
+                <emitterShape node="0>7|13" particleType="UNLOADING" emitCountScale="10" lifespan="0.2" />
             </augerParticleSystems>
         </conveyor>
         <baler fillUnitIndex="4" knottingTime="3">
