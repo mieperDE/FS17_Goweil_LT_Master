@@ -18,7 +18,7 @@ FillUtil.registerFillType(
 );
 
 BaleUtil.registerBaleType(
-    "bales/roundbaleChaff_w112_d130.i3d",
+    "bales_old/roundbaleChaff_w112_d130.i3d",
     "chaff",
     1.12,
     nil,
@@ -28,7 +28,7 @@ BaleUtil.registerBaleType(
 );
 
 BaleUtil.registerBaleType(
-    "bales/roundbaleSilage_Chaff_w112_d130.i3d",
+    "bales_old/roundbaleSilage_Chaff_w112_d130.i3d",
     "silage",
     1.12,
     nil,
@@ -38,7 +38,7 @@ BaleUtil.registerBaleType(
 );
 
 BaleUtil.registerBaleType(
-    "bales/roundbaleWoodChips_w112_d130.i3d",
+    "bales/wood_Chips.i3d",
     "woodChips",
     1.12,
     nil,
