@@ -436,7 +436,7 @@
                 <emitterShape node="0>29|2" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
             </unloadParticleSystems>
             <augerParticleSystems>
-                <emitterShape node="0>7|11" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
+                <emitterShape node="0>7|13" particleType="UNLOADING" emitCountScale="10" lifespan="0.11" />
             </augerParticleSystems>
         </conveyor>
         <baler fillUnitIndex="4" knottingTime="3">
@@ -498,7 +498,13 @@
         </baler>
         <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
             <effects>
-                <effectNode effectNode="0>29|3" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|0" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|1" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|2" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|3" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|4" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|5" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|6" materialType="SPRAYER" />
             </effects>
         </silageAdditive>
     </LTMaster>
