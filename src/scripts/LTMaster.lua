@@ -360,15 +360,15 @@ function LTMaster:update(dt)
     self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:update(dt);
     if self.isClient then
         LTMaster.animationsInput(self, dt);
-        if self.LTMaster.triggerLeft.active and not self.LTMaster.sideUnload.isUnloading and self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED and self:getRootAttacherVehicle().isMotorStarted then
-            if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.maxAmount then
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_UNLOAD_SIDE"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
-                if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
-                    g_client:getServerConnection():sendEvent(SideUnloadEvent:new(self));
-                    self.LTMaster.sideUnload.isUnloading = true;
-                end
-            end
-        end
+        --if self.LTMaster.triggerLeft.active and not self.LTMaster.sideUnload.isUnloading and self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED and self:getRootAttacherVehicle().isMotorStarted then
+        --    if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= self.LTMaster.sideUnload.maxAmount then
+        --        g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_UNLOAD_SIDE"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
+        --        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
+        --            g_client:getServerConnection():sendEvent(SideUnloadEvent:new(self));
+        --            self.LTMaster.sideUnload.isUnloading = true;
+        --        end
+        --    end
+        --end
     end
     if self.isServer then
         if self.baleWrapperState ~= nil and self.baleWrapperState == BaleWrapper.STATE_WRAPPER_FINSIHED then
