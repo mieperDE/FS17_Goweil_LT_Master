@@ -68,8 +68,6 @@ function LTMaster:preLoad(savegame)
     if self.isServer then
         if savegame == nil then
             self.tempHelpInfoText = g_i18n:getText("GLTM_TEMP_INFO");
-        else
-            self.tempHelpInfoText = nil;
         end
     end
 end
