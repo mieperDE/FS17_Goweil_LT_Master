@@ -2,8 +2,14 @@
 <l10n>
     <translationContributors></translationContributors>
     <texts>
-        <text name="shop_overwrite_messageLeasingReady"               text="Il manuale utente completo è disponibile nell'aiuto di gioco :: Puoi ritirare il veicolo noleggiato al negozio."/>
-        <text name="shop_overwrite_messagePurchaseReady"              text="Il manuale utente completo è disponibile nell'aiuto di gioco :: Puoi ritirare il tuo acquisto nel negozio."/>
+        <text name="shop_overwrite_messageLeasingReady"     text="Il manuale utente completo è disponibile nell&apos;aiuto di gioco. 
+ 
+Puoi ritirare il veicolo noleggiato al negozio." />
+ 
+        <text name="shop_overwrite_messagePurchaseReady"    text="Il manuale utente completo è disponibile nell&apos;aiuto di gioco. 
+ 
+Puoi ritirare il tuo acquisto nel negozio." />
+ 
         <text name="function_silageAdditiveTank"            text="Additivo per migliorare la resa dei prodotti insilati." />
         <text name="fillType_silageAdditive"                text="Additivo insilati." />
         <text name="GLTM_TEMP_INFO"                         text="Guida completa all'uso disponibile nell'help di gioco" />
