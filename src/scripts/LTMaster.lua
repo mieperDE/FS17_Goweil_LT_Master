@@ -56,6 +56,13 @@ function LTMaster:preLoad(savegame)
     self.unloadSide = LTMaster.unloadSide;
     self.setConveyorStatus = LTMaster.setConveyorStatus;
     self.getIsConveyorOverloading = LTMaster.getIsConveyorOverloading;
+    if self.isServer then
+        if savegame == nil then
+            self.tempHelpInfoText = g_i18n:getText("GLTM_TEMP_INFO");
+        else
+            self.tempHelpInfoText = nil;
+        end
+    end
 end
 
 function LTMaster:load(savegame)
@@ -502,6 +509,9 @@ function LTMaster:updateTick(dt)
 end
 
 function LTMaster:draw()
+    if self.tempHelpInfoText then
+        g_currentMission:addExtraPrintText(self.tempHelpInfoText);
+    end
     LTMaster.drawBaler(self);
 end
 

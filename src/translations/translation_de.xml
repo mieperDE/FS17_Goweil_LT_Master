@@ -2,8 +2,11 @@
 <l10n>
     <translationContributors></translationContributors>
     <texts>
+        <text name="shop_messageLeasingReady"               text="A complete user manual available in game help :: You can pick up your leased vehicle from the store."/>
+        <text name="shop_messagePurchaseReady"              text="A complete user manual available in game help :: You can fetch your purchase at the store."/>
         <text name="function_silageAdditiveTank"            text="Silage Additives is used to get higher resolution." />
         <text name="fillType_silageAdditive"                text="Silage Additives." />
+        <text name="GLTM_TEMP_INFO"                         text="Guida completa all'uso disponibile nell'help di gioco" />
         <text name="GLTM_OPEN_HOOD"                         text="Open hood" />
         <text name="GLTM_CLOSE_HOOD"                        text="Close hood" />
         <text name="GLTM_LOWER_SUPPORTS"                    text="Lower standing support" />
@@ -22,7 +25,7 @@
         <text name="GLTM_WRAPPER_SET_ON"                    text="Turn on wrapper" />
         <text name="GLTM_WRAPPER_SET_OFF"                   text="Turn off wrapper" />
         <!-- HelpLine texts -->
-        <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master - The Baler" />
+        <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master" />
         <text name="GLTM_HL_TITLE_00"                       text="General description" />
         <text name="GLTM_HL_TEXT_00_00"                     text="The LT-Master is THE baler-wrapper combination for round bales. This is because it can turn almost any chopped material into perfectly pressed and wrapped round bales - whether it be maize, CCM, alfalfa, sugar beet cossettes, and grain, or even garbage, wood chips, mixed feed, etc. The idea behind the development of the LT-Master was to both make silage maize easier to handle by pressing it into convenient round bales and make it useful also for smaller agricultural operations. Each bale forms a small unit that can be fed to the animals in a quick and simple fashion. Bales of silage maize are an excellent choice as they keep the quality of the feed exceptionally high by protecting it against secondary fermentation or post-heating after the feed was pressed into bales." />
         <text name="GLTM_HL_TITLE_01"                       text="Technical details" />
