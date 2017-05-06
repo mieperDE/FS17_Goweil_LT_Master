@@ -7,6 +7,15 @@
 LTMaster = {};
 LTMaster.debug = true
 
+LTMaster.g_i18n = {};
+LTMaster.g_i18n["shop_messagePurchaseReady"] = g_i18n.globalI18N:getText("shop_messagePurchaseReady");
+LTMaster.g_i18n["shop_messageLeasingReady"] = g_i18n.globalI18N:getText("shop_messageLeasingReady");
+function LTMaster.onVehicleBoughtCallback()
+    g_i18n.globalI18N:setText("shop_messagePurchaseReady", LTMaster.g_i18n["shop_messagePurchaseReady"]);
+    g_i18n.globalI18N:setText("shop_messageLeasingReady", LTMaster.g_i18n["shop_messageLeasingReady"]);
+end
+g_shopScreen.onVehicleBoughtCallback = Utils.appendedFunction(g_shopScreen.onVehicleBoughtCallback, LTMaster.onVehicleBoughtCallback);
+
 LTMaster.STATUS_OC_OPEN = 1;
 LTMaster.STATUS_OC_OPENING = 2;
 LTMaster.STATUS_OC_CLOSED = 3;
@@ -74,11 +83,10 @@ function LTMaster:load(savegame)
     self.getIsFoldAllowed = Utils.overwrittenFunction(self.getIsFoldAllowed, LTMaster.getIsFoldAllowed);
     
     self.LTMaster = {};
-
+    
     self.LTMaster.unloadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#unloadInfoIndex"), 1);
     self.LTMaster.loadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#loadInfoIndex"), 1);
     --self.LTMaster.baler.dischargeInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#dischargeInfoIndex"), 1);
-    
     self.LTMaster.fillUnits = {};
     self.LTMaster.fillUnits["main"] = {};
     self.LTMaster.fillUnits["main"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#fillUnitIndex"), 1);
@@ -238,6 +246,8 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
         elseif savegame == nil then
             self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
+            g_i18n.globalI18N:setText("shop_messagePurchaseReady", g_i18n:getText("shop_messagePurchaseReady"));
+            g_i18n.globalI18N:setText("shop_messageLeasingReady", g_i18n:getText("shop_messageLeasingReady"));
         end
         LTMaster.finalizeLoad(self);
     end

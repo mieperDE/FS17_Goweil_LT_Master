@@ -145,7 +145,7 @@ end
 function LTMaster:getSaveAttributesAndNodesBaler(nodeIdent)
     local attributes = 'numBales="' .. table.getn(self.LTMaster.baler.bales) .. '"';
     attributes = attributes .. ' baleVolumesIndex="' .. self.LTMaster.baler.baleVolumesIndex .. '"';
-    attributes = attributes .. ' wrapperEnabled="' .. self.LTMaster.baler.wrapperEnabled .. '"';
+    attributes = attributes .. ' wrapperEnabled="' .. tostring(self.LTMaster.baler.wrapperEnabled) .. '"';
     local nodes = "";
     if table.getn(self.LTMaster.baler.bales) > 0 then
         local bale = self.LTMaster.baler.bales[1];
