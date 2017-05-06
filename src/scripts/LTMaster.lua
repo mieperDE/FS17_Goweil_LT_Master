@@ -8,8 +8,8 @@ LTMaster = {};
 LTMaster.debug = true
 
 LTMaster.g_i18n = {};
-LTMaster.g_i18n["shop_messagePurchaseReady"] = g_i18n.globalI18N:getText("shop_messagePurchaseReady");
-LTMaster.g_i18n["shop_messageLeasingReady"] = g_i18n.globalI18N:getText("shop_messageLeasingReady");
+LTMaster.g_i18n["shop_messagePurchaseReady"] = g_i18n:getText("shop_messagePurchaseReady");
+LTMaster.g_i18n["shop_messageLeasingReady"] = g_i18n:getText("shop_messageLeasingReady");
 function LTMaster.onVehicleBoughtCallback()
     g_i18n.globalI18N:setText("shop_messagePurchaseReady", LTMaster.g_i18n["shop_messagePurchaseReady"]);
     g_i18n.globalI18N:setText("shop_messageLeasingReady", LTMaster.g_i18n["shop_messageLeasingReady"]);
@@ -246,8 +246,8 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
         elseif savegame == nil then
             self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
-            g_i18n.globalI18N:setText("shop_messagePurchaseReady", g_i18n:getText("shop_messagePurchaseReady"));
-            g_i18n.globalI18N:setText("shop_messageLeasingReady", g_i18n:getText("shop_messageLeasingReady"));
+            g_i18n.globalI18N:setText("shop_messagePurchaseReady", g_i18n:getText("shop_overwrite_messagePurchaseReady"));
+            g_i18n.globalI18N:setText("shop_messageLeasingReady", g_i18n:getText("shop_overwrite_messageLeasingReady"));
         end
         LTMaster.finalizeLoad(self);
     end
