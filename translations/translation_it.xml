@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<l10n>
+    <translationContributors></translationContributors>
+    <texts>
+        <text name="function_silageAdditiveTank"            text="Additivo per migliorare la resa dei prodotti insilati." />
+        <text name="fillType_silageAdditive"                text="Additivo insilati." />
+        <text name="GLTM_OPEN_HOOD"                         text="Apri portellone" />
+        <text name="GLTM_CLOSE_HOOD"                        text="Chiudi portellone" />
+        <text name="GLTM_LOWER_SUPPORTS"                    text="Abbassa i piedi di stazionamento" />
+        <text name="GLTM_RAISE_SUPPORTS"                    text="Alza i piedi di stazionamento" />
+        <text name="GLTM_LOWER_LADDER"                      text="Abbassa la scaletta" />
+        <text name="GLTM_RAISE_LADDER"                      text="Alza la scaletta" />
+        <text name="GLTM_LOWER_BALE_SLIDE"                  text="Abbassa lo scivolo balle" />
+        <text name="GLTM_RAISE_BALE_SLIDE"                  text="Alza lo scivolo balle" />
+        <text name="GLTM_UNLOAD_SIDE"                       text="Svuota le sponde laterali" />
+        <text name="GLTM_TURNON_CONVEYOR"                   text="Avvia il nastro di alimentazione" />
+        <text name="GLTM_TURNOFF_CONVEYOR"                  text="Arresta il nastro di alimentazione" />
+        <text name="GLTM_CHANGE_BALE_VOLUME"                text="Densità balle - cambia da %s a %s" />
+        <text name="GLTM_TURNON_VEHICLE"                    text="Accendi il mezzo per poter lavorare" />
+        <text name="GLTM_TURNON_NOT_ALLOWED_UNFOLD"         text="Dispiega il macchinario prima!" />
+        <text name="GLTM_TURNON_NOT_ALLOWED_BALESLIDE"      text="Abbassa lo scivolo balle prima!" />
+        <text name="GLTM_WRAPPER_SET_ON"                    text="Attiva fasciatore" />
+        <text name="GLTM_WRAPPER_SET_OFF"                   text="Disattiva fasciatore" />
+        <!-- HelpLine texts -->
+        <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master - The Baler" />
+        <text name="GLTM_HL_TITLE_00"                       text="General description" />
+        <text name="GLTM_HL_TEXT_00_00"                     text="The LT-Master is THE baler-wrapper combination for round bales. This is because it can turn almost any chopped material into perfectly pressed and wrapped round bales - whether it be maize, CCM, alfalfa, sugar beet cossettes, and grain, or even garbage, wood chips, mixed feed, etc. The idea behind the development of the LT-Master was to both make silage maize easier to handle by pressing it into convenient round bales and make it useful also for smaller agricultural operations. Each bale forms a small unit that can be fed to the animals in a quick and simple fashion. Bales of silage maize are an excellent choice as they keep the quality of the feed exceptionally high by protecting it against secondary fermentation or post-heating after the feed was pressed into bales." />
+        <text name="GLTM_HL_TITLE_01"                       text="Technical details" />
+        <text name="GLTM_HL_TEXT_01_00"                     text="Dimension:  weight:  required power:  capacity:  ecc. ecc. ecc. ecc." />
+        <text name="GLTM_HL_TEXT_01_01"                     text="bla bla bla - mm - kg ecc. ecc." />
+        <text name="GLTM_HL_TITLE_02"                       text="Operations" />
+        <text name="GLTM_HL_TEXT_02_00"                     text="Set up machine, turn on vehicle, then you can turn on machine with $input_IMPLEMENT_EXTRA key" />
+        <text name="GLTM_HL_TEXT_02_01"                     text="riga due del titolo 02" />
+        <text name="GLTM_HL_TITLE_03"                       text="Trubleshooting" />
+        <text name="GLTM_HL_TEXT_03_00"                     text="tasti da utilizzare: $input_IMPLEMENT_EXTRA key" />
+        <text name="GLTM_HL_TEXT_03_01"                     text="03_01   $input_IMPLEMENT_EXTRA2 key" />
+        <text name="GLTM_HL_TEXT_03_02"                     text="03_02   $input_IMPLEMENT_EXTRA3 key" />
+        <text name="GLTM_HL_TEXT_03_03"                     text="03_03   $input_IMPLEMENT_EXTRA4 key" />
+        <text name="GLTM_HL_TEXT_03_04"                     text="03_04   $input_TOGGLE_PIPE key" />
+        <text name="GLTM_HL_TEXT_03_05"                     text="03_05   $input_TOGGLE_COVER key" />
+        <text name="GLTM_HL_TEXT_03_06"                     text="03_06   $input_TOGGLE_CHOPPER key" />
+    </texts>
+</l10n>
