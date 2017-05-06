@@ -20,9 +20,6 @@ function LTMaster:loadBaler()
     self.LTMaster.baler = {};
     self.LTMaster.baler.fillScale = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler#value"), 1);
     self.LTMaster.baler.fillUnitIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#fillUnitIndex"), 1);
-    --self.LTMaster.baler.unloadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#unloadInfoIndex"), 1);
-    --self.LTMaster.baler.loadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#loadInfoIndex"), 1);
-    --self.LTMaster.baler.dischargeInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#dischargeInfoIndex"), 1);
     self.LTMaster.baler.baleAnimRoot, self.LTMaster.baler.baleAnimRootComponent = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.baleAnimation#node"));
     if self.LTMaster.baler.baleAnimRoot == nil then
         self.LTMaster.baler.baleAnimRoot = self.components[1].node;
@@ -221,9 +218,7 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                         local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
                         local totalLiters = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
                         if totalLiters > 0 then
-                            self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - totalLiters, usedFillType);
-                        end
-                        if totalLiters > 0 then
+                            self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - totalLiters, usedFillType, false, self.fillVolumeUnloadInfos[self.LTMaster.unloadInfoIndex]);
                             local deltaLevel = totalLiters * self.LTMaster.baler.fillScale;
                             if self.LTMaster.silageAdditive.enabled and self.LTMaster.silageAdditive.acceptedFillTypes[usedFillType] then
                                 local additiveLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index);

@@ -12,12 +12,13 @@ function LTMasterTipTrigger:new(isServer, isClient, customMt)
     return self;
 end
 
-function LTMasterTipTrigger:load(id, owner, fillUnitIndex, rightFillUnitIndex, leftFillUnitIndex)
+function LTMasterTipTrigger:load(id, owner, fillUnitIndex, rightFillUnitIndex, leftFillUnitIndex, loadInfoIndex)
     local isSuccessfull = LTMasterTipTrigger:superClass().load(self, id);
     self.owner = owner;
     self.fillUnitIndex = fillUnitIndex;
     self.rightFillUnitIndex = rightFillUnitIndex;
     self.leftFillUnitIndex = leftFillUnitIndex;
+    self.loadInfoIndex = loadInfoIndex;
     for fillType, active in pairs(self.owner.fillUnits[fillUnitIndex].fillTypes) do
         if active then
             self:addAcceptedFillType(fillType, 0, 0, true, {TipTrigger.TOOL_TYPE_TRAILER, TipTrigger.TOOL_TYPE_SHOVEL, TipTrigger.TOOL_TYPE_PIPE, TipTrigger.TOOL_TYPE_PALLET})
@@ -53,7 +54,7 @@ function LTMasterTipTrigger:addFillLevelFromTool(trailer, fillDelta, fillType, t
         local mainFillLevel = self.owner:getUnitFillLevel(self.fillUnitIndex);
         local mainDelta = math.min(mainFillDelta, mainCapacity - mainFillLevel);
         if mainDelta > 0 then
-            self.owner:setUnitFillLevel(self.fillUnitIndex, mainFillLevel + mainDelta, fillType);
+            self.owner:setUnitFillLevel(self.fillUnitIndex, mainFillLevel + mainDelta, fillType, false, self.owner.fillVolumeLoadInfos[self.loadInfoIndex]);
         end
         --local rightCapacity = self.owner:getUnitCapacity(self.rightFillUnitIndex);
         --local rightFillLevel = self.owner:getUnitFillLevel(self.rightFillUnitIndex);
@@ -67,7 +68,7 @@ function LTMasterTipTrigger:addFillLevelFromTool(trailer, fillDelta, fillType, t
         --if leftDelta > 0 then
         --    self.owner:setUnitFillLevel(self.leftFillUnitIndex, leftFillLevel + leftDelta, fillType);
         --end
-        local dropped = mainDelta;-- + rightDelta + leftDelta;
+        local dropped = mainDelta; -- + rightDelta + leftDelta;
         if self.owner:getIsTurnedOn() then
             if dropped <= 0 and trailer:getFillLevel(fillType) <= 0 then
                 trailer:onEndTip();

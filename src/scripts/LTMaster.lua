@@ -66,6 +66,10 @@ function LTMaster:load(savegame)
     self.getIsFoldAllowed = Utils.overwrittenFunction(self.getIsFoldAllowed, LTMaster.getIsFoldAllowed);
     
     self.LTMaster = {};
+
+    self.LTMaster.unloadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#unloadInfoIndex"), 1);
+    self.LTMaster.loadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#loadInfoIndex"), 1);
+    --self.LTMaster.baler.dischargeInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#dischargeInfoIndex"), 1);
     
     self.LTMaster.fillUnits = {};
     self.LTMaster.fillUnits["main"] = {};
@@ -152,7 +156,7 @@ function LTMaster:load(savegame)
     self.LTMaster.triggerBaleSlide = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerBaleSlide#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#index"));
     self.LTMaster.tipTrigger = LTMasterTipTrigger:new(self.isServer, self.isClient);
-    self.LTMaster.tipTrigger:load(trigger, self, self.LTMaster.fillUnits["main"].index, self.LTMaster.fillUnits["right"].index, self.LTMaster.fillUnits["left"].index);
+    self.LTMaster.tipTrigger:load(trigger, self, self.LTMaster.fillUnits["main"].index, self.LTMaster.fillUnits["right"].index, self.LTMaster.fillUnits["left"].index, self.LTMaster.loadInfoIndex);
     self.LTMaster.tipTrigger:register(true);
     
     self.LTMaster.hoods = {};
