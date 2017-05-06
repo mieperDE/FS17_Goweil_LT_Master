@@ -33,6 +33,7 @@ source(g_currentModDirectory .. "scripts/events/sideUnloadEvent.lua");
 source(g_currentModDirectory .. "scripts/events/conveyorStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/balerCreateBaleEvent.lua");
 source(g_currentModDirectory .. "scripts/events/balerChangeVolumeEvent.lua");
+source(g_currentModDirectory .. "scripts/events/wrapperChangeStatus.lua");
 
 function LTMaster.print(text, ...)
     if LTMaster.debug then
@@ -300,6 +301,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
+        streamWriteBool(streamId, self.LTMaster.baler.wrapperEnabled);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
@@ -319,6 +321,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
+        self.LTMaster.baler.wrapperEnabled = streamReadBool(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
@@ -338,6 +341,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
+        streamWriteBool(streamId, self.LTMaster.baler.wrapperEnabled);
     end
 end
 
@@ -353,6 +357,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
+        self.LTMaster.baler.wrapperEnabled = streamReadBool(streamId);
     end
 end
 
