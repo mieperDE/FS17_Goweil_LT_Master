@@ -33,6 +33,7 @@ source(g_currentModDirectory .. "scripts/events/sideUnloadEvent.lua");
 source(g_currentModDirectory .. "scripts/events/conveyorStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/balerCreateBaleEvent.lua");
 source(g_currentModDirectory .. "scripts/events/balerChangeVolumeEvent.lua");
+source(g_currentModDirectory .. "scripts/events/wrapperChangeStatus.lua");
 
 function LTMaster.print(text, ...)
     if LTMaster.debug then
@@ -66,6 +67,10 @@ function LTMaster:load(savegame)
     self.getIsFoldAllowed = Utils.overwrittenFunction(self.getIsFoldAllowed, LTMaster.getIsFoldAllowed);
     
     self.LTMaster = {};
+
+    self.LTMaster.unloadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#unloadInfoIndex"), 1);
+    self.LTMaster.loadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#loadInfoIndex"), 1);
+    --self.LTMaster.baler.dischargeInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#dischargeInfoIndex"), 1);
     
     self.LTMaster.fillUnits = {};
     self.LTMaster.fillUnits["main"] = {};
@@ -152,7 +157,7 @@ function LTMaster:load(savegame)
     self.LTMaster.triggerBaleSlide = PlayerTrigger:new(trigger, Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.triggers.triggerBaleSlide#radius"), 2.5));
     trigger = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.triggers.tipTrigger#index"));
     self.LTMaster.tipTrigger = LTMasterTipTrigger:new(self.isServer, self.isClient);
-    self.LTMaster.tipTrigger:load(trigger, self, self.LTMaster.fillUnits["main"].index, self.LTMaster.fillUnits["right"].index, self.LTMaster.fillUnits["left"].index);
+    self.LTMaster.tipTrigger:load(trigger, self, self.LTMaster.fillUnits["main"].index, self.LTMaster.fillUnits["right"].index, self.LTMaster.fillUnits["left"].index, self.LTMaster.loadInfoIndex);
     self.LTMaster.tipTrigger:register(true);
     
     self.LTMaster.hoods = {};
@@ -296,6 +301,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
+        streamWriteBool(streamId, self.LTMaster.baler.wrapperEnabled);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
@@ -315,6 +321,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
+        self.LTMaster.baler.wrapperEnabled = streamReadBool(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
@@ -334,6 +341,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
+        streamWriteBool(streamId, self.LTMaster.baler.wrapperEnabled);
     end
 end
 
@@ -349,6 +357,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
+        self.LTMaster.baler.wrapperEnabled = streamReadBool(streamId);
     end
 end
 
@@ -455,7 +464,7 @@ function LTMaster:updateTick(dt)
                     end
                 end
             end
-            EffectManager:setFillType(self.LTMaster.conveyor.effects, self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index));
+            EffectManager:setFillType(self.LTMaster.conveyor.unloadEffects, self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index));
             EffectManager:startEffects(self.LTMaster.conveyor.unloadEffects);
         else
             if self.LTMaster.conveyor.currentUnloadParticleSystems ~= nil then
