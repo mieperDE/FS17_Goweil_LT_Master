@@ -455,7 +455,7 @@ function LTMaster:updateTick(dt)
                     end
                 end
             end
-            EffectManager:setFillType(self.LTMaster.conveyor.effects, self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index));
+            EffectManager:setFillType(self.LTMaster.conveyor.unloadEffects, self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index));
             EffectManager:startEffects(self.LTMaster.conveyor.unloadEffects);
         else
             if self.LTMaster.conveyor.currentUnloadParticleSystems ~= nil then
