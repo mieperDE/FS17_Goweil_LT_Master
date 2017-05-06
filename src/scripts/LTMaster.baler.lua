@@ -451,6 +451,7 @@ function LTMaster:dropBale(baleIndex)
         if baleObject:getFillType() == FillUtil.FILLTYPE_DRYGRASS_WINDROW then
             --baleObject.supportsWrapping = false;
         end
+        baleObject.supportsWrapping = false;
         if (not self.hasBaleWrapper or self.moveBaleToWrapper == nil) and baleObject.nodeId ~= nil then
             local x, y, z = getWorldTranslation(baleObject.nodeId);
             local vx, vy, vz = getVelocityAtWorldPos(self.LTMaster.baler.baleAnimRootComponent, x, y, z);

@@ -250,8 +250,8 @@
                 <wrapBale animName="wrapBale" animSpeed="1" />
             </animations>
             <baleTypes>
-                <baleType fillType="grass_windrow" wrapperBaleFilename="bales/roundbaleGrassSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
-                <baleType fillType="chaff" wrapperBaleFilename="bales/roundbaleChaffSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
+                <!--<baleType fillType="grass_windrow" wrapperBaleFilename="bales/roundbaleGrassSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
+                <baleType fillType="chaff" wrapperBaleFilename="bales/roundbaleChaffSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />-->
             </baleTypes>
             <wrapperAnimation>
                 <key time="0" baleRot="0 0 0" wrapperRot="0 0 0" />
