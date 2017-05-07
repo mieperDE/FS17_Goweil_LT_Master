@@ -238,6 +238,7 @@
         </animation>
     </animations>
     <wrapperStartSound file="$data/sounds/bale_wrapping_start.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+    <wrapperStopSound file="sounds/bale_wrapping_stop.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
     <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
     <baleGrabber index="0>10|1|3|0" nearestDistance="0" />
     <wrapper foldMinLimit="0.0" foldMaxLimit="0.0">
@@ -399,8 +400,8 @@
             <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="2" leftFillUnitIndex="3" />
         </triggers>
         <hoods>
-            <openingSound file="sounds/hood-opening.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <closingSound file="sounds/hood-closing.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <openingSound file="sounds/hood_opening.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <closingSound file="sounds/hood_closing.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
             <leftDoor animationName="leftDoor" />
             <rightDoor animationName="rightDoor" />
         </hoods>
@@ -449,7 +450,7 @@
         </conveyor>
         <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
-            <balerBaleEject file="$data/sounds/rollBelt150Eject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <balerBaleEject file="sounds/bale_eject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
             <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="0.98" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
             <knottingSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
