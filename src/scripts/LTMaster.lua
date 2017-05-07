@@ -33,6 +33,7 @@ LTMaster.STATUS_FU_FOLDING = 4;
 
 source(g_currentModDirectory .. "scripts/LTMaster.animations.lua");
 source(g_currentModDirectory .. "scripts/LTMaster.baler.lua");
+source(g_currentModDirectory .. "scripts/LTMaster.wrapper.lua");
 source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/supportsStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
@@ -230,6 +231,7 @@ function LTMaster:load(savegame)
     end
     
     LTMaster.loadBaler(self);
+    LTMaster.loadWrapper(self);
 end
 
 function LTMaster:postLoad(savegame)
@@ -258,7 +260,8 @@ function LTMaster:getSaveAttributesAndNodes(nodeIdent)
     attributes = attributes .. string.format("ladderStatus=\"%s\" ", self.LTMaster.ladder.status);
     attributes = attributes .. string.format("baleSlideStatus=\"%s\" ", self.LTMaster.baleSlide.status);
     local bAttributes, bNodes = LTMaster.getSaveAttributesAndNodesBaler(self, nodeIdent);
-    return attributes .. " " .. bAttributes, bNodes;
+    local wAttributes = LTMaster.getSaveAttributesAndNodesWrapper(self, nodeIdent);
+    return attributes .. " " .. bAttributes .. " " .. wAttributes, bNodes;
 end
 
 function LTMaster:finalizeLoad()
@@ -295,6 +298,7 @@ function LTMaster:delete()
         end
     end
     LTMaster.deleteBaler(self);
+    LTMaster.deleteWrapper(self);
 end
 
 function LTMaster:mouseEvent(posX, posY, isDown, isUp, button)
@@ -305,6 +309,7 @@ end
 
 function LTMaster:writeStream(streamId, connection)
     LTMaster.writeStreamBaler(self, streamId, connection);
+    LTMaster.writeStreamWrapper(self, streamId, connection);
     if not connection:getIsServer() then
         streamWriteUInt8(streamId, self.LTMaster.hoods["left"].status);
         streamWriteUInt8(streamId, self.LTMaster.hoods["right"].status);
@@ -325,6 +330,7 @@ end
 
 function LTMaster:readStream(streamId, connection)
     LTMaster.readStreamBaler(self, streamId, connection);
+    LTMaster.readStreamWrapper(self, streamId, connection);
     if connection:getIsServer() then
         self.LTMaster.hoods["left"].status = streamReadUInt8(streamId);
         self.LTMaster.hoods["right"].status = streamReadUInt8(streamId);
@@ -378,6 +384,7 @@ end
 
 function LTMaster:update(dt)
     LTMaster.updateBaler(self, dt);
+    LTMaster.updateWrapper(self, dt);
     self.LTMaster.hoods.delayedUpdateHoodStatus:update(dt);
     self.LTMaster.supports.delayedUpdateSupportsStatus:update(dt);
     self.LTMaster.folding.delayedUpdateFoldingStatus:update(dt);
@@ -406,6 +413,7 @@ end
 function LTMaster:updateTick(dt)
     local normalizedDt = dt / 1000;
     LTMaster.updateTickBaler(self, dt, normalizedDt);
+    LTMaster.updateTickWrapper(self, dt, normalizedDt);
     PlayerTriggers:update();
     if self.isServer then
         if self.LTMaster.sideUnload.isUnloading then
@@ -521,6 +529,17 @@ function LTMaster:draw()
         g_currentMission:addExtraPrintText(self.tempHelpInfoText);
     end
     LTMaster.drawBaler(self);
+    LTMaster.drawWrapper(self);
+end
+
+function LTMaster:onDeactivate()
+    LTMaster.onDeactivateBaler(self);
+    LTMaster.onDeactivateWrapper(self);
+end
+
+function LTMaster:onDeactivateSounds()
+    LTMaster.onDeactivateSoundsBaler(self);
+    LTMaster.onDeactivateSoundsWrapper(self);
 end
 
 function LTMaster:unloadSide()

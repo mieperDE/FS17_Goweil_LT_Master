@@ -11,7 +11,7 @@ LTMaster.BALER_UNLOADING_CLOSING = 4;
 function LTMaster:loadBaler()
     self.dropBale = LTMaster.dropBale;
     self.createBale = LTMaster.createBale;
-    self.setIsUnloadingBale = LTMaster.setIsUnloadingBale;
+    self.setIsBalerUnloadingBale = LTMaster.setIsBalerUnloadingBale;
     self.isUnloadingAllowed = LTMaster.isUnloadingAllowed;
     self.setBaleVolume = LTMaster.setBaleVolume;
     self.getNextVolumesIndex = LTMaster.getNextVolumesIndex;
@@ -183,10 +183,10 @@ function LTMaster:readStreamBaler(streamId, connection)
         local state = streamReadUIntN(streamId, 7);
         local animTime = streamReadFloat32(streamId);
         if state == Baler.UNLOADING_CLOSED or state == Baler.UNLOADING_CLOSING then
-            self:setIsUnloadingBale(false, true);
+            self:setIsBalerUnloadingBale(false, true);
             self:setRealAnimationTime(self.LTMaster.baler.baleCloseAnimationName, animTime);
         elseif state == Baler.UNLOADING_OPEN or state == Baler.UNLOADING_OPENING then
-            self:setIsUnloadingBale(true, true);
+            self:setIsBalerUnloadingBale(true, true);
             self:setRealAnimationTime(self.LTMaster.baler.baleUnloadAnimationName, animTime);
         end
     end
@@ -300,10 +300,10 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
     if self.isServer then
         if self.LTMaster.baler.autoUnloadTime ~= nil and g_currentMission.time >= self.LTMaster.baler.autoUnloadTime then
             if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
-                self:setIsUnloadingBale(true);
+                self:setIsBalerUnloadingBale(true);
             end
             if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
-                self:setIsUnloadingBale(false);
+                self:setIsBalerUnloadingBale(false);
                 self.LTMaster.baler.autoUnloadTime = nil;
             end
         end
@@ -325,13 +325,13 @@ function LTMaster:drawBaler()
     end
 end
 
-function LTMaster:onDeactivate()
+function LTMaster:onDeactivateBaler()
     if self.LTMaster.baler.balingAnimationName ~= "" then
         self:stopAnimation(self.LTMaster.baler.balingAnimationName, true);
     end
 end
 
-function LTMaster:onDeactivateSounds()
+function LTMaster:onDeactivateSoundsBaler()
     if self.isClient then
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBaler, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerDoor, true);
@@ -384,7 +384,7 @@ function LTMaster:isUnloadingAllowed()
     return self:allowsGrabbingBale();
 end
 
-function LTMaster:setIsUnloadingBale(isUnloadingBale, noEventSend)
+function LTMaster:setIsBalerUnloadingBale(isUnloadingBale, noEventSend)
     if self.LTMaster.baler.baleUnloadAnimationName ~= nil and self.LTMaster.baler.baleCloseAnimationName ~= nil then
         if isUnloadingBale then
             if self.LTMaster.baler.unloadingState ~= Baler.UNLOADING_OPENING then
