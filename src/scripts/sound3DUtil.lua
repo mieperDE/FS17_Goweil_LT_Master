@@ -43,6 +43,8 @@ function Sound3DUtil:playSample(sample, numLoops, offsetMs, volume, activeForSou
         SoundUtil.play3DSample(sample);
         if numLoops > 0 then
             table.insert(self.soundsToStop, {sample = sample, time = g_currentMission.time + (sample.duration * numLoops)});
+        else
+            sample.isPlaying = true;
         end
     end
 end
@@ -50,6 +52,7 @@ end
 function Sound3DUtil:stopSample(sample, force)
     SoundUtil.stopSample(sample, force);
     SoundUtil.stop3DSample(sample);
+    sample.isPlaying = false;
 end
 
 addModEventListener(Sound3DUtil);
