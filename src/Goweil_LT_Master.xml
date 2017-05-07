@@ -518,6 +518,36 @@
             </effects>
         </silageAdditive>
     </LTMaster>
+
+    <gauge>
+        <part index="0>14|0|0|0"  minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|1"  minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|2"  minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|3"  minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|4"  minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|5"  minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|6"  minX="9" maxX="40" bounce="0" />
+    </gauge>
+
+    <levers> 
+        <part index="0>14|0|4|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|5|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|6|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|7|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|8|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|9|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|10|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|11|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|12|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|13|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|14|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|15|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|16|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|17|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|18|1" lAxis="z" lUp="21" lDown="-21" />
+        <part index="0>14|0|19|1" lAxis="z" lUp="21" lDown="-21" />
+    </levers>
+
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
     <components count="1">
         <component1 centerOfMass="0 0.6 0.2" solverIterationCount="10" />

@@ -365,7 +365,7 @@ function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fi
     end
 end
 
-function Baler:onTurnedOn(noEventSend)
+function LTMaster:onTurnedOn(noEventSend)
     if self.LTMaster.baler.balingAnimationName ~= "" then
         self:playAnimation(self.LTMaster.baler.balingAnimationName, 1, self:getAnimationTime(self.LTMaster.baler.balingAnimationName), true);
     end
