@@ -318,10 +318,10 @@ function LTMaster:updateWrapper(dt)
             end
         end
         if self.baleWrapperState == BaleWrapper.STATE_WRAPPER_WRAPPING_BALE then
-            if self.isClient and self:getIsActiveForSound() then
+            if self.isClient then
                 if not self.currentWrapperSound.isPlaying then
-                    if self.currentWrapperStartSound.sample == nil or not isSamplePlaying(self.currentWrapperStartSound.sample) or getSamplePlayOffset(self.currentWrapperStartSound.sample) >= self.currentWrapperStartSound.duration - 1.8 * dt then
-                        SoundUtil.playSample(self.currentWrapperSound, 0, 0);
+                    if self.currentWrapperStartSound.sample == nil or not SoundUtil.isSamplePlaying(self.currentWrapperStartSound, 1.8 * dt) then
+                        Sound3DUtil:playSample(self.currentWrapperSound, 0, 0, nil, self:getIsActiveForSound());
                     end
                 end
             end
@@ -413,9 +413,9 @@ end
 
 function LTMaster:onDeactivateSoundsWrapper()
     if self.isClient then
-        SoundUtil.stopSample(self.currentWrapperStartSound, true);
-        SoundUtil.stopSample(self.currentWrapperStopSound, true);
-        SoundUtil.stopSample(self.currentWrapperSound, true);
+        Sound3DUtil:stopSample(self.currentWrapperStartSound, true);
+        Sound3DUtil:stopSample(self.currentWrapperStopSound, true);
+        Sound3DUtil:stopSample(self.currentWrapperSound, true);
     end
 end
 
@@ -552,16 +552,16 @@ function LTMaster:doStateChange(id, nearestBaleServerId)
     elseif id == BaleWrapper.CHANGE_WRAPPING_START then
         self.baleWrapperState = BaleWrapper.STATE_WRAPPER_WRAPPING_BALE;
         if self.isClient and self:getIsActiveForSound() then
-            SoundUtil.playSample(self.currentWrapperStartSound, 1, 0);
+            Sound3DUtil:playSample(self.currentWrapperStartSound, 1, 0, nil, self:getIsActiveForSound());
         end
         if self.currentWrapper.animations["wrapBale"].animName ~= nil then
             self:playAnimation(self.currentWrapper.animations["wrapBale"].animName, self.currentWrapper.animations["wrapBale"].animSpeed, nil, true);
         end
     elseif id == BaleWrapper.CHANGE_WRAPPING_BALE_FINSIHED then
         if self.isClient then
-            SoundUtil.stopSample(self.currentWrapperSound);
-            if self.isClient and self:getIsActiveForSound() then
-                SoundUtil.playSample(self.currentWrapperStopSound, 1, 0);
+            Sound3DUtil:stopSample(self.currentWrapperSound);
+            if self.isClient then
+                Sound3DUtil:playSample(self.currentWrapperStopSound, 1, 0, nil, self:getIsActiveForSound());
             end
         end
         self:updateWrappingState(1, true);
