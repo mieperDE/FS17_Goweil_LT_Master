@@ -47,7 +47,7 @@
     <UserAttribute nodeId="13">
       <Attribute name="baleDiameter" type="float" value="1.3"/>
       <Attribute name="baleMeshIndex" type="string" value="1"/>
-      <Attribute name="baleValueScale" type="float" value="0"/>
+      <Attribute name="baleValueScale" type="float" value="1.5"/>
       <Attribute name="baleWidth" type="float" value="1.12"/>
       <Attribute name="dynamicMountForceLimitScale" type="float" value="2"/>
       <Attribute name="dynamicMountTriggerIndex" type="string" value="0"/>
