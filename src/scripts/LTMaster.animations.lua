@@ -139,7 +139,7 @@ function LTMaster:updateHoodStatus(hood, newStatus, noEventSend)
         self:playAnimation(hood.animation, math.huge);
     end
     if status == LTMaster.STATUS_OC_OPENING then
-        SoundUtil.playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
         self:playAnimation(hood.animation, 1);
         self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_OPEN);
     end
@@ -147,7 +147,7 @@ function LTMaster:updateHoodStatus(hood, newStatus, noEventSend)
         self:playAnimation(hood.animation, -math.huge);
     end
     if status == LTMaster.STATUS_OC_CLOSING then
-        SoundUtil.playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
         self:playAnimation(hood.animation, -1);
         self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_CLOSED);
     end
@@ -162,20 +162,20 @@ function LTMaster:updateSupportsStatus(newStatus, noEventSend)
         self.LTMaster.supports.status = status;
     end
     if status == LTMaster.STATUS_RL_LOWERED then
-        SoundUtil.stopSample(self.LTMaster.supports.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.supports.sound, true);
         self:playAnimation(self.LTMaster.supports.animation, math.huge);
     end
     if status == LTMaster.STATUS_RL_LOWERING then
-        SoundUtil.playSample(self.LTMaster.supports.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.supports.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.supports.animation, 1);
         self.LTMaster.supports.delayedUpdateSupportsStatus:call(self:getAnimationDuration(self.LTMaster.supports.animation), LTMaster.STATUS_RL_LOWERED);
     end
     if status == LTMaster.STATUS_RL_RAISED then
-        SoundUtil.stopSample(self.LTMaster.supports.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.supports.sound, true);
         self:playAnimation(self.LTMaster.supports.animation, -math.huge);
     end
     if status == LTMaster.STATUS_RL_RAISING then
-        SoundUtil.playSample(self.LTMaster.supports.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.supports.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.supports.animation, -1);
         self.LTMaster.supports.delayedUpdateSupportsStatus:call(self:getAnimationDuration(self.LTMaster.supports.animation), LTMaster.STATUS_RL_RAISED);
     end
@@ -190,20 +190,20 @@ function LTMaster:updateFoldingStatus(newStatus, noEventSend)
         self.LTMaster.folding.status = status;
     end
     if status == LTMaster.STATUS_FU_UNFOLDED then
-        SoundUtil.stopSample(self.LTMaster.folding.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.folding.sound, true);
         self:playAnimation(self.LTMaster.folding.animation, math.huge);
     end
     if status == LTMaster.STATUS_FU_UNFOLDING then
-        SoundUtil.playSample(self.LTMaster.folding.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.folding.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.folding.animation, 1);
         self.LTMaster.folding.delayedUpdateFoldingStatus:call(self:getAnimationDuration(self.LTMaster.folding.animation), LTMaster.STATUS_FU_UNFOLDED);
     end
     if status == LTMaster.STATUS_FU_FOLDED then
-        SoundUtil.stopSample(self.LTMaster.folding.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.folding.sound, true);
         self:playAnimation(self.LTMaster.folding.animation, -math.huge);
     end
     if status == LTMaster.STATUS_FU_FOLDING then
-        SoundUtil.playSample(self.LTMaster.folding.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.folding.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.folding.animation, -1);
         self.LTMaster.folding.delayedUpdateFoldingStatus:call(self:getAnimationDuration(self.LTMaster.folding.animation), LTMaster.STATUS_FU_FOLDED);
     end
@@ -218,20 +218,20 @@ function LTMaster:updateLadderStatus(newStatus, noEventSend)
         self.LTMaster.ladder.status = status;
     end
     if status == LTMaster.STATUS_RL_LOWERED then
-        SoundUtil.stopSample(self.LTMaster.ladder.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.ladder.sound, true);
         self:playAnimation(self.LTMaster.ladder.animation, math.huge);
     end
     if status == LTMaster.STATUS_RL_LOWERING then
-        SoundUtil.playSample(self.LTMaster.ladder.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.ladder.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.ladder.animation, 1);
         self.LTMaster.ladder.delayedUpdateLadderStatus:call(self:getAnimationDuration(self.LTMaster.ladder.animation), LTMaster.STATUS_RL_LOWERED);
     end
     if status == LTMaster.STATUS_RL_RAISED then
-        SoundUtil.stopSample(self.LTMaster.ladder.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.ladder.sound, true);
         self:playAnimation(self.LTMaster.ladder.animation, -math.huge);
     end
     if status == LTMaster.STATUS_RL_RAISING then
-        SoundUtil.playSample(self.LTMaster.ladder.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.ladder.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.ladder.animation, -1);
         self.LTMaster.ladder.delayedUpdateLadderStatus:call(self:getAnimationDuration(self.LTMaster.ladder.animation), LTMaster.STATUS_RL_RAISED);
     end
@@ -246,20 +246,20 @@ function LTMaster:updateBaleSlideStatus(newStatus, noEventSend)
         self.LTMaster.baleSlide.status = status;
     end
     if status == LTMaster.STATUS_RL_LOWERED then
-        SoundUtil.stopSample(self.LTMaster.baleSlide.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.baleSlide.sound, true);
         self:playAnimation(self.LTMaster.baleSlide.animation, math.huge);
     end
     if status == LTMaster.STATUS_RL_LOWERING then
-        SoundUtil.playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.baleSlide.animation, 1);
         self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_LOWERED);
     end
     if status == LTMaster.STATUS_RL_RAISED then
-        SoundUtil.stopSample(self.LTMaster.baleSlide.sound, true);
+        Sound3DUtil:stopSample(self.LTMaster.baleSlide.sound, true);
         self:playAnimation(self.LTMaster.baleSlide.animation, -math.huge);
     end
     if status == LTMaster.STATUS_RL_RAISING then
-        SoundUtil.playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
+        Sound3DUtil:playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
         self:playAnimation(self.LTMaster.baleSlide.animation, -1);
         self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_RAISED);
     end
