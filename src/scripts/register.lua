@@ -112,6 +112,18 @@ FillUtil.registerFillType(
     math.rad(0)
 );
 
+FillUtil.registerFillType(
+    "balesFoil",
+    g_i18n:getText("fillType_balesFoil"),
+    FillUtil.FILLTYPE_CATEGORY_PIECE,
+    50,
+    false,
+    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesFoil.png",
+    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesFoil_sml.png",
+    1800 * 0.000001,
+    math.rad(0)
+);
+
 BaleUtil.registerBaleType(
     "bales/roundbaleGrass_w112_d130.i3d",
     "grass_windrow",
