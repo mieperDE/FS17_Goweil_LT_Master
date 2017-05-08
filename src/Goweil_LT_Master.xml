@@ -448,6 +448,9 @@
                 <emitterShape node="0>7|13" particleType="UNLOADING" emitCountScale="10" lifespan="0.2" />
             </augerParticleSystems>
         </conveyor>
+        <wrapper>
+            <mustWrappedBales fillTypes="chaff woodChips" />
+        </wrapper>
         <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <balerBaleEject file="sounds/bale_eject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
@@ -466,7 +469,6 @@
                 <volume liters="4500" />
                 <volume liters="5000" />
             </baleVolumes>
-            <mustWrappedBales fillTypes="chaff woodChips" />
             <uvScrollParts>
                 <!--camera-->
                 <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
@@ -518,18 +520,16 @@
             </effects>
         </silageAdditive>
     </LTMaster>
-
     <gauge>
-        <part index="0>14|0|0|0"  minX="1" maxX="40" bounce="10" />
-        <part index="0>14|0|0|1"  minX="1" maxX="40" bounce="10" />
-        <part index="0>14|0|0|2"  minX="1" maxX="40" bounce="10" />
-        <part index="0>14|0|0|3"  minX="1" maxX="40" bounce="10" />
-        <part index="0>14|0|0|4"  minX="1" maxX="40" bounce="10" />
-        <part index="0>14|0|0|5"  minX="1" maxX="40" bounce="10" />
-        <part index="0>14|0|0|6"  minX="9" maxX="40" bounce="0" />
+        <part index="0>14|0|0|0" minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|1" minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|2" minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|3" minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|4" minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|5" minX="1" maxX="40" bounce="10" />
+        <part index="0>14|0|0|6" minX="9" maxX="40" bounce="0" />
     </gauge>
-
-    <levers> 
+    <levers>
         <part index="0>14|0|4|1" lAxis="z" lUp="21" lDown="-21" />
         <part index="0>14|0|5|1" lAxis="z" lUp="21" lDown="-21" />
         <part index="0>14|0|6|1" lAxis="z" lUp="21" lDown="-21" />
@@ -547,7 +547,6 @@
         <part index="0>14|0|18|1" lAxis="z" lUp="21" lDown="-21" />
         <part index="0>14|0|19|1" lAxis="z" lUp="21" lDown="-21" />
     </levers>
-
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
     <components count="1">
         <component1 centerOfMass="0 0.6 0.2" solverIterationCount="10" />

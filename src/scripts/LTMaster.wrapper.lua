@@ -179,6 +179,15 @@ function LTMaster:loadWrapper(savegame)
     self.baleWrapperState = BaleWrapper.STATE_NONE;
     self.grabberIsMoving = false;
     self.hasBaleWrapper = true;
+    
+    self.LTMaster.wrapper = {};
+    self.LTMaster.wrapper.mustWrappedBales = {};
+    local fillTypeNames = getXMLString(self.xmlFile, "vehicle.LTMaster.wrapper.mustWrappedBales#fillTypes");
+    for _, f in pairs(FillUtil.getFillTypesByNames(fillTypeNames)) do
+        self.LTMaster.wrapper.mustWrappedBales[f] = true;
+    end
+    self.LTMaster.wrapper.wrapperEnabled = true;
+    
     if savegame ~= nil and not savegame.resetVehicles then
         local filename = getXMLString(savegame.xmlFile, savegame.key .. "#baleFileName");
         if filename ~= nil then
@@ -190,6 +199,7 @@ function LTMaster:loadWrapper(savegame)
             local rotation = {0, 0, 0};
             self.baleToLoad = {filename = filename, translation = translation, rotation = rotation, fillLevel = fillLevel, wrapperTime = wrapperTime, baleValueScale = baleValueScale};
         end
+        self.LTMaster.wrapper.wrapperEnabled = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#wrapperEnabled"), self.LTMaster.wrapper.wrapperEnabled);
     end
 end
 
@@ -309,6 +319,11 @@ function LTMaster:updateWrapper(dt)
             end
         end
     end
+    if self:getIsActiveForInput() then
+        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
+            g_client:getServerConnection():sendEvent(WrapperChangeStatus:new(not self.LTMaster.wrapper.wrapperEnabled, self));
+        end
+    end
     if self:getIsActive() then
         if self:getIsActiveForInput() then
             if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
@@ -327,6 +342,11 @@ function LTMaster:updateWrapper(dt)
             end
             self.currentWrapper.currentTime = self.currentWrapper.currentTime + dt;
             self:updateWrappingState(self.currentWrapper.currentTime / self.currentWrapper.animTime);
+        end
+    end
+    if self.isServer then
+        if self.baleWrapperState ~= nil and self.baleWrapperState == BaleWrapper.STATE_WRAPPER_FINSIHED then
+            self:doStateChange(BaleWrapper.CHANGE_BUTTON_EMPTY);
         end
     end
 end
@@ -383,6 +403,11 @@ function LTMaster:drawWrapper()
             if self.baleWrapperState == BaleWrapper.STATE_WRAPPER_FINSIHED then
                 g_currentMission:addHelpButtonText(g_i18n:getText(self.currentWrapper.unloadBaleText), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
             end
+            if self.LTMaster.wrapper.wrapperEnabled then
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_WRAPPER_SET_OFF"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
+            else
+                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_WRAPPER_SET_ON"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
+            end
         end
         if self.showInvalidBaleWarning then
             g_currentMission:showBlinkingWarning(g_i18n:getText("warning_baleNotSupported"));
@@ -392,6 +417,7 @@ end
 
 function LTMaster:getSaveAttributesAndNodesWrapper(nodeIdent)
     local attributes = "";
+    attributes = ' wrapperEnabled="' .. tostring(self.LTMaster.wrapper.wrapperEnabled) .. '"';
     local baleServerId = self.baleGrabber.currentBale;
     if baleServerId == nil then
         baleServerId = self.currentWrapper.currentBale;
@@ -401,7 +427,7 @@ function LTMaster:getSaveAttributesAndNodesWrapper(nodeIdent)
         if bale ~= nil then
             local fillLevel = bale:getFillLevel();
             local baleValueScale = bale.baleValueScale;
-            attributes = 'baleFileName="' .. Utils.encodeToHTML(Utils.convertToNetworkFilename(bale.i3dFilename)) .. '" fillLevel="' .. fillLevel .. '" wrapperTime="' .. tostring(self.currentWrapper.currentTime) .. '" baleValueScale="' .. baleValueScale .. '"';
+            attributes = attributes .. ' baleFileName="' .. Utils.encodeToHTML(Utils.convertToNetworkFilename(bale.i3dFilename)) .. '" fillLevel="' .. fillLevel .. '" wrapperTime="' .. tostring(self.currentWrapper.currentTime) .. '" baleValueScale="' .. baleValueScale .. '"';
         end
     end
     return attributes;
@@ -643,7 +669,12 @@ function LTMaster:getWrapperBaleType(bale)
 end
 
 function LTMaster:pickupWrapperBale(bale, baleType)
-    if baleType ~= nil and bale.i3dFilename ~= baleType.wrapperBaleFilename then
+    if self.LTMaster.wrapper.wrapperEnabled or self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()] then
+        bale.supportsWrapping = true;
+    else
+        bale.supportsWrapping = false;
+    end
+    if baleType ~= nil and bale.i3dFilename ~= baleType.wrapperBaleFilename and bale.supportsWrapping then
         local x, y, z = getWorldTranslation(bale.nodeId);
         local rx, ry, rz = getWorldRotation(bale.nodeId);
         local fillLevel = bale.fillLevel;
@@ -652,6 +683,7 @@ function LTMaster:pickupWrapperBale(bale, baleType)
         bale = Bale:new(self.isServer, self.isClient);
         bale:load(baleType.wrapperBaleFilename, x, y, z, rx, ry, rz, fillLevel);
         bale.baleValueScale = baleValueScale;
+        bale.supportsWrapping = true;
         bale:register();
     end
     g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_GRAB_BALE, networkGetObjectId(bale)), true, nil, self);

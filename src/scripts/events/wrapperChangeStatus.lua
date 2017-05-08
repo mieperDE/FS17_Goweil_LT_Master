@@ -32,5 +32,5 @@ function WrapperChangeStatus:readStream(streamId, connection)
 end
 
 function WrapperChangeStatus:run(connection)
-    self.vehicle.LTMaster.baler.wrapperEnabled = self.status;
+    self.vehicle.LTMaster.wrapper.wrapperEnabled = self.status;
 end

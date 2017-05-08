@@ -98,13 +98,6 @@ function LTMaster:loadBaler()
         table.insert(self.LTMaster.baler.baleVolumes, i + 1, Utils.getNoNil(getXMLFloat(self.xmlFile, key .. "#liters"), 4000));
         i = i + 1;
     end
-    
-    self.LTMaster.baler.mustWrappedBales = {};
-    local fillTypeNames = getXMLString(self.xmlFile, "vehicle.LTMaster.baler.mustWrappedBales#fillTypes");
-    for _, f in pairs(FillUtil.getFillTypesByNames(fillTypeNames)) do
-        self.LTMaster.baler.mustWrappedBales[f] = true;
-    end
-    self.LTMaster.baler.wrapperEnabled = true;
 end
 
 function LTMaster:postLoadBaler(savegame)
@@ -112,7 +105,6 @@ function LTMaster:postLoadBaler(savegame)
     if savegame ~= nil and not savegame.resetVehicles then
         local numBales = getXMLInt(savegame.xmlFile, savegame.key .. "#numBales");
         self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleVolumesIndex"), self.LTMaster.baler.baleVolumesIndex);
-        self.LTMaster.baler.wrapperEnabled = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#wrapperEnabled"), self.LTMaster.baler.wrapperEnabled);
         if numBales ~= nil and numBales > 0 then
             self.LTMaster.baler.balesToLoad = {};
             local baleKey = savegame.key .. ".bale(0)";
@@ -145,7 +137,6 @@ end
 function LTMaster:getSaveAttributesAndNodesBaler(nodeIdent)
     local attributes = 'numBales="' .. table.getn(self.LTMaster.baler.bales) .. '"';
     attributes = attributes .. ' baleVolumesIndex="' .. self.LTMaster.baler.baleVolumesIndex .. '"';
-    attributes = attributes .. ' wrapperEnabled="' .. tostring(self.LTMaster.baler.wrapperEnabled) .. '"';
     local nodes = "";
     if table.getn(self.LTMaster.baler.bales) > 0 then
         local bale = self.LTMaster.baler.bales[1];
@@ -210,9 +201,6 @@ function LTMaster:updateBaler(dt)
         if self:getIsActiveForInput() then
             if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
                 self:setBaleVolume(self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex));
-            end
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
-                g_client:getServerConnection():sendEvent(WrapperChangeStatus:new(not self.LTMaster.baler.wrapperEnabled, self));
             end
         end
     end
@@ -316,11 +304,6 @@ function LTMaster:drawBaler()
             local cLiters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
             local nLiters = self.LTMaster.baler.baleVolumes[self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex)];
             g_currentMission:addHelpButtonText(string.format(g_i18n:getText("GLTM_CHANGE_BALE_VOLUME"), cLiters, nLiters), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
-            if self.LTMaster.baler.wrapperEnabled then
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_WRAPPER_SET_OFF"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
-            else
-                g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_WRAPPER_SET_ON"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
-            end
         end
     end
 end
@@ -457,11 +440,6 @@ function LTMaster:dropBale(baleIndex)
         baleObject:load(bale.filename, x, y, z, rx, ry, rz, bale.fillLevel);
         baleObject:register();
         delete(bale.id);
-        if self.LTMaster.baler.wrapperEnabled or self.LTMaster.baler.mustWrappedBales[baleObject:getFillType()] then
-            baleObject.supportsWrapping = true;
-        else
-            baleObject.supportsWrapping = false;
-        end
         if (not self.hasBaleWrapper or self.moveBaleToWrapper == nil) and baleObject.nodeId ~= nil then
             local x, y, z = getWorldTranslation(baleObject.nodeId);
             local vx, vy, vz = getVelocityAtWorldPos(self.LTMaster.baler.baleAnimRootComponent, x, y, z);
