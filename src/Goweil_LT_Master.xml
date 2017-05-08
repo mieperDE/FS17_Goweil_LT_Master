@@ -449,7 +449,7 @@
             </augerParticleSystems>
         </conveyor>
         <wrapper>
-            <mustWrappedBales fillTypes="chaff woodChips" />
+            <mustWrappedBales fillTypes="chaff woodChips manure" />
         </wrapper>
         <baler fillUnitIndex="4" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
