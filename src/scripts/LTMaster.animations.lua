@@ -74,13 +74,13 @@ function LTMaster:animationsInput(dt)
                 --Fold/Unfold
                 if self.LTMaster.triggerLeft.active then
                     if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDED and self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERED then
-                        g_currentMission:addHelpButtonText(g_i18n:getText("action_unfoldOBJECT"), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
+                        g_currentMission:addHelpButtonText(string.format(g_i18n:getText("action_unfoldOBJECT"), self.typeDesc), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
                         if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA) then
                             self:updateFoldingStatus(LTMaster.STATUS_FU_UNFOLDING);
                         end
                     end
-                    if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED then
-                        g_currentMission:addHelpButtonText(g_i18n:getText("action_foldOBJECT"), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
+                    if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDED and self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) <= 0.1 then
+                        g_currentMission:addHelpButtonText(string.format(g_i18n:getText("action_foldOBJECT"), self.typeDesc), InputBinding.IMPLEMENT_EXTRA, nil, GS_PRIO_HIGH);
                         if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA) then
                             if self.setIsTurnedOn ~= nil and self:getIsTurnedOn() then
                                 self:setIsTurnedOn(false, true);
