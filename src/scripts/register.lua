@@ -100,6 +100,18 @@ FillUtil.registerFillType(
     math.rad(0)
 );
 
+FillUtil.registerFillType(
+    "balesNet",
+    g_i18n:getText("fillType_balesNet"),
+    FillUtil.FILLTYPE_CATEGORY_PIECE,
+    75,
+    false,
+    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesNet.png",
+    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesNet_sml.png",
+    1500 * 0.000001,
+    math.rad(0)
+);
+
 BaleUtil.registerBaleType(
     "bales/roundbaleGrass_w112_d130.i3d",
     "grass_windrow",
