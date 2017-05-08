@@ -356,16 +356,14 @@
     </speedRotatingParts>
     <fillUnits>
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="24000" fillVolumeIndex="1" />
-        <!--<fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />-->
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="false" showInShop="false" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="true" showInShop="false" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
+        <!--<fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" /><fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />-->
     </fillUnits>
     <fillVolumes>
         <volumes>
             <volume index="0>7|8" fillUnitIndex="1" />
-            <!--<volume index="0>7|4|0|12" fillUnitIndex="2" />
-            <volume index="0>7|4|1|14" fillUnitIndex="3" />-->
+            <!--<volume index="0>7|4|0|12" fillUnitIndex="2" /><volume index="0>7|4|1|14" fillUnitIndex="3" />-->
         </volumes>
         <loadInfos>
             <loadInfo fillVolumeIndex="1">
@@ -397,7 +395,7 @@
             <triggerRight index="0>27|0|1" radius="2.5"/>
             <triggerLadder index="0>27|1" radius="1" />
             <triggerBaleSlide index="0>27|2" radius="2" />
-            <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="2" leftFillUnitIndex="3" />
+            <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="4" leftFillUnitIndex="5" />
         </triggers>
         <hoods>
             <openingSound file="sounds/hood_opening.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
@@ -451,7 +449,7 @@
         <wrapper>
             <mustWrappedBales fillTypes="chaff woodChips manure" />
         </wrapper>
-        <baler fillUnitIndex="4" knottingTime="3">
+        <baler fillUnitIndex="2" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <balerBaleEject file="sounds/bale_eject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
             <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="0.98" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
@@ -508,7 +506,7 @@
                 <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </rotatingParts>
         </baler>
-        <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
+        <silageAdditive fillUnitIndex="3" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
             <effects>
                 <effectNode effectNode="0>31|0" materialType="SPRAYER" />
                 <effectNode effectNode="0>31|1" materialType="SPRAYER" />
