@@ -54,6 +54,7 @@ Required power: 140 hp
     <storeItems>
         <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle" />
         <storeItem xmlFilename="GoweilAdditiveTank.xml" rootNode="object" />
+        <storeItem xmlFilename="balesNetPallet.xml" rootNode="object" />
     </storeItems>
     <extraSourceFiles>
         <sourceFile filename="scripts/register.lua" />
