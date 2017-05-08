@@ -356,16 +356,16 @@
     </speedRotatingParts>
     <fillUnits>
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="24000" fillVolumeIndex="1" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />
+        <!--<fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />-->
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="false" showInShop="false" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
     </fillUnits>
     <fillVolumes>
         <volumes>
             <volume index="0>7|8" fillUnitIndex="1" />
-            <volume index="0>7|4|0|12" fillUnitIndex="2" />
-            <volume index="0>7|4|1|14" fillUnitIndex="3" />
+            <!--<volume index="0>7|4|0|12" fillUnitIndex="2" />
+            <volume index="0>7|4|1|14" fillUnitIndex="3" />-->
         </volumes>
         <loadInfos>
             <loadInfo fillVolumeIndex="1">
