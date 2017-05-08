@@ -170,6 +170,16 @@ BaleUtil.registerBaleType(
     true
 );
 
+BaleUtil.registerBaleType(
+    "bales/roundbaleManure_w112_d130.i3d",
+    "manure",
+    1.12,
+    nil,
+    nil,
+    1.3,
+    true
+);
+
 for k, v in pairs(g_i18n.texts) do
     local nv = v;
     for m in nv:gmatch("$input_.-;") do
