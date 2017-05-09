@@ -88,16 +88,33 @@ function LTMaster:loadBaler()
     self.LTMaster.baler.autoUnloadTime = nil;
     
     self.LTMaster.baler.baleVolumes = {};
-    self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.baleVolumes#defaultVolumeIndex"), 1);
+    self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler.baleVolumes#defaultVolumeIndex"), 1);
     local i = 0;
     while true do
         local key = string.format("vehicle.LTMaster.baler.baleVolumes.volume(%d)", i);
         if not hasXMLProperty(self.xmlFile, key) then
             break;
         end
-        table.insert(self.LTMaster.baler.baleVolumes, i + 1, Utils.getNoNil(getXMLFloat(self.xmlFile, key .. "#liters"), 4000));
+        table.insert(self.LTMaster.baler.baleVolumes, i + 1, Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#liters"), 4000));
         i = i + 1;
     end
+    
+    self.LTMaster.baler.balesNet = {};
+    self.LTMaster.baler.balesNet.fillUnitIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler.balesNet#fillUnitIndex"), 1);
+    self.LTMaster.baler.balesNet.netNodes = {};
+    self.LTMaster.baler.balesNet.numNetNodes = 0;
+    local i = 0;
+    while true do
+        local key = string.format("vehicle.LTMaster.baler.balesNet.netNode(%d)", i);
+        if not hasXMLProperty(self.xmlFile, key) then
+            break;
+        end
+        local object = Utils.indexToObject(self.components, getXMLString(self.xmlFile, key .. "#index"));
+        local order = Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#order"), 1);
+        table.insert(self.LTMaster.baler.balesNet.netNodes, order, object);
+        i = i + 1;
+    end
+    self.LTMaster.baler.balesNet.numNetNodes = #self.LTMaster.baler.balesNet.netNodes;
 end
 
 function LTMaster:postLoadBaler(savegame)
@@ -207,6 +224,12 @@ function LTMaster:updateBaler(dt)
 end
 
 function LTMaster:updateTickBaler(dt, normalizedDt)
+    if self.LTMaster.baler.balesNet.numNetNodes > 0 then
+        local level = self:getUnitFillLevel(self.LTMaster.baler.balesNet.fillUnitIndex);
+        for i = 1, self.LTMaster.baler.balesNet.numNetNodes do
+            setVisibility(self.LTMaster.baler.balesNet.netNodes[i], i <= level);
+        end
+    end
     self.LTMaster.conveyor.isOverloading = false;
     if self:getIsActive() then
         if self:getIsTurnedOn() then

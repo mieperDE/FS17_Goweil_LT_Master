@@ -8,7 +8,7 @@
             <function>$l10n_function_silageAdditiveTank</function>
         </functions>
         <specs>
-            <capacity unit="$l10n_unit_pieces">17</capacity>
+            <capacity unit="$l10n_unit_pieces">12</capacity>
             <fillTypes>balesNet</fillTypes>
         </specs>
         <image>store_GoweilAdditiveTank.dds</image>

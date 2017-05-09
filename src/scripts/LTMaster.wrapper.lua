@@ -188,6 +188,23 @@ function LTMaster:loadWrapper(savegame)
     end
     self.LTMaster.wrapper.wrapperEnabled = true;
     
+    self.LTMaster.wrapper.balesFoil = {};
+    self.LTMaster.wrapper.balesFoil.fillUnitIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#fillUnitIndex"), 1);
+    self.LTMaster.wrapper.balesFoil.foilNodes = {};
+    self.LTMaster.wrapper.balesFoil.numfoilNodes = 0;
+    local i = 0;
+    while true do
+        local key = string.format("vehicle.LTMaster.wrapper.balesFoil.foilNode(%d)", i);
+        if not hasXMLProperty(self.xmlFile, key) then
+            break;
+        end
+        local object = Utils.indexToObject(self.components, getXMLString(self.xmlFile, key .. "#index"));
+        local order = Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#order"), 1);
+        table.insert(self.LTMaster.wrapper.balesFoil.foilNodes, order, object);
+        i = i + 1;
+    end
+    self.LTMaster.wrapper.balesFoil.numFoilNodes = #self.LTMaster.wrapper.balesFoil.foilNodes;
+    
     if savegame ~= nil and not savegame.resetVehicles then
         local filename = getXMLString(savegame.xmlFile, savegame.key .. "#baleFileName");
         if filename ~= nil then
@@ -352,6 +369,12 @@ function LTMaster:updateWrapper(dt)
 end
 
 function LTMaster:updateTickWrapper(dt)
+    if self.LTMaster.wrapper.balesFoil.numFoilNodes > 0 then
+        local level = self:getUnitFillLevel(self.LTMaster.wrapper.balesFoil.fillUnitIndex);
+        for i = 1, self.LTMaster.wrapper.balesFoil.numFoilNodes do
+            setVisibility(self.LTMaster.wrapper.balesFoil.foilNodes[i], i <= level);
+        end
+    end
     if self:getIsActive() then
         self.showInvalidBaleWarning = false;
         if self:allowsGrabbingBale() then

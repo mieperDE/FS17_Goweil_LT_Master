@@ -356,8 +356,10 @@
     </speedRotatingParts>
     <fillUnits>
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="24000" fillVolumeIndex="1" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="true" showInShop="false" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="false" showInShop="false" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesNet" capacity="6" />
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesFoil" capacity="10" />
         <!--<fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" /><fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />-->
     </fillUnits>
     <fillVolumes>
@@ -448,6 +450,18 @@
         </conveyor>
         <wrapper>
             <mustWrappedBales fillTypes="chaff woodChips manure" />
+            <balesFoil fillUnitIndex="5">
+                <foilNode index="0>15|1|0" order="1" />
+                <foilNode index="0>15|1|1" order="2" />
+                <foilNode index="0>15|1|2" order="3" />
+                <foilNode index="0>15|1|3" order="4" />
+                <foilNode index="0>15|1|4" order="5" />
+                <foilNode index="0>15|1|5" order="6" />
+                <foilNode index="0>15|1|6" order="7" />
+                <foilNode index="0>15|1|7" order="8" />
+                <foilNode index="0>15|1|8" order="9" />
+                <foilNode index="0>15|1|9" order="10" />
+            </balesFoil>
         </wrapper>
         <baler fillUnitIndex="2" knottingTime="3">
             <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
@@ -505,6 +519,14 @@
                 <!--rotolo-->
                 <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </rotatingParts>
+            <balesNet fillUnitIndex="4">
+                <netNode index="0>15|2|4" order="1" />
+                <netNode index="0>15|2|3" order="2" />
+                <netNode index="0>15|2|2" order="3" />
+                <netNode index="0>15|2|1" order="4" />
+                <netNode index="0>15|2|0" order="5" />
+                <netNode index="0>15|1|10" order="6" />
+            </balesNet>
         </baler>
         <silageAdditive fillUnitIndex="3" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
             <effects>
