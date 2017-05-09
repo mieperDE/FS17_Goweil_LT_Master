@@ -34,6 +34,7 @@ LTMaster.STATUS_FU_FOLDING = 4;
 source(g_currentModDirectory .. "scripts/LTMaster.animations.lua");
 source(g_currentModDirectory .. "scripts/LTMaster.baler.lua");
 source(g_currentModDirectory .. "scripts/LTMaster.wrapper.lua");
+source(g_currentModDirectory .. "scripts/LTMaster.wrkmove.lua");
 source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/supportsStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
@@ -232,6 +233,7 @@ function LTMaster:load(savegame)
     
     LTMaster.loadBaler(self);
     LTMaster.loadWrapper(self);
+    LTMaster.loadWrkMove(self);
 end
 
 function LTMaster:postLoad(savegame)
@@ -385,6 +387,7 @@ end
 function LTMaster:update(dt)
     LTMaster.updateBaler(self, dt);
     LTMaster.updateWrapper(self, dt);
+    LTMaster.updateWrkMove(self, dt);
     self.LTMaster.hoods.delayedUpdateHoodStatus:update(dt);
     self.LTMaster.supports.delayedUpdateSupportsStatus:update(dt);
     self.LTMaster.folding.delayedUpdateFoldingStatus:update(dt);
@@ -409,6 +412,7 @@ function LTMaster:updateTick(dt)
     local normalizedDt = dt / 1000;
     LTMaster.updateTickBaler(self, dt, normalizedDt);
     LTMaster.updateTickWrapper(self, dt, normalizedDt);
+    LTMaster.updateTickWrkMove(self, dt, normalizedDt);
     PlayerTriggers:update();
     if self.isServer then
         if self.LTMaster.sideUnload.isUnloading then
@@ -525,6 +529,7 @@ function LTMaster:draw()
     end
     LTMaster.drawBaler(self);
     LTMaster.drawWrapper(self);
+    LTMaster.drawWrkMove(self);
 end
 
 function LTMaster:onDeactivate()
