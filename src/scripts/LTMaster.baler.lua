@@ -70,6 +70,7 @@ function LTMaster:loadBaler()
         self.LTMaster.baler.sampleBalerEject = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerBaleEject", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.sampleBalerDoor = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerDoor", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.sampleKnotting = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.knottingSound", nil, self.baseDirectory, self.components[1].node);
+        self.LTMaster.baler.sampleoutOfNet = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.outOfNetSound", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.baler.uvScrollParts.uvScrollPart", {}, false);
         self.LTMaster.baler.turnedOnRotationNodes = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.baler.rotatingParts.rotatingPart", "LTMaster.baler", self.components);
         self.LTMaster.baler.knottingAnimation = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#name"), "");
@@ -88,16 +89,38 @@ function LTMaster:loadBaler()
     self.LTMaster.baler.autoUnloadTime = nil;
     
     self.LTMaster.baler.baleVolumes = {};
-    self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.baleVolumes#defaultVolumeIndex"), 1);
+    self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler.baleVolumes#defaultVolumeIndex"), 1);
     local i = 0;
     while true do
         local key = string.format("vehicle.LTMaster.baler.baleVolumes.volume(%d)", i);
         if not hasXMLProperty(self.xmlFile, key) then
             break;
         end
-        table.insert(self.LTMaster.baler.baleVolumes, i + 1, Utils.getNoNil(getXMLFloat(self.xmlFile, key .. "#liters"), 4000));
+        table.insert(self.LTMaster.baler.baleVolumes, i + 1, Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#liters"), 4000));
         i = i + 1;
     end
+    
+    self.LTMaster.baler.balesNet = {};
+    self.LTMaster.baler.balesNet.netNodes = {};
+    self.LTMaster.baler.balesNet.numNetNodes = 0;
+    local i = 0;
+    while true do
+        local key = string.format("vehicle.LTMaster.baler.balesNet.netNode(%d)", i);
+        if not hasXMLProperty(self.xmlFile, key) then
+            break;
+        end
+        local object = Utils.indexToObject(self.components, getXMLString(self.xmlFile, key .. "#index"));
+        local order = Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#order"), 1);
+        table.insert(self.LTMaster.baler.balesNet.netNodes, order, object);
+        i = i + 1;
+    end
+    self.LTMaster.baler.balesNet.numNetNodes = #self.LTMaster.baler.balesNet.netNodes;
+    self.LTMaster.baler.balesNet.netRollIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netRollIndex"));
+    self.LTMaster.baler.balesNet.netUVIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netUVIndex"));
+    self.LTMaster.baler.balesNet.netRollUses = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netRollUses"), 50);
+    self.LTMaster.baler.balesNet.netRollMinScale = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netRollMinScale"), 0.2);
+    self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollUses;
+    self.LTMaster.baler.balesNet.outOfnetRolls = false;
 end
 
 function LTMaster:postLoadBaler(savegame)
@@ -105,6 +128,7 @@ function LTMaster:postLoadBaler(savegame)
     if savegame ~= nil and not savegame.resetVehicles then
         local numBales = getXMLInt(savegame.xmlFile, savegame.key .. "#numBales");
         self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleVolumesIndex"), self.LTMaster.baler.baleVolumesIndex);
+        self.LTMaster.baler.balesNet.netRollRemainingUses = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#netRollRemainingUses"), self.LTMaster.baler.balesNet.netRollRemainingUses);
         if numBales ~= nil and numBales > 0 then
             self.LTMaster.baler.balesToLoad = {};
             local baleKey = savegame.key .. ".bale(0)";
@@ -131,12 +155,14 @@ function LTMaster:deleteBaler()
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerDoor);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerEject);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleKnotting);
+        SoundUtil.deleteSample(self.LTMaster.baler.sampleoutOfNet);
     end
 end
 
 function LTMaster:getSaveAttributesAndNodesBaler(nodeIdent)
     local attributes = 'numBales="' .. table.getn(self.LTMaster.baler.bales) .. '"';
     attributes = attributes .. ' baleVolumesIndex="' .. self.LTMaster.baler.baleVolumesIndex .. '"';
+    attributes = attributes .. ' netRollRemainingUses="' .. self.LTMaster.baler.balesNet.netRollRemainingUses .. '"';
     local nodes = "";
     if table.getn(self.LTMaster.baler.bales) > 0 then
         local bale = self.LTMaster.baler.bales[1];
@@ -207,38 +233,51 @@ function LTMaster:updateBaler(dt)
 end
 
 function LTMaster:updateTickBaler(dt, normalizedDt)
+    if self.LTMaster.baler.balesNet.numNetNodes > 0 then
+        local level = self:getUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index);
+        for i = 1, self.LTMaster.baler.balesNet.numNetNodes do
+            setVisibility(self.LTMaster.baler.balesNet.netNodes[i], i <= level);
+        end
+    end
+    if self.LTMaster.baler.balesNet.outOfnetRolls then
+        setVisibility(self.LTMaster.baler.balesNet.netRollIndex, false);
+        setVisibility(self.LTMaster.baler.balesNet.netUVIndex, false);
+    else
+        setVisibility(self.LTMaster.baler.balesNet.netRollIndex, true);
+        setVisibility(self.LTMaster.baler.balesNet.netUVIndex, true);
+        local percent = self.LTMaster.baler.balesNet.netRollMinScale + (1 - self.LTMaster.baler.balesNet.netRollMinScale) * (self.LTMaster.baler.balesNet.netRollRemainingUses / self.LTMaster.baler.balesNet.netRollUses);
+        setScale(self.LTMaster.baler.balesNet.netRollIndex, 1, percent, percent);
+    end
     self.LTMaster.conveyor.isOverloading = false;
     if self:getIsActive() then
         if self:getIsTurnedOn() then
-            if self:allowPickingUp() then
-                if self.isServer then
-                    self.LTMaster.conveyor.isOverloading = true;
-                    if self:getIsConveyorOverloading() then
-                        local usedFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
-                        local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
-                        local totalLiters = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
-                        if totalLiters > 0 then
-                            self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - totalLiters, usedFillType, false, self.fillVolumeUnloadInfos[self.LTMaster.unloadInfoIndex]);
-                            local deltaLevel = totalLiters * self.LTMaster.baler.fillScale;
-                            if self.LTMaster.silageAdditive.enabled and self.LTMaster.silageAdditive.acceptedFillTypes[usedFillType] then
-                                local additiveLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index);
-                                if additiveLevel > 0 then
-                                    additiveLevel = additiveLevel - deltaLevel * self.LTMaster.silageAdditive.usage;
-                                    self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, additiveLevel, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
-                                    deltaLevel = deltaLevel * self.LTMaster.silageAdditive.gain;
-                                    self.LTMaster.silageAdditive.isUsing = true;
-                                else
-                                    self.LTMaster.silageAdditive.isUsing = false;
-                                end
+            if self:allowPickingUp() and self.isServer and not self.LTMaster.baler.balesNet.outOfnetRolls then
+                self.LTMaster.conveyor.isOverloading = true;
+                if self:getIsConveyorOverloading() then
+                    local usedFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
+                    local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
+                    local totalLiters = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
+                    if totalLiters > 0 then
+                        self:setUnitFillLevel(self.LTMaster.fillUnits["main"].index, fillLevel - totalLiters, usedFillType, false, self.fillVolumeUnloadInfos[self.LTMaster.unloadInfoIndex]);
+                        local deltaLevel = totalLiters * self.LTMaster.baler.fillScale;
+                        if self.LTMaster.silageAdditive.enabled and self.LTMaster.silageAdditive.acceptedFillTypes[usedFillType] then
+                            local additiveLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index);
+                            if additiveLevel > 0 then
+                                additiveLevel = additiveLevel - deltaLevel * self.LTMaster.silageAdditive.usage;
+                                self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, additiveLevel, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
+                                deltaLevel = deltaLevel * self.LTMaster.silageAdditive.gain;
+                                self.LTMaster.silageAdditive.isUsing = true;
+                            else
+                                self.LTMaster.silageAdditive.isUsing = false;
                             end
-                            local oldFillLevel = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex);
-                            self:setUnitFillLevel(self.LTMaster.baler.fillUnitIndex, oldFillLevel + deltaLevel, usedFillType, true);
-                            if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) >= self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex) then
-                                if self.LTMaster.baler.baleTypes ~= nil then
-                                    self:createBale(usedFillType, self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex));
-                                    g_server:broadcastEvent(LTMasterBalerCreateBaleEvent:new(self, usedFillType), nil, nil, self);
-                                    self.LTMaster.baler.autoUnloadTime = g_currentMission.time + self.LTMaster.baler.knottingTime;
-                                end
+                        end
+                        local oldFillLevel = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex);
+                        self:setUnitFillLevel(self.LTMaster.baler.fillUnitIndex, oldFillLevel + deltaLevel, usedFillType, true);
+                        if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) >= self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex) then
+                            if self.LTMaster.baler.baleTypes ~= nil then
+                                self:createBale(usedFillType, self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex));
+                                g_server:broadcastEvent(LTMasterBalerCreateBaleEvent:new(self, usedFillType), nil, nil, self);
+                                self.LTMaster.baler.autoUnloadTime = g_currentMission.time + self.LTMaster.baler.knottingTime;
                             end
                         end
                     end
@@ -289,11 +328,30 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
         if self.LTMaster.baler.autoUnloadTime ~= nil and g_currentMission.time >= self.LTMaster.baler.autoUnloadTime then
             if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
                 self:setIsBalerUnloadingBale(true);
+                self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollRemainingUses - 1;
+                LTMaster.print("netRollRemainingUses:%s", self.LTMaster.baler.balesNet.netRollRemainingUses);
             end
             if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
                 self:setIsBalerUnloadingBale(false);
                 self.LTMaster.baler.autoUnloadTime = nil;
             end
+        end
+        if self.LTMaster.baler.balesNet.netRollRemainingUses <= 0 then
+            local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index);
+            if fillLevel > 0 then
+                self.LTMaster.baler.balesNet.outOfnetRolls = false;
+                self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollUses;
+                self:setUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index, fillLevel - 1, FillUtil.FILLTYPE_BALESNET, true);
+            else
+                self.LTMaster.baler.balesNet.outOfnetRolls = true;
+            end
+        end
+    end
+    if self.isClient then
+        if self.LTMaster.baler.balesNet.outOfnetRolls then
+            Sound3DUtil:playSample(self.LTMaster.baler.sampleoutOfNet, 0, 0, nil, self:getIsActiveForSound());
+        else
+            Sound3DUtil:stopSample(self.LTMaster.baler.sampleoutOfNet);
         end
     end
 end
@@ -320,6 +378,7 @@ function LTMaster:onDeactivateSoundsBaler()
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerDoor, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerEject, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleKnotting, true);
+        Sound3DUtil:stopSample(self.LTMaster.baler.sampleoutOfNet, true);
     end
 end
 
@@ -342,8 +401,7 @@ function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fi
         end
         if self.LTMaster.baler.dummyBale.currentBale ~= nil then
             local percent = fillLevel / self:getUnitCapacity(fillUnitIndex);
-            local y = percent;
-            setScale(self.LTMaster.baler.dummyBale.scaleNode, 1, y, percent);
+            setScale(self.LTMaster.baler.dummyBale.scaleNode, 1, percent, percent);
         end
     end
 end
