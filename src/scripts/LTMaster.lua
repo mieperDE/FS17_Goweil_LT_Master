@@ -242,6 +242,7 @@ end
 
 function LTMaster:postLoad(savegame)
     LTMaster.postLoadBaler(self, savegame);
+    LTMaster.postLoadWrapper(self, savegame);
     if self.isServer then
         if savegame ~= nil and not savegame.resetVehicles then
             self.LTMaster.hoods["left"].status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#leftHoodStatus"), self.LTMaster.hoods["left"].status);

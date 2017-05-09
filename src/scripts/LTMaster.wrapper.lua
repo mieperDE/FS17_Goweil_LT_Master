@@ -203,7 +203,17 @@ function LTMaster:loadWrapper(savegame)
         i = i + 1;
     end
     self.LTMaster.wrapper.balesFoil.numFoilNodes = #self.LTMaster.wrapper.balesFoil.foilNodes;
-    
+    self.LTMaster.wrapper.balesFoil.leftFoilRollIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#leftFoilRollIndex"));
+    self.LTMaster.wrapper.balesFoil.rightFoilRollIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#rightFoilRollIndex"));
+    self.LTMaster.wrapper.balesFoil.leftFoilIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#leftFoilIndex"));
+    self.LTMaster.wrapper.balesFoil.rightFoilIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#rightFoilIndex"));
+    self.LTMaster.wrapper.balesFoil.foilRollUses = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#foilRollUses"), 50);
+    self.LTMaster.wrapper.balesFoil.foilRollMinScale = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#foilRollMinScale"), 0.3);
+    self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = self.LTMaster.wrapper.balesFoil.foilRollUses;
+    self.LTMaster.wrapper.balesFoil.outOfFoilRolls = false;
+end
+
+function LTMaster:postLoadWrapper(savegame)
     if savegame ~= nil and not savegame.resetVehicles then
         local filename = getXMLString(savegame.xmlFile, savegame.key .. "#baleFileName");
         if filename ~= nil then
@@ -216,7 +226,27 @@ function LTMaster:loadWrapper(savegame)
             self.baleToLoad = {filename = filename, translation = translation, rotation = rotation, fillLevel = fillLevel, wrapperTime = wrapperTime, baleValueScale = baleValueScale};
         end
         self.LTMaster.wrapper.wrapperEnabled = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#wrapperEnabled"), self.LTMaster.wrapper.wrapperEnabled);
+        self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#foilRollRemainingUses"), self.LTMaster.wrapper.balesFoil.foilRollRemainingUses);
     end
+end
+
+function LTMaster:getSaveAttributesAndNodesWrapper(nodeIdent)
+    local attributes = "";
+    attributes = ' wrapperEnabled="' .. tostring(self.LTMaster.wrapper.wrapperEnabled) .. '"';
+    attributes = attributes .. ' foilRollRemainingUses="' .. self.LTMaster.wrapper.balesFoil.foilRollRemainingUses .. '"';
+    local baleServerId = self.baleGrabber.currentBale;
+    if baleServerId == nil then
+        baleServerId = self.currentWrapper.currentBale;
+    end
+    if baleServerId ~= nil then
+        local bale = networkGetObject(baleServerId);
+        if bale ~= nil then
+            local fillLevel = bale:getFillLevel();
+            local baleValueScale = bale.baleValueScale;
+            attributes = attributes .. ' baleFileName="' .. Utils.encodeToHTML(Utils.convertToNetworkFilename(bale.i3dFilename)) .. '" fillLevel="' .. fillLevel .. '" wrapperTime="' .. tostring(self.currentWrapper.currentTime) .. '" baleValueScale="' .. baleValueScale .. '"';
+        end
+    end
+    return attributes;
 end
 
 function LTMaster:deleteWrapper()
@@ -374,6 +404,20 @@ function LTMaster:updateTickWrapper(dt)
             setVisibility(self.LTMaster.wrapper.balesFoil.foilNodes[i], i <= level);
         end
     end
+    if self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
+        setVisibility(self.LTMaster.wrapper.balesFoil.leftFoilRollIndex, false);
+        setVisibility(self.LTMaster.wrapper.balesFoil.leftFoilIndex, false);
+        setVisibility(self.LTMaster.wrapper.balesFoil.rightFoilRollIndex, false);
+        setVisibility(self.LTMaster.wrapper.balesFoil.rightFoilIndex, false);
+    else
+        setVisibility(self.LTMaster.wrapper.balesFoil.leftFoilRollIndex, true);
+        setVisibility(self.LTMaster.wrapper.balesFoil.leftFoilIndex, true);
+        setVisibility(self.LTMaster.wrapper.balesFoil.rightFoilRollIndex, true);
+        setVisibility(self.LTMaster.wrapper.balesFoil.rightFoilIndex, true);
+        local percent = self.LTMaster.wrapper.balesFoil.foilRollMinScale + (1 - self.LTMaster.wrapper.balesFoil.foilRollMinScale) * (self.LTMaster.wrapper.balesFoil.foilRollRemainingUses / self.LTMaster.wrapper.balesFoil.foilRollUses);
+        setScale(self.LTMaster.wrapper.balesFoil.leftFoilRollIndex, 1, percent, percent);
+        setScale(self.LTMaster.wrapper.balesFoil.rightFoilRollIndex, 1, percent, percent);
+    end
     if self:getIsActive() then
         self.showInvalidBaleWarning = false;
         if self:allowsGrabbingBale() then
@@ -417,6 +461,18 @@ function LTMaster:updateTickWrapper(dt)
             end
         end
     end
+    if self.isServer then
+        if self.LTMaster.baler.balesNet.netRollRemainingUses <= 0 then
+            local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index);
+            if fillLevel > 0 then
+                self.LTMaster.baler.balesNet.outOfNetRolls = false;
+                self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollUses;
+                self:setUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index, fillLevel - 1, FillUtil.FILLTYPE_BALESNET, true);
+            else
+                self.LTMaster.baler.balesNet.outOfNetRolls = true;
+            end
+        end
+    end
 end
 
 function LTMaster:drawWrapper()
@@ -435,24 +491,6 @@ function LTMaster:drawWrapper()
             g_currentMission:showBlinkingWarning(g_i18n:getText("warning_baleNotSupported"));
         end
     end
-end
-
-function LTMaster:getSaveAttributesAndNodesWrapper(nodeIdent)
-    local attributes = "";
-    attributes = ' wrapperEnabled="' .. tostring(self.LTMaster.wrapper.wrapperEnabled) .. '"';
-    local baleServerId = self.baleGrabber.currentBale;
-    if baleServerId == nil then
-        baleServerId = self.currentWrapper.currentBale;
-    end
-    if baleServerId ~= nil then
-        local bale = networkGetObject(baleServerId);
-        if bale ~= nil then
-            local fillLevel = bale:getFillLevel();
-            local baleValueScale = bale.baleValueScale;
-            attributes = attributes .. ' baleFileName="' .. Utils.encodeToHTML(Utils.convertToNetworkFilename(bale.i3dFilename)) .. '" fillLevel="' .. fillLevel .. '" wrapperTime="' .. tostring(self.currentWrapper.currentTime) .. '" baleValueScale="' .. baleValueScale .. '"';
-        end
-    end
-    return attributes;
 end
 
 function LTMaster:onDeactivateWrapper()
