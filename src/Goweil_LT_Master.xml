@@ -468,6 +468,7 @@
             <balerBaleEject file="sounds/bale_eject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
             <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="0.98" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
             <knottingSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.5" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
             <knottingAnimation name="" />
@@ -519,7 +520,7 @@
                 <!--rotolo-->
                 <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </rotatingParts>
-            <balesNet fillUnitIndex="4">
+            <balesNet fillUnitIndex="4" netRollMinScale="0.2" netRollIndex="0>15|10|0|0" netUVIndex="0>15|11|0" netRollUses="2">
                 <netNode index="0>15|2|4" order="1" />
                 <netNode index="0>15|2|3" order="2" />
                 <netNode index="0>15|2|2" order="3" />

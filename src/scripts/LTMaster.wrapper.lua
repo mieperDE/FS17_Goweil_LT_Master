@@ -189,7 +189,6 @@ function LTMaster:loadWrapper(savegame)
     self.LTMaster.wrapper.wrapperEnabled = true;
     
     self.LTMaster.wrapper.balesFoil = {};
-    self.LTMaster.wrapper.balesFoil.fillUnitIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#fillUnitIndex"), 1);
     self.LTMaster.wrapper.balesFoil.foilNodes = {};
     self.LTMaster.wrapper.balesFoil.numfoilNodes = 0;
     local i = 0;
@@ -370,7 +369,7 @@ end
 
 function LTMaster:updateTickWrapper(dt)
     if self.LTMaster.wrapper.balesFoil.numFoilNodes > 0 then
-        local level = self:getUnitFillLevel(self.LTMaster.wrapper.balesFoil.fillUnitIndex);
+        local level = self:getUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index);
         for i = 1, self.LTMaster.wrapper.balesFoil.numFoilNodes do
             setVisibility(self.LTMaster.wrapper.balesFoil.foilNodes[i], i <= level);
         end

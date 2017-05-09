@@ -98,7 +98,11 @@ function LTMaster:load(savegame)
     self.LTMaster.fillUnits["baler"] = {};
     self.LTMaster.fillUnits["baler"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler#fillUnitIndex"), 4);
     self.LTMaster.fillUnits["silageAdditive"] = {};
-    self.LTMaster.fillUnits["silageAdditive"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillUnitIndex"), 4);
+    self.LTMaster.fillUnits["silageAdditive"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillUnitIndex"), 5);
+    self.LTMaster.fillUnits["balesNet"] = {};
+    self.LTMaster.fillUnits["balesNet"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler.balesNet#fillUnitIndex"), 6);
+    self.LTMaster.fillUnits["balesFoil"] = {};
+    self.LTMaster.fillUnits["balesFoil"].index = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#fillUnitIndex"), 7);
     
     self.LTMaster.conveyor = {};
     if self.isClient then
@@ -246,6 +250,8 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
         elseif savegame == nil then
             self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
+            self:setUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index, math.huge, FillUtil.FILLTYPE_BALESNET, true);
+            self:setUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index, math.huge, FillUtil.FILLTYPE_BALESFOIL, true);
             g_i18n.globalI18N:setText("shop_messagePurchaseReady", g_i18n:getText("shop_overwrite_messagePurchaseReady"));
             g_i18n.globalI18N:setText("shop_messageLeasingReady", g_i18n:getText("shop_overwrite_messageLeasingReady"));
         end
@@ -318,6 +324,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteInt32(streamId, self.LTMaster.tipTrigger.id);
+        streamWriteInt32(streamId, self.LTMaster.baler.balesNet.netRollRemainingUses);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
@@ -339,6 +346,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
         self.LTMaster.baleSlide.status = streamReadUInt8(streamId);
         local tipTriggerId = streamReadInt32(streamId);
+        self.LTMaster.baler.balesNet.netRollRemainingUses = streamReadInt32(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
@@ -359,6 +367,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteUInt8(streamId, self.LTMaster.ladder.status);
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
+        streamWriteInt32(streamId, self.LTMaster.baler.balesNet.netRollRemainingUses);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
@@ -375,6 +384,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.ladder.status = streamReadUInt8(streamId);
         self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
+        self.LTMaster.baler.balesNet.netRollRemainingUses = streamReadInt32(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
