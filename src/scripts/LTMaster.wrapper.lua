@@ -173,6 +173,10 @@ function LTMaster:loadWrapper(savegame)
         self.currentWrapperSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.wrapperSound", nil, self.baseDirectory, self.components[1].node);
         self.currentWrapperStartSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.wrapperStartSound", nil, self.baseDirectory, self.components[1].node);
         self.currentWrapperStopSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.wrapperStopSound", nil, self.baseDirectory, self.components[1].node);
+        if self.LTMaster.baler.balesFoil.sampleFill == nil then
+            local linkNode = Utils.indexToObject(self.components, Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesFoil.fillSound#linkNode"), "0>"));
+            self.LTMaster.baler.balesFoil.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesFoil.fillSound", nil, self.baseDirectory, linkNode);
+        end
     end
     self.baleToLoad = nil;
     self.baleToMount = nil;
