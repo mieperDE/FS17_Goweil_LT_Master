@@ -112,6 +112,10 @@ function LTMaster:load(savegame)
         self.LTMaster.conveyor.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.conveyor.uvScrollParts.uvScrollPart", {}, false);
         self.LTMaster.conveyor.rotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.conveyor.rotatingParts.rotatingPart", "LTMaster.conveyor", self.components)
         self.LTMaster.conveyor.unloadParticleSystems = {};
+        if self.LTMaster.silageAdditive.sampleFill == nil then
+            local linkNode = Utils.indexToObject(self.components, Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.silageAdditive.fillSound#linkNode"), "0>"));
+            self.LTMaster.silageAdditive.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.silageAdditive.fillSound", nil, self.baseDirectory, linkNode);
+        end
         local i = 0;
         while true do
             local key = string.format("vehicle.LTMaster.conveyor.unloadParticleSystems.emitterShape(%d)", i);

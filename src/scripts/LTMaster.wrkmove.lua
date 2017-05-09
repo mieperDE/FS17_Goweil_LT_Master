@@ -9,7 +9,7 @@ function LTMaster:loadWrkMove()
     self.LTMaster.gauge = {}
     local i=0;
     while true do
-        local gaugeKey = string.format("vehicle.gauge.part(%d)", i);
+        local gaugeKey = string.format("vehicle.LTMaster.gauge.part(%d)", i);
         if not hasXMLProperty(self.xmlFile, gaugeKey) then            
             break;
         end;
@@ -30,7 +30,7 @@ function LTMaster:loadWrkMove()
     self.LTMaster.levers = {}
     local i=0;
     while true do
-        local leversKey = string.format("vehicle.levers.part(%d)", i);
+        local leversKey = string.format("vehicle.LTMaster.levers.part(%d)", i);
         if not hasXMLProperty(self.xmlFile, leversKey) then
             break;
         end;
