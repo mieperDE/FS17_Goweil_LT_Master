@@ -25,6 +25,6 @@
         <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
     </storeData>
     <className>FillablePallet</className>
-    <filename>balesFoilPallet.i3d</filename>
+    <filename>pallets/balesFoilPallet.i3d</filename>
     <size width="2" length="2"/>
 </object>

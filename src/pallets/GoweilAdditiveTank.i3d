@@ -6,19 +6,19 @@
   </Asset>
 
   <Files>
-    <File fileId="2" filename="Texture/GoweilAdditiveTank_diffuse.png" relativePath="true"/>
-    <File fileId="3" filename="Texture/GoweilAdditiveTank_normal.png" relativePath="true"/>
-    <File fileId="4" filename="Texture/GoweilAdditiveTank_specular.png" relativePath="true"/>
+    <File fileId="2" filename="../Texture/GoweilAdditiveTank_diffuse.png" relativePath="true"/>
+    <File fileId="3" filename="../Texture/GoweilAdditiveTank_normal.png" relativePath="true"/>
+    <File fileId="4" filename="../Texture/GoweilAdditiveTank_specular.png" relativePath="true"/>
   </Files>
 
 
   <Materials>
-    <Material name="lambert1" materialId="6" diffuseColor="0.494118 0.494118 0.494118 1" ambientColor="1 1 1">
-    </Material>
     <Material name="fertilizerTank_mat" materialId="7" ambientColor="1 1 1" cosPower="125" specularColor="1 1 1">
       <Texture fileId="2"/>
       <Normalmap fileId="3"/>
       <Glossmap fileId="4"/>
+    </Material>
+    <Material name="lambert1" materialId="6" diffuseColor="0.494118 0.494118 0.494118 1" ambientColor="1 1 1">
     </Material>
   </Materials>
 

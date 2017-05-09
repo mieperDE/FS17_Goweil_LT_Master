@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <object>
     <storeData>
         <name>
-            <en>Bale's Nets Pallet</en>
+            <en>Silage Additive Tank</en>
         </name>
         <functions>
             <function>$l10n_function_silageAdditiveTank</function>
         </functions>
         <specs>
-            <capacity unit="$l10n_unit_pieces">12</capacity>
-            <fillTypes>balesNet</fillTypes>
+            <capacity>1000</capacity>
+            <fillTypes>silageAdditive</fillTypes>
         </specs>
         <image>store_GoweilAdditiveTank.dds</image>
-        <price>900</price>
+        <price>3400</price>
         <dailyUpkeep>0</dailyUpkeep>
         <rotation>0</rotation>
         <brand>LIZARD</brand>
@@ -25,6 +25,6 @@
         <instanceIndexBufferMemoryUsage>0</instanceIndexBufferMemoryUsage>
     </storeData>
     <className>FillablePallet</className>
-    <filename>balesNetPallet.i3d</filename>
+    <filename>pallets/GoweilAdditiveTank.i3d</filename>
     <size width="2" length="2"/>
 </object>
