@@ -328,6 +328,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteInt32(streamId, self.LTMaster.tipTrigger.id);
         streamWriteInt32(streamId, self.LTMaster.baler.balesNet.netRollRemainingUses);
+        streamWriteInt32(streamId, self.LTMaster.wrapper.balesFoil.foilRollRemainingUses);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
@@ -350,6 +351,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.baleSlide.status = streamReadUInt8(streamId);
         local tipTriggerId = streamReadInt32(streamId);
         self.LTMaster.baler.balesNet.netRollRemainingUses = streamReadInt32(streamId);
+        self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = streamReadInt32(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
@@ -371,6 +373,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         streamWriteInt32(streamId, self.LTMaster.baler.balesNet.netRollRemainingUses);
+        streamWriteInt32(streamId, self.LTMaster.wrapper.balesFoil.foilRollRemainingUses);
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
@@ -388,6 +391,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.baler.balesNet.netRollRemainingUses = streamReadInt32(streamId);
+        self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = streamReadInt32(streamId);
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);

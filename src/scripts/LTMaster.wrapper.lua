@@ -181,6 +181,9 @@ function LTMaster:loadWrapper(savegame)
     self.hasBaleWrapper = true;
     
     self.LTMaster.wrapper = {};
+    if self.isClient then
+        self.LTMaster.wrapper.sampleOutOfFoil = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.wrapper.outOfFoilSound", nil, self.baseDirectory, self.components[1].node);
+    end
     self.LTMaster.wrapper.mustWrappedBales = {};
     local fillTypeNames = getXMLString(self.xmlFile, "vehicle.LTMaster.wrapper.mustWrappedBales#fillTypes");
     for _, f in pairs(FillUtil.getFillTypesByNames(fillTypeNames)) do
@@ -269,6 +272,7 @@ function LTMaster:deleteWrapper()
         SoundUtil.deleteSample(self.currentWrapperSound);
         SoundUtil.deleteSample(self.currentWrapperStartSound);
         SoundUtil.deleteSample(self.currentWrapperStopSound);
+        SoundUtil.deleteSample(self.LTMaster.wrapper.sampleOutOfFoil);
     end
 end
 
@@ -462,15 +466,22 @@ function LTMaster:updateTickWrapper(dt)
         end
     end
     if self.isServer then
-        if self.LTMaster.baler.balesNet.netRollRemainingUses <= 0 then
+        if self.LTMaster.wrapper.balesFoil.foilRollRemainingUses <= 0 then
             local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index);
-            if fillLevel > 0 then
-                self.LTMaster.baler.balesNet.outOfNetRolls = false;
-                self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollUses;
-                self:setUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index, fillLevel - 1, FillUtil.FILLTYPE_BALESNET, true);
+            if fillLevel > 1 then
+                self.LTMaster.wrapper.balesFoil.outOfFoilRolls = false;
+                self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = self.LTMaster.wrapper.balesFoil.foilRollUses;
+                self:setUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index, fillLevel - 2, FillUtil.FILLTYPE_BALESFOIL, true);
             else
-                self.LTMaster.baler.balesNet.outOfNetRolls = true;
+                self.LTMaster.wrapper.balesFoil.outOfFoilRolls = true;
             end
+        end
+    end
+    if self.isClient then
+        if self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
+            Sound3DUtil:playSample(self.LTMaster.wrapper.sampleOutOfFoil, 0, 0, nil, self:getIsActiveForSound());
+        else
+            Sound3DUtil:stopSample(self.LTMaster.wrapper.sampleOutOfFoil);
         end
     end
 end
@@ -502,6 +513,7 @@ function LTMaster:onDeactivateSoundsWrapper()
         Sound3DUtil:stopSample(self.currentWrapperStartSound, true);
         Sound3DUtil:stopSample(self.currentWrapperStopSound, true);
         Sound3DUtil:stopSample(self.currentWrapperSound, true);
+        Sound3DUtil:stopSample(self.LTMaster.wrapper.sampleOutOfFoil, true);
     end
 end
 
@@ -651,7 +663,11 @@ function LTMaster:doStateChange(id, nearestBaleServerId)
             end
         end
         self:updateWrappingState(1, true);
-        self.baleWrapperState = BaleWrapper.STATE_WRAPPER_FINSIHED;
+        if self.isServer then
+            self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = self.LTMaster.wrapper.balesFoil.foilRollRemainingUses - 1;
+            LTMaster.print("foilRollRemainingUses:%s", self.LTMaster.wrapper.balesFoil.foilRollRemainingUses);
+            self.baleWrapperState = BaleWrapper.STATE_WRAPPER_FINSIHED;
+        end
     elseif id == BaleWrapper.CHANGE_WRAPPER_START_DROP_BALE then
         self:updateWrapNodes(false, false, 0);
         if self.currentWrapper.animations["dropFromWrapper"].animName ~= nil then
