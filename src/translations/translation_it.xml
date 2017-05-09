@@ -11,7 +11,9 @@ Puoi ritirare il veicolo noleggiato al negozio." />
 Puoi ritirare il tuo acquisto nel negozio." />
  
         <text name="function_silageAdditiveTank"            text="Additivo per migliorare la resa dei prodotti insilati." />
-        <text name="fillType_silageAdditive"                text="Additivo insilati." />
+        <text name="fillType_silageAdditive"                text="Additivo insilati" />
+        <text name="fillType_balesNet"                      text="Rete balle" />
+        <text name="fillType_balesFoil"                     text="Film estensibile" />
         <text name="GLTM_TEMP_INFO"                         text="Guida completa all'uso disponibile nell&apos;help di gioco" />
         <text name="GLTM_OPEN_HOOD"                         text="Apri portellone" />
         <text name="GLTM_CLOSE_HOOD"                        text="Chiudi portellone" />

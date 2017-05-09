@@ -11,7 +11,9 @@ You can pick up your leased vehicle from the store." />
 You can fetch your purchase at the store." />
  
         <text name="function_silageAdditiveTank"            text="Silage Additives is used to get higher resolution." />
-        <text name="fillType_silageAdditive"                text="Silage Additives." />
+        <text name="fillType_silageAdditive"                text="Silage Additives" />
+        <text name="fillType_balesNet"                      text="Bales Net" />
+        <text name="fillType_balesFoil"                     text="Wrap foil" />
         <text name="GLTM_TEMP_INFO"                         text="A complete user manual available in game help." />
         <text name="GLTM_OPEN_HOOD"                         text="Open hood" />
         <text name="GLTM_CLOSE_HOOD"                        text="Close hood" />

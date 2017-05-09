@@ -75,20 +75,20 @@ end
 
 function LTMaster:onTurnedOn(noEventSend)
 
-    LTMaster.print("wrkmove on turned on");
+    --LTMaster.print("wrkmove on turned on");
     
-    for i,part in pairs(self.LTMaster.gauge) do            
-        LTMaster.print("levers part: x %s  y %s  z %s  minX %s  maxX %s  bounce %s", part.x, part.y, part.z, part.minX, part.maxX, part.bounce);
-    end
+    --for i,part in pairs(self.LTMaster.gauge) do            
+    --    LTMaster.print("levers part: x %s  y %s  z %s  minX %s  maxX %s  bounce %s", part.x, part.y, part.z, part.minX, part.maxX, part.bounce);
+    --end
     
-    for i,part in pairs(self.LTMaster.levers) do            
-        LTMaster.print("levers part: x %s  y %s  z %s  lAxis %s", part.x, part.y, part.z, part.lAxis);
-    end
+    --for i,part in pairs(self.LTMaster.levers) do            
+    --    LTMaster.print("levers part: x %s  y %s  z %s  lAxis %s", part.x, part.y, part.z, part.lAxis);
+    --end
     
 end
 
 function LTMaster:onTurnedOff(noEventSend)
 
-    LTMaster.print("wrkmove on turned off");
+    --LTMaster.print("wrkmove on turned off");
     
 end
