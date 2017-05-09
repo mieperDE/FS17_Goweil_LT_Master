@@ -461,6 +461,7 @@
                 <foilNode index="0>15|1|7" order="8" />
                 <foilNode index="0>15|1|8" order="9" />
                 <foilNode index="0>15|1|9" order="10" />
+                <fillSoundbalesFoil file="$data/maps/sounds/oilPump.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="10" radius="40" linkNode="0>" />
             </balesFoil>
         </wrapper>
         <baler fillUnitIndex="2" knottingTime="3">
@@ -520,16 +521,17 @@
                 <!--rotolo-->
                 <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
             </rotatingParts>
-            <balesNet fillUnitIndex="4" netRollMinScale="0.2" netRollIndex="0>15|10|0|0" netUVIndex="0>15|11|0" netRollUses="2">
+            <balesNet fillUnitIndex="4" netRollMinScale="0.2" netRollIndex="0>15|10|0|0" netUVIndex="0>15|11|0" netRollUses="2" fillLitersPerSecond="1">
                 <netNode index="0>15|2|4" order="1" />
                 <netNode index="0>15|2|3" order="2" />
                 <netNode index="0>15|2|2" order="3" />
                 <netNode index="0>15|2|1" order="4" />
                 <netNode index="0>15|2|0" order="5" />
                 <netNode index="0>15|1|10" order="6" />
+                <fillSoundbalesNet file="$data/maps/sounds/oilPump.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="10" radius="40" linkNode="0>" />
             </balesNet>
         </baler>
-        <silageAdditive fillUnitIndex="3" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
+        <silageAdditive fillUnitIndex="3" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012" fillLitersPerSecond="20">
             <effects>
                 <effectNode effectNode="0>31|0" materialType="SPRAYER" />
                 <effectNode effectNode="0>31|1" materialType="SPRAYER" />
@@ -539,6 +541,7 @@
                 <effectNode effectNode="0>31|5" materialType="SPRAYER" />
                 <effectNode effectNode="0>31|6" materialType="SPRAYER" />
             </effects>
+            <fillSoundsilageAdditive file="$data/maps/sounds/refuel.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="10" radius="40" linkNode="0>" />
         </silageAdditive>
     </LTMaster>
     <gauge>
