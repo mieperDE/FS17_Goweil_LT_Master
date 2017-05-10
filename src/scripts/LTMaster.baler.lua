@@ -257,7 +257,7 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
     self.LTMaster.conveyor.isOverloading = false;
     if self:getIsActive() then
         if self:getIsTurnedOn() then
-            if self:allowPickingUp() and self.isServer and not self.LTMaster.baler.balesNet.outOfNetRolls and not self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
+            if self:allowPickingUp() and self.isServer and not self.LTMaster.baler.balesNet.outOfNetRolls then
                 self.LTMaster.conveyor.isOverloading = true;
                 if self:getIsConveyorOverloading() then
                     local usedFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
@@ -332,10 +332,9 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
     end
     if self.isServer then
         if self.LTMaster.baler.autoUnloadTime ~= nil and g_currentMission.time >= self.LTMaster.baler.autoUnloadTime then
-            if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
+            if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED and self:allowsGrabbingBale() then
                 self:setIsBalerUnloadingBale(true);
                 self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollRemainingUses - 1;
-                LTMaster.print("netRollRemainingUses:%s", self.LTMaster.baler.balesNet.netRollRemainingUses);
             end
             if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
                 self:setIsBalerUnloadingBale(false);

@@ -420,7 +420,7 @@ function LTMaster:updateTickWrapper(dt)
                         local bale = networkGetObject(self.LTMaster.wrapper.currentWrapper.currentBale);
                         if bale ~= nil and not bale.supportsWrapping then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPER_START_DROP_BALE), true, nil, self);
-                        else
+                        elseif not self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPING_START), true, nil, self);
                         end
                     end
