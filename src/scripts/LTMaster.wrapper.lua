@@ -418,7 +418,7 @@ function LTMaster:updateTickWrapper(dt)
                 elseif self.LTMaster.wrapper.baleWrapperState == BaleWrapper.STATE_MOVING_GRABBER_TO_WORK then
                     if not self:getIsAnimationPlaying(self.LTMaster.wrapper.currentWrapper.animations["moveToWrapper"].animName) then
                         local bale = networkGetObject(self.LTMaster.wrapper.currentWrapper.currentBale);
-                        if bale ~= nil and not bale.supportsWrapping then
+                        if (bale ~= nil and not bale.supportsWrapping) or (not self.LTMaster.wrapper.wrapperEnabled and not self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()]) then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPER_START_DROP_BALE), true, nil, self);
                         elseif not self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPING_START), true, nil, self);
@@ -450,7 +450,16 @@ function LTMaster:updateTickWrapper(dt)
     end
     if self.isClient then
         if self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
-            Sound3DUtil:playSample(self.LTMaster.wrapper.sampleOutOfFoil, 0, 0, nil, self:getIsActiveForSound());
+            if self.LTMaster.wrapper.wrapperEnabled then
+                Sound3DUtil:playSample(self.LTMaster.wrapper.sampleOutOfFoil, 0, 0, nil, self:getIsActiveForSound());
+            else
+                local bale = networkGetObject(self.LTMaster.wrapper.currentWrapper.currentBale);
+                if bale ~= nil and self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()] then
+                    Sound3DUtil:playSample(self.LTMaster.wrapper.sampleOutOfFoil, 0, 0, nil, self:getIsActiveForSound());
+                else
+                    Sound3DUtil:stopSample(self.LTMaster.wrapper.sampleOutOfFoil);
+                end
+            end
         else
             Sound3DUtil:stopSample(self.LTMaster.wrapper.sampleOutOfFoil);
         end
