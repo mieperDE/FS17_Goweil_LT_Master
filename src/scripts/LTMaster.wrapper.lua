@@ -405,8 +405,8 @@ function LTMaster:updateTickWrapper(dt)
         setVisibility(self.LTMaster.wrapper.balesFoil.rightFoilRollIndex, true);
         setVisibility(self.LTMaster.wrapper.balesFoil.rightFoilIndex, true);
         local percent = self.LTMaster.wrapper.balesFoil.foilRollMinScale + (1 - self.LTMaster.wrapper.balesFoil.foilRollMinScale) * (self.LTMaster.wrapper.balesFoil.foilRollRemainingUses / self.LTMaster.wrapper.balesFoil.foilRollUses);
-        setScale(self.LTMaster.wrapper.balesFoil.leftFoilRollIndex, 1, percent, percent);
-        setScale(self.LTMaster.wrapper.balesFoil.rightFoilRollIndex, 1, percent, percent);
+        setScale(self.LTMaster.wrapper.balesFoil.leftFoilRollIndex, percent, 1, percent);
+        setScale(self.LTMaster.wrapper.balesFoil.rightFoilRollIndex, percent, 1, percent);
     end
     if self:getIsActive() then
         if self.isServer then
