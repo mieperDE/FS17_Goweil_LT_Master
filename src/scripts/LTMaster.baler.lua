@@ -76,10 +76,6 @@ function LTMaster:loadBaler()
         self.LTMaster.baler.knottingAnimation = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#name"), "");
         self.LTMaster.baler.knottingAnimationSpeed = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#speed"), 1);
         self.LTMaster.baler.balingAnimationName = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.balingAnimation#name"), "");
-        if self.LTMaster.baler.balesNet.sampleFill == nil then
-            local linkNode = Utils.indexToObject(self.components, Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet.fillSound#linkNode"), "0>"));
-            self.LTMaster.baler.balesNet.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesNet.fillSound", nil, self.baseDirectory, linkNode);
-        end
     end
     self.LTMaster.baler.unloadingState = LTMaster.BALER_UNLOADING_CLOSED;
     self.LTMaster.baler.bales = {};
@@ -117,6 +113,12 @@ function LTMaster:loadBaler()
         local order = Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#order"), 1);
         table.insert(self.LTMaster.baler.balesNet.netNodes, order, object);
         i = i + 1;
+    end
+    if self.isClient then
+        if self.LTMaster.baler.balesNet.sampleFill == nil then
+            local linkNode = Utils.indexToObject(self.components, Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet.fillSound#linkNode"), "0>"));
+            self.LTMaster.baler.balesNet.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesNet.fillSound", nil, self.baseDirectory, linkNode);
+        end
     end
     self.LTMaster.baler.balesNet.numNetNodes = #self.LTMaster.baler.balesNet.netNodes;
     self.LTMaster.baler.balesNet.netRollIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netRollIndex"));
