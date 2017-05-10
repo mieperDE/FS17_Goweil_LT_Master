@@ -418,7 +418,7 @@ function LTMaster:updateTickWrapper(dt)
                 elseif self.LTMaster.wrapper.baleWrapperState == BaleWrapper.STATE_MOVING_GRABBER_TO_WORK then
                     if not self:getIsAnimationPlaying(self.LTMaster.wrapper.currentWrapper.animations["moveToWrapper"].animName) then
                         local bale = networkGetObject(self.LTMaster.wrapper.currentWrapper.currentBale);
-                        if (bale ~= nil and not bale.supportsWrapping) or (not self.LTMaster.wrapper.wrapperEnabled and not self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()]) then
+                        if not self.LTMaster.wrapper.wrapperEnabled and not self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()]) then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPER_START_DROP_BALE), true, nil, self);
                         elseif not self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPING_START), true, nil, self);
@@ -714,11 +714,6 @@ function LTMaster:getWrapperBaleType(bale)
 end
 
 function LTMaster:pickupWrapperBale(bale, baleType)
-    if self.LTMaster.wrapper.wrapperEnabled or self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()] then
-        bale.supportsWrapping = true;
-    else
-        bale.supportsWrapping = false;
-    end
     if baleType ~= nil and bale.i3dFilename ~= baleType.wrapperBaleFilename and bale.supportsWrapping then
         local x, y, z = getWorldTranslation(bale.nodeId);
         local rx, ry, rz = getWorldRotation(bale.nodeId);
@@ -728,7 +723,6 @@ function LTMaster:pickupWrapperBale(bale, baleType)
         bale = Bale:new(self.isServer, self.isClient);
         bale:load(baleType.wrapperBaleFilename, x, y, z, rx, ry, rz, fillLevel);
         bale.baleValueScale = baleValueScale;
-        bale.supportsWrapping = true;
         bale:register();
     end
     g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_GRAB_BALE, networkGetObjectId(bale)), true, nil, self);
