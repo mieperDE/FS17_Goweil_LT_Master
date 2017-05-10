@@ -60,6 +60,7 @@ Required power: 140 hp
     <extraSourceFiles>
         <sourceFile filename="scripts/register.lua" />
         <sourceFile filename="scripts/sound3DUtil.lua" />
+        <sourceFile filename="scripts/baleInfos.lua" />
         <sourceFile filename="scripts/triggers/PlayerTrigger.lua" />
         <sourceFile filename="scripts/triggers/LTMasterTipTrigger.lua" />
         <sourceFile filename="scripts/helpers/globalFunctions.lua" />
