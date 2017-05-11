@@ -465,9 +465,9 @@
         <baler fillUnitIndex="2" knottingTime="3">
             <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="1" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
+            <balerDoor file="sounds/balerDoor.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
             <knottingSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.5" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.50" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
             <knottingAnimation name="" />
