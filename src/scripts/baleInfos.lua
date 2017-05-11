@@ -13,7 +13,6 @@ function BaleInfos.renderTxtBale(x,y,z, text, textSize, textOffset)
         setTextBold(true);
         setTextColor(0.0, 0.0, 1.0, 0.70);
         renderText(sx, sy-0.0018+textOffset, textSize, text);
-        --setTextColor(0.5, 1.0, 0.7, 1.0);
         setTextColor(0.5, 1.0, 0.7, 1.0);
         renderText(sx, sy+textOffset, textSize, text);
         setTextAlignment(RenderText.ALIGN_LEFT);
@@ -52,44 +51,6 @@ function BaleInfos:update(dt)
             self.nodeBaleInfos = nil;
         end
     end
-
---[[
-.baleValueScale :: 1
-.baleDiameter :: 1.2999999523163
-.supportsWrapping :: false
-.forcedClipDistance :: 150
-.isClient :: true
-.i3dFilename :: data/objects/roundbales/roundbaleStraw_w112_d130.i3d
-.canBeSold :: true
-.dirtyMask :: 0
-.nextDirtyFlag :: 2
-.sendRotZ :: -2.2460944652557
-.id :: 254
-.isServer :: true
-.isRegistered :: true
-.fillType :: 30
-.meshNodes :: table: 0x025d6510e588
-.   1 :: 96924
-.nodeId :: 96922
-.baleWidth :: 1.1200000047684
-.wrappingState :: 0
-.physicsObjectDirtyFlag :: 1
-.dynamicMountTriggerForceAcceleration :: 4
-.sendPosZ :: -757.97637939453
-.sendRotX :: -2.7161109447479
-.dynamicMountSingleAxisFreeX :: false
-.meshNode :: 96924
-.dynamicMountForceLimitScale :: 2
-.fillLevel :: 4000
-.baseDirectory :: 
-.sendRotY :: 0.36859944462776
-.dynamicMountTriggerId :: 96923
-.dynamicMountSingleAxisFreeY :: false
-.sendPosY :: 87.358474731445
-.lastMoveTime :: 12400.880796432
-.sendPosX :: 174.95861816406
---]]
-
 end
 
 function BaleInfos:draw()
