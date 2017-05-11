@@ -33,7 +33,7 @@ function HudLevelBar:setUnitTextColor(r, g, b, a)
     g = Utils.getNoNil(g, self.unitTextColor[2]);
     b = Utils.getNoNil(b, self.unitTextColor[3]);
     a = Utils.getNoNil(a, self.unitTextColor[4]);
-    self.unitColorText = {r, g, b, a};
+    self.unitTextColor = {r, g, b, a};
 end
 
 function HudLevelBar:setText(text)

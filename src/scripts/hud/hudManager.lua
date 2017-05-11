@@ -7,11 +7,11 @@ HudManager = {};
 HudManager.huds = {};
 HudManager.modDir = g_currentModDirectory;
 HudManager.modName = g_currentModName;
-source(HudManager.modDir .. "hud/hud.lua", HudManager.modName);
-source(HudManager.modDir .. "hud/hudImage.lua", HudManager.modName);
-source(HudManager.modDir .. "hud/hudText.lua", HudManager.modName);
-source(HudManager.modDir .. "hud/hudProgressBar.lua", HudManager.modName);
-source(HudManager.modDir .. "hud/hudLevelBar.lua", HudManager.modName);
+source(HudManager.modDir .. "scripts/hud/hud.lua", HudManager.modName);
+source(HudManager.modDir .. "scripts/hud/hudImage.lua", HudManager.modName);
+source(HudManager.modDir .. "scripts/hud/hudText.lua", HudManager.modName);
+source(HudManager.modDir .. "scripts/hud/hudProgressBar.lua", HudManager.modName);
+source(HudManager.modDir .. "scripts/hud/hudLevelBar.lua", HudManager.modName);
 
 function HudManager:loadMap(name)
 end
