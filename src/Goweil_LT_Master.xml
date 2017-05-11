@@ -463,8 +463,8 @@
             </roundBaleWrapper>
         </wrapper>
         <baler fillUnitIndex="2" knottingTime="3">
-            <balerSound file="sounds/LTMasterBalerSound.wav" pitchOffset="0.90" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
-            <balerBaleEject file="sounds/bale_eject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
             <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="1" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
             <knottingSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
             <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.5" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
