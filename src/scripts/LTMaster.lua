@@ -337,6 +337,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
         streamWriteBool(streamId, self.LTMaster.wrapper.wrapperEnabled);
+        streamWriteBool(streamId, self.LTMaster.baler.isWorking);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
@@ -360,6 +361,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
         self.LTMaster.wrapper.wrapperEnabled = streamReadBool(streamId);
+        self.LTMaster.baler.isWorking = streamReadBool(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
@@ -382,6 +384,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
         streamWriteBool(streamId, self.LTMaster.wrapper.wrapperEnabled);
+        streamWriteBool(streamId, self.LTMaster.baler.isWorking);
     end
 end
 
@@ -400,6 +403,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
         self.LTMaster.wrapper.wrapperEnabled = streamReadBool(streamId);
+        self.LTMaster.baler.isWorking = streamReadBool(streamId);
     end
 end
 

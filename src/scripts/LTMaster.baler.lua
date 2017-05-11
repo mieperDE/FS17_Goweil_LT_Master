@@ -84,9 +84,9 @@ function LTMaster:loadBaler()
     self.LTMaster.baler.dummyBale.baleNode = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.baleAnimation#baleNode"));
     self.LTMaster.baler.dummyBale.currentBaleFillType = FillUtil.FILLTYPE_UNKNOWN;
     self.LTMaster.baler.dummyBale.currentBale = nil;
-    self.LTMaster.baler.isBaleUnloading = false;
     self.LTMaster.baler.knottingTime = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler#knottingTime"), 0) * 1000;
     self.LTMaster.baler.autoUnloadTime = nil;
+    self.LTMaster.baler.isWorking = false;
     
     self.LTMaster.baler.baleVolumes = {};
     self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler.baleVolumes#defaultVolumeIndex"), 1);
@@ -228,8 +228,6 @@ function LTMaster:updateBaler(dt)
         self.LTMaster.baler.balesToLoad = nil;
     end
     if self.isClient then
-        Utils.updateRotationNodes(self, self.LTMaster.baler.turnedOnRotationNodes, dt, self:getIsActive() and self:getIsTurnedOn());
-        Utils.updateScrollers(self.LTMaster.baler.uvScrollParts, dt, self:getIsActive() and self:getIsTurnedOn());
         if self:getIsActiveForInput() then
             if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
                 self:setBaleVolume(self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex));
@@ -255,11 +253,13 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
         setScale(self.LTMaster.baler.balesNet.netRollIndex, 1, percent, percent);
     end
     self.LTMaster.conveyor.isOverloading = false;
+    self.LTMaster.baler.isWorking = false;
     if self:getIsActive() then
         if self:getIsTurnedOn() then
             if self:allowPickingUp() and self.isServer and not self.LTMaster.baler.balesNet.outOfNetRolls then
                 self.LTMaster.conveyor.isOverloading = true;
                 if self:getIsConveyorOverloading() then
+                    self.LTMaster.baler.isWorking = true;
                     local usedFillType = self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index);
                     local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index);
                     local totalLiters = math.min(fillLevel, self.LTMaster.conveyor.overloadingCapacity * normalizedDt);
@@ -329,34 +329,41 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                 end
             end
         end
-    end
-    if self.isServer then
-        if self.LTMaster.baler.autoUnloadTime ~= nil and g_currentMission.time >= self.LTMaster.baler.autoUnloadTime then
-            if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED and self:allowsGrabbingBale() then
-                self:setIsBalerUnloadingBale(true);
-                self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollRemainingUses - 1;
+        if self.isServer then
+            if self.LTMaster.baler.autoUnloadTime ~= nil then
+                if g_currentMission.time < self.LTMaster.baler.autoUnloadTime then
+                    self.LTMaster.baler.isWorking = true;
+                end
+                if g_currentMission.time >= self.LTMaster.baler.autoUnloadTime then
+                    if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED and self:allowsGrabbingBale() then
+                        self:setIsBalerUnloadingBale(true);
+                        self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollRemainingUses - 1;
+                    end
+                    if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
+                        self:setIsBalerUnloadingBale(false);
+                        self.LTMaster.baler.autoUnloadTime = nil;
+                    end
+                end
             end
-            if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
-                self:setIsBalerUnloadingBale(false);
-                self.LTMaster.baler.autoUnloadTime = nil;
+            if self.LTMaster.baler.balesNet.netRollRemainingUses <= 0 then
+                local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index);
+                if fillLevel > 0 then
+                    self.LTMaster.baler.balesNet.outOfNetRolls = false;
+                    self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollUses;
+                    self:setUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index, fillLevel - 1, FillUtil.FILLTYPE_BALESNET, true);
+                else
+                    self.LTMaster.baler.balesNet.outOfNetRolls = true;
+                end
             end
         end
-        if self.LTMaster.baler.balesNet.netRollRemainingUses <= 0 then
-            local fillLevel = self:getUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index);
-            if fillLevel > 0 then
-                self.LTMaster.baler.balesNet.outOfNetRolls = false;
-                self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollUses;
-                self:setUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index, fillLevel - 1, FillUtil.FILLTYPE_BALESNET, true);
+        if self.isClient then
+            Utils.updateRotationNodes(self, self.LTMaster.baler.turnedOnRotationNodes, dt, self.LTMaster.baler.isWorking);
+            Utils.updateScrollers(self.LTMaster.baler.uvScrollParts, dt, self.LTMaster.baler.isWorking);
+            if self.LTMaster.baler.balesNet.outOfNetRolls then
+                Sound3DUtil:playSample(self.LTMaster.baler.sampleOutOfNet, 0, 0, nil, self:getIsActiveForSound());
             else
-                self.LTMaster.baler.balesNet.outOfNetRolls = true;
+                Sound3DUtil:stopSample(self.LTMaster.baler.sampleOutOfNet);
             end
-        end
-    end
-    if self.isClient then
-        if self.LTMaster.baler.balesNet.outOfNetRolls then
-            Sound3DUtil:playSample(self.LTMaster.baler.sampleOutOfNet, 0, 0, nil, self:getIsActiveForSound());
-        else
-            Sound3DUtil:stopSample(self.LTMaster.baler.sampleOutOfNet);
         end
     end
 end
