@@ -35,6 +35,7 @@ source(g_currentModDirectory .. "scripts/LTMaster.animations.lua");
 source(g_currentModDirectory .. "scripts/LTMaster.baler.lua");
 source(g_currentModDirectory .. "scripts/LTMaster.wrapper.lua");
 source(g_currentModDirectory .. "scripts/LTMaster.wrkmove.lua");
+source(g_currentModDirectory .. "scripts/LTMaster.hud.lua");
 source(g_currentModDirectory .. "scripts/events/hoodStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/supportsStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/foldingStatusEvent.lua");
@@ -236,12 +237,13 @@ function LTMaster:load(savegame)
         if self.LTMaster.silageAdditive.sampleFill == nil then
             local linkNode = Utils.indexToObject(self.components, Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.silageAdditive.fillSound#linkNode"), "0>"));
             self.LTMaster.silageAdditive.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.silageAdditive.fillSound", nil, self.baseDirectory, linkNode);
-        end        
+        end
     end
     
-    LTMaster.loadBaler(self);
-    LTMaster.loadWrapper(self);
-    LTMaster.loadWrkMove(self);
+    LTMaster.loadBaler(self, savegame);
+    LTMaster.loadWrapper(self, savegame);
+    LTMaster.loadWrkMove(self, savegame);
+    LTMaster.loadHud(self, savegame);
 end
 
 function LTMaster:postLoad(savegame)
@@ -312,6 +314,7 @@ function LTMaster:delete()
     end
     LTMaster.deleteBaler(self);
     LTMaster.deleteWrapper(self);
+    LTMaster.deleteHud(self);
 end
 
 function LTMaster:mouseEvent(posX, posY, isDown, isUp, button)
@@ -411,6 +414,7 @@ function LTMaster:update(dt)
     LTMaster.updateBaler(self, dt);
     LTMaster.updateWrapper(self, dt);
     LTMaster.updateWrkMove(self, dt);
+    LTMaster.updateHud(self, dt);
     self.LTMaster.hoods.delayedUpdateHoodStatus:update(dt);
     self.LTMaster.supports.delayedUpdateSupportsStatus:update(dt);
     self.LTMaster.folding.delayedUpdateFoldingStatus:update(dt);
@@ -553,6 +557,7 @@ function LTMaster:draw()
     LTMaster.drawBaler(self);
     LTMaster.drawWrapper(self);
     LTMaster.drawWrkMove(self);
+    LTMaster.drawHud(self);
 end
 
 function LTMaster:onDeactivate()
