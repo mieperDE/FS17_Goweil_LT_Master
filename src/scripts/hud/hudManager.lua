@@ -12,6 +12,7 @@ source(HudManager.modDir .. "scripts/hud/hudImage.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudText.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudProgressBar.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudLevelBar.lua", HudManager.modName);
+source(HudManager.modDir .. "scripts/hud/hudProgressIcon.lua", HudManager.modName);
 
 function HudManager:loadMap(name)
 end

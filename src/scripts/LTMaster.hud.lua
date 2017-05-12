@@ -11,6 +11,7 @@ function LTMaster:loadHud(savegame)
     local y = g_safeFrameOffsetY + g_currentMission.vehicleHudBg.height;
     local width = 225;
     local height = 28;
+    local imageSize = {128, 128};
     
     self.LTMaster.hud.bg = HudImage:new("HudBackground", g_baseUIFilename, x, y, width, height);
     self.LTMaster.hud.bg:setUVs(g_colorBgUVs);
@@ -19,6 +20,19 @@ function LTMaster:loadHud(savegame)
     self.LTMaster.hud.lfg = HudImage:new("HudLeftForeground", g_baseUIFilename, 0.01778, -0.08333, 75, 26.5, self.LTMaster.hud.bg);
     self.LTMaster.hud.lfg:setUVs(g_colorBgUVs);
     self.LTMaster.hud.lfg:setColor(0.0075, 0.0075, 0.0075, 1);
+    
+    self.LTMaster.hud.wrapperIcon = HudImage:new("WrapperIcon", HudManager.modDir .. "hud/icons.dds", 0.042, 0.11320, 20, 20, self.LTMaster.hud.lfg);
+    self.LTMaster.hud.wrapperIcon.normalUVs = GuiUtils.getUVs("0px 0px 64px 64px", imageSize);
+    self.LTMaster.hud.wrapperIcon.activeUVs = GuiUtils.getUVs("0px 64px 64px 64px", imageSize);
+    self.LTMaster.hud.wrapperIcon:setUVs(self.LTMaster.hud.wrapperIcon.normalUVs);
+    
+    self.LTMaster.hud.netIcon = HudProgressIcon:new("NetIcon", HudManager.modDir .. "hud/fillTypes/hud_fill_balesNet.dds", 0.36607, 0.11320, 20, 20, self.LTMaster.hud.lfg);
+    self.LTMaster.hud.netIcon:setUVs(GuiUtils.getUVs("0px 0px 256px 256px", {256, 256}));
+    self.LTMaster.hud.netIcon:setColor(0.2122, 0.5271, 0.0307, 1);
+    
+    self.LTMaster.hud.foilIcon = HudProgressIcon:new("FoilIcon", HudManager.modDir .. "hud/fillTypes/hud_fill_balesFoil.dds", 0.6875, 0.11320, 20, 20, self.LTMaster.hud.lfg);
+    self.LTMaster.hud.foilIcon:setUVs(GuiUtils.getUVs("0px 0px 256px 256px", {256, 256}));
+    self.LTMaster.hud.foilIcon:setColor(0.2122, 0.5271, 0.0307, 1);
     
     self.LTMaster.hud.rfg = HudImage:new("HudRightForeground", g_baseUIFilename, 1 - 0.01778, -0.08333, 140, 26.5, self.LTMaster.hud.bg);
     self.LTMaster.hud.rfg:setAlignment(Hud.ALIGNS_VERTICAL_BOTTOM, Hud.ALIGNS_HORIZONTAL_RIGHT);
@@ -42,6 +56,13 @@ function LTMaster:updateHud(dt)
         local value = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) / self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex);
         self.LTMaster.hud.balerLevelBar:setValue(value);
         self.LTMaster.hud.balerLevelBar:setAll(string.format("%d", self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex)), string.format("%d%%", value * 100), self:getUnitLastValidFillType(self.LTMaster.baler.fillUnitIndex));
+        self.LTMaster.hud.netIcon:setValue(self.LTMaster.baler.balesNet.netRollRemainingUses / self.LTMaster.baler.balesNet.netRollUses);
+        self.LTMaster.hud.foilIcon:setValue(self.LTMaster.wrapper.balesFoil.foilRollRemainingUses / self.LTMaster.wrapper.balesFoil.foilRollUses);
+        if self:getIsTurnedOn() and self.LTMaster.wrapper.wrapperEnabled then
+            self.LTMaster.hud.wrapperIcon:setUVs(self.LTMaster.hud.wrapperIcon.activeUVs);
+        else
+            self.LTMaster.hud.wrapperIcon:setUVs(self.LTMaster.hud.wrapperIcon.normalUVs);
+        end
     else
         self.LTMaster.hud.bg:setIsVisible(false, true);
     end
