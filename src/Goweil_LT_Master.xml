@@ -294,8 +294,8 @@
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="24000" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="false" showInShop="false" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
-        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesNet" capacity="6" />
-        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesFoil" capacity="10" />
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesNet" capacity="6" showOnHud="false" />
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesFoil" capacity="10" showOnHud="false" />
         <!--<fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" /><fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />-->
     </fillUnits>
     <fillVolumes>
