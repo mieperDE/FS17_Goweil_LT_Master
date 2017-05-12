@@ -114,11 +114,8 @@ function LTMaster:loadBaler()
         table.insert(self.LTMaster.baler.balesNet.netNodes, order, object);
         i = i + 1;
     end
-    if self.isClient then
-        if self.LTMaster.baler.balesNet.sampleFill == nil then
-            local linkNode = Utils.indexToObject(self.components, Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet.fillSound#linkNode"), "0>"));
-            self.LTMaster.baler.balesNet.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesNet.fillSound", nil, self.baseDirectory, linkNode);
-        end
+    if self.isClient then            
+        self.LTMaster.baler.balesNet.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesNet.fillSound", nil, self.baseDirectory, self.components[1].node);
     end
     self.LTMaster.baler.balesNet.numNetNodes = #self.LTMaster.baler.balesNet.netNodes;
     self.LTMaster.baler.balesNet.netRollIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netRollIndex"));
@@ -179,6 +176,7 @@ function LTMaster:deleteBaler()
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerEject);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleKnotting);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleOutOfNet);
+        SoundUtil.deleteSample(self.LTMaster.baler.balesNet.sampleFill);
     end
 end
 

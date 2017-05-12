@@ -266,6 +266,7 @@ function LTMaster:deleteWrapper()
         SoundUtil.deleteSample(self.LTMaster.wrapper.currentWrapperStartSound);
         SoundUtil.deleteSample(self.LTMaster.wrapper.currentWrapperStopSound);
         SoundUtil.deleteSample(self.LTMaster.wrapper.sampleOutOfFoil);
+        SoundUtil.deleteSample(self.LTMaster.wrapper.balesFoil.sampleFill);
     end
 end
 
