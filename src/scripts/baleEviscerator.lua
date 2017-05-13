@@ -83,7 +83,7 @@ function BaleEvisceratorEvent:run(connection)
     BaleEviscerator:evisceratesBale(bale);
 end
 
-function BaleEviscerator:sendEvent(bale)
+function BaleEvisceratorEvent:sendEvent(bale)
     local event = BaleEvisceratorEvent:new(bale);
     if g_currentMission:getIsServer() then
         g_server:broadcastEvent(event, false);
