@@ -8,7 +8,6 @@ BaleEviscerator = {};
 BaleEviscerator.baleObject = nil;
 
 function BaleEviscerator:loadMap(name)
-
 end
 
 function BaleEviscerator:deleteMap()
@@ -30,25 +29,32 @@ function BaleEviscerator:update(dt)
             end
         end
     end
-    if baleObject ~= nil then
-        if InputBinding.hasEvent(InputBinding.ACTIVATE_HANDTOOL) then
-            self:evisceratesBale(baleObject);
+    if self.baleObject ~= nil then
+        if InputBinding.hasEvent(InputBinding.ACTIVATE_OBJECT) then
+            BaleEvisceratorEvent:sendEvent(self.baleObject);
+            self:evisceratesBale(self.baleObject);
         end
     end
 end
 
+function BaleEviscerator:updateTick(dt)
+end
+
 function BaleEviscerator:draw()
-    if baleObject ~= nil then
+    if self.baleObject ~= nil then
         --aggiungi nel menù f1 il tasto per sviscerare la balla
-        g_currentMission:addHelpButtonText(g_i18n:getText("input_EVIBALE"), InputBinding.ACTIVATE_HANDTOOL);
+        local fillType = self.baleObject.fillType;
+        if TipUtil.getCanTipToGround(fillType) then 
+            g_currentMission:addHelpButtonText(g_i18n:getText("input_EVIBALE"), InputBinding.ACTIVATE_OBJECT, nil, GS_PRIO_VERY_HIGH);
+        end
     end
 end
 
 function BaleEviscerator:evisceratesBale(baleObject)
     if g_currentMission:getIsServer() then
-        local delta = baleObject.fillLevel;
-        local fillType = baleObject.fillType;
-        local x,y,z = getWorldTranslation(baleObject.rootNode);
+        local delta = self.baleObject.fillLevel;
+        local fillType = self.baleObject.fillType;
+        local x,y,z = getWorldTranslation(self.baleObject.nodeId);
         if TipUtil.getCanTipToGround(fillType) then 
             baleObject:delete();
             local xzRndm = ((math.random(1, 20))-10)/10;
@@ -74,8 +80,6 @@ function BaleEviscerator:evisceratesBale(baleObject)
                 levelerNode,
                 false, nil, false);
         end
-    else
-        g_client:getServerConnection():sendEvent(BaleEvisceratorEvent:new(baleObject));
     end
 end
 

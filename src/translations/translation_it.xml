@@ -10,6 +10,7 @@ Puoi ritirare il veicolo noleggiato al negozio." />
  
 Puoi ritirare il tuo acquisto nel negozio." />
  
+        <text name="input_EVIBALE"                          text="Eviscerate Bale" />
         <text name="function_silageAdditiveTank"            text="Additivo per migliorare la resa dei prodotti insilati." />
         <text name="fillType_silageAdditive"                text="Additivo insilati" />
         <text name="fillType_balesNet"                      text="Rete balle" />
