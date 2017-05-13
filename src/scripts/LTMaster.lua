@@ -234,11 +234,9 @@ function LTMaster:load(savegame)
     self.LTMaster.silageAdditive.fillType = FillUtil.FILLTYPE_LIQUIDFERTILIZER;
     if self.isClient then
         self.LTMaster.silageAdditive.effects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.silageAdditive.effects", self.components, self);
-        if self.LTMaster.silageAdditive.sampleFill == nil then
-            local linkNode = Utils.indexToObject(self.components, Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.silageAdditive.fillSound#linkNode"), "0>"));
-            self.LTMaster.silageAdditive.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.silageAdditive.fillSound", nil, self.baseDirectory, linkNode);
-        end
+        self.LTMaster.silageAdditive.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.silageAdditive.fillSound", nil, self.baseDirectory, self.components[1].node);
     end
+    self.LTMaster.silageAdditive.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillLitersPerSecond"), 20);
     
     LTMaster.loadBaler(self, savegame);
     LTMaster.loadWrapper(self, savegame);
@@ -311,6 +309,7 @@ function LTMaster:delete()
         for _, particleSystems in pairs(self.LTMaster.conveyor.augerParticleSystems) do
             ParticleUtil.deleteParticleSystems(particleSystems);
         end
+        SoundUtil.deleteSample(self.LTMaster.silageAdditive.sampleFill);
     end
     LTMaster.deleteBaler(self);
     LTMaster.deleteWrapper(self);
@@ -547,6 +546,19 @@ function LTMaster:updateTick(dt)
                 self.LTMaster.conveyor.currentAugerParticleSystems = nil;
             end
         end
+    end
+    if self.isFilling and self.fillTrigger ~= nil and self.fillTrigger.fillType == FillUtil.FILLTYPE_SILAGEADDITIVE then
+        if self.isClient then
+            Sound3DUtil:playSample(self.LTMaster.silageAdditive.sampleFill, 0, 0, nil, self:getIsActiveForSound());
+        end
+        self.fillLitersPerSecond = self.LTMaster.silageAdditive.fillLitersPerSecond;
+    else
+        if self.isClient then
+            Sound3DUtil:stopSample(self.LTMaster.silageAdditive.sampleFill);
+        end
+    end
+    if not self.isFilling then
+        self.fillLitersPerSecond = 1;
     end
 end
 

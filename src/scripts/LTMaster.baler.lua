@@ -114,9 +114,6 @@ function LTMaster:loadBaler()
         table.insert(self.LTMaster.baler.balesNet.netNodes, order, object);
         i = i + 1;
     end
-    if self.isClient then            
-        self.LTMaster.baler.balesNet.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesNet.fillSound", nil, self.baseDirectory, self.components[1].node);
-    end
     self.LTMaster.baler.balesNet.numNetNodes = #self.LTMaster.baler.balesNet.netNodes;
     self.LTMaster.baler.balesNet.netRollIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netRollIndex"));
     self.LTMaster.baler.balesNet.netUVIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netUVIndex"));
@@ -124,6 +121,10 @@ function LTMaster:loadBaler()
     self.LTMaster.baler.balesNet.netRollMinScale = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.balesNet#netRollMinScale"), 0.2);
     self.LTMaster.baler.balesNet.netRollRemainingUses = self.LTMaster.baler.balesNet.netRollUses;
     self.LTMaster.baler.balesNet.outOfNetRolls = false;
+    if self.isClient then
+        self.LTMaster.baler.balesNet.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesNet.fillSound", nil, self.baseDirectory, self.components[1].node);
+    end
+    self.LTMaster.baler.balesNet.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.balesNet#fillLitersPerSecond"), 1);
 end
 
 function LTMaster:postLoadBaler(savegame)
@@ -362,6 +363,16 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
             else
                 Sound3DUtil:stopSample(self.LTMaster.baler.sampleOutOfNet);
             end
+        end
+    end
+    if self.isFilling and self.fillTrigger ~= nil and self.fillTrigger.fillType == FillUtil.FILLTYPE_BALESNET then
+        if self.isClient then
+            Sound3DUtil:playSample(self.LTMaster.baler.balesNet.sampleFill, 0, 0, nil, self:getIsActiveForSound());
+        end
+        self.fillLitersPerSecond = self.LTMaster.baler.balesNet.fillLitersPerSecond;
+    else
+        if self.isClient then
+            Sound3DUtil:stopSample(self.LTMaster.baler.balesNet.sampleFill);
         end
     end
 end

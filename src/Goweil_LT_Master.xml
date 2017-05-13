@@ -397,7 +397,7 @@
                 <foilNode index="0>15|1|7" order="8" />
                 <foilNode index="0>15|1|8" order="9" />
                 <foilNode index="0>15|1|9" order="10" />
-                <fillSound file="$data/maps/sounds/oilPump.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="10" radius="40" linkNode="0>" />
+                <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15" />
             </balesFoil>
             <wrapperStartSound file="$data/sounds/bale_wrapping_start.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <wrapperStopSound file="sounds/bale_wrapping_stop.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
@@ -526,7 +526,7 @@
                 <netNode index="0>15|2|1" order="4" />
                 <netNode index="0>15|2|0" order="5" />
                 <netNode index="0>15|1|10" order="6" />
-                <fillSound file="$data/maps/sounds/oilPump.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="10" radius="40" linkNode="0>" />
+                <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15"/>
             </balesNet>
         </baler>
         <silageAdditive fillUnitIndex="3" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012" fillLitersPerSecond="20">
@@ -539,7 +539,7 @@
                 <effectNode effectNode="0>31|5" materialType="SPRAYER" />
                 <effectNode effectNode="0>31|6" materialType="SPRAYER" />
             </effects>
-            <fillSound file="$data/maps/sounds/refuel.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="10" radius="40" linkNode="0>" />
+            <fillSound file="$data/maps/sounds/refuel.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
         </silageAdditive>
         <gauge>
             <part index="0>14|0|0|0" minX="-136" maxX="0" peak="-70" bounce="10" />

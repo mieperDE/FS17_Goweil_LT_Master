@@ -173,7 +173,6 @@ function LTMaster:loadWrapper(savegame)
         self.LTMaster.wrapper.currentWrapperStartSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.wrapper.wrapperStartSound", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.wrapper.currentWrapperStopSound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.wrapper.wrapperStopSound", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.wrapper.sampleOutOfFoil = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.wrapper.outOfFoilSound", nil, self.baseDirectory, self.components[1].node);
-        self.LTMaster.wrapper.balesFoil.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.wrapper.balesFoil.fillSound", nil, self.baseDirectory, self.components[1].node);
     end
     self.LTMaster.wrapper.baleToLoad = nil;
     self.LTMaster.wrapper.baleToMount = nil;
@@ -207,6 +206,10 @@ function LTMaster:loadWrapper(savegame)
     self.LTMaster.wrapper.balesFoil.foilRollMinScale = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#foilRollMinScale"), 0.3);
     self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = self.LTMaster.wrapper.balesFoil.foilRollUses;
     self.LTMaster.wrapper.balesFoil.outOfFoilRolls = false;
+    if self.isClient then
+        self.LTMaster.wrapper.balesFoil.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.wrapper.balesFoil.fillSound", nil, self.baseDirectory, self.components[1].node);
+    end
+    self.LTMaster.wrapper.balesFoil.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.wrapper.balesFoil#fillLitersPerSecond"), 1);
 end
 
 function LTMaster:postLoadWrapper(savegame)
@@ -463,6 +466,16 @@ function LTMaster:updateTickWrapper(dt)
             end
         else
             Sound3DUtil:stopSample(self.LTMaster.wrapper.sampleOutOfFoil);
+        end
+    end
+    if self.isFilling and self.fillTrigger ~= nil and self.fillTrigger.fillType == FillUtil.FILLTYPE_BALESFOIL then
+        if self.isClient then
+            Sound3DUtil:playSample(self.LTMaster.wrapper.balesFoil.sampleFill, 0, 0, nil, self:getIsActiveForSound());
+        end
+        self.fillLitersPerSecond = self.LTMaster.wrapper.balesFoil.fillLitersPerSecond;
+    else
+        if self.isClient then
+            Sound3DUtil:stopSample(self.LTMaster.wrapper.balesFoil.sampleFill);
         end
     end
 end
