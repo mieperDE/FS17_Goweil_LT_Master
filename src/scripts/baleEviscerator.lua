@@ -31,22 +31,52 @@ function BaleEviscerator:update(dt)
         end
     end
     if baleObject ~= nil then
-        --if controlli se il tasto per sviscerare la balla è premuto then
-            --se è premuto e se in questo punt si può tippare to ground
-                --chiami l'evento di sfaciatura e tip
-                --chiami la funzione di sfaciatura e tip
+        if InputBinding.hasEvent(InputBinding.ACTIVATE_HANDTOOL) then
+            self:evisceratesBale(baleObject);
+        end
     end
 end
 
 function BaleEviscerator:draw()
     if baleObject ~= nil then
         --aggiungi nel menù f1 il tasto per sviscerare la balla
+        g_currentMission:addHelpButtonText(g_i18n:getText("input_EVIBALE"), InputBinding.ACTIVATE_HANDTOOL);
     end
 end
 
 function BaleEviscerator:evisceratesBale(baleObject)
-    --distruggi la balla ( puoi vedere il bale destroyer )
-    --tippi to ground il materiale
+    if g_currentMission:getIsServer() then
+        local delta = baleObject.fillLevel;
+        local fillType = baleObject.fillType;
+        local x,y,z = getWorldTranslation(baleObject.rootNode);
+        if TipUtil.getCanTipToGround(fillType) then 
+            baleObject:delete();
+            local xzRndm = ((math.random(1, 20))-10)/10;
+            local xOffset = math.max(math.min(xzRndm, 0.3), -0.3);
+            local zOffset = math.max(math.min(xzRndm, 0.8), -0.1);
+            local ex = x + xOffset;
+            local ey = y - 0.1;
+            local ez = z + zOffset;
+            local innerRadius = 0;
+            local outerRadius = TipUtil.getDefaultMaxRadius(fillType);
+            local levelerNode = 1;
+            local valueOk, droppedToLine = TipUtil.tipToGroundAroundLine(nil,
+                delta,
+                fillType,
+                x,
+                y,
+                z,
+                ex,
+                ey,
+                ez,
+                innerRadius,
+                outerRadius,
+                levelerNode,
+                false, nil, false);
+        end
+    else
+        g_client:getServerConnection():sendEvent(BaleEvisceratorEvent:new(baleObject));
+    end
 end
 
 addModEventListener(BaleEviscerator);
