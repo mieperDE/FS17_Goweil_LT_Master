@@ -80,13 +80,14 @@ function LTMaster:loadHud(savegame)
 end
 
 function LTMaster:deleteHud(savegame)
-    self.LTMaster.bg:delete(true);
+    self.LTMaster.hud.bg:delete(true);
+    self.LTMaster.hud.player.bg:delete(true);
 end
 
 function LTMaster:updateHud(dt)
     local isVehicleInRange = false;
     local isPlayerInRange = false;
-    if not self:getRootAttacherVehicle().isEntered then
+    if not self:getRootAttacherVehicle().isEntered and self:getIsTurnedOn() then
         local px, py, pz = getWorldTranslation(self.rootNode);
         if g_currentMission.controlledVehicle ~= nil then
             local tx, ty, tz = getWorldTranslation(g_currentMission.controlledVehicle.rootNode);
