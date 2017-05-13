@@ -42,7 +42,6 @@ end
 
 function BaleEviscerator:draw()
     if self.baleObject ~= nil then
-        --aggiungi nel menù f1 il tasto per sviscerare la balla
         local fillType = self.baleObject.fillType;
         if TipUtil.getCanTipToGround(fillType) then 
             g_currentMission:addHelpButtonText(g_i18n:getText("input_EVIBALE"), InputBinding.ACTIVATE_OBJECT, nil, GS_PRIO_VERY_HIGH);
@@ -84,3 +83,44 @@ function BaleEviscerator:evisceratesBale(baleObject)
 end
 
 addModEventListener(BaleEviscerator);
+
+BaleEvisceratorEvent = {};
+BaleEvisceratorEvent_mt = Class(BaleEvisceratorEvent, Event);
+InitEventClass(BaleEvisceratorEvent, "BaleEvisceratorEvent");
+
+function BaleEvisceratorEvent:emptyNew()
+    local self = Event:new(BaleEvisceratorEvent_mt);
+    return self;
+end
+
+function BaleEvisceratorEvent:new(bale)
+    local self = BaleEvisceratorEvent:emptyNew()
+    self.baleServerId = networkGetObjectId(bale);
+    return self;
+end
+
+function BaleEvisceratorEvent:writeStream(streamId, connection)
+    writeNetworkNodeObjectId(streamId, self.baleServerId);
+end
+
+function BaleEvisceratorEvent:readStream(streamId, connection)
+    self.baleServerId = readNetworkNodeObjectId(streamId);
+    self:run(connection);
+end
+
+function BaleEvisceratorEvent:run(connection)
+    local bale = networkGetObject(self.baleServerId);
+    if not connection:getIsServer() then
+        g_server:broadcastEvent(BaleEvisceratorEvent:new(bale), false, connection);
+    end
+    BaleEviscerator:evisceratesBale(bale);
+end
+
+function BaleEvisceratorEvent:sendEvent(bale)
+    local event = BaleEvisceratorEvent:new(bale);
+    if g_currentMission:getIsServer() then
+        g_server:broadcastEvent(event, false);
+    else
+        g_client:getServerConnection():sendEvent(event);
+    end
+end
