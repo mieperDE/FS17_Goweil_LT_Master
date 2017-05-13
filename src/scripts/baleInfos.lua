@@ -37,7 +37,7 @@ function BaleInfos:update(dt)
     if g_currentMission.player ~= nil then
         if g_currentMission.player.isObjectInRange then
             self.nodeBaleInfos = g_currentMission:getNodeObject(g_currentMission.player.lastFoundObject);
-            if self.nodeBaleInfos:isa(Bale) then
+            if self.nodeBaleInfos ~= nil and self.nodeBaleInfos:isa(Bale) then
                 local desc = FillUtil.fillTypeIndexToDesc[self.nodeBaleInfos.fillType];
                 local iName = desc.nameI18N; 
                 local fLevel = self.nodeBaleInfos.fillLevel;
@@ -54,7 +54,7 @@ function BaleInfos:update(dt)
 end
 
 function BaleInfos:draw()
-    if self.textBaleInfos and self.nodeBaleInfos then 
+    if self.textBaleInfos ~= nil and self.nodeBaleInfos ~= nil and self.nodeBaleInfos.nodeId ~= 0 then 
         local x,y,z = getWorldTranslation(self.nodeBaleInfos.nodeId);
         BaleInfos.renderTxtBale(x, y, z, self.textBaleInfos, getCorrectTextSize(self.fontSize), 0);
     end
