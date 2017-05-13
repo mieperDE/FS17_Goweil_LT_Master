@@ -80,7 +80,8 @@ function LTMaster:loadHud(savegame)
 end
 
 function LTMaster:deleteHud(savegame)
-    self.LTMaster.bg:delete(true);
+    self.LTMaster.hud.bg:delete(true);
+    self.LTMaster.hud.player.bg:delete(true);
 end
 
 function LTMaster:updateHud(dt)
