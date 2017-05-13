@@ -16,8 +16,8 @@ function BaleInfos.renderTxtBale(x,y,z, text, textSize, textOffset)
         setTextColor(0.5, 1.0, 0.7, 1.0);
         renderText(sx, sy+textOffset, textSize, text);
         setTextAlignment(RenderText.ALIGN_LEFT);
-	end;
-end;
+	end
+end
 
 function BaleInfos:loadMap(name)
     self.guiScale = Utils.getNoNil(g_gameSettings:getValue("uiScale"),1);
