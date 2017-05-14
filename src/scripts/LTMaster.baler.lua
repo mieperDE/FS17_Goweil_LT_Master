@@ -125,6 +125,7 @@ function LTMaster:loadBaler()
         self.LTMaster.baler.balesNet.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balesNet.fillSound", nil, self.baseDirectory, self.components[1].node);
     end
     self.LTMaster.baler.balesNet.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.balesNet#fillLitersPerSecond"), 1);
+    self.LTMaster.baler.balePressureHud = VehicleHudUtils.loadHud(self, self.xmlFile, "balePressure");
 end
 
 function LTMaster:postLoadBaler(savegame)
@@ -236,6 +237,9 @@ function LTMaster:updateBaler(dt)
 end
 
 function LTMaster:updateTickBaler(dt, normalizedDt)
+    if self.LTMaster.baler.balePressureHud ~= nil then
+        VehicleHudUtils.setHudValue(self, self.LTMaster.baler.balePressureHud, self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex), self.LTMaster.baler.balePressureHud.maxValueAnim);
+    end
     if self.LTMaster.baler.balesNet.numNetNodes > 0 then
         local level = self:getUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index);
         for i = 1, self.LTMaster.baler.balesNet.numNetNodes do

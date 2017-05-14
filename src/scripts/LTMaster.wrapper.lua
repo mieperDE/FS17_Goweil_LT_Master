@@ -648,7 +648,6 @@ function LTMaster:doStateChange(id, nearestBaleServerId)
         self:updateWrappingState(1, true);
         if self.isServer then
             self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = self.LTMaster.wrapper.balesFoil.foilRollRemainingUses - 1;
-            LTMaster.print("foilRollRemainingUses:%s", self.LTMaster.wrapper.balesFoil.foilRollRemainingUses);
             self.LTMaster.wrapper.baleWrapperState = BaleWrapper.STATE_WRAPPER_FINSIHED;
         end
     elseif id == BaleWrapper.CHANGE_WRAPPER_START_DROP_BALE then

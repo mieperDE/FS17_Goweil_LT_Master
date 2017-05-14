@@ -237,7 +237,21 @@
             <part node="0>10|1|0|0" startTime="0" endTime="10" startRot="0 0 0" endRot="2000 0 0" />
             <part node="0>10|1|0|1" startTime="0" endTime="10" startRot="0 0 0" endRot="2000 0 0" />
         </animation>
+        <animation name="balePressure">
+            <part node="0>14|0|0|1" startTime="0" endTime="1" startRot="-132 0 180" endRot="80 0 180" />
+        </animation>
+        <animation name="greasePump">
+            <part node="0>14|0|0|5" startTime="0" endTime="0.2" startRot="-132 0 180" endRot="-20 0 180" />
+            <part node="0>14|0|0|5" startTime="0.2" endTime="0.5" endRot="-20 0 180" />
+            <part node="0>14|0|0|5" startTime="0.5" endTime="1" endRot="-110 0 180" />
+            <part node="0>14|0|0|5" startTime="1" endTime="1.2"  endRot="-60 0 180" />
+            <part node="0>14|0|0|5" startTime="1.2" endTime="1.6"  endRot="-60 0 180" />
+            <part node="0>14|0|0|5" startTime="1.6" endTime="2" endRot="-132 0 180" />
+        </animation>
     </animations>
+    <indoorHud>
+        <balePressure animName="balePressure" minValueAnim="0" maxValueAnim="5000" />
+    </indoorHud>
     <movingParts>
         <!--piston_scivoloUP -->
         <movingPart index="0>7|1|0" referencePoint="0>7|4|1|11" referenceFrame="0>7|4|1|11" isActiveDirty="true">
@@ -336,26 +350,26 @@
             <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="4" leftFillUnitIndex="5" />
         </triggers>
         <hoods>
-            <openingSound file="sounds/hoodOpening.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <closingSound file="sounds/hoodClosing.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <openingSound file="sounds/hoodOpening.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
+            <closingSound file="sounds/hoodClosing.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
             <leftDoor animationName="leftDoor" />
             <rightDoor animationName="rightDoor" />
         </hoods>
         <supports animationName="moveSupport2">
-            <sound file="sounds/hydraulic1.wav" pitchOffset="1.00" volume="0.9" volume3D="0.75" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="1.00" volume="0.9" volume3D="0.75" indoorVolumeFactor="0.5" innerRadius="5" radius="20" />
         </supports>
         <folding animationName="folding2">
-            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="25" />
         </folding>
         <ladder animationName="ladder">
             <sound file="sounds/ladderSound.wav" pitchOffset="1.00" volume="1" volume3D="1.1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
         </ladder>
         <baleSlide animationName="baleSlide">
-            <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.9" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.9" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="10" radius="25" />
         </baleSlide>
         <sideUnload animationName="unloadSide" maxAmount="0" />
-        <greasePump delay="120">
-            <sound file="sounds/greasePump.wav" pitchOffset="0.90" volume="0.75" volume3D="0.75" indoorVolumeFactor="0.3" innerRadius="5" radius="25" />
+        <greasePump delay="120" animationName="greasePump">
+            <sound file="sounds/greasePump.wav" pitchOffset="0.90" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.3" innerRadius="15" radius="25" />
         </greasePump>
         <conveyor overloadingCapacity="500">
             <uvScrollParts>
@@ -403,9 +417,9 @@
                 <foilNode index="0>15|1|9" order="10" />
                 <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15" />
             </balesFoil>
-            <wrapperStartSound file="$data/sounds/baleWrappingStart.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
-            <wrapperStopSound file="sounds/baleWrappingStop.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
-            <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <wrapperStartSound file="sounds/baleWrappingStart.wav" pitchOffset="1.00" volume="0.9" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <wrapperStopSound file="sounds/baleWrappingStop.wav" pitchOffset="1.00" volume="0.9" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="0.9" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
             <baleGrabber index="0>10|1|3|0" />
             <roundBaleWrapper baleIndex="0>10|1|9|0" wrapperIndex="0>10|0" wrapperRotAxis="2" wrappingTime="10">
                 <animations>
@@ -467,11 +481,11 @@
             </roundBaleWrapper>
         </wrapper>
         <baler fillUnitIndex="2" knottingTime="3">
-            <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
-            <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <balerDoor file="sounds/balerDoor.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
+            <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <balerDoor file="sounds/balerDoor.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
             <knottingSound file="sounds/balerKnotting.wav" pitchOffset="0.90" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.50" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.50" volume="0.75" volume3D="0.75" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
             <knottingAnimation name="" />
@@ -546,13 +560,7 @@
             <fillSound file="$data/maps/sounds/refuel.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
         </silageAdditive>
         <gauge>
-            <part index="0>14|0|0|0" minX="-136" maxX="0" peak="-70" bounce="10" />
-            <part index="0>14|0|0|1" minX="-136" maxX="0" peak="-70" bounce="10" />
-            <part index="0>14|0|0|2" minX="-136" maxX="0" peak="-70" bounce="10" />
-            <part index="0>14|0|0|3" minX="-136" maxX="0" peak="-70" bounce="10" />
-            <part index="0>14|0|0|4" minX="-136" maxX="0" peak="-70" bounce="10" />
-            <part index="0>14|0|0|5" minX="-136" maxX="0" peak="-70" bounce="10" />
-            <part index="0>14|0|0|6" minX="-136" maxX="0" peak="-70" bounce="0" />
+            <!--<part index="0>14|0|0|0" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|1" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|2" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|3" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|4" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|5" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|6" minX="-136" maxX="0" peak="-70" bounce="0" />-->
         </gauge>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />

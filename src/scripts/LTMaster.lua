@@ -238,6 +238,12 @@ function LTMaster:load(savegame)
     end
     self.LTMaster.silageAdditive.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillLitersPerSecond"), 20);
     
+    self.LTMaster.greasePump = {};
+    self.LTMaster.greasePump.delay = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.greasePump#delay"), 120) * 1000;
+    self.LTMaster.greasePump.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.greasePump.sound", nil, self.baseDirectory, self.components[1].node);
+    self.LTMaster.greasePump.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.greasePump#animationName");
+    self.LTMaster.greasePump.next = g_currentMission.time + self.LTMaster.greasePump.delay;
+    
     LTMaster.loadBaler(self, savegame);
     LTMaster.loadWrapper(self, savegame);
     LTMaster.loadWrkMove(self, savegame);
@@ -299,6 +305,7 @@ function LTMaster:delete()
     SoundUtil.deleteSample(self.LTMaster.folding.sound);
     SoundUtil.deleteSample(self.LTMaster.ladder.sound);
     SoundUtil.deleteSample(self.LTMaster.baleSlide.sound);
+    SoundUtil.deleteSample(self.LTMaster.greasePump.sound);
     if self.isClient then
         EffectManager:deleteEffects(self.LTMaster.conveyor.effects);
         EffectManager:deleteEffects(self.LTMaster.conveyor.unloadEffects);
@@ -440,6 +447,13 @@ function LTMaster:updateTick(dt)
     LTMaster.updateTickWrapper(self, dt, normalizedDt);
     LTMaster.updateTickWrkMove(self, dt, normalizedDt);
     PlayerTriggers:update();
+    if g_currentMission.time >= self.LTMaster.greasePump.next then
+        if self:getIsTurnedOn() then
+            self:playAnimation(self.LTMaster.greasePump.animation, 1);
+            Sound3DUtil:playSample(self.LTMaster.greasePump.sound, 1, 0, nil, self:getIsActiveForSound());
+        end
+        self.LTMaster.greasePump.next = g_currentMission.time + self.LTMaster.greasePump.delay;
+    end
     if self.isServer then
         if self.LTMaster.sideUnload.isUnloading then
             for _, fillUnit in pairs({self.LTMaster.fillUnits["left"], self.LTMaster.fillUnits["right"]}) do
