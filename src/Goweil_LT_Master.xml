@@ -111,7 +111,7 @@
         <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5" />
     </inputAttacherJoints>
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75" />
-    <cylinderedHydraulicSound file="$data/sounds/hydraulicUp.wav" pitchOffset="0.75" volume="1.00" indoorVolumeFactor="0.80"/>
+    <cylinderedHydraulicSound file="sounds/hydraulic2.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.80"/>
     <foldingParts startAnimTime="1" detachingMaxLimit="1" detachingMinLimit="1" turnOnFoldMinLimit="0" turnOnFoldMaxLimit="0">
         <foldingPart animationName="folding" />
     </foldingParts>
@@ -342,16 +342,16 @@
             <rightDoor animationName="rightDoor" />
         </hoods>
         <supports animationName="moveSupport2">
-            <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="0.7" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="1.00" volume="0.9" volume3D="0.75" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
         </supports>
         <folding animationName="folding2">
-            <sound file="$data/sounds/cultivatorHydraulic.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
         </folding>
         <ladder animationName="ladder">
-            <sound file="sounds/ladderSound.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <sound file="sounds/ladderSound.wav" pitchOffset="1.00" volume="1" volume3D="1.1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
         </ladder>
         <baleSlide animationName="baleSlide">
-            <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.9" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
         </baleSlide>
         <sideUnload animationName="unloadSide" maxAmount="0" />
         <greasePump delay="120">
