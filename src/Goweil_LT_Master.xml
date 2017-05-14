@@ -244,8 +244,8 @@
             <part node="0>14|0|0|5" startTime="0" endTime="0.2" startRot="-132 0 180" endRot="-20 0 180" />
             <part node="0>14|0|0|5" startTime="0.2" endTime="0.5" endRot="-20 0 180" />
             <part node="0>14|0|0|5" startTime="0.5" endTime="1" endRot="-110 0 180" />
-            <part node="0>14|0|0|5" startTime="1" endTime="1.2"  endRot="-60 0 180" />
-            <part node="0>14|0|0|5" startTime="1.2" endTime="1.6"  endRot="-60 0 180" />
+            <part node="0>14|0|0|5" startTime="1" endTime="1.2" endRot="-60 0 180" />
+            <part node="0>14|0|0|5" startTime="1.2" endTime="1.6" endRot="-60 0 180" />
             <part node="0>14|0|0|5" startTime="1.6" endTime="2" endRot="-132 0 180" />
         </animation>
     </animations>
@@ -560,7 +560,11 @@
             <fillSound file="$data/maps/sounds/refuel.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
         </silageAdditive>
         <gauge>
-            <!--<part index="0>14|0|0|0" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|1" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|2" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|3" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|4" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|5" minX="-136" maxX="0" peak="-70" bounce="10" /><part index="0>14|0|0|6" minX="-136" maxX="0" peak="-70" bounce="0" />-->
+            <part index="0>14|0|0|0" speed="2" minX="-136" maxX="0" peak="-70" bounce="10" condition="turnedOn" />
+            <part index="0>14|0|0|2" minX="-136" maxX="0" peak="-70" bounce="10" condition="isBaling" />
+            <part index="0>14|0|0|3" minX="-136" maxX="0" peak="-70" bounce="10" condition="isWrapping"/>
+            <part index="0>14|0|0|4" minX="-136" maxX="0" peak="-70" bounce="10" />
+            <part index="0>14|0|0|6" minX="-136" maxX="0" peak="-70" bounce="0" />
         </gauge>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />

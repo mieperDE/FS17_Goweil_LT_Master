@@ -990,7 +990,7 @@
             <Shape shapeId="313" name="pCylinder267" translation="0.0170039 0.679534 0.357856" rotation="45.8604 180 0" nodeId="1170" materialIds="33" castsShadows="true" receiveShadows="true"/>
             <Shape shapeId="313" name="pCylinder264" translation="0.0170039 0.679534 0.623856" rotation="58.2608 180 0" nodeId="1171" materialIds="33" castsShadows="true" receiveShadows="true"/>
             <Shape shapeId="314" name="pCylinder251" translation="0.0170039 0.679534 0.504855" rotation="45.8604 180 0" nodeId="1172" materialIds="33" castsShadows="true" receiveShadows="true"/>
-            <Shape shapeId="315" name="pCylinder273" translation="0.0170039 0.883534 0.264" rotation="-132 0 180" nodeId="1173" materialIds="33" castsShadows="true" receiveShadows="true"/>
+            <Shape shapeId="315" name="pCylinder273" translation="0.0170039 0.883534 0.264" rotation="-40 0 -180" nodeId="1173" materialIds="33" castsShadows="true" receiveShadows="true"/>
             <Shape shapeId="316" name="pCylinder276" translation="0.0170039 0.890534 0.623" rotation="-97.8994 0.155777 179.542" nodeId="1174" materialIds="33" castsShadows="true" receiveShadows="true"/>
           </TransformGroup>
           <Shape shapeId="317" name="maniglia" translation="0.0311419 0.279534 0.557385" rotation="0 180 0" nodeId="1175" materialIds="33" castsShadows="true" receiveShadows="true">
@@ -1652,7 +1652,7 @@
         <Shape shapeId="542" name="spray" translation="-0.535 3.67391 1.14748" rotation="-29.6508 0 0" visibility="false" clipDistance="300" nodeId="1674" materialIds="29" castsShadows="true" receiveShadows="true"/>
       </TransformGroup>
     </Shape>
-    <Camera name="work" translation="1.98459 1.93136 2.88811" rotation="21.8165 82.5303 2.53974e-06" nodeId="1675" fov="60" nearClip="0.1" farClip="10000" orthographicHeight="1">
+    <Camera name="work" translation="1.18418 2.39294 2.56878" rotation="0.502458 87.8016 1.15849e-05" nodeId="1675" fov="60" nearClip="0.1" farClip="10000" orthographicHeight="1">
       <Light name="light" rotation="-40 0 -30" nodeId="1676" type="directional" color="1 1 1" emitDiffuse="true" emitSpecular="true" castShadowMap="true" depthMapBias="0.0012" depthMapSlopeScaleBias="2" depthMapSlopeClamp="0.0005" depthMapResolution="1024" shadowFarDistance="80" shadowExtrusionDistance="200" shadowPerspective="false" numShadowMapSplits="3" shadowMapSplitDistancesParameter="0.4" decayRate="4" range="500"/>
     </Camera>
   </Scene>
