@@ -8,7 +8,7 @@
             <de>Goweil Lt Master</de>
         </name>
         <functions>
-            <function>$l10n_function_baler</function>
+            <function>$l10n_function_ltmasterbalerwrapper</function>
         </functions>
         <specs>
             <neededPower>200</neededPower>
