@@ -65,9 +65,7 @@ Required power: 200 hp
         <sourceFile filename="scripts/hud/hudManager.lua" />
         <sourceFile filename="scripts/triggers/PlayerTrigger.lua" />
         <sourceFile filename="scripts/triggers/LTMasterTipTrigger.lua" />
-        <sourceFile filename="scripts/helpers/globalFunctions.lua" />
         <sourceFile filename="scripts/helpers/delayedCallBack.lua" />
-        <sourceFile filename="scripts/effects/LTMasterConveyorEffect.lua" />
     </extraSourceFiles>
     <specializations>
         <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua" />
