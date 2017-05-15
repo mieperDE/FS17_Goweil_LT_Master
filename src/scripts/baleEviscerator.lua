@@ -11,7 +11,7 @@ BaleEviscerator.dir = g_currentModDirectory;
 function BaleEviscerator:loadMap(name)
     self.eviscerateSample = createSample("eviscerateSample");
     loadSample(self.eviscerateSample, Utils.getFilename("eviscerateSound.wav", self.dir .. "sounds/"), false);
-    self.eviHud = HudImage:new("cutterHud", self.dir .. "hud/cutter.dds", 0.456, 0.488, 38, 38);
+    self.eviHud = HudImage:new("cutterHud", self.dir .. "hud/cutter.dds", 0.456, 0.49, 38, 38);
     self.eviHud:setUVs(GuiUtils.getUVs("0px 0px 128px 128px", {128, 128}));
     self.eviHud:setColor(1, 1, 1, 0.3);
     self.eviHud:setIsVisible(false, true);

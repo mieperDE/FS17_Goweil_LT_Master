@@ -485,7 +485,7 @@
                 </wrapAnimNodes>
             </roundBaleWrapper>
         </wrapper>
-        <baler fillUnitIndex="2" knottingTime="3">
+        <baler fillUnitIndex="2" knottingTime="5">
             <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
             <balerIdleSound file="sounds/balerSoundIdle.wav" pitchOffset="0.90" volume="1.5" volume3D="1.5" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
             <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
@@ -495,6 +495,14 @@
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
             <knottingAnimation name="" />
+            <knottingScrollParts>
+                <!--rotolo-->
+                <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="1.5" turnOffFadeTime="0" />
+            </knottingScrollParts>
+            <knottingRotatingParts>
+                <!--rotolo-->
+                <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="1.5" turnOffFadeTime="0" />
+            </knottingRotatingParts>
             <baleTypes>
                 <baleType width="1.12" diameter="1.3" />
             </baleTypes>
@@ -507,41 +515,37 @@
             </baleVolumes>
             <uvScrollParts>
                 <!--camera-->
-                <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|6" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|6" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|7" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera Ssecondaria-->
-                <uvScrollPart index="0>12|8|4" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|8" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|9" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|10" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|8|4" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|7" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|8" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|9" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|10" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera terza-->
-                <uvScrollPart index="0>13|0|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>13|0|2" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>13|0|1" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <!--rotolo-->
-                <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>13|0|0" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>13|0|2" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>13|0|1" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
             </uvScrollParts>
             <rotatingParts>
                 <!--camera-->
-                <rotatingPart index="0>12|1" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|3" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|4" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|1" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|3" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|4" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera secondaria-->
-                <rotatingPart index="0>12|8|0" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|8|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|8|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|8|0" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|8|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|8|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera terza-->
-                <rotatingPart index="0>13|0|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|4" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|6" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|7" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|8" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|9" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <!--rotolo-->
-                <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|4" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|6" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|7" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|8" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|9" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
             </rotatingParts>
             <balesNet fillUnitIndex="4" netRollMinScale="0.2" netRollIndex="0>15|10|0|0" netUVIndex="0>15|11|0" netRollUses="55" fillLitersPerSecond="1">
                 <netNode index="0>15|2|4" order="1" />
@@ -570,7 +574,7 @@
             <part index="0>14|0|0|2" speed="2" startRot="-132 0 180" endRot="-20 0 180" condition="isBaling" />
             <part index="0>14|0|0|3" speed="2" startRot="-132 0 180" endRot="-20 0 180" condition="isWrapping"/>
             <part index="0>14|0|0|4" speed="2" startRot="-132 0 180" endRot="-20 0 180" condition="isMoving" />
-            <part index="0>14|0|0|6" speed="1" startRot="-132 0 180" endRot="-20 0 180" condition="turnedOn" />+
+            <part index="0>14|0|0|6" speed="1" startRot="-132 0 180" endRot="-20 0 180" condition="turnedOn" />+                
         </gauge>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />

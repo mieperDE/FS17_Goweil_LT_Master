@@ -34,6 +34,7 @@ Puoi ritirare il tuo acquisto nel negozio." />
         <text name="GLTM_TURNON_NOT_ALLOWED_BALESLIDE"      text="Abbassa lo scivolo balle prima!" />
         <text name="GLTM_WRAPPER_SET_ON"                    text="Attiva fasciatore" />
         <text name="GLTM_WRAPPER_SET_OFF"                   text="Disattiva fasciatore" />
+        <text name="GLTM_UNLOAD_THEN_TIP"                   text="Prima di scaricare %s, svuota il cassone da %s" />
         <!-- HelpLine texts -->
         <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master" />
         <text name="GLTM_HL_TITLE_00"                       text="General description" />

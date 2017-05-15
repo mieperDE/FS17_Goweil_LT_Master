@@ -76,6 +76,8 @@ function LTMaster:loadBaler()
         self.LTMaster.baler.workingRotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.baler.rotatingParts.rotatingPart", "LTMaster.baler", self.components);
         self.LTMaster.baler.knottingAnimation = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#name"), "");
         self.LTMaster.baler.knottingAnimationSpeed = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#speed"), 1);
+        self.LTMaster.baler.knottingScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.baler.knottingScrollParts.uvScrollPart", {}, false);
+        self.LTMaster.baler.knottingRotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.baler.knottingRotatingParts.rotatingPart", "LTMaster.baler", self.components);
         self.LTMaster.baler.balingAnimationName = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.balingAnimation#name"), "");
     end
     self.LTMaster.baler.unloadingState = LTMaster.BALER_UNLOADING_CLOSED;
@@ -364,6 +366,9 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
         if self.isClient then
             Utils.updateRotationNodes(self, self.LTMaster.baler.workingRotatingParts, dt, self.LTMaster.baler.isWorking);
             Utils.updateScrollers(self.LTMaster.baler.uvScrollParts, dt, self.LTMaster.baler.isWorking);
+            local isKnotting = self.LTMaster.baler.autoUnloadTime ~= nil and g_currentMission.time < self.LTMaster.baler.autoUnloadTime;
+            Utils.updateRotationNodes(self, self.LTMaster.baler.knottingRotatingParts, dt, isKnotting);
+            Utils.updateScrollers(self.LTMaster.baler.knottingScrollParts, dt, isKnotting);
             if self.LTMaster.baler.balesNet.outOfNetRolls then
                 Sound3DUtil:playSample(self.LTMaster.baler.sampleOutOfNet, 0, 0, nil, self:getIsActiveForSound());
             else

@@ -27,10 +27,6 @@ function LTMasterTipTrigger:load(id, owner, fillUnitIndex, rightFillUnitIndex, l
     return isSuccessfull;
 end
 
-function LTMasterTipTrigger:delete()
-    LTMasterTipTrigger:superClass().delete(self);
-end
-
 function LTMasterTipTrigger:readStream(streamId, connection)
 end
 
@@ -44,6 +40,29 @@ function LTMasterTipTrigger:writeUpdateStream(streamId, connection, dirtyMask)
 end
 
 function LTMasterTipTrigger:update(dt)
+end
+
+function LTMasterTipTrigger:getAllowFillTypeFromTool(fillType, toolType)
+    local allow = LTMasterTipTrigger:superClass().getAllowFillTypeFromTool(self, fillType, toolType);
+    if allow then
+        local currentFillType = self.owner:getUnitLastValidFillType(self.fillUnitIndex);
+        if currentFillType ~= FillUtil.FILLTYPE_UNKNOWN and currentFillType ~= fillType then
+            self.disallowFillType = fillType;
+            return false;
+        end
+    end
+    self.disallowFillType = nil;
+    return allow;
+end
+
+function LTMasterTipTrigger:getNotAllowedText(filler, toolType)
+    local text = LTMasterTipTrigger:superClass().getNotAllowedText(self, filler, toolType);
+    if self.disallowFillType ~= nil then
+        local new = FillUtil.fillTypeIndexToDesc[self.disallowFillType].nameI18N;
+        local old = FillUtil.fillTypeIndexToDesc[self.owner:getUnitLastValidFillType(self.fillUnitIndex)].nameI18N;
+        return string.format(g_i18n:getText("GLTM_UNLOAD_THEN_TIP"), new, old);
+    end
+    return text;
 end
 
 function LTMasterTipTrigger:addFillLevelFromTool(trailer, fillDelta, fillType, toolType)
@@ -78,6 +97,6 @@ function LTMasterTipTrigger:addFillLevelFromTool(trailer, fillDelta, fillType, t
                 trailer:onEndTip();
             end
         end
-        return dropped + 0.01000001;
+        return dropped; -- + 0.01000001;
     end
 end

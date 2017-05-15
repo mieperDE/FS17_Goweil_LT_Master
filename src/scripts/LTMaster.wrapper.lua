@@ -659,7 +659,10 @@ function LTMaster:doStateChange(id, nearestBaleServerId)
     elseif id == BaleWrapper.CHANGE_WRAPPER_BALE_DROPPED then
         local bale = networkGetObject(self.LTMaster.wrapper.currentWrapper.currentBale);
         if bale ~= nil then
+            local x, y, z = getWorldTranslation(bale.nodeId);
+            local vx, vy, vz = getVelocityAtWorldPos(self.components[1].node, x, y, z);
             bale:unmount();
+            setLinearVelocity(bale.nodeId, vx, vy, vz);
         end
         self.lastDroppedBale = bale;
         self.LTMaster.wrapper.currentWrapper.currentBale = nil;

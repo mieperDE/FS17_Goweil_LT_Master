@@ -23,7 +23,7 @@ function LTMaster:setRelativePosition(positionX, offsetY, positionZ, yRot)
 end
 
 function LTMaster:animationsInput(dt)
-    if self.LTMaster.triggerLeft.active or self.LTMaster.triggerRight.active then
+    if self.LTMaster.triggerLeft.active or self.LTMaster.triggerRight.active or self.LTMaster.triggerBaleSlide.active then
         if self:getRootAttacherVehicle().isMotorStarted then
             --Open/Close of the left door
             if self.LTMaster.triggerLeft.active then
@@ -90,6 +90,21 @@ function LTMaster:animationsInput(dt)
                     end
                 end
             end
+            --Raise/Lower of the bale slide
+            if (self.LTMaster.triggerBaleSlide.active or self.LTMaster.triggerLeft.active) and self:getIsUnfolded() then
+                if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISED then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                        self:updateBaleSlideStatus(LTMaster.STATUS_RL_LOWERING);
+                    end
+                end
+                if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERED and not self:getIsTurnedOn() then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                        self:updateBaleSlideStatus(LTMaster.STATUS_RL_RAISING);
+                    end
+                end
+            end
         else
             g_currentMission:addExtraPrintText(g_i18n:getText("GLTM_TURNON_VEHICLE"));
         end
@@ -107,21 +122,6 @@ function LTMaster:animationsInput(dt)
             g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_LADDER"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
             if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
                 self:updateLadderStatus(LTMaster.STATUS_RL_RAISING);
-            end
-        end
-    end
-    --Raise/Lower of the bale slide
-    if self.LTMaster.triggerBaleSlide.active and self:getIsUnfolded() then
-        if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISED then
-            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                self:updateBaleSlideStatus(LTMaster.STATUS_RL_LOWERING);
-            end
-        end
-        if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERED and not self:getIsTurnedOn() then
-            g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                self:updateBaleSlideStatus(LTMaster.STATUS_RL_RAISING);
             end
         end
     end
