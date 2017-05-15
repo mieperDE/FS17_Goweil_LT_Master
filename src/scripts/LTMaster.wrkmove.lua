@@ -21,16 +21,15 @@ function LTMaster:loadWrkMove()
             break;
         end;
         local part = {}
-        part.gaugeIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, gaugeKey .. "#index"));
+        part.index = Utils.indexToObject(self.components, getXMLString(self.xmlFile, gaugeKey .. "#index"));
         part.speed = Utils.getNoNil(getXMLFloat(self.xmlFile, gaugeKey .. "#speed"), 1) * 1000;
-        local stx,sty,stz = Utils.getVectorFromString(getXMLString(self.xmlFile, gaugeKey.."#startRot"));
-        local etx,ety,etz = Utils.getVectorFromString(getXMLString(self.xmlFile, gaugeKey.."#endRot"));
+        part.axis = Utils.getNoNil(getXMLString(self.xmlFile, gaugeKey .. "#axis"), "x");
+        part.startRot = math.rad(getXMLFloat(self.xmlFile, gaugeKey .. "#startRot"));
+        part.endRot = math.rad(getXMLFloat(self.xmlFile, gaugeKey .. "#endRot"));
+        part.delta = math.abs(part.endRot - part.startRot);
         part.condition = Utils.getNoNil(getXMLString(self.xmlFile, gaugeKey .. "#condition"), "noCondition");
-        part.stx = math.rad(stx);
-        part.etx = math.rad(etx);
+        table.insert(self.LTMaster.gauge, part);
         i = i + 1;
-        part.numPart = i;
-        self.LTMaster.gauge[i] = part;
     end
 end
 
@@ -48,25 +47,29 @@ function LTMaster:updateWrkMove(dt)
     else
         self.LTMaster.wrkMove.conditions["turnedOn"] = false;
     end
+    if self:getIsActive() then
+        for i, part in pairs(self.LTMaster.gauge) do
+            local x, y, z = getRotation(part.index);
+            local xyz = LTMaster.getRotationaxis(x, y, z, part.axis);
+            local factor = dt / part.speed;
+            local delta = part.delta * factor;
+            if self.LTMaster.wrkMove.conditions[part.condition] then
+                if xyz > part.endRot then
+                    xyz = xyz - delta;
+                end
+            else
+                if xyz < part.startRot then
+                    xyz = xyz + delta;
+                end
+            end
+            x, y, z = LTMaster.setRotationaxis(x, y, z, xyz, part.axis);
+            setRotation(part.index, x, y, z);
+        end
+    end
 end
 
 function LTMaster:updateTickWrkMove(dt, normalizedDt)
-    if self:getIsActive() then
-        for i, part in pairs(self.LTMaster.gauge) do
-            if self.LTMaster.wrkMove.conditions[part.condition] then
-                local rotationFactor = dt / part.speed;
-                local target = Utils.clamp(rotationFactor, math.rad(part.ex), math.rad(part.sx));
-                --local target = math.rad(part.sx) + (math.rad(part.ex) - math.rad(part.sx)) * rotationFactor;
-                
-                local textOffset = (i/100)*1.2
-                renderText(0.002, 0.002+textOffset, getCorrectTextSize(0.014), string.format("%.4f", target) .. "  " .. string.format("%.1f", i));
-                
-                setRotation(part.gaugeIndex, math.rad(part.sx)+target, 0, 0);
-            else
-                setRotation(part.gaugeIndex, math.rad(part.sx), 0, 0)
-            end
-        end
-    end
+
 end
 
 function LTMaster:drawWrkMove()
@@ -85,8 +88,23 @@ function LTMaster:onTurnedOff(noEventSend)
 
 end
 
-function LTMaster:setGaugeRotation(gaugeI, gaugeRotation)
-    
-    setRotation(self.LTMaster.gauge[gaugeI].gaugeIndex, gaugeRotation, 0, 0);
+function LTMaster.getRotationaxis(x, y, z, axis)
+    if axis == "x" then
+        return x;
+    elseif axis == "y" then
+        return y;
+    else
+        return z;
+    end
+end
 
+function LTMaster.setRotationaxis(x, y, z, xyz, axis)
+    if axis == "x" then
+        x = xyz;
+    elseif axis == "y" then
+        y = xyz;
+    else
+        z = xyz;
+    end
+    return x, y, z;
 end

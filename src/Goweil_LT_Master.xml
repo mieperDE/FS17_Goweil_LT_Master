@@ -368,7 +368,7 @@
             <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.9" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="10" radius="25" />
         </baleSlide>
         <sideUnload animationName="unloadSide" maxAmount="0" />
-        <greasePump delay="12" animationName="greasePump">
+        <greasePump delay="120" animationName="greasePump">
             <sound file="sounds/greasePump.wav" pitchOffset="0.90" volume="1.5" volume3D="1.5" indoorVolumeFactor="0.3" innerRadius="15" radius="25" />
         </greasePump>
         <turnedOnRotationNodes>
@@ -570,11 +570,11 @@
             <fillSound file="$data/maps/sounds/refuel.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
         </silageAdditive>
         <gauge>
-            <part index="0>14|0|0|0" speed="2" startRot="-132 0 180" endRot="-20 0 180" condition="turnedOn" />
-            <part index="0>14|0|0|2" speed="2" startRot="-132 0 180" endRot="-20 0 180" condition="isBaling" />
-            <part index="0>14|0|0|3" speed="2" startRot="-132 0 180" endRot="-20 0 180" condition="isWrapping"/>
-            <part index="0>14|0|0|4" speed="2" startRot="-132 0 180" endRot="-20 0 180" condition="isMoving" />
-            <part index="0>14|0|0|6" speed="1" startRot="-132 0 180" endRot="-20 0 180" condition="turnedOn" />+                
+            <part index="0>14|0|0|0" speed="5" axis="x" startRot="0" endRot="-110" condition="turnedOn" />
+            <!--<part index="0>14|0|0|2" speed="10" axis="x" startRot="-132" endRot="-20" condition="isBaling" />
+            <part index="0>14|0|0|3" speed="10" axis="x" startRot="-132" endRot="-20" condition="isWrapping"/>
+            <part index="0>14|0|0|4" speed="10" axis="x" startRot="-132" endRot="-20" condition="isMoving" />
+            <part index="0>14|0|0|6" speed="10" axis="x" startRot="-135" endRot="-30" condition="turnedOn" />-->
         </gauge>
     </LTMaster>
     <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
