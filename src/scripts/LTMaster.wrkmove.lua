@@ -11,6 +11,7 @@ function LTMaster:loadWrkMove()
     self.LTMaster.wrkMove.conditions["turnedOn"] = false;
     self.LTMaster.wrkMove.conditions["isBaling"] = false;
     self.LTMaster.wrkMove.conditions["isWrapping"] = false;
+    self.LTMaster.wrkMove.conditions["isMoving"] = false;
     
     self.LTMaster.gauge = {}
     local i = 0;
@@ -21,14 +22,13 @@ function LTMaster:loadWrkMove()
         end;
         local part = {}
         part.gaugeIndex = Utils.indexToObject(self.components, getXMLString(self.xmlFile, gaugeKey .. "#index"));
-        part.condition = Utils.getNoNil(getXMLString(self.xmlFile, gaugeKey .. "#condition"), "noCondition");
         part.speed = Utils.getNoNil(getXMLFloat(self.xmlFile, gaugeKey .. "#speed"), 1) * 1000;
-        --part.minX = Utils.getNoNil(getXMLFloat(self.xmlFile, gaugeKey .. "#minX", 0));
-        --part.maxX = Utils.getNoNil(getXMLFloat(self.xmlFile, gaugeKey .. "#maxX", 10));
-        --part.peak = Utils.getNoNil(getXMLFloat(self.xmlFile, gaugeKey .. "#peak", 0));
-        --part.bounce = Utils.getNoNil(getXMLFloat(self.xmlFile, gaugeKey .. "#bounce"),0);
+        local sx,sy,sz = Utils.getVectorFromString(getXMLString(self.xmlFile, gaugeKey.."#startRot"));
+        local ex,ey,ez = Utils.getVectorFromString(getXMLString(self.xmlFile, gaugeKey.."#endRot"));
+        part.condition = Utils.getNoNil(getXMLString(self.xmlFile, gaugeKey .. "#condition"), "noCondition");
         local x, _, _ = getRotation(part.gaugeIndex);
-        part.minX = x;
+        part.sx = sx;
+        part.ex = ex;
         i = i + 1;
         part.numPart = i;
         self.LTMaster.gauge[i] = part;
@@ -56,7 +56,7 @@ function LTMaster:updateTickWrkMove(dt, normalizedDt)
     for i, part in pairs(self.LTMaster.gauge) do
         if self.LTMaster.wrkMove.conditions[part.condition] then
             local roationFactor = dt / part.speed;
-            local target = part.minX + (2 * normalizedDt);
+            local target = part.sx + (part.ex - part.sx) * roationFactor;
             -- v1+ (v2 - v1) * alpha;
             local x, _, _ = getRotation(part.gaugeIndex);
             if i == 1 then
@@ -65,7 +65,7 @@ function LTMaster:updateTickWrkMove(dt, normalizedDt)
             setRotation(part.gaugeIndex, x - math.rad(target), 0, 0)
         else
             --rotzone standard
-            end
+        end
     end
 --end
 end
