@@ -242,7 +242,11 @@ end
 
 function LTMaster:updateTickBaler(dt, normalizedDt)
     if self.LTMaster.baler.balePressureHud ~= nil then
-        VehicleHudUtils.setHudValue(self, self.LTMaster.baler.balePressureHud, self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex), self.LTMaster.baler.balePressureHud.maxValueAnim);
+        local value = 0;
+        if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
+            value = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex);
+        end
+        VehicleHudUtils.setHudValue(self, self.LTMaster.baler.balePressureHud, value, self.LTMaster.baler.balePressureHud.maxValueAnim);
     end
     if self.LTMaster.baler.balesNet.numNetNodes > 0 then
         local level = self:getUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index);

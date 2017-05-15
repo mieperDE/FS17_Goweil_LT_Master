@@ -368,7 +368,7 @@
             <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.9" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="10" radius="25" />
         </baleSlide>
         <sideUnload animationName="unloadSide" maxAmount="0" />
-        <greasePump delay="120" animationName="greasePump">
+        <greasePump delay="12" animationName="greasePump">
             <sound file="sounds/greasePump.wav" pitchOffset="0.90" volume="1.5" volume3D="1.5" indoorVolumeFactor="0.3" innerRadius="15" radius="25" />
         </greasePump>
         <turnedOnRotationNodes>
