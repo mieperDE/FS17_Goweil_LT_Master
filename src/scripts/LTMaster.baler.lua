@@ -67,12 +67,13 @@ function LTMaster:loadBaler()
     end
     if self.isClient then
         self.LTMaster.baler.sampleBaler = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerSound", nil, self.baseDirectory, self.components[1].node);
+        self.LTMaster.baler.sampleBalerIdle = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerIdleSound", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.sampleBalerEject = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerBaleEject", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.sampleBalerDoor = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.balerDoor", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.sampleKnotting = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.knottingSound", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.sampleOutOfNet = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baler.outOfNetSound", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.baler.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.baler.uvScrollParts.uvScrollPart", {}, false);
-        self.LTMaster.baler.turnedOnRotationNodes = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.baler.rotatingParts.rotatingPart", "LTMaster.baler", self.components);
+        self.LTMaster.baler.workingRotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.baler.rotatingParts.rotatingPart", "LTMaster.baler", self.components);
         self.LTMaster.baler.knottingAnimation = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#name"), "");
         self.LTMaster.baler.knottingAnimationSpeed = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.knottingAnimation#speed"), 1);
         self.LTMaster.baler.balingAnimationName = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.balingAnimation#name"), "");
@@ -174,6 +175,7 @@ function LTMaster:deleteBaler()
     end
     if self.isClient then
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBaler);
+        SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerIdle);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerDoor);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleBalerEject);
         SoundUtil.deleteSample(self.LTMaster.baler.sampleKnotting);
@@ -293,12 +295,12 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                 end
             end
             if self.isClient then
-                Sound3DUtil:playSample(self.LTMaster.baler.sampleBaler, 0, 0, nil, self:getIsActiveForSound());
+                Sound3DUtil:playSample(self.LTMaster.baler.sampleBalerIdle, 0, 0, nil, self:getIsActiveForSound());
             end
         end
         if self.isClient then
             if not self:getIsTurnedOn() then
-                Sound3DUtil:stopSample(self.LTMaster.baler.sampleBaler);
+                Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerIdle);
             end
             if self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
                 if getNumOfChildren(self.LTMaster.baler.baleAnimRoot) > 0 then
@@ -360,12 +362,17 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
             end
         end
         if self.isClient then
-            Utils.updateRotationNodes(self, self.LTMaster.baler.turnedOnRotationNodes, dt, self.LTMaster.baler.isWorking);
+            Utils.updateRotationNodes(self, self.LTMaster.baler.workingRotatingParts, dt, self.LTMaster.baler.isWorking);
             Utils.updateScrollers(self.LTMaster.baler.uvScrollParts, dt, self.LTMaster.baler.isWorking);
             if self.LTMaster.baler.balesNet.outOfNetRolls then
                 Sound3DUtil:playSample(self.LTMaster.baler.sampleOutOfNet, 0, 0, nil, self:getIsActiveForSound());
             else
                 Sound3DUtil:stopSample(self.LTMaster.baler.sampleOutOfNet);
+            end
+            if self.LTMaster.baler.isWorking then
+                Sound3DUtil:playSample(self.LTMaster.baler.sampleBaler, 0, 0, nil, self:getIsActiveForSound());
+            else
+                Sound3DUtil:stopSample(self.LTMaster.baler.sampleBaler);
             end
         end
     end
@@ -400,6 +407,7 @@ end
 function LTMaster:onDeactivateSoundsBaler()
     if self.isClient then
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBaler, true);
+        Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerIdle, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerDoor, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerEject, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleKnotting, true);

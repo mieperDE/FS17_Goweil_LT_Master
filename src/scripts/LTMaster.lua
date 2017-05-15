@@ -108,10 +108,12 @@ function LTMaster:load(savegame)
     
     self.LTMaster.conveyor = {};
     if self.isClient then
+        self.LTMaster.turnedOnRotationNodes = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.turnedOnRotationNodes.rotatingPart", "LTMaster.turnedOn", self.components);
         self.LTMaster.conveyor.effects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.conveyor.effects", self.components, self);
         self.LTMaster.conveyor.unloadEffects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.conveyor.unloadEffects", self.components, self);
         self.LTMaster.conveyor.uvScrollParts = Utils.loadScrollers(self.components, self.xmlFile, "vehicle.LTMaster.conveyor.uvScrollParts.uvScrollPart", {}, false);
-        self.LTMaster.conveyor.rotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.conveyor.rotatingParts.rotatingPart", "LTMaster.conveyor", self.components)
+        self.LTMaster.conveyor.rotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.conveyor.rotatingParts.rotatingPart", "LTMaster.conveyor", self.components);
+        self.LTMaster.conveyor.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.conveyor.sound", nil, self.baseDirectory, self.components[1].node);
         self.LTMaster.conveyor.unloadParticleSystems = {};
         local i = 0;
         while true do
@@ -307,6 +309,7 @@ function LTMaster:delete()
     SoundUtil.deleteSample(self.LTMaster.baleSlide.sound);
     SoundUtil.deleteSample(self.LTMaster.greasePump.sound);
     if self.isClient then
+        SoundUtil.deleteSample(self.LTMaster.conveyor.sound);
         EffectManager:deleteEffects(self.LTMaster.conveyor.effects);
         EffectManager:deleteEffects(self.LTMaster.conveyor.unloadEffects);
         EffectManager:deleteEffects(self.LTMaster.silageAdditive.effects);
@@ -496,6 +499,7 @@ function LTMaster:updateTick(dt)
                     end
                     Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, true);
                     Utils.updateRotationNodes(self, self.LTMaster.conveyor.rotatingParts, dt, true);
+                    Sound3DUtil:playSample(self.LTMaster.conveyor.sound, 0, 0, nil, self:getIsActiveForSound());
                 else
                     for _, effect in pairs(self.LTMaster.conveyor.effects) do
                         if effect.setScrollUpdate ~= nil then
@@ -504,11 +508,13 @@ function LTMaster:updateTick(dt)
                     end
                     Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, false, false);
                     Utils.updateRotationNodes(self, self.LTMaster.conveyor.rotatingParts, dt, false);
+                    Sound3DUtil:stopSample(self.LTMaster.conveyor.sound);
                 end
             else
                 EffectManager:stopEffects(self.LTMaster.conveyor.effects);
                 Utils.updateScrollers(self.LTMaster.conveyor.uvScrollParts, dt, false);
                 Utils.updateRotationNodes(self, self.LTMaster.conveyor.rotatingParts, dt, false);
+                Sound3DUtil:stopSample(self.LTMaster.conveyor.sound);
             end
         end
         if self:getIsConveyorOverloading() then
@@ -574,6 +580,7 @@ function LTMaster:updateTick(dt)
     if not self.isFilling then
         self.fillLitersPerSecond = 1;
     end
+    Utils.updateRotationNodes(self, self.LTMaster.turnedOnRotationNodes, dt, self:getIsTurnedOn());
 end
 
 function LTMaster:draw()
