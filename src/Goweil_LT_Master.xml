@@ -11,7 +11,7 @@
             <function>$l10n_function_ltmasterbalerwrapper</function>
         </functions>
         <specs>
-            <neededPower>200</neededPower>
+            <neededPower>190</neededPower>
         </specs>
         <image>store.dds</image>
         <price>280000</price>
@@ -24,7 +24,7 @@
     <typeDesc>$l10n_typeDesc_baler</typeDesc>
     <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8"/>
-    <powerConsumer ptoRpm="760" neededPtoPower="200"/>
+    <powerConsumer ptoRpm="540" neededPtoPower="150"/>
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>
@@ -343,29 +343,29 @@
     <supportsFillTriggers value="true" />
     <LTMaster unloadInfoIndex="1" loadInfoIndex="1">
         <triggers>
-            <triggerLeft index="0>27|0|0" radius="2" />
-            <triggerRight index="0>27|0|1" radius="2.5"/>
+            <triggerLeft index="0>27|0|0" radius="3" />
+            <triggerRight index="0>27|0|1" radius="3"/>
             <triggerLadder index="0>27|1" radius="2" />
-            <triggerBaleSlide index="0>27|2" radius="2" />
+            <triggerBaleSlide index="0>27|2" radius="0" />
             <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="4" leftFillUnitIndex="5" />
         </triggers>
         <hoods>
-            <openingSound file="sounds/hoodOpening.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
-            <closingSound file="sounds/hoodClosing.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
+            <openingSound file="sounds/hoodOpening.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
+            <closingSound file="sounds/hoodClosing.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
             <leftDoor animationName="leftDoor" />
             <rightDoor animationName="rightDoor" />
         </hoods>
         <supports animationName="moveSupport2">
-            <sound file="sounds/hydraulic1.wav" pitchOffset="1.00" volume="0.9" volume3D="0.75" indoorVolumeFactor="0.5" innerRadius="5" radius="20" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="1.00" volume="0.8" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="5" radius="20" />
         </supports>
         <folding animationName="folding2">
-            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="25" />
+            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="25" />
         </folding>
         <ladder animationName="ladder">
             <sound file="sounds/ladderSound.wav" pitchOffset="1.00" volume="1" volume3D="1.1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
         </ladder>
         <baleSlide animationName="baleSlide">
-            <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.9" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="10" radius="25" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.8" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="10" radius="25" />
         </baleSlide>
         <sideUnload animationName="unloadSide" maxAmount="0" />
         <greasePump delay="120" animationName="greasePump">
@@ -375,8 +375,8 @@
             <rotatingPart index="0>17|1|1|2" type="LTMaster.turnedOn" rotSpeed="-200" rotAxis="2" turnOnFadeTime="10" turnOffFadeTime="5" />
             <rotatingPart index="0>17|2|3" type="LTMaster.turnedOn" rotSpeed="-100" rotAxis="2" turnOnFadeTime="20" turnOffFadeTime="1" />
         </turnedOnRotationNodes>
-        <conveyor overloadingCapacity="500">
-            <sound file="$data/maps/sounds/conveyorBelt.wav" pitchOffset="0.75" volume="0.6" volume3D="0.6" indoorVolumeFactor="0.5" innerRadius="20" radius="40" />
+        <conveyor overloadingCapacity="400">
+            <sound file="$data/maps/sounds/conveyorBelt.wav" pitchOffset="0.75" volume="0.55" volume3D="0.55" indoorVolumeFactor="0.5" innerRadius="20" radius="40" />
             <uvScrollParts>
                 <!--scivolo Superiore-->
                 <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
@@ -407,7 +407,6 @@
             </augerParticleSystems>
         </conveyor>
         <wrapper>
-            <outOfFoilSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.75" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <mustWrappedBales fillTypes="silage chaff woodChips manure" />
             <balesFoil fillUnitIndex="5" foilRollMinScale="0.3" leftFoilRollIndex="0>10|0|1" rightFoilRollIndex="0>10|0|2" leftFoilIndex="0>10|0|5" rightFoilIndex="0>10|0|6" foilRollUses="70" fillLitersPerSecond="1">
                 <foilNode index="0>15|1|0" order="1" />
@@ -422,9 +421,10 @@
                 <foilNode index="0>15|1|9" order="10" />
                 <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15" />
             </balesFoil>
-            <wrapperStartSound file="sounds/baleWrappingStart.wav" pitchOffset="1.00" volume="0.9" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
-            <wrapperStopSound file="sounds/baleWrappingStop.wav" pitchOffset="1.00" volume="0.9" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
-            <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="0.9" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <outOfFoilSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.75" volume="0.5" volume3D="0.5" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <wrapperStartSound file="sounds/baleWrappingStart.wav" pitchOffset="1.00" volume="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <wrapperStopSound file="sounds/baleWrappingStop.wav" pitchOffset="1.00" volume="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
             <baleGrabber index="0>10|1|3|0" />
             <roundBaleWrapper baleIndex="0>10|1|9|0" wrapperIndex="0>10|0" wrapperRotAxis="2" wrappingTime="10">
                 <animations>
@@ -486,12 +486,12 @@
             </roundBaleWrapper>
         </wrapper>
         <baler fillUnitIndex="2" knottingTime="5">
-            <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
-            <balerIdleSound file="sounds/balerSoundIdle.wav" pitchOffset="0.90" volume="1.5" volume3D="1.5" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
-            <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <balerDoor file="sounds/balerDoor.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
+            <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
+            <balerIdleSound file="sounds/balerSoundIdle.wav" pitchOffset="0.90" volume="1.4" volume3D="1.4" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
+            <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <balerDoor file="sounds/balerDoor.wav" pitchOffset="1.00" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
             <knottingSound file="sounds/balerKnotting.wav" pitchOffset="0.90" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
-            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.50" volume="0.75" volume3D="0.75" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.50" volume="0.5" volume3D="0.5" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
             <knottingAnimation name="" />
@@ -571,10 +571,7 @@
         </silageAdditive>
         <gauge>
             <part index="0>14|0|0|0" speed="5" axis="x" startRot="0" endRot="-110" condition="turnedOn" />
-            <!--<part index="0>14|0|0|2" speed="10" axis="x" startRot="-132" endRot="-20" condition="isBaling" />
-            <part index="0>14|0|0|3" speed="10" axis="x" startRot="-132" endRot="-20" condition="isWrapping"/>
-            <part index="0>14|0|0|4" speed="10" axis="x" startRot="-132" endRot="-20" condition="isMoving" />
-            <part index="0>14|0|0|6" speed="10" axis="x" startRot="-135" endRot="-30" condition="turnedOn" />-->
+            <!--<part index="0>14|0|0|2" speed="10" axis="x" startRot="-132" endRot="-20" condition="isBaling" /><part index="0>14|0|0|3" speed="10" axis="x" startRot="-132" endRot="-20" condition="isWrapping"/><part index="0>14|0|0|4" speed="10" axis="x" startRot="-132" endRot="-20" condition="isMoving" /><part index="0>14|0|0|6" speed="10" axis="x" startRot="-135" endRot="-30" condition="turnedOn" />-->
         </gauge>
     </LTMaster>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />

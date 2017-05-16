@@ -396,7 +396,7 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                     Sound3DUtil:stopSample(self.LTMaster.baler.sampleOutOfNet);
                 end
             end
-            if self.LTMaster.baler.isWorking then
+            if self.LTMaster.baler.isWorking and self.LTMaster.baler.autoUnloadTime == nil then
                 Sound3DUtil:playSample(self.LTMaster.baler.sampleBaler, 0, 0, nil, self:getIsActiveForSound());
             else
                 Sound3DUtil:stopSample(self.LTMaster.baler.sampleBaler);

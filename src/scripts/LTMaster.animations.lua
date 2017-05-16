@@ -28,14 +28,14 @@ function LTMaster:animationsInput(dt)
             --Open/Close of the left door
             if self.LTMaster.triggerLeft.active then
                 if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_CLOSED then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.TOGGLE_COVER, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.TOGGLE_COVER) then
                         self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_OPENING);
                     end
                 end
                 if self.LTMaster.hoods["left"].status == LTMaster.STATUS_OC_OPEN then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.TOGGLE_COVER, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.TOGGLE_COVER) then
                         self:updateHoodStatus(self.LTMaster.hoods["left"], LTMaster.STATUS_OC_CLOSING);
                     end
                 end
@@ -43,14 +43,14 @@ function LTMaster:animationsInput(dt)
             --Open/Close of the right door
             if self.LTMaster.triggerRight.active then
                 if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_CLOSED then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_OPEN_HOOD"), InputBinding.TOGGLE_COVER, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.TOGGLE_COVER) then
                         self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_OPENING);
                     end
                 end
                 if self.LTMaster.hoods["right"].status == LTMaster.STATUS_OC_OPEN then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_CLOSE_HOOD"), InputBinding.TOGGLE_COVER, nil, GS_PRIO_HIGH);
+                    if InputBinding.hasEvent(InputBinding.TOGGLE_COVER) then
                         self:updateHoodStatus(self.LTMaster.hoods["right"], LTMaster.STATUS_OC_CLOSING);
                     end
                 end
@@ -89,19 +89,19 @@ function LTMaster:animationsInput(dt)
                         end
                     end
                 end
-            end
-            --Raise/Lower of the bale slide
-            if (self.LTMaster.triggerBaleSlide.active or self.LTMaster.triggerLeft.active) and self:getIsUnfolded() then
-                if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISED then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                        self:updateBaleSlideStatus(LTMaster.STATUS_RL_LOWERING);
+                --Raise/Lower of the bale slide
+                if (self.LTMaster.triggerBaleSlide.active or self.LTMaster.triggerLeft.active) and self:getIsUnfolded() then
+                    if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISED then
+                        g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_LOWER_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                            self:updateBaleSlideStatus(LTMaster.STATUS_RL_LOWERING);
+                        end
                     end
-                end
-                if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERED and not self:getIsTurnedOn() then
-                    g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
-                    if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
-                        self:updateBaleSlideStatus(LTMaster.STATUS_RL_RAISING);
+                    if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERED and not self:getIsTurnedOn() then
+                        g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_RAISE_BALE_SLIDE"), InputBinding.IMPLEMENT_EXTRA2, nil, GS_PRIO_HIGH);
+                        if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA2) then
+                            self:updateBaleSlideStatus(LTMaster.STATUS_RL_RAISING);
+                        end
                     end
                 end
             end

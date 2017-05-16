@@ -450,8 +450,11 @@ function LTMaster:update(dt)
     --end
     end
     self.LTMaster.conveyor.lastEffectStateOn = self.LTMaster.conveyor.effects[1].state;
-    if self.isServer and not self:getRootAttacherVehicle().isControlled then
-        self:getRootAttacherVehicle().motor:updateMotorRpm(dt);
+    local rootVehicle = self:getRootAttacherVehicle();
+    if self.isServer and rootVehicle ~= nil and not rootVehicle.isControlled then
+        if rootVehicle.motor ~= nil then
+            rootVehicle.motor:updateMotorRpm(dt);
+        end
     end
 end
 
@@ -632,7 +635,7 @@ function LTMaster:unloadSide()
 end
 
 function LTMaster:getIsFoldAllowed(superFunc, onAiTurnOn)
-    if self:getIsTurnedOn() or self.LTMaster.baleSlide.status ~= LTMaster.STATUS_RL_RAISED or self.LTMaster.supports.status ~= LTMaster.STATUS_RL_RAISED then
+    if self:getIsTurnedOn() or self.LTMaster.baleSlide.status ~= LTMaster.STATUS_RL_RAISED or self.LTMaster.supports.status ~= LTMaster.STATUS_RL_RAISED or not self:getRootAttacherVehicle().isMotorStarted then
         return false;
     end
     if superFunc ~= nil then
@@ -673,11 +676,31 @@ function LTMaster:getConsumedPtoTorque(superFunc)
     if superFunc ~= nil then
         torque = superFunc(self);
     end
+    torque = 0;
+    local cvTT = 540 * math.pi / 30;
     if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
-        torque = torque + (50 / (540 * math.pi / 30));
+        torque = torque + 30 / cvTT;
+    end
+    if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISING then
+        torque = torque + 20 / cvTT;
     end
     if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING or self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
-        torque = torque + (120 / (760 * math.pi / 30));
+        torque = torque + 40 / cvTT;
+    end
+    if self:getIsAnimationPlaying(self.foldingParts[1].animationName) then
+        torque = torque + 25 / cvTT;
+    end
+    if self:getIsTurnedOn() then
+        torque = torque + 40 / cvTT;
+    end
+    if not self:allowsGrabbingBale() then
+        torque = torque + 20 / cvTT;
+    end
+    if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 0 and self.LTMaster.conveyor.isOverloading then
+        torque = torque + 40 / cvTT;
+    end
+    if self.LTMaster.baler.isWorking then
+        torque = torque + (70 * (self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) / self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex))) / cvTT;
     end
     return torque;
 end
@@ -688,10 +711,28 @@ function LTMaster:getPtoRpm(superFunc)
         ptoRpm = superFunc(self);
     end
     if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
-        ptoRpm = math.max(ptoRpm, 540);
+        ptoRpm = math.max(ptoRpm, 650);
     end
     if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING or self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
         ptoRpm = math.max(ptoRpm, 760);
+    end
+    if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISING then
+        ptoRpm = math.max(ptoRpm, 540);
+    end
+    if self:getIsAnimationPlaying(self.foldingParts[1].animationName) then
+        ptoRpm = math.max(ptoRpm, 540);
+    end
+    if self:getIsTurnedOn() then
+        ptoRpm = math.max(ptoRpm, 540);
+    end
+    if not self:allowsGrabbingBale() then
+        ptoRpm = math.max(ptoRpm, 540);
+    end
+    if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 0 and self.LTMaster.conveyor.isOverloading then
+        ptoRpm = math.max(ptoRpm, 650);
+    end
+    if self.LTMaster.baler.isWorking and self.LTMaster.baler.autoUnloadTime == nil then
+        ptoRpm = math.max(ptoRpm, 650 + (330 * (self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) / self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex))));
     end
     return ptoRpm;
 end
@@ -709,7 +750,7 @@ function LTMaster:getDirtMultiplier(superFunc)
     if self:getIsTurnedOn() then
         multiplier = math.max(1, multiplier);
     end
-    if self.LTMaster.baler.isWorking then
+    if self.LTMaster.baler.isWorking and self.LTMaster.baler.autoUnloadTime == nil then
         if self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index) == FillUtil.FILLTYPE_MANURE then
             multiplier = math.max(multiplier, self.workMultiplier * 2);
         else
