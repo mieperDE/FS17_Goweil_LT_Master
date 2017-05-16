@@ -15,7 +15,7 @@
         </specs>
         <image>store.dds</image>
         <price>280000</price>
-        <dailyUpkeep>250</dailyUpkeep>
+        <dailyUpkeep>350</dailyUpkeep>
         <lifetime>600</lifetime>
         <rotation>0</rotation>
         <brand>GOWEIL</brand>
@@ -308,9 +308,9 @@
     <fillUnits>
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="24000" fillVolumeIndex="1" />
         <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="false" showInShop="false" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
-        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesNet" capacity="6" showOnHud="false" />
-        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesFoil" capacity="10" showOnHud="false" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" showInShop="false"/>
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesNet" capacity="5" showOnHud="false" showInShop="false" />
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesFoil" capacity="10" showOnHud="false" showInShop="false" />
         <!--<fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" /><fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />-->
     </fillUnits>
     <fillVolumes>
@@ -553,7 +553,7 @@
                 <netNode index="0>15|2|2" order="3" />
                 <netNode index="0>15|2|1" order="4" />
                 <netNode index="0>15|2|0" order="5" />
-                <netNode index="0>15|1|10" order="6" />
+                <!--<netNode index="0>15|1|10" order="6" />-->
                 <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15"/>
             </balesNet>
         </baler>

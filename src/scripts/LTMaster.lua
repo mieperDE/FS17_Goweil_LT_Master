@@ -447,7 +447,7 @@ end
 
 function LTMaster:updateTick(dt)
     if self:getRootAttacherVehicle().isMotorStarted then
-        --LTMaster.print("dirt:%s", self:getDirtAmount());
+        LTMaster.print("dirt:%s", self:getDirtAmount());
     end
     local normalizedDt = dt / 1000;
     LTMaster.updateTickBaler(self, dt, normalizedDt);
