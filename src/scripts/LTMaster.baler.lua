@@ -4,10 +4,6 @@
 --TyKonKet (Team FSI Modding)
 --
 --28/04/2017
-LTMaster.BALER_UNLOADING_CLOSED = 1;
-LTMaster.BALER_UNLOADING_OPENING = 2;
-LTMaster.BALER_UNLOADING_OPEN = 3;
-LTMaster.BALER_UNLOADING_CLOSING = 4;
 function LTMaster:loadBaler()
     self.dropBale = LTMaster.dropBale;
     self.createBale = LTMaster.createBale;
@@ -80,7 +76,7 @@ function LTMaster:loadBaler()
         self.LTMaster.baler.knottingRotatingParts = Utils.loadRotationNodes(self.xmlFile, {}, "vehicle.LTMaster.baler.knottingRotatingParts.rotatingPart", "LTMaster.baler", self.components);
         self.LTMaster.baler.balingAnimationName = Utils.getNoNil(getXMLString(self.xmlFile, "vehicle.LTMaster.balingAnimation#name"), "");
     end
-    self.LTMaster.baler.unloadingState = LTMaster.BALER_UNLOADING_CLOSED;
+    self.LTMaster.baler.unloadingState = Baler.UNLOADING_CLOSED;
     self.LTMaster.baler.bales = {};
     self.LTMaster.baler.dummyBale = {}
     self.LTMaster.baler.dummyBale.scaleNode = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.baler.baleAnimation#scaleNode"));
@@ -92,6 +88,7 @@ function LTMaster:loadBaler()
     self.LTMaster.baler.isWorking = false;
     
     self.LTMaster.baler.baleVolumes = {};
+    self.LTMaster.baler.lowerVolume = 1000000;
     self.LTMaster.baler.baleVolumesIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster.baler.baleVolumes#defaultVolumeIndex"), 1);
     local i = 0;
     while true do
@@ -99,7 +96,11 @@ function LTMaster:loadBaler()
         if not hasXMLProperty(self.xmlFile, key) then
             break;
         end
-        table.insert(self.LTMaster.baler.baleVolumes, i + 1, Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#liters"), 4000));
+        local liters = Utils.getNoNil(getXMLInt(self.xmlFile, key .. "#liters"), 4000);
+        if liters < self.LTMaster.baler.lowerVolume then
+            self.LTMaster.baler.lowerVolume = liters;
+        end
+        table.insert(self.LTMaster.baler.baleVolumes, i + 1, liters);
         i = i + 1;
     end
     
@@ -233,8 +234,23 @@ function LTMaster:updateBaler(dt)
     end
     if self.isClient then
         if self:getIsActiveForInput() then
-            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
+            if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) < self.LTMaster.baler.lowerVolume and InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
                 self:setBaleVolume(self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex));
+            end
+            if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
+                if self:isUnloadingAllowed() then
+                    if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+                        if self.LTMaster.baler.unloadingState == Baler.UNLOADING_CLOSED then
+                            if table.getn(self.LTMaster.baler.bales) > 0 then
+                                self:setIsUnloadingBale(true)
+                            end
+                        elseif self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
+                            if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+                                self:setIsUnloadingBale(false)
+                            end
+                        end
+                    end
+                end
             end
         end
     end
@@ -400,9 +416,24 @@ end
 function LTMaster:drawBaler()
     if self.isClient then
         if self:getIsActiveForInput(true) then
-            local cLiters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
-            local nLiters = self.LTMaster.baler.baleVolumes[self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex)];
-            g_currentMission:addHelpButtonText(string.format(g_i18n:getText("GLTM_CHANGE_BALE_VOLUME"), cLiters, nLiters), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
+            if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) < self.LTMaster.baler.lowerVolume then
+                local cLiters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
+                local nLiters = self.LTMaster.baler.baleVolumes[self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex)];
+                g_currentMission:addHelpButtonText(string.format(g_i18n:getText("GLTM_CHANGE_BALE_VOLUME"), cLiters, nLiters), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
+            end
+            if self:isUnloadingAllowed() then
+                if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+                    if self.LTMaster.balerr.unloadingState == Baler.UNLOADING_CLOSED then
+                        if table.getn(self.LTMaster.baler.bales) > 0 then
+                            g_currentMission:addHelpButtonText(g_i18n:getText("action_unloadBaler"), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH)
+                        end
+                    elseif self.LTMaster.baler.unloadingState == Baler.UNLOADING_OPEN then
+                        if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
+                            g_currentMission:addHelpButtonText(g_i18n:getText("action_closeBack"), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH)
+                        end
+                    end
+                end
+            end
         end
     end
 end
@@ -415,6 +446,7 @@ end
 
 function LTMaster:onDeactivateSoundsBaler()
     if self.isClient then
+        print("disattivato baler");
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBaler, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerIdle, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerDoor, true);
@@ -461,6 +493,9 @@ function LTMaster:onTurnedOff(noEventSend)
 end
 
 function LTMaster:isUnloadingAllowed()
+    if not self:getIsTurnedOn() then
+        return false;
+    end
     if self.hasBaleWrapper == nil or not self.hasBaleWrapper then
         return true;
     end
