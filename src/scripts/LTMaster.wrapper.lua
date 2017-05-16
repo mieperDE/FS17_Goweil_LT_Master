@@ -452,7 +452,7 @@ function LTMaster:updateTickWrapper(dt)
             end
         end
     end
-    if self.isClient then
+    if self.isClient and self:getIsActive() and self:getIsTurnedOn() then
         if self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
             if self.LTMaster.wrapper.wrapperEnabled then
                 Sound3DUtil:playSample(self.LTMaster.wrapper.sampleOutOfFoil, 0, 0, nil, self:getIsActiveForSound());
@@ -497,7 +497,6 @@ end
 
 function LTMaster:onDeactivateSoundsWrapper()
     if self.isClient then
-        print("disattivato wrapper");
         Sound3DUtil:stopSample(self.LTMaster.wrapper.currentWrapperStartSound, true);
         Sound3DUtil:stopSample(self.LTMaster.wrapper.currentWrapperStopSound, true);
         Sound3DUtil:stopSample(self.LTMaster.wrapper.currentWrapperSound, true);

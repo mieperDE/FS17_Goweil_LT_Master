@@ -389,10 +389,12 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
             local isKnotting = self.LTMaster.baler.autoUnloadTime ~= nil and g_currentMission.time < self.LTMaster.baler.autoUnloadTime;
             Utils.updateRotationNodes(self, self.LTMaster.baler.knottingRotatingParts, dt, isKnotting);
             Utils.updateScrollers(self.LTMaster.baler.knottingScrollParts, dt, isKnotting);
-            if self.LTMaster.baler.balesNet.outOfNetRolls then
-                Sound3DUtil:playSample(self.LTMaster.baler.sampleOutOfNet, 0, 0, nil, self:getIsActiveForSound());
-            else
-                Sound3DUtil:stopSample(self.LTMaster.baler.sampleOutOfNet);
+            if self:getIsTurnedOn() then
+                if self.LTMaster.baler.balesNet.outOfNetRolls then
+                    Sound3DUtil:playSample(self.LTMaster.baler.sampleOutOfNet, 0, 0, nil, self:getIsActiveForSound());
+                else
+                    Sound3DUtil:stopSample(self.LTMaster.baler.sampleOutOfNet);
+                end
             end
             if self.LTMaster.baler.isWorking then
                 Sound3DUtil:playSample(self.LTMaster.baler.sampleBaler, 0, 0, nil, self:getIsActiveForSound());
@@ -442,7 +444,6 @@ end
 
 function LTMaster:onDeactivateSoundsBaler()
     if self.isClient then
-        print("disattivato baler");
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBaler, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerIdle, true);
         Sound3DUtil:stopSample(self.LTMaster.baler.sampleBalerDoor, true);
