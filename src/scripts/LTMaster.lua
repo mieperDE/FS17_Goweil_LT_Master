@@ -450,6 +450,9 @@ function LTMaster:update(dt)
     --end
     end
     self.LTMaster.conveyor.lastEffectStateOn = self.LTMaster.conveyor.effects[1].state;
+    if self.isServer and not self:getRootAttacherVehicle().isControlled then
+        self:getRootAttacherVehicle().motor:updateMotorRpm(dt);
+    end
 end
 
 function LTMaster:updateTick(dt)
