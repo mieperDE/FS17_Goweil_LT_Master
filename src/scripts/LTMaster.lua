@@ -707,7 +707,11 @@ function LTMaster:getDirtMultiplier(superFunc)
         multiplier = math.max(1, multiplier);
     end
     if self.LTMaster.baler.isWorking then
-        multiplier = math.max(multiplier, self.workMultiplier);
+        if self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index) == FillUtil.FILLTYPE_MANURE then
+            multiplier = math.max(multiplier, self.workMultiplier * 2);
+        else
+            multiplier = math.max(multiplier, self.workMultiplier);
+        end
     end
     return multiplier;
 end
