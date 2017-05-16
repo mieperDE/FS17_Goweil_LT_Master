@@ -82,6 +82,7 @@ function LTMaster:load(savegame)
     self.getConsumedPtoTorque = Utils.overwrittenFunction(self.getConsumedPtoTorque, LTMaster.getConsumedPtoTorque);
     self.getPtoRpm = Utils.overwrittenFunction(self.getPtoRpm, LTMaster.getPtoRpm);
     self.getIsFoldAllowed = Utils.overwrittenFunction(self.getIsFoldAllowed, LTMaster.getIsFoldAllowed);
+    self.getDirtMultiplier = Utils.overwrittenFunction(self.getDirtMultiplier, LTMaster.getDirtMultiplier);
     
     self.LTMaster = {};
     
@@ -445,6 +446,9 @@ function LTMaster:update(dt)
 end
 
 function LTMaster:updateTick(dt)
+    if self:getRootAttacherVehicle().isMotorStarted then
+        --LTMaster.print("dirt:%s", self:getDirtAmount());
+    end
     local normalizedDt = dt / 1000;
     LTMaster.updateTickBaler(self, dt, normalizedDt);
     LTMaster.updateTickWrapper(self, dt, normalizedDt);
@@ -679,4 +683,18 @@ end
 function LTMaster:getIsConveyorOverloading()
     local stateOn = self.LTMaster.conveyor.lastEffectStateOn == ShaderPlaneEffect.STATE_ON or self.LTMaster.conveyor.effects[1].state == ShaderPlaneEffect.STATE_ON;
     return self.LTMaster.conveyor.isOverloading and stateOn;
+end
+
+function LTMaster:getDirtMultiplier(superFunc)
+    local multiplier = 0;
+    if superFunc ~= nil then
+        multiplier = superFunc(self);
+    end
+    if self:getIsTurnedOn() then
+        multiplier = math.max(1, multiplier);
+    end
+    if self.LTMaster.baler.isWorking then
+        multiplier = math.max(multiplier, self.workMultiplier);
+    end
+    return multiplier;
 end

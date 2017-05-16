@@ -577,7 +577,7 @@
             <part index="0>14|0|0|6" speed="10" axis="x" startRot="-135" endRot="-30" condition="turnedOn" />-->
         </gauge>
     </LTMaster>
-    <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
+    <washable dirtDuration="60" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">
         <component1 centerOfMass="0 0.6 0.2" solverIterationCount="10" />
     </components>

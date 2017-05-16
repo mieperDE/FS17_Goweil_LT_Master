@@ -497,6 +497,7 @@ end
 
 function LTMaster:onDeactivateSoundsWrapper()
     if self.isClient then
+        print("disattivato wrapper");
         Sound3DUtil:stopSample(self.LTMaster.wrapper.currentWrapperStartSound, true);
         Sound3DUtil:stopSample(self.LTMaster.wrapper.currentWrapperStopSound, true);
         Sound3DUtil:stopSample(self.LTMaster.wrapper.currentWrapperSound, true);
