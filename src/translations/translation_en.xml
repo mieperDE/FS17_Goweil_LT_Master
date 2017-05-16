@@ -35,6 +35,7 @@ You can fetch your purchase at the store." />
         <text name="GLTM_WRAPPER_SET_ON"                    text="Turn on wrapper" />
         <text name="GLTM_WRAPPER_SET_OFF"                   text="Turn off wrapper" />
         <text name="GLTM_UNLOAD_THEN_TIP"                   text="Prima di scaricare %s, svuota il cassone da %s" />
+        <text name="GLTM_WASH_THEN_TIP"                     text="Dopo aver imballato %s, prima di scaricare %s, lava il macchinario" />        
         <!-- HelpLine texts -->
         <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master" />
         <text name="GLTM_HL_TITLE_00"                       text="General description" />

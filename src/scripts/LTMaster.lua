@@ -85,6 +85,7 @@ function LTMaster:load(savegame)
     self.getDirtMultiplier = Utils.overwrittenFunction(self.getDirtMultiplier, LTMaster.getDirtMultiplier);
     
     self.LTMaster = {};
+    self.LTMaster.manureLock = false;
     
     self.LTMaster.unloadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#unloadInfoIndex"), 1);
     self.LTMaster.loadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#loadInfoIndex"), 1);
@@ -264,6 +265,7 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.folding.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#foldingStatus"), self.LTMaster.folding.status);
             self.LTMaster.ladder.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#ladderStatus"), self.LTMaster.ladder.status);
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
+            self.LTMaster.manureLock = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#manureLock"), self.LTMaster.manureLock);
         elseif savegame == nil then
             self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
             self:setUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index, math.huge, FillUtil.FILLTYPE_BALESNET, true);
@@ -281,6 +283,7 @@ function LTMaster:getSaveAttributesAndNodes(nodeIdent)
     attributes = attributes .. string.format("foldingStatus=\"%s\" ", self.LTMaster.folding.status);
     attributes = attributes .. string.format("ladderStatus=\"%s\" ", self.LTMaster.ladder.status);
     attributes = attributes .. string.format("baleSlideStatus=\"%s\" ", self.LTMaster.baleSlide.status);
+    attributes = attributes .. string.format("manureLock=\"%s\" ", self.LTMaster.manureLock);
     local bAttributes, bNodes = LTMaster.getSaveAttributesAndNodesBaler(self, nodeIdent);
     local wAttributes = LTMaster.getSaveAttributesAndNodesWrapper(self, nodeIdent);
     return attributes .. " " .. bAttributes .. " " .. wAttributes, bNodes;
@@ -351,6 +354,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
         streamWriteBool(streamId, self.LTMaster.wrapper.wrapperEnabled);
         streamWriteBool(streamId, self.LTMaster.baler.isWorking);
+        streamWriteBool(streamId, self.LTMaster.manureLock);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         self.LTMaster.tipTrigger:writeStream(streamId, connection);
         g_server:registerObjectInStream(connection, self.LTMaster.tipTrigger);
@@ -375,6 +379,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
         self.LTMaster.wrapper.wrapperEnabled = streamReadBool(streamId);
         self.LTMaster.baler.isWorking = streamReadBool(streamId);
+        self.LTMaster.manureLock = streamReadBool(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.tipTrigger:readStream(streamId, connection);
         g_client:finishRegisterObject(self.LTMaster.tipTrigger, tipTriggerId);
@@ -398,6 +403,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
         streamWriteBool(streamId, self.LTMaster.wrapper.wrapperEnabled);
         streamWriteBool(streamId, self.LTMaster.baler.isWorking);
+        streamWriteBool(streamId, self.LTMaster.manureLock);
     end
 end
 
@@ -417,6 +423,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
         self.LTMaster.wrapper.wrapperEnabled = streamReadBool(streamId);
         self.LTMaster.baler.isWorking = streamReadBool(streamId);
+        self.LTMaster.manureLock = streamReadBool(streamId);
     end
 end
 
@@ -446,14 +453,20 @@ function LTMaster:update(dt)
 end
 
 function LTMaster:updateTick(dt)
-    if self:getRootAttacherVehicle().isMotorStarted then
-        LTMaster.print("dirt:%s", self:getDirtAmount());
-    end
     local normalizedDt = dt / 1000;
     LTMaster.updateTickBaler(self, dt, normalizedDt);
     LTMaster.updateTickWrapper(self, dt, normalizedDt);
     LTMaster.updateTickWrkMove(self, dt, normalizedDt);
     PlayerTriggers:update();
+    if self.isServer then
+        if self:getDirtAmount() > 0.01 then
+            if self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index) == FillUtil.FILLTYPE_MANURE and self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 1 then
+                self.LTMaster.manureLock = true;
+            end
+        else
+            self.LTMaster.manureLock = false;
+        end
+    end
     if g_currentMission.time >= self.LTMaster.greasePump.next then
         if self:getIsTurnedOn() then
             self:playAnimation(self.LTMaster.greasePump.animation, 1);

@@ -46,7 +46,7 @@ function LTMasterTipTrigger:getAllowFillTypeFromTool(fillType, toolType)
     local allow = LTMasterTipTrigger:superClass().getAllowFillTypeFromTool(self, fillType, toolType);
     if allow then
         local currentFillType = self.owner:getUnitLastValidFillType(self.fillUnitIndex);
-        if currentFillType ~= FillUtil.FILLTYPE_UNKNOWN and currentFillType ~= fillType then
+        if (currentFillType ~= FillUtil.FILLTYPE_UNKNOWN and currentFillType ~= fillType) or (self.owner.LTMaster.manureLock and fillType ~= FillUtil.FILLTYPE_MANURE) then
             self.disallowFillType = fillType;
             return false;
         end
@@ -59,8 +59,12 @@ function LTMasterTipTrigger:getNotAllowedText(filler, toolType)
     local text = LTMasterTipTrigger:superClass().getNotAllowedText(self, filler, toolType);
     if self.disallowFillType ~= nil then
         local new = FillUtil.fillTypeIndexToDesc[self.disallowFillType].nameI18N;
-        local old = FillUtil.fillTypeIndexToDesc[self.owner:getUnitLastValidFillType(self.fillUnitIndex)].nameI18N;
-        return string.format(g_i18n:getText("GLTM_UNLOAD_THEN_TIP"), new, old);
+        if self.owner.LTMaster.manureLock then
+            return string.format(g_i18n:getText("GLTM_WASH_THEN_TIP"), g_i18n:getText("fillType_manure"), new);
+        else
+            local old = FillUtil.fillTypeIndexToDesc[self.owner:getUnitLastValidFillType(self.fillUnitIndex)].nameI18N;
+            return string.format(g_i18n:getText("GLTM_UNLOAD_THEN_TIP"), new, old);
+        end
     end
     return text;
 end
