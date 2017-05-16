@@ -13,6 +13,8 @@ You can fetch your purchase at the store." />
         <text name="input_EVIBALE"                          text="Open and fade bale" />
         <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
         <text name="function_silageAdditiveTank"            text="Silage Additives is used to get higher resolution." />
+        <text name="function_foilPallet"                    text="High quality foil wrap pallet." />
+        <text name="function_netPallet"                     text="Bale net pallet." />
         <text name="fillType_silageAdditive"                text="Silage Additives" />
         <text name="fillType_balesNet"                      text="Bales Net" />
         <text name="fillType_balesFoil"                     text="Wrap foil" />
@@ -35,7 +37,7 @@ You can fetch your purchase at the store." />
         <text name="GLTM_WRAPPER_SET_ON"                    text="Turn on wrapper" />
         <text name="GLTM_WRAPPER_SET_OFF"                   text="Turn off wrapper" />
         <text name="GLTM_UNLOAD_THEN_TIP"                   text="Prima di scaricare %s, svuota il cassone da %s" />
-        <text name="GLTM_WASH_THEN_TIP"                     text="Dopo aver imballato %s, prima di scaricare %s, lava il macchinario" />
+        <text name="GLTM_WASH_THEN_TIP"                     text="Dopo aver imballato %s, prima di scaricare %s, lava il macchinario" />        
         <!-- HelpLine texts -->
         <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master" />
         <text name="GLTM_HL_TITLE_00"                       text="General description" />
@@ -45,7 +47,7 @@ You can fetch your purchase at the store." />
         <text name="GLTM_HL_TEXT_01_00"                     text=" " />
         <text name="GLTM_HL_TEXT_01_01"                     text="Folded: mm 11550 x 2550 x 4000  -  Work position: mm 13940 x 5200 x 4010" />
         <text name="GLTM_HL_TEXT_01_02"                     text="Empty weight: 15200 kg " />
-        <text name="GLTM_HL_TEXT_01_03"                     text="Required power: 200 hp " />
+        <text name="GLTM_HL_TEXT_01_03"                     text="Suggested power: 190 hp " />
         <text name="GLTM_HL_TITLE_02"                       text="Operations" />
         <text name="GLTM_HL_TEXT_02_00"                     text="Position tractor and machine on plain terrain and turn little bit to the left, then you can put machine in work position with $input_IMPLEMENT_EXTRA2; " />
         <text name="GLTM_HL_TEXT_02_01"                     text="Go down to machine, open right door with $input_IMPLEMENT_EXTRA2; to access control panel, put down support with $input_IMPLEMENT_EXTRA4; and unfold with $input_IMPLEMENT_EXTRA; " />

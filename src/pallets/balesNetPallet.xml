@@ -5,7 +5,7 @@
             <en>Bale's Nets Pallet</en>
         </name>
         <functions>
-            <function>$l10n_function_silageAdditiveTank</function>
+            <function>$l10n_function_netPallet</function>
         </functions>
         <specs>
             <capacity unit="$l10n_unit_pieces">12</capacity>
