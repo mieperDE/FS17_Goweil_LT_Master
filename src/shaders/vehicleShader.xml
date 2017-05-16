@@ -3,6 +3,7 @@
 <CustomShader version="3" classRequirement = "">
     <Parameters>
         <Parameter name="RDT"                     target="RDT"                      type="float4" group="base"                  defaultValue="1.0 1.0 20.0 20.0"     minValue = "0.0 0.0 0.0 0.0"          maxValue = "1.0 1.0 50.0 50.0"/>
+        <Parameter name="RDTColor"                target="RDTColor"                 type="float3" group="base"                  defaultValue="0.20 0.14 0.08"        minValue = "0.0 0.0 0.0"              maxValue = "5.0 5.0 5.0"/>
         <Parameter name="offsetUV"                target="offsetUV"                 type="float4" group="offsetUV"              defaultValue="0.0 0.0 0.0 0.0"       minValue = "-10.0 -10.0 -10.0 -10.0"  maxValue = "10.0 10.0 10.0 10.0"/>
         <Parameter name="uvCenterSize"            target="uvCenterSize"             type="float4" group="uvRotate"              defaultValue="0.5 0.5 1.0 1.0"       minValue = "-1.0 -1.0 0.0 0.0"        maxValue = "1.0 1.0 50.0 50.0"/>
         <Parameter name="uvScale"                 target="uvScale"                  type="float4" group="uvScale"               defaultValue="1.0 1.0 1.0 1.0"       minValue = "-10.0 -10.0 -10.0 -10.0"  maxValue = "10.0 10.0 10.0 10.0"/>
@@ -145,6 +146,7 @@
     RDT.z - Dirt Texture Tile
 */
     uniform float4 RDT;
+    uniform float4 RDTColor;
 #if defined( MESH_SCROLL )
 /*
     Assumption fisrt_circle.radius == second_circle.radius, see example file how to use it
@@ -677,7 +679,7 @@ globals.maxSpecularIntensity = 0.5; // iron
     #if defined( WINDOW )
         albedo.xyz += clamp( 0.65 *( 1-globals.gDirt ), 0.0, 1.0 );
     #else
-        float3 mDirtColor = float3( 0.20, 0.14, 0.08 ); // HardCoded Dirt Color
+        float3 mDirtColor = RDTColor; // HardCoded Dirt Color
         albedo.xyz = lerp( mDirtColor, albedo.xyz, globals.gDirt); // DirtColor lerp
     #endif
     albedo.xyz *= globals.gAO; // Multiply AO for DIFFUSE
