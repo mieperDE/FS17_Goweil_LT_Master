@@ -183,7 +183,7 @@ function LTMaster:loadWrapper(savegame)
     for _, f in pairs(FillUtil.getFillTypesByNames(fillTypeNames)) do
         self.LTMaster.wrapper.mustWrappedBales[f] = true;
     end
-    self.LTMaster.wrapper.wrapperEnabled = true;
+    self.LTMaster.wrapper.enabled = true;
     self.LTMaster.wrapper.balesFoil.foilNodes = {};
     self.LTMaster.wrapper.balesFoil.numfoilNodes = 0;
     local i = 0;
@@ -224,14 +224,14 @@ function LTMaster:postLoadWrapper(savegame)
             local rotation = {0, 0, 0};
             self.LTMaster.wrapper.baleToLoad = {filename = filename, translation = translation, rotation = rotation, fillLevel = fillLevel, wrapperTime = wrapperTime, baleValueScale = baleValueScale};
         end
-        self.LTMaster.wrapper.wrapperEnabled = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#wrapperEnabled"), self.LTMaster.wrapper.wrapperEnabled);
+        self.LTMaster.wrapper.enabled = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#wrapperEnabled"), self.LTMaster.wrapper.enabled);
         self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#foilRollRemainingUses"), self.LTMaster.wrapper.balesFoil.foilRollRemainingUses);
     end
 end
 
 function LTMaster:getSaveAttributesAndNodesWrapper(nodeIdent)
     local attributes = "";
-    attributes = ' wrapperEnabled="' .. tostring(self.LTMaster.wrapper.wrapperEnabled) .. '"';
+    attributes = ' wrapperEnabled="' .. tostring(self.LTMaster.wrapper.enabled) .. '"';
     attributes = attributes .. ' foilRollRemainingUses="' .. self.LTMaster.wrapper.balesFoil.foilRollRemainingUses .. '"';
     local baleServerId = self.LTMaster.wrapper.baleGrabber.currentBale;
     if baleServerId == nil then
@@ -368,7 +368,7 @@ function LTMaster:updateWrapper(dt)
     end
     if self:getIsActiveForInput() then
         if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA4) then
-            g_client:getServerConnection():sendEvent(WrapperChangeStatus:new(not self.LTMaster.wrapper.wrapperEnabled, self));
+            g_client:getServerConnection():sendEvent(WrapperChangeStatus:new(not self.LTMaster.wrapper.enabled, self));
         end
     end
     if self:getIsActive() then
@@ -422,7 +422,7 @@ function LTMaster:updateTickWrapper(dt)
                 elseif self.LTMaster.wrapper.baleWrapperState == BaleWrapper.STATE_MOVING_GRABBER_TO_WORK then
                     if not self:getIsAnimationPlaying(self.LTMaster.wrapper.currentWrapper.animations["moveToWrapper"].animName) then
                         local bale = networkGetObject(self.LTMaster.wrapper.currentWrapper.currentBale);
-                        if not self.LTMaster.wrapper.wrapperEnabled and not self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()] then
+                        if not self.LTMaster.wrapper.enabled and not self.LTMaster.wrapper.mustWrappedBales[bale:getFillType()] then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPER_START_DROP_BALE), true, nil, self);
                         elseif not self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
                             g_server:broadcastEvent(BaleWrapperStateEvent:new(self, BaleWrapper.CHANGE_WRAPPING_START), true, nil, self);
@@ -454,7 +454,7 @@ function LTMaster:updateTickWrapper(dt)
     end
     if self.isClient and self:getIsActive() and self:getIsTurnedOn() then
         if self.LTMaster.wrapper.balesFoil.outOfFoilRolls then
-            if self.LTMaster.wrapper.wrapperEnabled then
+            if self.LTMaster.wrapper.enabled then
                 Sound3DUtil:playSample(self.LTMaster.wrapper.sampleOutOfFoil, 0, 0, nil, self:getIsActiveForSound());
             else
                 local bale = networkGetObject(self.LTMaster.wrapper.currentWrapper.currentBale);
@@ -483,7 +483,7 @@ end
 function LTMaster:drawWrapper()
     if self.isClient then
         if self:getIsActiveForInput(true) then
-            if self.LTMaster.wrapper.wrapperEnabled then
+            if self.LTMaster.wrapper.enabled then
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_WRAPPER_SET_OFF"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);
             else
                 g_currentMission:addHelpButtonText(g_i18n:getText("GLTM_WRAPPER_SET_ON"), InputBinding.IMPLEMENT_EXTRA4, nil, GS_PRIO_HIGH);

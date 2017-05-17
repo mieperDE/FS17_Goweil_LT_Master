@@ -238,15 +238,15 @@
             <part node="0>10|1|0|1" startTime="0" endTime="10" startRot="0 0 0" endRot="2000 0 0" />
         </animation>
         <animation name="balePressure">
-            <part node="0>14|0|0|1" startTime="0" endTime="1" startRot="-132 0 180" endRot="80 0 180" />
+            <part node="0>14|0|0|1" startTime="0" endTime="1" startRot="0 0 0" endRot="-200 0 0" />
         </animation>
         <animation name="greasePump">
-            <part node="0>14|0|0|5" startTime="0" endTime="0.2" startRot="-132 0 180" endRot="-20 0 180" />
-            <part node="0>14|0|0|5" startTime="0.2" endTime="0.5" endRot="-20 0 180" />
-            <part node="0>14|0|0|5" startTime="0.5" endTime="1" endRot="-110 0 180" />
-            <part node="0>14|0|0|5" startTime="1" endTime="1.2" endRot="-60 0 180" />
-            <part node="0>14|0|0|5" startTime="1.2" endTime="1.6" endRot="-60 0 180" />
-            <part node="0>14|0|0|5" startTime="1.6" endTime="2" endRot="-132 0 180" />
+            <part node="0>14|0|0|5" startTime="0" endTime="0.2" startRot="0 0 0" endRot="-90 0 0" />
+            <part node="0>14|0|0|5" startTime="0.2" endTime="0.5" endRot="-80 0 0" />
+            <part node="0>14|0|0|5" startTime="0.5" endTime="1" endRot="-15 0 0" />
+            <part node="0>14|0|0|5" startTime="1" endTime="1.2" endRot="-60 0 0" />
+            <part node="0>14|0|0|5" startTime="1.2" endTime="1.6" endRot="-50 0 0" />
+            <part node="0>14|0|0|5" startTime="1.6" endTime="2" endRot="0 0 0" />
         </animation>
     </animations>
     <indoorHud>
@@ -368,7 +368,7 @@
             <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.8" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="10" radius="25" />
         </baleSlide>
         <sideUnload animationName="unloadSide" maxAmount="0" />
-        <greasePump delay="120" animationName="greasePump">
+        <greasePump delay="12" animationName="greasePump">
             <sound file="sounds/greasePump.wav" pitchOffset="0.90" volume="1.5" volume3D="1.5" indoorVolumeFactor="0.3" innerRadius="15" radius="25" />
         </greasePump>
         <turnedOnRotationNodes>
@@ -570,8 +570,13 @@
             <fillSound file="$data/maps/sounds/refuel.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
         </silageAdditive>
         <gauge>
-            <part index="0>14|0|0|0" speed="5" axis="x" startRot="0" endRot="-110" condition="turnedOn" />
-            <!--<part index="0>14|0|0|2" speed="10" axis="x" startRot="-132" endRot="-20" condition="isBaling" /><part index="0>14|0|0|3" speed="10" axis="x" startRot="-132" endRot="-20" condition="isWrapping"/><part index="0>14|0|0|4" speed="10" axis="x" startRot="-132" endRot="-20" condition="isMoving" /><part index="0>14|0|0|6" speed="10" axis="x" startRot="-135" endRot="-30" condition="turnedOn" />-->
+            <part index="0>14|0|0|0" fadeIn="5" fadeOut="2" axis="x" startRot="0" endRot="-110" condition="turnedOn" />
+            <part index="0>14|0|0|2" fadeIn="4" fadeOut="1" axis="x" startRot="0" endRot="-250" condition="isKnotting" />
+            <part index="0>14|0|0|3" fadeIn="1.5" fadeOut="0.5" axis="x" startRot="0" endRot="-70" condition="baleDoorOpening"/>
+            <part index="0>14|0|0|4" fadeIn="1" fadeOut="0.5" axis="x" startRot="0" endRot="-40" condition="baleDoorClosing" />
+            <part index="0>14|0|0|6" fade="2" axis="x" startRot="0" endRot="-60" condition="turnedOn" />
+            <part index="0>14|0|2" fadeIn="2" fadeOut="1" axis="x" startRot="0" endRot="120" condition="conveyorOn" />
+            <part index="0>14|0|1" fade="1" axis="x" startRot="110" endRot="0" condition="wrapperEnabled" />
         </gauge>
     </LTMaster>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />

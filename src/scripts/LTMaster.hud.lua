@@ -108,7 +108,7 @@ function LTMaster:updateHud(dt)
         self.LTMaster.hud.balerLevelBar:setAll(string.format("%d", self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex)), string.format("%d%%", value * 100), self:getUnitLastValidFillType(self.LTMaster.baler.fillUnitIndex));
         self.LTMaster.hud.netIcon:setValue(self.LTMaster.baler.balesNet.netRollRemainingUses / self.LTMaster.baler.balesNet.netRollUses);
         self.LTMaster.hud.foilIcon:setValue(self.LTMaster.wrapper.balesFoil.foilRollRemainingUses / self.LTMaster.wrapper.balesFoil.foilRollUses);
-        if self:getIsTurnedOn() and self.LTMaster.wrapper.wrapperEnabled then
+        if self:getIsTurnedOn() and self.LTMaster.wrapper.enabled then
             self.LTMaster.hud.wrapperIcon:setUVs(self.LTMaster.hud.wrapperIcon.activeUVs);
         else
             self.LTMaster.hud.wrapperIcon:setUVs(self.LTMaster.hud.wrapperIcon.normalUVs);
@@ -123,7 +123,7 @@ function LTMaster:updateHud(dt)
         self.LTMaster.hud.player.balerLevelBar:setAll(string.format("%d", self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex)), string.format("%d%%", value * 100), self:getUnitLastValidFillType(self.LTMaster.baler.fillUnitIndex));
         self.LTMaster.hud.player.netIcon:setValue(self.LTMaster.baler.balesNet.netRollRemainingUses / self.LTMaster.baler.balesNet.netRollUses);
         self.LTMaster.hud.player.foilIcon:setValue(self.LTMaster.wrapper.balesFoil.foilRollRemainingUses / self.LTMaster.wrapper.balesFoil.foilRollUses);
-        if self:getIsTurnedOn() and self.LTMaster.wrapper.wrapperEnabled then
+        if self:getIsTurnedOn() and self.LTMaster.wrapper.enabled then
             self.LTMaster.hud.player.wrapperIcon:setUVs(self.LTMaster.hud.player.wrapperIcon.activeUVs);
         else
             self.LTMaster.hud.player.wrapperIcon:setUVs(self.LTMaster.hud.player.wrapperIcon.normalUVs);

@@ -352,7 +352,7 @@ function LTMaster:writeStream(streamId, connection)
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
-        streamWriteBool(streamId, self.LTMaster.wrapper.wrapperEnabled);
+        streamWriteBool(streamId, self.LTMaster.wrapper.enabled);
         streamWriteBool(streamId, self.LTMaster.baler.isWorking);
         streamWriteBool(streamId, self.LTMaster.manureLock);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
@@ -377,7 +377,7 @@ function LTMaster:readStream(streamId, connection)
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
-        self.LTMaster.wrapper.wrapperEnabled = streamReadBool(streamId);
+        self.LTMaster.wrapper.enabled = streamReadBool(streamId);
         self.LTMaster.baler.isWorking = streamReadBool(streamId);
         self.LTMaster.manureLock = streamReadBool(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
@@ -401,7 +401,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteBool(streamId, self.LTMaster.sideUnload.isUnloading);
         streamWriteBool(streamId, self.LTMaster.conveyor.isOverloading);
         streamWriteBool(streamId, self.LTMaster.silageAdditive.isUsing);
-        streamWriteBool(streamId, self.LTMaster.wrapper.wrapperEnabled);
+        streamWriteBool(streamId, self.LTMaster.wrapper.enabled);
         streamWriteBool(streamId, self.LTMaster.baler.isWorking);
         streamWriteBool(streamId, self.LTMaster.manureLock);
     end
@@ -421,7 +421,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.sideUnload.isUnloading = streamReadBool(streamId);
         self.LTMaster.conveyor.isOverloading = streamReadBool(streamId);
         self.LTMaster.silageAdditive.isUsing = streamReadBool(streamId);
-        self.LTMaster.wrapper.wrapperEnabled = streamReadBool(streamId);
+        self.LTMaster.wrapper.enabled = streamReadBool(streamId);
         self.LTMaster.baler.isWorking = streamReadBool(streamId);
         self.LTMaster.manureLock = streamReadBool(streamId);
     end
