@@ -553,7 +553,6 @@
                 <netNode index="0>15|2|2" order="3" />
                 <netNode index="0>15|2|1" order="4" />
                 <netNode index="0>15|2|0" order="5" />
-                <!--<netNode index="0>15|1|10" order="6" />-->
                 <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15"/>
             </balesNet>
         </baler>
