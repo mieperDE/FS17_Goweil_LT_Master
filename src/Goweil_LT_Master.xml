@@ -615,7 +615,7 @@
     </LTMaster>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">
-        <component1 centerOfMass="0 1.9 0.3" solverIterationCount="4" />
+        <component1 centerOfMass="0 1.9 0.3" solverIterationCount="7" />
     </components>
     <schemaOverlay file="$dataS2/menu/schemas/implementSchema.png" fileSelected="$dataS2/menu/schemas/implementSchemaSelected.png" fileTurnedOn="$dataS2/menu/schemas/implementSchemaTurnedOn.png" fileSelectedTurnedOn="$dataS2/menu/schemas/implementSchemaSelectedTurnedOn.png" width="0.5" height="0.5" attacherJointPosition="0 0" />
 </vehicle>
