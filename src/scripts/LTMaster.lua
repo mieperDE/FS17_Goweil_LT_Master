@@ -247,7 +247,7 @@ function LTMaster:load(savegame)
     self.LTMaster.greasePump.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.greasePump.sound", nil, self.baseDirectory, self.components[1].node);
     self.LTMaster.greasePump.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.greasePump#animationName");
     self.LTMaster.greasePump.next = g_currentMission.time + self.LTMaster.greasePump.delay;
-    
+
     LTMaster.loadBaler(self, savegame);
     LTMaster.loadWrapper(self, savegame);
     LTMaster.loadWrkMove(self, savegame);
@@ -678,13 +678,22 @@ function LTMaster:getConsumedPtoTorque(superFunc)
     end
     torque = 0;
     local cvTT = 540 * math.pi / 30;
-    if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
+    if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING then
         torque = torque + 30 / cvTT;
     end
-    if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISING then
+    if self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
+        torque = torque + 10 / cvTT;
+    end
+    if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERING then
+        torque = torque + 10 / cvTT;
+    end
+    if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISING then
         torque = torque + 20 / cvTT;
     end
-    if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING or self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
+    if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
+        torque = torque + 20 / cvTT;
+    end
+    if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING then
         torque = torque + 40 / cvTT;
     end
     if self:getIsAnimationPlaying(self.foldingParts[1].animationName) then
@@ -710,10 +719,16 @@ function LTMaster:getPtoRpm(superFunc)
     if superFunc ~= nil then
         ptoRpm = superFunc(self);
     end
-    if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
+    if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING then
         ptoRpm = math.max(ptoRpm, 650);
     end
-    if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING or self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
+    if self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
+        ptoRpm = math.max(ptoRpm, 540);
+    end
+    if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
+        ptoRpm = math.max(ptoRpm, 650);
+    end
+    if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING then
         ptoRpm = math.max(ptoRpm, 760);
     end
     if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISING then
