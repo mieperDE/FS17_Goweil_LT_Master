@@ -225,7 +225,6 @@ function LTMaster:load(savegame)
     self.LTMaster.baleSlide.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.baleSlide.sound", nil, self.baseDirectory, self.components[1].node);
     
     self.LTMaster.silageAdditive = {};
-    self.LTMaster.silageAdditive.enabled = true;
     self.LTMaster.silageAdditive.isUsing = false;
     self.LTMaster.silageAdditive.gain = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#gain"), 1.1);
     self.LTMaster.silageAdditive.usage = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#usage"), 0.001);
@@ -243,6 +242,13 @@ function LTMaster:load(savegame)
         self.LTMaster.silageAdditive.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.silageAdditive.fillSound", nil, self.baseDirectory, self.components[1].node);
     end
     self.LTMaster.silageAdditive.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillLitersPerSecond"), 20);
+    ObjectChangeUtil.updateObjectChanges(self.xmlFile, "vehicle.silageAdditiveSystemConfigurations.silageAdditiveSystemConfiguration", self.configurations["silageAdditiveSystem"], self.components, self);
+    if self.configurations["silageAdditiveSystem"] == 1 then
+        self.LTMaster.silageAdditive.enabled = false;
+        self:setUnitCapacity(self.LTMaster.fillUnits["silageAdditive"].index, 0);
+    else
+        self.LTMaster.silageAdditive.enabled = true;
+    end
     
     self.LTMaster.greasePump = {};
     self.LTMaster.greasePump.delay = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.greasePump#delay"), 120) * 1000;
@@ -269,7 +275,9 @@ function LTMaster:postLoad(savegame)
             self.LTMaster.baleSlide.status = Utils.getNoNil(getXMLInt(savegame.xmlFile, savegame.key .. "#baleSlideStatus"), self.LTMaster.baleSlide.status);
             self.LTMaster.manureLock = Utils.getNoNil(getXMLBool(savegame.xmlFile, savegame.key .. "#manureLock"), self.LTMaster.manureLock);
         elseif savegame == nil then
-            self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
+            if self.LTMaster.silageAdditive.enabled then
+                self:setUnitFillLevel(self.LTMaster.fillUnits["silageAdditive"].index, math.huge, FillUtil.FILLTYPE_SILAGEADDITIVE, true);
+            end
             self:setUnitFillLevel(self.LTMaster.fillUnits["balesNet"].index, math.huge, FillUtil.FILLTYPE_BALESNET, true);
             self:setUnitFillLevel(self.LTMaster.fillUnits["balesFoil"].index, math.huge, FillUtil.FILLTYPE_BALESFOIL, true);
             g_i18n.globalI18N:setText("shop_messagePurchaseReady", g_i18n:getText("shop_overwrite_messagePurchaseReady"));

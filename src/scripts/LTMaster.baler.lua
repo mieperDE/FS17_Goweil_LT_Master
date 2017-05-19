@@ -300,6 +300,8 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
                             else
                                 self.LTMaster.silageAdditive.isUsing = false;
                             end
+                        else
+                            self.LTMaster.silageAdditive.isUsing = false;
                         end
                         local oldFillLevel = self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex);
                         self:setUnitFillLevel(self.LTMaster.baler.fillUnitIndex, oldFillLevel + deltaLevel, usedFillType, true);

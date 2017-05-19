@@ -88,6 +88,8 @@ function loadHelpLine(xml, helpLineCategories, helpLineCategorySelectorElement, 
     delete(xml);
 end
 
+ConfigurationUtil.registerConfigurationType("silageAdditiveSystem", g_i18n:getText("configuration_silageAdditiveSystem"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
+
 FillUtil.registerFillType(
     "silageAdditive",
     g_i18n:getText("fillType_silageAdditive"),

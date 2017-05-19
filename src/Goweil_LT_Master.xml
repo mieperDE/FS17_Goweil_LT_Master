@@ -573,6 +573,14 @@
             <part index="0>14|0|1" fade="1" axis="x" startRot="110" endRot="0" condition="wrapperEnabled" />
         </gauge>
     </LTMaster>
+    <silageAdditiveSystemConfigurations>
+        <silageAdditiveSystemConfiguration name="$l10n_ui_no" price="0">
+            <objectChange node="0>30" visibilityActive="false" />
+        </silageAdditiveSystemConfiguration>
+        <silageAdditiveSystemConfiguration name="$l10n_ui_yes" price="12000" icon="$dataS2/menu/hud/configurations/config_loader.png">
+            <objectChange node="0>30" visibilityActive="true" visibilityInactive="false"/>
+        </silageAdditiveSystemConfiguration>
+    </silageAdditiveSystemConfigurations>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">
         <component1 centerOfMass="0 1.9 0.3" solverIterationCount="7" />
