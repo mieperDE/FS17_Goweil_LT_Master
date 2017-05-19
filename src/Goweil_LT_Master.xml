@@ -14,9 +14,9 @@
             <neededPower>190</neededPower>
         </specs>
         <image>store.dds</image>
-        <price>280000</price>
-        <dailyUpkeep>350</dailyUpkeep>
-        <lifetime>600</lifetime>
+        <price>253700</price>
+        <dailyUpkeep>200</dailyUpkeep>
+        <lifetime>1200</lifetime>
         <rotation>0</rotation>
         <brand>GOWEIL</brand>
         <category>baling</category>
@@ -577,30 +577,31 @@
         <silageAdditiveSystemConfiguration name="$l10n_ui_no" price="0">
             <objectChange node="0>30" visibilityActive="false" />
         </silageAdditiveSystemConfiguration>
-        <silageAdditiveSystemConfiguration name="$l10n_ui_yes" price="11200" dailyUpkeep="20" icon="hud/configurations/config_silageAdditive.dds">
+        <silageAdditiveSystemConfiguration name="$l10n_ui_yes" price="22100" dailyUpkeep="80" icon="hud/configurations/config_silageAdditive.dds">
             <objectChange node="0>30" visibilityActive="true" visibilityInactive="false"/>
         </silageAdditiveSystemConfiguration>
     </silageAdditiveSystemConfigurations>
     <conveyorFlowConfigurations>
         <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_200" price="0" icon="hud/configurations/config_conveyorFlow.dds" />
         <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_300" price="1800" dailyUpkeep="5" icon="hud/configurations/config_conveyorFlow.dds" />
-        <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_400" price="5400" dailyUpkeep="10" icon="hud/configurations/config_conveyorFlow.dds" />
+        <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_400" price="5400" dailyUpkeep="15" icon="hud/configurations/config_conveyorFlow.dds" />
+        <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_500" price="16200" dailyUpkeep="45" icon="hud/configurations/config_conveyorFlow.dds" />
     </conveyorFlowConfigurations>
     <dynamicChamberConfigurations>
         <dynamicChamberConfiguration name="$l10n_ui_no" price="0" />
-        <dynamicChamberConfiguration name="$l10n_ui_yes" price="8600" dailyUpkeep="15" icon="hud/configurations/config_dynamicChamber.dds" />
+        <dynamicChamberConfiguration name="$l10n_ui_yes" price="15600" dailyUpkeep="40" icon="hud/configurations/config_dynamicChamber.dds" />
     </dynamicChamberConfigurations>
     <monitorSystemConfigurations>
         <monitorSystemConfiguration name="$l10n_ui_no" price="0" />
-        <monitorSystemConfiguration name="$l10n_ui_yes" price="3900" dailyUpkeep="10" icon="hud/configurations/config_monitorSystem.dds" />
+        <monitorSystemConfiguration name="$l10n_ui_yes" price="4900" dailyUpkeep="25" icon="hud/configurations/config_monitorSystem.dds" />
     </monitorSystemConfigurations>
     <remoteMonitorSystemConfigurations>
         <remoteMonitorSystemConfiguration name="$l10n_ui_no" price="0" />
-        <remoteMonitorSystemConfiguration name="$l10n_ui_yes" price="5300" dailyUpkeep="15" icon="hud/configurations/config_remoteMonitorSystem.dds" />
+        <remoteMonitorSystemConfiguration name="$l10n_ui_yes" price="7300" dailyUpkeep="35" icon="hud/configurations/config_remoteMonitorSystem.dds" />
     </remoteMonitorSystemConfigurations>
     <rimColorConfigurations>
         <rimColorConfiguration color="0.294 0.294 0.294 1" />
-        <rimColorConfiguration color="0.9647 0.4287 0.0185 1" price="1200" icon="$dataS2/menu/hud/configurations/config_rimColor.png" />
+        <rimColorConfiguration color="0.9647 0.4287 0.0185 1" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png" />
     </rimColorConfigurations>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">
