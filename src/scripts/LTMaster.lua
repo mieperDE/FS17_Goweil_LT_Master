@@ -247,7 +247,7 @@ function LTMaster:load(savegame)
     self.LTMaster.greasePump.sound = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.greasePump.sound", nil, self.baseDirectory, self.components[1].node);
     self.LTMaster.greasePump.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.greasePump#animationName");
     self.LTMaster.greasePump.next = g_currentMission.time + self.LTMaster.greasePump.delay;
-
+    
     LTMaster.loadBaler(self, savegame);
     LTMaster.loadWrapper(self, savegame);
     LTMaster.loadWrkMove(self, savegame);
@@ -749,6 +749,7 @@ function LTMaster:getPtoRpm(superFunc)
     if self.LTMaster.baler.isWorking and self.LTMaster.baler.autoUnloadTime == nil then
         ptoRpm = math.max(ptoRpm, 650 + (330 * (self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) / self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex))));
     end
+    self.inputAttacherJoints[1].ptoInput.rotSpeed = math.rad(ptoRpm ^ 3 * 0.000000001);
     return ptoRpm;
 end
 
