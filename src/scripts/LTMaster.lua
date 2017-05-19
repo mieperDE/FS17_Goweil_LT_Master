@@ -762,7 +762,7 @@ function LTMaster:getPtoRpm(superFunc)
     if self.LTMaster.baler.isWorking and self.LTMaster.baler.autoUnloadTime == nil then
         ptoRpm = math.max(ptoRpm, 650 + (330 * (self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) / self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex))));
     end
-    self.LTMaster.ptoRotSpeed = math.rad(ptoRpm ^ 3 * 0.000000001);
+    self.LTMaster.ptoRotSpeed = math.rad(ptoRpm ^ 3 * 0.00000000125);
     return ptoRpm;
 end
 
