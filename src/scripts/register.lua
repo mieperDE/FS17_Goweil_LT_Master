@@ -89,6 +89,10 @@ function loadHelpLine(xml, helpLineCategories, helpLineCategorySelectorElement, 
 end
 
 ConfigurationUtil.registerConfigurationType("silageAdditiveSystem", g_i18n:getText("configuration_silageAdditiveSystem"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
+ConfigurationUtil.registerConfigurationType("conveyorFlow", g_i18n:getText("configuration_conveyorFlow"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
+ConfigurationUtil.registerConfigurationType("dynamicChamber", g_i18n:getText("configuration_dynamicChamber"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
+ConfigurationUtil.registerConfigurationType("monitorSystem", g_i18n:getText("configuration_monitorSystem"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
+ConfigurationUtil.registerConfigurationType("remoteMonitorSystem", g_i18n:getText("configuration_remoteMonitorSystem"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
 
 FillUtil.registerFillType(
     "silageAdditive",

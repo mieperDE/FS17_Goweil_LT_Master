@@ -577,7 +577,7 @@
         <silageAdditiveSystemConfiguration name="$l10n_ui_no" price="0">
             <objectChange node="0>30" visibilityActive="false" />
         </silageAdditiveSystemConfiguration>
-        <silageAdditiveSystemConfiguration name="$l10n_ui_yes" price="12000" icon="$dataS2/menu/hud/configurations/config_loader.png">
+        <silageAdditiveSystemConfiguration name="$l10n_ui_yes" price="12000" icon="hud/configurations/config_silageAdditive.dds">
             <objectChange node="0>30" visibilityActive="true" visibilityInactive="false"/>
         </silageAdditiveSystemConfiguration>
     </silageAdditiveSystemConfigurations>
