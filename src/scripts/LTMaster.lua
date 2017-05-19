@@ -85,6 +85,7 @@ function LTMaster:load(savegame)
     self.getDirtMultiplier = Utils.overwrittenFunction(self.getDirtMultiplier, LTMaster.getDirtMultiplier);
     
     self.LTMaster = {};
+    self.LTMaster.ptoRotSpeed = 0;
     self.LTMaster.manureLock = false;
     
     self.LTMaster.unloadInfoIndex = Utils.getNoNil(getXMLInt(self.xmlFile, "vehicle.LTMaster#unloadInfoIndex"), 1);
@@ -404,6 +405,7 @@ function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
         streamWriteBool(streamId, self.LTMaster.wrapper.enabled);
         streamWriteBool(streamId, self.LTMaster.baler.isWorking);
         streamWriteBool(streamId, self.LTMaster.manureLock);
+        streamWriteFloat32(streamId, self.LTMaster.ptoRotSpeed);
     end
 end
 
@@ -424,6 +426,7 @@ function LTMaster:readUpdateStream(streamId, timestamp, connection)
         self.LTMaster.wrapper.enabled = streamReadBool(streamId);
         self.LTMaster.baler.isWorking = streamReadBool(streamId);
         self.LTMaster.manureLock = streamReadBool(streamId);
+        self.LTMaster.ptoRotSpeed = streamReadFloat32(streamId);
     end
 end
 
@@ -464,6 +467,7 @@ function LTMaster:updateTick(dt)
     LTMaster.updateTickWrapper(self, dt, normalizedDt);
     LTMaster.updateTickWrkMove(self, dt, normalizedDt);
     PlayerTriggers:update();
+    self.inputAttacherJoints[1].ptoInput.rotSpeed = self.LTMaster.ptoRotSpeed;
     if self.isServer then
         if self:getDirtAmount() > 0.01 then
             if self:getUnitLastValidFillType(self.LTMaster.fillUnits["main"].index) == FillUtil.FILLTYPE_MANURE and self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 1 then
@@ -749,7 +753,7 @@ function LTMaster:getPtoRpm(superFunc)
     if self.LTMaster.baler.isWorking and self.LTMaster.baler.autoUnloadTime == nil then
         ptoRpm = math.max(ptoRpm, 650 + (330 * (self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) / self:getUnitCapacity(self.LTMaster.baler.fillUnitIndex))));
     end
-    self.inputAttacherJoints[1].ptoInput.rotSpeed = math.rad(ptoRpm ^ 3 * 0.000000001);
+    self.LTMaster.ptoRotSpeed = math.rad(ptoRpm ^ 3 * 0.000000001);
     return ptoRpm;
 end
 
