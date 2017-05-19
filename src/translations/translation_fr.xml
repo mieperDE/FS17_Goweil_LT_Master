@@ -10,6 +10,7 @@ You can pick up your leased vehicle from the store." />
  
 You can fetch your purchase at the store." />
  
+        <text name="configuration_silageAdditiveSystem"     text="Additive injection system" />
         <text name="input_EVIBALE"                          text="Open and fade bale" />
         <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
         <text name="function_silageAdditiveTank"            text="Silage Additives is used to get higher resolution." />
@@ -41,8 +42,12 @@ You can fetch your purchase at the store." />
         <!-- HelpLine texts -->
         <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master" />
         <text name="GLTM_HL_TITLE_00"                       text="General description" />
-        <text name="GLTM_HL_TEXT_00_00"                     text="The LT-Master is THE baler-wrapper combination for round bales. This is because it can turn almost any chopped material into perfectly pressed and wrapped round bales - whether it be maize chaff, grass, hay, silage, mixed feed, forage, straw, etc. The idea behind the development of the LT-Master was to both make silage maize easier to handle by pressing it into convenient round bales and make it useful also for smaller agricultural operations. Each bale forms a small unit that can be fed to the animals in a quick and simple fashion. Bales of silage maize are an excellent choice as they keep the quality of the feed exceptionally high by protecting it against secondary fermentation or post-heating after the feed was pressed into bales." />
-        <text name="GLTM_HL_TEXT_00_01"                     text="From the game side, wrapping straw, hay or woodchips it means protecting them from weather; wrapping manure allow a better storage and a more value." />
+        <text name="GLTM_HL_TEXT_00_00"                     text="The LT Master is a baler-wrapper combination wich can be process a great kind of material, not only mais chaff or grass; in the perspective of the game FS17, this machine can work on fields or in farm, and can process a wide variety of material greatly faster than a conventional baler and wrapper:" />
+        <text name="GLTM_HL_TEXT_00_01"                     text=" - Chaff and grass can be pressed and wrapped for silage fermentation" />
+        <text name="GLTM_HL_TEXT_00_02"                     text=" - Hay and straw can be pressed, and optional wrapped for weather protection" />
+        <text name="GLTM_HL_TEXT_00_03"                     text=" - Woodchips can be pressed and wrapped for weather protection and for a better storage and handling, since LT Master can reduce the volume of tipical air dried woodchips" />
+        <text name="GLTM_HL_TEXT_00_04"                     text=" - Manure can also be pressed and wrapped for convenient storage and later use as fertilizer" />
+        <text name="GLTM_HL_TEXT_00_05"                     text=" - All wrapped bales have a greater value on the sell point" />
         <text name="GLTM_HL_TITLE_01"                       text="Technical details and dimensions" />
         <text name="GLTM_HL_TEXT_01_00"                     text=" " />
         <text name="GLTM_HL_TEXT_01_01"                     text="Folded: mm 11550 x 2550 x 4000  -  Work position: mm 13940 x 5200 x 4010" />
