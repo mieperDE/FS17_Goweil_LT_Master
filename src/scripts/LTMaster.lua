@@ -83,6 +83,7 @@ function LTMaster:load(savegame)
     self.getPtoRpm = Utils.overwrittenFunction(self.getPtoRpm, LTMaster.getPtoRpm);
     self.getIsFoldAllowed = Utils.overwrittenFunction(self.getIsFoldAllowed, LTMaster.getIsFoldAllowed);
     self.getDirtMultiplier = Utils.overwrittenFunction(self.getDirtMultiplier, LTMaster.getDirtMultiplier);
+    self.getIsPowerTakeoffActive = Utils.overwrittenFunction(self.getIsPowerTakeoffActive, LTMaster.getIsPowerTakeoffActive);
     
     self.LTMaster = {};
     self.LTMaster.ptoRotSpeed = 0;
@@ -778,4 +779,15 @@ function LTMaster:getDirtMultiplier(superFunc)
         end
     end
     return multiplier;
+end
+
+function LTMaster:getIsPowerTakeoffActive(superFunc)
+    local result = false;
+    if superFunc ~= nil then
+        result = superFunc(self);
+    end
+    if self.LTMaster.ptoRotSpeed > 0 then
+        return true;
+    end
+    return result;
 end
