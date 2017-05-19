@@ -18,6 +18,7 @@ Puoi ritirare il tuo acquisto nel negozio." />
         <text name="gltm_config_conveyor_200"               text="200 liter/s." />
         <text name="gltm_config_conveyor_300"               text="300 liter/s." />
         <text name="gltm_config_conveyor_400"               text="400 liter/s." />
+        <text name="gltm_config_conveyor_500"               text="500 liter/s." />
         <text name="input_EVIBALE"                          text="Apri la balla" />
         <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
         <text name="function_silageAdditiveTank"            text="Additivo per migliorare la resa dei prodotti insilati." />
@@ -75,10 +76,10 @@ Puoi ritirare il tuo acquisto nel negozio." />
         <text name="GLTM_HL_TEXT_04_01"                     text="On the foot you can see information about any bales around, and with $input_ACTIVATE_OBJECT; you can unpack the bale and tip material to ground." />
         <text name="GLTM_HL_TEXT_04_02"                     text=" " />
         <text name="GLTM_HL_TEXT_04_03"                     text="Optional equipment which can be purchased separately:" />
-        <text name="GLTM_HL_TEXT_04_04"                     text="1) Additive inject equipment " />
-        <text name="GLTM_HL_TEXT_04_05"                     text="2) Remote monitor system " />
+        <text name="GLTM_HL_TEXT_04_04"                     text="1) Variable flow conveyor belt " />
+        <text name="GLTM_HL_TEXT_04_05"                     text="2) Additive inject equipment " />
         <text name="GLTM_HL_TEXT_04_06"                     text="3) Dynamic density chamber " />
-        <text name="GLTM_HL_TEXT_04_07"                     text="4) Variable flow conveyor belt " />
+        <text name="GLTM_HL_TEXT_04_07"                     text="4) Remote monitor system  " />
         <text name="GLTM_HL_TEXT_04_08"                     text="5) Weighing system " />
     </texts>
 </l10n>
