@@ -725,16 +725,16 @@ function LTMaster:getPtoRpm(superFunc)
         ptoRpm = superFunc(self);
     end
     if self.LTMaster.supports.status == LTMaster.STATUS_RL_LOWERING then
-        ptoRpm = math.max(ptoRpm, 650);
+        ptoRpm = math.max(ptoRpm, 760);
     end
     if self.LTMaster.supports.status == LTMaster.STATUS_RL_RAISING then
         ptoRpm = math.max(ptoRpm, 540);
     end
     if self.LTMaster.folding.status == LTMaster.STATUS_FU_UNFOLDING then
-        ptoRpm = math.max(ptoRpm, 650);
+        ptoRpm = math.max(ptoRpm, 760);
     end
     if self.LTMaster.folding.status == LTMaster.STATUS_FU_FOLDING then
-        ptoRpm = math.max(ptoRpm, 760);
+        ptoRpm = math.max(ptoRpm, 870);
     end
     if self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_LOWERING or self.LTMaster.baleSlide.status == LTMaster.STATUS_RL_RAISING then
         ptoRpm = math.max(ptoRpm, 540);
@@ -746,7 +746,7 @@ function LTMaster:getPtoRpm(superFunc)
         ptoRpm = math.max(ptoRpm, 540);
     end
     if not self:allowsGrabbingBale() then
-        ptoRpm = math.max(ptoRpm, 540);
+        ptoRpm = math.max(ptoRpm, 650);
     end
     if self:getUnitFillLevel(self.LTMaster.fillUnits["main"].index) > 0 and self.LTMaster.conveyor.isOverloading then
         ptoRpm = math.max(ptoRpm, 650);
