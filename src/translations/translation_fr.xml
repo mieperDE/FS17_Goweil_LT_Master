@@ -11,6 +11,13 @@ You can pick up your leased vehicle from the store." />
 You can fetch your purchase at the store." />
  
         <text name="configuration_silageAdditiveSystem"     text="Additive injection system" />
+        <text name="configuration_dynamicChamber"           text="Dynamic density chamber" />
+        <text name="configuration_conveyorFlow"             text="Variable conveyor flow" />
+        <text name="configuration_monitorSystem"            text="Monitor system" />
+        <text name="configuration_remoteMonitorSystem"      text="Remote hud" />
+        <text name="gltm_config_conveyor_200"               text="200 liter/s." />
+        <text name="gltm_config_conveyor_300"               text="300 liter/s." />
+        <text name="gltm_config_conveyor_400"               text="400 liter/s." />
         <text name="input_EVIBALE"                          text="Open and fade bale" />
         <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
         <text name="function_silageAdditiveTank"            text="Silage Additives is used to get higher resolution." />

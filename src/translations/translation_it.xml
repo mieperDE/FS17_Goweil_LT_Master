@@ -11,6 +11,13 @@ Puoi ritirare il veicolo noleggiato al negozio." />
 Puoi ritirare il tuo acquisto nel negozio." />
  
         <text name="configuration_silageAdditiveSystem"     text="Impianto iniezione additivi" />
+        <text name="configuration_dynamicChamber"           text="Dynamic density chamber" />
+        <text name="configuration_conveyorFlow"             text="Variable conveyor flow" />
+        <text name="configuration_monitorSystem"            text="Monitor system" />
+        <text name="configuration_remoteMonitorSystem"      text="Remote hud" />
+        <text name="gltm_config_conveyor_200"               text="200 liter/s." />
+        <text name="gltm_config_conveyor_300"               text="300 liter/s." />
+        <text name="gltm_config_conveyor_400"               text="400 liter/s." />
         <text name="input_EVIBALE"                          text="Apri la balla" />
         <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
         <text name="function_silageAdditiveTank"            text="Additivo per migliorare la resa dei prodotti insilati." />
