@@ -11,7 +11,7 @@
             <capacity unit="$l10n_unit_pieces">20</capacity>
             <fillTypes>balesFoil</fillTypes>
         </specs>
-        <image>store_GoweilAdditiveTank.dds</image>
+        <image>store_GoweilFoilPallet.dds</image>
         <price>1000</price>
         <dailyUpkeep>0</dailyUpkeep>
         <rotation>0</rotation>
