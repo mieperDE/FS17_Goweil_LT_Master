@@ -242,7 +242,6 @@ function LTMaster:load(savegame)
         self.LTMaster.silageAdditive.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.silageAdditive.fillSound", nil, self.baseDirectory, self.components[1].node);
     end
     self.LTMaster.silageAdditive.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.silageAdditive#fillLitersPerSecond"), 20);
-    ObjectChangeUtil.updateObjectChanges(self.xmlFile, "vehicle.silageAdditiveSystemConfigurations.silageAdditiveSystemConfiguration", self.configurations["silageAdditiveSystem"], self.components, self);
     if self.configurations["silageAdditiveSystem"] == 1 then
         self.LTMaster.silageAdditive.enabled = false;
         self:setUnitCapacity(self.LTMaster.fillUnits["silageAdditive"].index, 0);
@@ -256,6 +255,12 @@ function LTMaster:load(savegame)
     self.LTMaster.greasePump.animation = getXMLString(self.xmlFile, "vehicle.LTMaster.greasePump#animationName");
     self.LTMaster.greasePump.next = g_currentMission.time + self.LTMaster.greasePump.delay;
     
+    ObjectChangeUtil.updateObjectChanges(self.xmlFile, "vehicle.silageAdditiveSystemConfigurations.silageAdditiveSystemConfiguration", self.configurations["silageAdditiveSystem"], self.components, self);
+    ObjectChangeUtil.updateObjectChanges(self.xmlFile, "vehicle.monitorSystemConfigurations.monitorSystemConfiguration", self.configurations["monitorSystem"], self.components, self);
+    ObjectChangeUtil.updateObjectChanges(self.xmlFile, "vehicle.remoteMonitorSystemConfigurations.remoteMonitorSystemConfiguration", self.configurations["remoteMonitorSystem"], self.components, self);
+    
+    self.LTMaster.conveyor.overloadingCapacity = 100 + (self.configurations["conveyorFlow"] * 100);
+
     LTMaster.loadBaler(self, savegame);
     LTMaster.loadWrapper(self, savegame);
     LTMaster.loadWrkMove(self, savegame);

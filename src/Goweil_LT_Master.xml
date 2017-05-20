@@ -400,9 +400,11 @@
         <turnedOnRotationNodes>
             <rotatingPart index="0>17|1|1|2" type="LTMaster.turnedOn" rotSpeed="-200" rotAxis="2" turnOnFadeTime="10" turnOffFadeTime="5" />
             <rotatingPart index="0>17|2|3" type="LTMaster.turnedOn" rotSpeed="-100" rotAxis="2" turnOnFadeTime="20" turnOffFadeTime="1" />
-            <rotatingPart index="0>20|0|4|0|0" type="LTMaster.turnedOn" rotSpeed="540" rotAxis="3" />
+            <rotatingPart index="0>20|0|3|0|0" type="LTMaster.turnedOn" rotSpeed="540" rotAxis="3" />
+            <!-- ventola timone -->
+            <rotatingPart index="0>20|0|6|0" type="LTMaster.turnedOn" rotSpeed="-1200" rotAxis="2" turnOnFadeTime="60" turnOffFadeTime="60" />
         </turnedOnRotationNodes>
-        <conveyor overloadingCapacity="400">
+        <conveyor overloadingCapacity="200">
             <sound file="$data/maps/sounds/conveyorBelt.wav" pitchOffset="0.75" volume="0.55" volume3D="0.55" indoorVolumeFactor="0.5" innerRadius="20" radius="40" />
             <uvScrollParts>
                 <!--scivolo Superiore-->
@@ -592,16 +594,24 @@
         <dynamicChamberConfiguration name="$l10n_ui_yes" price="15600" dailyUpkeep="40" icon="hud/configurations/config_dynamicChamber.dds" />
     </dynamicChamberConfigurations>
     <monitorSystemConfigurations>
-        <monitorSystemConfiguration name="$l10n_ui_no" price="0" />
-        <monitorSystemConfiguration name="$l10n_ui_yes" price="4900" dailyUpkeep="25" icon="hud/configurations/config_monitorSystem.dds" />
+        <monitorSystemConfiguration name="$l10n_ui_no" price="0">
+            <objectChange node="0>14|1" visibilityActive="false" />
+        </monitorSystemConfiguration>
+        <monitorSystemConfiguration name="$l10n_ui_yes" price="4900" dailyUpkeep="25" icon="hud/configurations/config_monitorSystem.dds">
+            <objectChange node="0>14|1" visibilityActive="true" visibilityInactive="false"/>
+        </monitorSystemConfiguration>
     </monitorSystemConfigurations>
     <remoteMonitorSystemConfigurations>
-        <remoteMonitorSystemConfiguration name="$l10n_ui_no" price="0" />
-        <remoteMonitorSystemConfiguration name="$l10n_ui_yes" price="7300" dailyUpkeep="35" icon="hud/configurations/config_remoteMonitorSystem.dds" />
+        <remoteMonitorSystemConfiguration name="$l10n_ui_no" price="0">
+            <objectChange node="0>17|0" visibilityActive="false" />
+        </remoteMonitorSystemConfiguration >
+        <remoteMonitorSystemConfiguration name="$l10n_ui_yes" price="7300" dailyUpkeep="35" icon="hud/configurations/config_remoteMonitorSystem.dds">
+            <objectChange node="0>17|0" visibilityActive="true" visibilityInactive="false"/>
+        </remoteMonitorSystemConfiguration>
     </remoteMonitorSystemConfigurations>
     <rimColorConfigurations>
-        <rimColorConfiguration color="0.294 0.294 0.294 1" />
-        <rimColorConfiguration color="0.9647 0.4287 0.0185 1" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png" />
+        <rimColorConfiguration color="0.0000 0.0000 0.3875 1" />
+        <rimColorConfiguration color="0.8169 0.3119 0.0010 1" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png" />
     </rimColorConfigurations>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">

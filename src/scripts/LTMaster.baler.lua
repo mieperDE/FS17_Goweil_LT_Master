@@ -130,6 +130,11 @@ function LTMaster:loadBaler()
     end
     self.LTMaster.baler.balesNet.fillLitersPerSecond = Utils.getNoNil(getXMLFloat(self.xmlFile, "vehicle.LTMaster.baler.balesNet#fillLitersPerSecond"), 1);
     self.LTMaster.baler.balePressureHud = VehicleHudUtils.loadHud(self, self.xmlFile, "balePressure");
+    if self.configurations["dynamicChamber"] == 1 then
+        self.LTMaster.baler.dynamicChamber = false;
+    else
+        self.LTMaster.baler.dynamicChamber = true;
+    end
 end
 
 function LTMaster:postLoadBaler(savegame)
@@ -234,7 +239,7 @@ function LTMaster:updateBaler(dt)
     end
     if self.isClient then
         if self:getIsActiveForInput() then
-            if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) < self.LTMaster.baler.lowerVolume and InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
+            if self.LTMaster.baler.dynamicChamber and self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) < self.LTMaster.baler.lowerVolume and InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
                 self:setBaleVolume(self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex));
             end
             if InputBinding.hasEvent(InputBinding.IMPLEMENT_EXTRA3) then
@@ -420,7 +425,7 @@ end
 function LTMaster:drawBaler()
     if self.isClient then
         if self:getIsActiveForInput(true) then
-            if self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) < self.LTMaster.baler.lowerVolume then
+            if self.LTMaster.baler.dynamicChamber and self:getUnitFillLevel(self.LTMaster.baler.fillUnitIndex) < self.LTMaster.baler.lowerVolume then
                 local cLiters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
                 local nLiters = self.LTMaster.baler.baleVolumes[self:getNextVolumesIndex(self.LTMaster.baler.baleVolumesIndex)];
                 g_currentMission:addHelpButtonText(string.format(g_i18n:getText("GLTM_CHANGE_BALE_VOLUME"), cLiters, nLiters), InputBinding.IMPLEMENT_EXTRA3, nil, GS_PRIO_HIGH);
