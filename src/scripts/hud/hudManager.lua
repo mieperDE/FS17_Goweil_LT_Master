@@ -4,9 +4,10 @@
 -- @author  TyKonKet
 -- @date 04/04/2017
 HudManager = {};
-HudManager.huds = {};
 HudManager.modDir = g_currentModDirectory;
 HudManager.modName = g_currentModName;
+HudManager.hudsKey = {};
+HudManager.huds = {};
 HudManager.hudIndex = 0;
 source(HudManager.modDir .. "scripts/hud/hud.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudImage.lua", HudManager.modName);
@@ -66,11 +67,17 @@ function HudManager:addHud(hud)
     self.hudIndex = self.hudIndex + 1;
     local key = string.format("[%s]%s", self.hudIndex, hud.name);
     self.huds[self.hudIndex] = hud;
+    self.hudsKey[key] = self.hudIndex;
     return self.hudIndex, key;
 end
 
 function HudManager:removeHud(index)
     self.huds[index] = nil;
+end
+
+function HudManager:removeHudWithKey(key)
+    self.huds[self.hudsKey[key]] = nil;
+    self.hudsKey[key] = nil;
 end
 
 addModEventListener(HudManager);

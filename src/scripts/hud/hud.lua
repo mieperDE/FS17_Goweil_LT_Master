@@ -80,7 +80,7 @@ function Hud:delete(applyToChilds)
             c.parent = nil;
         end
     end
-    HudManager:addHud(self.index);
+    HudManager:removeHudWithKey(self.key);
 end
 
 function Hud:setColor(r, g, b, a)
