@@ -10,6 +10,7 @@ You can pick up your leased vehicle from the store." />
  
 You can fetch your purchase at the store." />
 
+        <text name="configuration_valueWheelPremium"        text="Premium" />
         <text name="configuration_silageAdditiveSystem"     text="Additive injection system" />
         <text name="configuration_dynamicChamber"           text="Dynamic density chamber" />
         <text name="configuration_conveyorFlow"             text="Variable conveyor flow" />

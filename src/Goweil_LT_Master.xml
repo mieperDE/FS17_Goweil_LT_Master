@@ -35,7 +35,7 @@
                 <wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25"/>
             </wheels>
         </wheelConfiguration>
-        <wheelConfiguration name="$l10n_configuration_valueWheelWeights" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png">
+        <wheelConfiguration name="$l10n_configuration_valueWheelPremium" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png">
             <wheels>
                 <wheel repr="0>0" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" configIndex="premium" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
                 <wheel repr="0>1" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" configIndex="premium" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />

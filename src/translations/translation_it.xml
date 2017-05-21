@@ -9,7 +9,8 @@ Puoi ritirare il veicolo noleggiato al negozio." />
         <text name="shop_overwrite_messagePurchaseReady"    text="Il manuale utente completo è disponibile nell&apos;aiuto di gioco. 
  
 Puoi ritirare il tuo acquisto nel negozio." />
- 
+
+        <text name="configuration_valueWheelPremium"        text="Premium" />
         <text name="configuration_silageAdditiveSystem"     text="Impianto iniezione additivi" />
         <text name="configuration_dynamicChamber"           text="Dynamic density chamber" />
         <text name="configuration_conveyorFlow"             text="Variable conveyor flow" />
