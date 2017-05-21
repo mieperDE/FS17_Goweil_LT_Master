@@ -21,6 +21,7 @@ You can fetch your purchase at the store." />
         <text name="gltm_config_conveyor_400"               text="400 liter/s." />
         <text name="gltm_config_conveyor_500"               text="500 liter/s." />
         <text name="input_EVIBALE"                          text="Open and fade bale" />
+        <text name="typeDesc_ltmaster"                      text="LT-Master" />
         <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
         <text name="function_silageAdditiveTank"            text="Silage Additives is used to get higher resolution." />
         <text name="function_foilPallet"                    text="High quality foil wrap pallet." />

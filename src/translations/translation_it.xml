@@ -21,6 +21,7 @@ Puoi ritirare il tuo acquisto nel negozio." />
         <text name="gltm_config_conveyor_400"               text="400 liter/s." />
         <text name="gltm_config_conveyor_500"               text="500 liter/s." />
         <text name="input_EVIBALE"                          text="Apri la balla" />
+        <text name="typeDesc_ltmaster"                      text="LT-Master" />
         <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
         <text name="function_silageAdditiveTank"            text="Additivo per migliorare la resa dei prodotti insilati." />
         <text name="function_foilPallet"                    text="High quality foil wrap pallet." />

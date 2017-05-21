@@ -21,7 +21,7 @@
         <brand>GOWEIL</brand>
         <category>baling</category>
     </storeData>
-    <typeDesc>$l10n_typeDesc_baler</typeDesc>
+    <typeDesc>$l10n_typeDesc_ltmaster</typeDesc>
     <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8"/>
     <powerConsumer ptoRpm="540" neededPtoPower="150"/>
