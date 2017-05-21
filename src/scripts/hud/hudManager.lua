@@ -15,6 +15,7 @@ source(HudManager.modDir .. "scripts/hud/hudLevelBar.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudProgressIcon.lua", HudManager.modName);
 
 function HudManager:loadMap(name)
+    self.hudIndex = 0;
 end
 
 function HudManager:deleteMap()
@@ -62,7 +63,14 @@ function HudManager:draw()
 end
 
 function HudManager:addHud(hud)
-    table.insert(self.huds, hud);
+    self.hudIndex = self.hudIndex + 1;
+    local key = string.format("[%s]%s", self.hudIndex, hud.name);
+    self.huds[key] = hud;
+    return self.hudIndex, key;
+end
+
+function HudManager:removeHud(key)
+    self.huds[key] = nil;
 end
 
 addModEventListener(HudManager);

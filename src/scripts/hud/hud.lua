@@ -68,7 +68,7 @@ function Hud:new(name, x, y, width, height, parent, custom_mt)
     if self.parent ~= nil then
         table.insert(self.parent.childs, self);
     end
-    HudManager:addHud(self);
+    self.index, self.key = HudManager:addHud(self);
     return self;
 end
 
@@ -80,6 +80,7 @@ function Hud:delete(applyToChilds)
             c.parent = nil;
         end
     end
+    HudManager:addHud(self.key);
 end
 
 function Hud:setColor(r, g, b, a)
