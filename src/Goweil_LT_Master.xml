@@ -28,10 +28,19 @@
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>
-                <wheel repr="0>0" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
-                <wheel repr="0>1" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
-                <wheel repr="0>2" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
-                <wheel repr="0>3" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>0" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" configIndex="basic" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>1" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" configIndex="basic" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>2" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" configIndex="basic" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>3" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" configIndex="basic" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25"/>
+            </wheels>
+        </wheelConfiguration>
+        <wheelConfiguration name="$l10n_configuration_valueWheelWeights" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png">
+            <wheels>
+                <wheel repr="0>0" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" configIndex="premium" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>1" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" configIndex="premium" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>2" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" configIndex="premium" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>3" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" configIndex="premium" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
                 <wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25"/>
             </wheels>
         </wheelConfiguration>
@@ -607,10 +616,6 @@
             <objectChange node="0>17|0" visibilityActive="true" visibilityInactive="false"/>
         </remoteMonitorSystemConfiguration>
     </remoteMonitorSystemConfigurations>
-    <rimColorConfigurations>
-        <rimColorConfiguration color="0.0000 0.0000 0.3875 1" />
-        <rimColorConfiguration color="0.8169 0.3119 0.0010 1" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png" />
-    </rimColorConfigurations>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">
         <component1 centerOfMass="0 1.9 0.3" solverIterationCount="7" />
