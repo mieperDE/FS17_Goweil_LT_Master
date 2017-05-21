@@ -16,6 +16,7 @@ You can fetch your purchase at the store." />
         <text name="configuration_conveyorFlow"             text="Variable conveyor flow" />
         <text name="configuration_monitorSystem"            text="Monitor system" />
         <text name="configuration_remoteMonitorSystem"      text="Remote hud" />
+        <text name="configuration_starterKit"               text="Starter Kit" />
         <text name="gltm_config_conveyor_200"               text="200 liter/s." />
         <text name="gltm_config_conveyor_300"               text="300 liter/s." />
         <text name="gltm_config_conveyor_400"               text="400 liter/s." />
