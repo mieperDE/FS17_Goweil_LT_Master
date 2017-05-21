@@ -117,7 +117,7 @@
         <beaconLight index="0>16" speed="0.015" filename="$data/shared/beaconLights/beaconLight03.i3d"/>
     </beaconLights>
     <inputAttacherJoints>
-        <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5" ptoRotSpeed="540" />
+        <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|4" ptoRotSpeed="540" />
     </inputAttacherJoints>
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75" />
     <cylinderedHydraulicSound file="sounds/hydraulic2.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.80"/>
