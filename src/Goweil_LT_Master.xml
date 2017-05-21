@@ -3,9 +3,10 @@
     <annotation>Attention exclusive model, with copyright and license patented Goweil. Project, Model for Farming Simulator by Team FSI Modding, All Rights Reserved.</annotation>
     <storeData>
         <name>
-            <it>Goweil Lt Master</it>
-            <en>Goweil Lt Master</en>
-            <de>Goweil Lt Master</de>
+            <it>Goweil LT Master</it>
+            <en>Goweil LT Master</en>
+            <de>Goweil LT Master</de>
+            <fr>Goweil LT Master</fr>
         </name>
         <functions>
             <function>$l10n_function_ltmasterbalerwrapper</function>
@@ -621,6 +622,10 @@
             <objectChange node="0>17|0" visibilityActive="true" visibilityInactive="false"/>
         </remoteMonitorSystemConfiguration>
     </remoteMonitorSystemConfigurations>
+    <starterKitConfigurations>
+        <starterKitConfiguration name="$l10n_ui_yes" price="1700" icon="hud/configurations/config_starterKit.dds" />
+        <starterKitConfiguration name="$l10n_ui_no" price="0" />
+    </starterKitConfigurations>
     <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">
         <component1 centerOfMass="0 1.9 0.3" solverIterationCount="7" />
