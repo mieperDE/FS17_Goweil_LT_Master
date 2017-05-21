@@ -11,7 +11,7 @@
             <capacity unit="$l10n_unit_pieces">12</capacity>
             <fillTypes>balesNet</fillTypes>
         </specs>
-        <image>store_GoweilNetPallet.dds</image>
+        <image>pallets/store_GoweilNetPallet.dds</image>
         <price>900</price>
         <dailyUpkeep>0</dailyUpkeep>
         <rotation>0</rotation>
