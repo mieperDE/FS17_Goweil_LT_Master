@@ -7,6 +7,7 @@ HudManager = {};
 HudManager.huds = {};
 HudManager.modDir = g_currentModDirectory;
 HudManager.modName = g_currentModName;
+HudManager.hudIndex = 0;
 source(HudManager.modDir .. "scripts/hud/hud.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudImage.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudText.lua", HudManager.modName);
@@ -15,7 +16,6 @@ source(HudManager.modDir .. "scripts/hud/hudLevelBar.lua", HudManager.modName);
 source(HudManager.modDir .. "scripts/hud/hudProgressIcon.lua", HudManager.modName);
 
 function HudManager:loadMap(name)
-    self.hudIndex = 0;
 end
 
 function HudManager:deleteMap()
@@ -65,12 +65,12 @@ end
 function HudManager:addHud(hud)
     self.hudIndex = self.hudIndex + 1;
     local key = string.format("[%s]%s", self.hudIndex, hud.name);
-    self.huds[key] = hud;
+    self.huds[self.hudIndex] = hud;
     return self.hudIndex, key;
 end
 
-function HudManager:removeHud(key)
-    self.huds[key] = nil;
+function HudManager:removeHud(index)
+    self.huds[index] = nil;
 end
 
 addModEventListener(HudManager);
