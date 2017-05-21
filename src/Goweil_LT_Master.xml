@@ -309,6 +309,16 @@
             <part node="0>14|0|12|0" startTime="1.2" duration="0.4" endRot="-50 0 0" />
             <part node="0>14|0|12|0" startTime="1.6" duration="0.4" endRot="0 0 0" />
         </animation>
+        <animation name="leverKnotting">
+            <part node="0>14|0|11" startTime="0" duration="2" startRot="0 0 0" endRot="0 0 -18" />
+            <part node="0>14|0|11" startTime="3" duration="1" startRot="0 0 -18" endRot="0 0 0" />
+            <part node="0>14|0|11|0" startTime="0" duration="2" startRot="0 0 0" endRot="0 0 18" />
+            <part node="0>14|0|11|0" startTime="3" duration="1" startRot="0 0 18" endRot="0 0 0" />
+            <part node="0>14|0|11" startTime="3.5" duration="1" startRot="0 0 0" endRot="0 0 18" />
+            <part node="0>14|0|11" startTime="5" duration="1" startRot="0 0 18" endRot="0 0 0" />
+            <part node="0>14|0|11|0" startTime="3.5" duration="1" startRot="0 0 0" endRot="0 0 -18" />
+            <part node="0>14|0|11|0" startTime="5" duration="1" startRot="0 0 -18" endRot="0 0 0" />
+        </animation>
     </animations>
     <indoorHud>
         <balePressure animName="balePressure" minValueAnim="0" maxValueAnim="5000" />
@@ -534,7 +544,7 @@
             <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.50" volume="0.5" volume3D="0.5" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
-            <knottingAnimation name="" />
+            <knottingAnimation name="leverKnotting" />
             <knottingScrollParts>
                 <!--rotolo-->
                 <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="3" shaderParameterComponent="1" turnOnFadeTime="1.5" turnOffFadeTime="0" />
