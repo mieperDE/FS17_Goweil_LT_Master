@@ -23,6 +23,7 @@ end
 function HudProgressBar:delete(applyToChilds)
     if self.progressBar ~= nil then
         self.progressBar:delete();
+        self.progressBar = nil;
     end
     HudProgressBar:superClass().delete(self, applyToChilds);
 end

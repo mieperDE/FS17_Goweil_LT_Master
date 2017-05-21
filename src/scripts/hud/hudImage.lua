@@ -24,6 +24,7 @@ end
 function HudImage:delete(applyToChilds)
     if self.overlayId ~= 0 then
         delete(self.overlayId);
+        self.overlayId = 0;
     end
     HudImage:superClass().delete(self, applyToChilds);
 end

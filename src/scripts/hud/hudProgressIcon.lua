@@ -27,9 +27,11 @@ end
 function HudProgressIcon:delete(applyToChilds)
     if self.bgOverlayId ~= 0 then
         delete(self.bgOverlayId);
+        self.bgOverlayId = 0;
     end
     if self.fgOverlayId ~= 0 then
         delete(self.fgOverlayId);
+        self.fgOverlayId = 0;
     end
     HudProgressIcon:superClass().delete(self, applyToChilds);
 end
