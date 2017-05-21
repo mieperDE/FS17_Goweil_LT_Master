@@ -6,11 +6,11 @@
   </Asset>
 
   <Files>
-    <File fileId="2" filename="roundbaleManure_diffuse.png" relativePath="true"/>
-    <File fileId="3" filename="roundbaleManure_normal.png" relativePath="true"/>
-    <File fileId="4" filename="roundbaleManure_specular.png" relativePath="true"/>
-    <File fileId="6" filename="roundbaleSilage_diffuse.png" relativePath="true"/>
-    <File fileId="7" filename="roundbaleSilage_normal.png" relativePath="true"/>
+    <File fileId="2" filename="textures/roundbaleManure_diffuse.png" relativePath="true"/>
+    <File fileId="3" filename="textures/roundbaleManure_normal.png" relativePath="true"/>
+    <File fileId="4" filename="textures/roundbaleManure_specular.png" relativePath="true"/>
+    <File fileId="6" filename="textures/roundbaleSilage_diffuse.png" relativePath="true"/>
+    <File fileId="7" filename="textures/roundbaleSilage_normal.png" relativePath="true"/>
     <File fileId="5" filename="shaders/silageBaleShader.xml" relativePath="true"/>
   </Files>
 
