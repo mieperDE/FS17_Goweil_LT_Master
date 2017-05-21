@@ -61,10 +61,10 @@ Potenza consigliata: 190 cv
 ]]>
         </it>
     </description>
-    <iconFilename>store.dds</iconFilename>
+    <iconFilename>icon.dds</iconFilename>
     <multiplayer supported="true" />
     <brands>
-        <brand name="GOWEIL" title="$l10n_shopItemBrand_Goweil" image="brand_goweil.dds" />
+        <brand name="GOWEIL" title="$l10n_shopItemBrand_Goweil" image="brand.dds" />
     </brands>
     <storeItems>
         <storeItem xmlFilename="Goweil_LT_Master.xml" rootNode="vehicle" />

@@ -16,32 +16,22 @@
 
 
   <Materials>
-    <Material name="Mozzo" materialId="7" ambientColor="1 1 1" cosPower="50" specularColor="1 1 1" customShaderId="5">
+    <Material name="Mozzo" materialId="8" ambientColor="1 1 1" cosPower="1" specularColor="1 1 1" customShaderId="5">
       <Texture fileId="1"/>
       <Normalmap fileId="7"/>
       <Glossmap fileId="3"/>
       <Reflectionmap fileId="4" lodDistanceScaling="0.5" viewDistanceScaling="0.5" type="cube" scaling="1" refractiveIndex="1" bumpScale="0.5" shapesObjectMask="4294967295" lightsObjectMask="4294967295"/>
-      <CustomParameter name="RDT" value="1 1 20 20"/>
+      <CustomParameter name="RDT" value="1 1 14 14"/>
       <CustomParameter name="RDTColor" value="0.2 0.14 0.08 0"/>
     </Material>
-    <Material name="Pneumatico" materialId="9" ambientColor="1 1 1" cosPower="50" specularColor="1 1 1" customShaderId="5" customShaderVariation="tirePressureDeformation">
+    <Material name="Pneumatico" materialId="7" ambientColor="1 1 1" cosPower="1" specularColor="1 1 1" customShaderId="5" customShaderVariation="tirePressureDeformation">
       <Texture fileId="1"/>
       <Normalmap fileId="2"/>
       <Glossmap fileId="3"/>
       <Reflectionmap fileId="4" lodDistanceScaling="0.5" viewDistanceScaling="0.5" type="cube" scaling="1" refractiveIndex="1" bumpScale="0.5" shapesObjectMask="4294967295" lightsObjectMask="4294967295"/>
-      <CustomParameter name="RDT" value="1 1 20 20"/>
+      <CustomParameter name="RDT" value="1 1 10 10"/>
       <CustomParameter name="RDTColor" value="0.2 0.14 0.08 0"/>
-      <CustomParameter name="morphPosition" value="-0.49 -0.915 0.5 0.1"/>
-    </Material>
-    <Material name="Cerchio" materialId="8" ambientColor="1 1 1" cosPower="20" specularColor="0.5 0.5 0.5" customShaderId="5" customShaderVariation="RIM">
-      <Texture fileId="1"/>
-      <Normalmap fileId="7" bumpDepth="-1"/>
-      <Glossmap fileId="3"/>
-      <Reflectionmap fileId="4" lodDistanceScaling="0.5" viewDistanceScaling="0.5" type="cube" scaling="1" refractiveIndex="1" bumpScale="0.5" shapesObjectMask="4294967295" lightsObjectMask="4294967295"/>
-      <CustomParameter name="RDT" value="1 1 20 20"/>
-      <CustomParameter name="RDTColor" value="0.2 0.14 0.08 0"/>
-      <CustomParameter name="colorScale" value="0.8 0.55 0.055 1"/>
-      <CustomParameter name="widthAndDiam" value="40 39.3 0 0"/>
+      <CustomParameter name="morphPosition" value="-0.371 -0.83 0.5 0.03"/>
     </Material>
   </Materials>
 
@@ -54,17 +44,17 @@
   </Dynamics>
 
   <Scene>
-    <TransformGroup name="Ruota_telleborg_500_SX1" nodeId="19">
-      <Shape shapeId="1" name="pneumatico" clipDistance="1000" nodeId="20" materialIds="9" castsShadows="true" receiveShadows="true"/>
-      <Shape shapeId="2" name="cerchio" clipDistance="800" nodeId="21" materialIds="8" castsShadows="true" receiveShadows="true"/>
-      <Shape shapeId="3" name="mozzo_B" clipDistance="800" nodeId="22" materialIds="7" castsShadows="true" receiveShadows="true"/>
-      <Shape shapeId="4" name="mozzo_G" visibility="false" clipDistance="800" nodeId="23" materialIds="7" castsShadows="true" receiveShadows="true"/>
+    <TransformGroup name="Ruota_telleborg_500_SX1" visibility="false" clipDistance="1000" nodeId="18">
+      <Shape shapeId="1" name="pneumatico" clipDistance="1000" nodeId="19" materialIds="7" castsShadows="true" receiveShadows="true"/>
+      <Shape shapeId="2" name="cerchio" clipDistance="800" nodeId="20" materialIds="8" castsShadows="true" receiveShadows="true"/>
+      <Shape shapeId="3" name="mozzo_B" clipDistance="150" nodeId="21" materialIds="8" castsShadows="true" receiveShadows="true"/>
+      <Shape shapeId="4" name="mozzo_G" visibility="false" clipDistance="150" nodeId="22" materialIds="8" castsShadows="true" receiveShadows="true"/>
     </TransformGroup>
-    <TransformGroup name="Ruota_telleborg_500_DX1" nodeId="24">
-      <Shape shapeId="5" name="pneumatico" clipDistance="1000" nodeId="25" materialIds="9" castsShadows="true" receiveShadows="true"/>
-      <Shape shapeId="6" name="cerchio" clipDistance="800" nodeId="26" materialIds="8" castsShadows="true" receiveShadows="true"/>
-      <Shape shapeId="7" name="mozzo_B" clipDistance="800" nodeId="27" materialIds="7" castsShadows="true" receiveShadows="true"/>
-      <Shape shapeId="8" name="mozzo_G" visibility="false" clipDistance="800" nodeId="28" materialIds="7" castsShadows="true" receiveShadows="true"/>
+    <TransformGroup name="Ruota_telleborg_500_DX1" clipDistance="1000" nodeId="23">
+      <Shape shapeId="5" name="pneumatico" clipDistance="1000" nodeId="24" materialIds="7" castsShadows="true" receiveShadows="true"/>
+      <Shape shapeId="6" name="cerchio" clipDistance="800" nodeId="25" materialIds="8" castsShadows="true" receiveShadows="true"/>
+      <Shape shapeId="7" name="mozzo_B" clipDistance="150" nodeId="26" materialIds="8" castsShadows="true" receiveShadows="true"/>
+      <Shape shapeId="8" name="mozzo_G" visibility="false" clipDistance="150" nodeId="27" materialIds="8" castsShadows="true" receiveShadows="true"/>
     </TransformGroup>
   </Scene>
 

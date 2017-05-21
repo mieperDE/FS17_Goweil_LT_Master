@@ -8,49 +8,34 @@
             <de>Goweil Lt Master</de>
         </name>
         <functions>
-            <function>$l10n_function_baler</function>
+            <function>$l10n_function_ltmasterbalerwrapper</function>
         </functions>
         <specs>
-            <neededPower>200</neededPower>
+            <neededPower>190</neededPower>
         </specs>
-        <image>Goweil_Lt_Master.dds</image>
-        <price>280000</price>
-        <dailyUpkeep>250</dailyUpkeep>
-        <lifetime>600</lifetime>
+        <image>store.dds</image>
+        <price>253700</price>
+        <dailyUpkeep>200</dailyUpkeep>
+        <lifetime>1200</lifetime>
         <rotation>0</rotation>
         <brand>GOWEIL</brand>
         <category>baling</category>
     </storeData>
     <typeDesc>$l10n_typeDesc_baler</typeDesc>
-    <filename>Goweil_Lt_Master.i3d</filename>
+    <filename>Goweil_LT_Master.i3d</filename>
     <size width="5.5" length="8"/>
-    <powerConsumer ptoRpm="760" neededPtoPower="200"/>
-	
- <!--   <wheelConfigurations>
-        <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
-            <wheels>
-                <wheel repr="0>0" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
-                <wheel repr="0>1" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true"/>
-                <wheel repr="0>2" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true" />
-                <wheel repr="0>3" radius="0.578" restLoad="1.4" initialCompression="50" suspTravel="0.1" spring="50" damper="40" hasTireTracks="true" tireTrackAtlasIndex="1" mass="1.2475" maxLatStiffnessLoad="3" hasParticles="true"/>
-                <wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25"/>
-            </wheels>
-        </wheelConfiguration>
-    </wheelConfigurations>-->
-	
+    <powerConsumer ptoRpm="540" neededPtoPower="150"/>
     <wheelConfigurations>
         <wheelConfiguration name="$l10n_configuration_valueDefault" price="0">
             <wheels>
-                <wheel repr="0>0" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" isLeft="false"  initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
-                <wheel repr="0>1" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" isLeft="true"   initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
-                <wheel repr="0>2" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" isLeft="false"  initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
-                <wheel repr="0>3" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" isLeft="true"   initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
-				<wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25"/>
+                <wheel repr="0>0" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>1" restLoad="1.4" forcePointRatio="0.2" filename="wheels/wheel.xml" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>2" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" isLeft="false" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>3" restLoad="1.4" forcePointRatio="0.3" filename="wheels/wheel.xml" isLeft="true" initialCompression="50" suspTravel="0.1" spring="30" damper="40" hasTireTracks="true" hasParticles="true" />
+                <wheel repr="0>7|2|5" radius="0.128" restLoad="0.9" initialCompression="20" suspTravel="0.05" spring="100" damper="50" steeringAxleScale="-3" mass="0.25"/>
             </wheels>
         </wheelConfiguration>
-    </wheelConfigurations>	 
-	
-	
+    </wheelConfigurations>
     <steeringAxleAngleScale startSpeed="5" endSpeed="70" />
     <brakeForce>1.2</brakeForce>
     <maximalAirConsumptionPerFullStop value="0.3" />
@@ -123,27 +108,62 @@
         <beaconLight index="0>16" speed="0.015" filename="$data/shared/beaconLights/beaconLight03.i3d"/>
     </beaconLights>
     <inputAttacherJoints>
-        <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5" />
+        <inputAttacherJoint index="0>20|0|0" jointType="trailerLow" attacherHeight="0.693" ptoInputNode="0>20|0|5" ptoRotSpeed="540" />
     </inputAttacherJoints>
     <attachSound file="$data/sounds/attach.wav" pitchOffset="1.0" volume="1.0" indoorVolumeFactor="0.35" indoorLowpassGain="0.75" />
-    <cylinderedHydraulicSound file="$data/sounds/cultivatorHydraulic.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
+    <cylinderedHydraulicSound file="sounds/hydraulic2.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.80"/>
     <foldingParts startAnimTime="1" detachingMaxLimit="1" detachingMinLimit="1" turnOnFoldMinLimit="0" turnOnFoldMaxLimit="0">
         <foldingPart animationName="folding" />
     </foldingParts>
     <animations>
         <!--move support down/up -->
         <animation name="moveSupport">
-            <!--<part node="0>5|0|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.57 0" /><part node="0>5|1|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.57 0" /><part node="0>5|2|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.518 0" /><part node="0>5|3|0" startTime="0" duration="0.5" startTrans="0 -0.164 0" endTrans="0 -0.518 0" />-->
+            <part node="0>4|0" startTime="0" duration="0" startRot="90 90 0" endRot="0 0 0" startTrans="0.832 1.177 -1.233" endTrans="1.36 -0.05 -1"/>
+            <part node="0>4|1" startTime="0" duration="0" startRot="90 -90 0" endRot="0 0 0" startTrans="-0.832 1.177 -1.233" endTrans="-1.36 -0.05 -1"/>
         </animation>
         <animation name="moveSupport2">
             <part node="0>5|0|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
             <part node="0>5|1|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
             <part node="0>5|2|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
             <part node="0>5|3|0" startTime="0" duration="2.5" startTrans="0 -0.164 0" endTrans="0 -0.60 0" />
+            <part node="0>14|0|19" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|19" direction="1" startTime="2.2" duration="0.3" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>14|0|19" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|19" direction="-1" startTime="2" duration="0.5" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|19|0" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|19|0" direction="1" startTime="2.2" duration="0.3" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|19|0" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|19|0" direction="-1" startTime="2" duration="0.5" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>14|0|18" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|18" direction="1" startTime="2.2" duration="0.3" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>14|0|18" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|18" direction="-1" startTime="2" duration="0.5" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|18|0" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|18|0" direction="1" startTime="2.2" duration="0.3" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|18|0" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|18|0" direction="-1" startTime="2" duration="0.5" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>14|0|17" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|17" direction="1" startTime="2.2" duration="0.3" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>14|0|17" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|17" direction="-1" startTime="2" duration="0.5" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|17|0" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|17|0" direction="1" startTime="2.2" duration="0.3" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|17|0" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|17|0" direction="-1" startTime="2" duration="0.5" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>14|0|16" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|16" direction="1" startTime="2.2" duration="0.3" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>14|0|16" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|16" direction="-1" startTime="2" duration="0.5" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|16|0" direction="1" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 20" />
+            <part node="0>14|0|16|0" direction="1" startTime="2.2" duration="0.3" startRot="0 0 20" endRot="0 0 0" />
+            <part node="0>14|0|16|0" direction="-1" startTime="0" duration="0.3" startRot="0 0 0" endRot="0 0 -20" />
+            <part node="0>14|0|16|0" direction="-1" startTime="2" duration="0.5" startRot="0 0 -20" endRot="0 0 0" />
+            <part node="0>4|0" startTime="2.5" duration="0" startRot="90 90 0" endRot="0 0 0" startTrans="0.832 1.177 -1.233" endTrans="1.36 -0.05 -1.06"/>
+            <part node="0>4|1" startTime="2.5" duration="0" startRot="90 -90 0" endRot="0 0 0" startTrans="-0.832 1.177 -1.233" endTrans="-1.36 -0.05 -1.06"/>
         </animation>
         <animation name="folding">
             <!--timone -->
-            <part node="0>20" startTime="0" duration="3" startRot="0 30 0" endRot="0 0 0" />
+            <part node="0>20" startTime="0" duration="3" startRot="0 28 0" endRot="0 0 0" />
         </animation>
         <animation name="folding2">
             <!--scivoloUP -->
@@ -193,136 +213,71 @@
         <animation name="baleSlide">
             <!--scarico_balla -->
             <part node="0>15|6|0" startTime="0" duration="0.75" startRot="90 0 0" endRot="0 0 0" />
-            <part node="0>15|6|1" startTime="0.5" duration="2" startRot="-56.698 0 0" endRot="50 0 0" />
+            <part node="0>15|6|1" startTime="0.5" duration="2" startRot="-56.698 0 0" endRot="54 0 0" />
         </animation>
         <!-- unload bale -->
         <animation name="unloadBale">
-			<part node="0>12" startTime="0" duration="0.75" startRot="0 0 0" endRot="-90 0 0" />
-			<part node="0>12|8" startTime="0" duration="0.75" startRot="0 0 0" endRot="25 0 0" />
-			<part node="0>10|1" startTime="0.75" duration="1" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 -1.025" />
-			<part node="0>10|1" startTime="1" duration="1.25" startRot="0 0 0" endRot="-20 0 0" />
-			<part node="0>10|1" startTime="3.50" duration="1.25" startRot="-20 0 0" endRot="0 0 0" />
-			<part node="0>10|1" startTime="4.25" duration="2.25" startTrans="0 -0.969 -1.025" endTrans="0 -0.969 -0.178" />	
-            <!-- balla1 -->
-			<part node="0>23" startTime="1.26" duration="1.50" startTrans="0 2.632 1.442" endTrans="0 2.362 1.88" />
-			<part node="0>23" startTime="1.26" duration="1.50" startRot="0 0 0" endRot="35 0 0" />
-			 <!-- balla2 -->
-            <part node="0>23" startTime="1.50" duration="1.75" startTrans="0 2.362 1.88" endTrans="0 2.103 2.447" />
-			<part node="0>23" startTime="1.50" duration="1.75" startRot="35 0 0" endRot="50 0 0" />	
-			<!-- balla3 -->
-            <part node="0>23" startTime="1.75" duration="2" startTrans="0 2.103 2.447" endTrans="0 2.04 2.982" />
-			<part node="0>23" startTime="1.75" duration="2" startRot="50 0 0" endRot="90 0 0" />					
-			<!-- Animazione balla5 -->
-
-            <part node="0>23" startTime="2" duration="2.25" startTrans="0 2.04 2.982" endTrans="0 2.079 3.202" />
-			<part node="0>23" startTime="2" duration="2.25" startRot="90 0 0" endRot="110 0 0" />
-			<!-- Animazione balla6 -->	
-
+            <part node="0>12" startTime="0" duration="0.75" startRot="0 0 0" endRot="-90 0 0" />
+            <part node="0>12|8" startTime="0" duration="0.75" startRot="0 0 0" endRot="25 0 0" />
+            <part node="0>10|1" startTime="0.75" duration="1" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 -1.025" />
+            <part node="0>10|1" startTime="1" duration="1.25" startRot="0 0 0" endRot="-20 0 0" />
+            <part node="0>10|1" startTime="3.50" duration="1.25" startRot="-20 0 0" endRot="0 0 0" />
+            <part node="0>10|1" startTime="4.25" duration="2.25" startTrans="0 -0.969 -1.025" endTrans="0 -0.969 -0.178" />
+            <part node="0>23" startTime="1.25" duration="1" startTrans="0 2.632 1.442" endTrans="0 2.362 1.88" />
+            <part node="0>23" startTime="1.25" duration="1" startRot="0 0 0" endRot="35 0 0" />
+            <part node="0>23" startTime="2.25" duration="1" startTrans="0 2.362 1.88" endTrans="0 2.103 2.447" />
+            <part node="0>23" startTime="2.25" duration="1" startRot="35 0 0" endRot="50 0 0" />
+            <part node="0>23" startTime="3.25" duration="0.5" startTrans="0 2.103 2.447" endTrans="0 2.04 2.982" />
+            <part node="0>23" startTime="3.25" duration="1" startRot="50 0 0" endRot="90 0 0" />
+            <part node="0>23" startTime="3.75" duration="0.5" startTrans="0 2.04 2.982" endTrans="0 2.079 3.202" />
             <part node="0>23" startTime="4.25" duration="2.25" startTrans="0 2.079 3.202" endTrans="0 2.079 4.049" />
-		
         </animation>
         <!-- close door -->
         <animation name="closeDoor">
-			<part node="0>12" startTime="0" duration="0.75" startRot="-90 0 0" endRot="0 0 0" />
-			<part node="0>12|8" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />
-			<part node="0>10|1" startTime="0" duration="0.75" startRot="25 0 0" endRot="0 0 0" />
-			<part node="0>23" startTime="0" duration="0.75" startTrans="0 2.079 4.049" endTrans="0 2.632 1.442" />
-			<part node="0>23" startTime="0" duration="0.75" startRot="110 0 0" endRot="0 0 0" />			
+            <part node="0>12" startTime="0" duration="0.50" startRot="-90 0 0" endRot="0 0 0" />
+            <part node="0>12|8" startTime="0" duration="0.50" startRot="25 0 0" endRot="0 0 0" />
+            <part node="0>10|1" startTime="0" duration="0.50" startRot="25 0 0" endRot="0 0 0" />
+            <part node="0>23" startTime="0" duration="0.50" startTrans="0 2.079 4.049" endTrans="0 2.632 1.442" />
+            <part node="0>23" startTime="0" duration="0.50" startRot="110 0 0" endRot="0 0 0" />
         </animation>
-		
-		 <!--Wrapper -->
-        <animation name="moveBaleToWrapper">
-            <part node="0>10|1|3|0" startTime="0" duration="0.1" startTrans="0 0 0" endTrans="0 0 0" />
-			<part node="0>10|1|3|0" startTime="0" duration="0.1" startRot="0 0 0" endRot="0 0 0" />	
-        </animation>
-		
+        <!--Wrapper -->
+        <animation name="moveBaleToWrapper"></animation>
         <animation name="dropBaleFromWrapper">
-			<part node="0>10|1" startTime="0" endTime="0.7" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 0.3" />
-			<part node="0>10|1" startTime="0.6" endTime="1.2" startRot="0 0 0" endRot="30 0 0" />
-            <part node="0>10|1|9|0" startTime="1.3" endTime="2" startRot="0 0 0" endRot="0 0 180" />
-            <part node="0>10|1|9|0" startTime="1.3" endTime="2" startTrans="0 0 0" endTrans="-0.35 -0.95 0" />
+            <part node="0>10|1" startTime="0" duration="0.7" startTrans="0 -0.969 -0.178" endTrans="0 -0.969 -0.1" />
+            <part node="0>10|1" startTime="0.3" duration="0.8" startRot="0 0 0" endRot="32 0 0" />
+            <part node="0>10|1|9|0" startTime="0.4" duration="1" startRot="0 0 0" endRot="0 0 45" />
+            <part node="0>10|1|9|0" startTime="0.4" duration="1" startTrans="0 0 0" endTrans="-0.15 -0.80 0" />
         </animation>
-		
         <animation name="resetWrapperAfterBaleDrop">
-            <part node="0>10|1" startTime="0" endTime="1.5" startTrans="0 -0.969 0.3" endTrans="0 -0.969 -0.178" />
+            <part node="0>10|1" startTime="0" endTime="1.5" startTrans="0 -0.969 -0.1" endTrans="0 -0.969 -0.178" />
             <part node="0>10|1" startTime="0" endTime="1.5" startRot="30 0 0" endRot="0 0 0" />
             <part node="0>10|1|9|0" startTime="0" endTime="0.5" startRot="0 0 0" endRot="0 0 0" startTrans="0 0 0" endTrans="0 0 0"/>
-			<part node="0>10|1|4" startTime="0" endTime="0.1" shaderParameter="offsetUV" shaderStartValues="20 0 0 0" shaderEndValues="0 0 0 0" />
-			<part node="0>10|1|5" startTime="0" endTime="0.1" shaderParameter="offsetUV" shaderStartValues="20 0 0 0" shaderEndValues="0 0 0 0" />
-			<part node="0>10|1|0|0" startTime="0" endTime="0.1" startRot="2000 0 0" endRot="0 0 0" />
-			<part node="0>10|1|0|1" startTime="0" endTime="0.1" startRot="2000 0 0" endRot="0 0 0" />				
+            <part node="0>10|1|4" startTime="0" endTime="0.1" shaderParameter="offsetUV" shaderStartValues="20 0 0 0" shaderEndValues="0 0 0 0" />
+            <part node="0>10|1|5" startTime="0" endTime="0.1" shaderParameter="offsetUV" shaderStartValues="20 0 0 0" shaderEndValues="0 0 0 0" />
+            <part node="0>10|1|0|0" startTime="0" endTime="0.1" startRot="2000 0 0" endRot="0 0 0" />
+            <part node="0>10|1|0|1" startTime="0" endTime="0.1" startRot="2000 0 0" endRot="0 0 0" />
         </animation>
-
-		<animation name="wrapBale">
-			<part node="0>10|1|4" startTime="0" endTime="10" shaderParameter="offsetUV" shaderStartValues="0 0 0 0" shaderEndValues="20 0 0 0" />
-			<part node="0>10|1|5" startTime="0" endTime="10" shaderParameter="offsetUV" shaderStartValues="0 0 0 0" shaderEndValues="20 0 0 0" />
-			<part node="0>10|1|0|0" startTime="0" endTime="10" startRot="0 0 0" endRot="2000 0 0" />
-			<part node="0>10|1|0|1" startTime="0" endTime="10" startRot="0 0 0" endRot="2000 0 0" />				
-		</animation>		
+        <animation name="wrapBale">
+            <part node="0>10|1|4" startTime="0" endTime="12" shaderParameter="offsetUV" shaderStartValues="0 0 0 0" shaderEndValues="20 0 0 0" />
+            <part node="0>10|1|5" startTime="0" endTime="12" shaderParameter="offsetUV" shaderStartValues="0 0 0 0" shaderEndValues="20 0 0 0" />
+            <part node="0>10|1|0|0" startTime="0" endTime="12" startRot="0 0 0" endRot="2000 0 0" />
+            <part node="0>10|1|0|1" startTime="0" endTime="12" startRot="0 0 0" endRot="2000 0 0" />
+        </animation>
+        <animation name="balePressure">
+            <part node="0>14|0|0|1" startTime="0" endTime="1" startRot="0 0 0" endRot="-200 0 0" />
+        </animation>
+        <animation name="greasePump">
+            <part node="0>14|0|0|5" startTime="0" duration="0.2" startRot="0 0 0" endRot="-90 0 0" />
+            <part node="0>14|0|0|5" startTime="0.2" duration="0.3" endRot="-80 0 0" />
+            <part node="0>14|0|0|5" startTime="0.5" duration="0.5" endRot="-15 0 0" />
+            <part node="0>14|0|0|5" startTime="1" duration="0.2" endRot="-60 0 0" />
+            <part node="0>14|0|0|5" startTime="1.2" duration="0.4" endRot="-50 0 0" />
+            <part node="0>14|0|0|5" startTime="1.6" duration="0.4" endRot="0 0 0" />
+        </animation>
     </animations>
-    <wrapperStartSound file="$data/sounds/bale_wrapping_start.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" />
-    <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" />
-    <baleGrabber index="0>10|1|3|0" nearestDistance="0" />
-    <wrapper foldMinLimit="0.0" foldMaxLimit="0.0">
-        <roundBaleWrapper baleIndex="0>10|1|9|0" wrapperIndex="0>10|0" wrapperRotAxis="2" wrappingTime="10">
-            <animations>
-                <moveToWrapper animName="moveBaleToWrapper" animSpeed="1" reverseAfterMove="true" />
-                <dropFromWrapper animName="dropBaleFromWrapper" animSpeed="1" />
-                <resetAfterDrop animName="resetWrapperAfterBaleDrop" animSpeed="1" />
-                <wrapBale animName="wrapBale" animSpeed="1" />
-            </animations>
-            <baleTypes>
-                <baleType fillType="grass_windrow" wrapperBaleFilename="bales/silage.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
-                <baleType fillType="chaff" wrapperBaleFilename="bales/silage.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
-            </baleTypes>
-            <wrapperAnimation>
-                <key time="0" baleRot="0 0 0" wrapperRot="0 0 0" />
-                <key time="0.38095" baleRot="0 0 150" wrapperRot="0 1440 0" />
-                <key time="1" baleRot="0 0 360" wrapperRot="0 3780 0" />
-            </wrapperAnimation>
-            <wrapNodes>
-                <!--  <wrapNode index="0>13" wrapVisibility="true" emptyVisibility="false" /><wrapNode index="0>10|0|4" wrapVisibility="false" emptyVisibility="true" /> -->
-                <wrapNode index="0>10|0|4" wrapVisibility="true" emptyVisibility="false" maxWrapperRot="576"/>
-            </wrapNodes>
-            <wrapAnimNodes>
-                <wrapAnimNode index="0>10|0|4" repeatWrapperRot="false">
-                    <key wrapperRot="0" trans="-0.601 0.234 -0.859" rot="0 1.996 0" scale="0.96 1 1" />
-                    <key wrapperRot="192" trans="-0.601 0.234 -0.859" rot="-10.513 -9.522 -10.681" scale="0.92 1 1" />
-                    <key wrapperRot="576" trans="-0.601 0.234 -0.859" rot="-48.03 -39.998 -25.09" scale="0.8 1 1" />
-                </wrapAnimNode>
-                <wrapAnimNode index="0>10|0|7|0" repeatWrapperRot="true">
-                    <key wrapperRot="0" trans="-0.319 0.289 -1.772" rot="0 0 0.681" />
-                    <key wrapperRot="7.7" trans="-0.41 0.29176 -1.89167" rot="0 3 0" />
-                    <key wrapperRot="15" trans="-0.219 0.315 -0.92274" rot="0 5 0" />
-                    <key wrapperRot="50" trans="-0.132 0.298 -1.304" rot="0 0 11" />
-                    <key wrapperRot="90" trans="-0.339 0.304 -1.788" rot="0 5 14" />
-                    <key wrapperRot="100" trans="-0.27 0.29577 -0.79305" rot="0 5 14" />
-                    <key wrapperRot="150" trans="-0.118 0.304 -1.446" rot="0 0 0" />
-                    <key wrapperRot="180" trans="-0.25741 0.315 -1.77852" rot="0 0 0" />
-                </wrapAnimNode>
-                <wrapAnimNode index="0>10|0|7|1" repeatWrapperRot="true">
-                    <key wrapperRot="0" trans="-0.319 -0.01 -1.845" rot="0 0 0" />
-                    <key wrapperRot="7.7" trans="-0.41 -0.03837 -1.93009" rot="0 3 0" />
-                    <key wrapperRot="15" trans="-0.21 -0.02 -0.88165" rot="0 5 0" />
-                    <key wrapperRot="50" trans="-0.084 -0.02 -1.279" rot="0 0 0" />
-                    <key wrapperRot="90" trans="-0.274 -0.02 -1.788" rot="0 0 0" />
-                    <key wrapperRot="100" trans="-0.201 -0.02 -0.82803" rot="0 0 0" />
-                    <key wrapperRot="150" trans="-0.096 -0.02 -1.474" rot="0 0 0" />
-                    <key wrapperRot="180" trans="-0.26671 0 -1.81928" rot="0 0 0" />
-                </wrapAnimNode>
-                <wrapAnimNode index="0>10|0|7|2" repeatWrapperRot="true">
-                    <key wrapperRot="0" trans="-0.319 -0.304 -1.772" rot="0 0 -0.681" />
-                    <key wrapperRot="7.7" trans="-0.41 -0.315 -1.87738" rot="0 3 0" />
-                    <key wrapperRot="15" trans="-0.213 -0.315 -0.92337" rot="0 5 0" />
-                    <key wrapperRot="50" trans="-0.132 -0.312 -1.314" rot="0 0 -11" />
-                    <key wrapperRot="90" trans="-0.337 -0.303 -1.788" rot="0 5 -14" />
-                    <key wrapperRot="100" trans="-0.27 -0.30422 -0.81614" rot="0 5 -14" />
-                    <key wrapperRot="150" trans="-0.118 -0.315 -1.446" rot="0 0 0" />
-                    <key wrapperRot="180" trans="-0.26585 -0.315 -1.77187" rot="0 0 0" />
-                </wrapAnimNode>
-            </wrapAnimNodes>
-        </roundBaleWrapper>
-    </wrapper>
+    <indoorHud>
+        <balePressure animName="balePressure" minValueAnim="0" maxValueAnim="5000" />
+    </indoorHud>
     <movingParts>
         <!--piston_scivoloUP -->
         <movingPart index="0>7|1|0" referencePoint="0>7|4|1|11" referenceFrame="0>7|4|1|11" isActiveDirty="true">
@@ -369,41 +324,41 @@
     <movingTools>
         <movingTool index="0>7" wheelIndices="5" />
         <!--timone -->
-        <movingTool index="0>20">
+        <movingTool index="0>20" playSound="true">
             <inputAttacherJoint value="true" />
         </movingTool>
     </movingTools>
     <speedRotatingParts>
         <speedRotatingPart index="0>15|8" radius="0.5" refNodeIndex="0" turnOnFadeTime="1" turnOffFadeTime="2" />
     </speedRotatingParts>
-    <supportsFillTriggers value="true" />
-    <fillLitersPerSecond>20</fillLitersPerSecond>
     <fillUnits>
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="24000" fillVolumeIndex="1" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="0" fillVolumeIndex="2" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="0" fillVolumeIndex="3" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips" capacity="4000" showOnHud="false" showInShop="false" />
-        <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="24000" fillVolumeIndex="1" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="4000" showOnHud="false" showInShop="false" />
+        <fillUnit unit="$l10n_unit_literShort" fillTypes="silageAdditive" capacity="200" showInShop="false"/>
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesNet" capacity="5" showOnHud="false" showInShop="false" />
+        <fillUnit unit="$l10n_unit_pieces" fillTypes="balesFoil" capacity="10" showOnHud="false" showInShop="false" />
+        <!--<fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="2" /><fillUnit unit="$l10n_unit_literShort" fillTypes="chaff grass_windrow dryGrass_windrow straw woodChips manure" capacity="0" fillVolumeIndex="3" />-->
     </fillUnits>
     <fillVolumes>
         <volumes>
             <volume index="0>7|8" fillUnitIndex="1" />
-            <volume index="0>7|4|0|12" fillUnitIndex="2" />
-            <volume index="0>7|4|1|14" fillUnitIndex="3" />
+            <!--<volume index="0>7|4|0|12" fillUnitIndex="2" /><volume index="0>7|4|1|14" fillUnitIndex="3" />-->
         </volumes>
         <loadInfos>
             <loadInfo fillVolumeIndex="1">
                 <node index="0>7|11|0" width="1.0" length="0.5" />
                 <node index="0>7|11|1" width="1.0" length="0.5" />
+                <node index="0>7|12|2" width="1.0" length="3.6" minHeight="1.9" priority="2" />
+                <node index="0>7|12|3" width="1.0" length="3.6" minHeight="1.9" priority="2" />
             </loadInfo>
         </loadInfos>
         <unloadInfos>
             <unloadInfo fillVolumeIndex="1">
                 <!-- left -->
-                <node index="0>7|12|0" width="1.0" length="0.5" minHeight="1.9" priority="2" />
-                <node index="0>7|12|1" width="1.0" length="0.5" minHeight="1.9" priority="2" />
-                <node index="0>7|12|2" width="1.0" length="3.6" />
-                <node index="0>7|12|3" width="1.0" length="3.6" />
+                <node index="0>7|12|0" width="1.0" length="0.5" />
+                <node index="0>7|12|1" width="1.0" length="0.5" />
+                <node index="0>7|12|2" width="1.0" length="3.6" minHeight="1.9" priority="2" />
+                <node index="0>7|12|3" width="1.0" length="3.6" minHeight="1.9" priority="2" />
             </unloadInfo>
         </unloadInfos>
     </fillVolumes>
@@ -411,34 +366,46 @@
     <exactFillRootNode index="0>7|9" />
     <fillMassNode updateFillLevelMass="false" />
     <allowFillFromAir value="true"/>
-    <LTMaster>
+    <supportsFillTriggers value="true" />
+    <LTMaster unloadInfoIndex="1" loadInfoIndex="1">
         <triggers>
-            <triggerLeft index="0>27|0|0" radius="2" />
+            <triggerLeft index="0>27|0|0" radius="3" />
             <triggerRight index="0>27|0|1" radius="3"/>
-            <triggerLadder index="0>27|1" radius="3" />
-            <triggerBaleSlide index="0>27|2" radius="2" />
-            <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="2" leftFillUnitIndex="3" />
+            <triggerLadder index="0>27|1" radius="2" />
+            <triggerBaleSlide index="0>27|2" radius="0" />
+            <tipTrigger index="0>7|10" fillUnitIndex="1" rightFillUnitIndex="4" leftFillUnitIndex="5" />
         </triggers>
         <hoods>
-            <openingSound file="sounds/hood-opening.wav" />
-            <closingSound file="sounds/hood-closing.wav" />
+            <openingSound file="sounds/hoodOpening.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
+            <closingSound file="sounds/hoodClosing.wav" pitchOffset="1.00" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
             <leftDoor animationName="leftDoor" />
             <rightDoor animationName="rightDoor" />
         </hoods>
         <supports animationName="moveSupport2">
-            <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="0.7" volume="1.0" indoorVolumeFactor="0.85" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="1.00" volume="0.8" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="5" radius="20" />
         </supports>
         <folding animationName="folding2">
-            <sound file="$data/sounds/cultivatorHydraulic.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
+            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="25" />
         </folding>
         <ladder animationName="ladder">
-            <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
+            <sound file="sounds/ladderSound.wav" pitchOffset="1.00" volume="1" volume3D="1.1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
         </ladder>
         <baleSlide animationName="baleSlide">
-            <sound file="$data/sounds/ploughTurnSound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.75" />
+            <sound file="sounds/hydraulic1.wav" pitchOffset="0.80" volume="0.8" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="10" radius="25" />
         </baleSlide>
         <sideUnload animationName="unloadSide" maxAmount="0" />
-        <conveyor overloadingCapacity="250">
+        <greasePump delay="120" animationName="greasePump">
+            <sound file="sounds/greasePump.wav" pitchOffset="0.90" volume="1.5" volume3D="1.5" indoorVolumeFactor="0.3" innerRadius="15" radius="25" />
+        </greasePump>
+        <turnedOnRotationNodes>
+            <rotatingPart index="0>17|1|1|2" type="LTMaster.turnedOn" rotSpeed="-200" rotAxis="2" turnOnFadeTime="10" turnOffFadeTime="5" />
+            <rotatingPart index="0>17|2|3" type="LTMaster.turnedOn" rotSpeed="-100" rotAxis="2" turnOnFadeTime="20" turnOffFadeTime="1" />
+            <rotatingPart index="0>20|0|3|0|0" type="LTMaster.turnedOn" rotSpeed="540" rotAxis="3" />
+            <!-- ventola timone -->
+            <rotatingPart index="0>20|0|6|0" type="LTMaster.turnedOn" rotSpeed="-1200" rotAxis="2" turnOnFadeTime="60" turnOffFadeTime="60" />
+        </turnedOnRotationNodes>
+        <conveyor overloadingCapacity="200">
+            <sound file="$data/maps/sounds/conveyorBelt.wav" pitchOffset="0.75" volume="0.55" volume3D="0.55" indoorVolumeFactor="0.5" innerRadius="20" radius="40" />
             <uvScrollParts>
                 <!--scivolo Superiore-->
                 <uvScrollPart index="0>7|3|0" shaderParameterName="offsetUV" scrollSpeed="1 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="7" />
@@ -468,14 +435,71 @@
                 <emitterShape node="0>7|13" particleType="UNLOADING" emitCountScale="10" lifespan="0.2" />
             </augerParticleSystems>
         </conveyor>
-        <baler fillUnitIndex="4" knottingTime="3">
-            <balerSound file="$data/sounds/rollBelt150Sound.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.50" indoorLowpassGain="0.75" />
-            <balerBaleEject file="$data/sounds/rollBelt150Eject.wav" pitchOffset="1.00" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
-            <balerDoor file="$data/sounds/rollBelt150Door.wav" pitchOffset="0.98" volume="1.00" indoorVolumeFactor="0.60" indoorLowpassGain="0.75" />
-            <knottingSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="1.00" volume="0.45" indoorVolumeFactor="1.35" indoorLowpassGain="0.95" />
+        <wrapper>
+            <mustWrappedBales fillTypes="silage chaff woodChips manure" />
+            <balesFoil fillUnitIndex="5" foilRollMinScale="0.3" leftFoilRollIndex="0>10|0|1" rightFoilRollIndex="0>10|0|2" leftFoilIndex="0>10|0|5" rightFoilIndex="0>10|0|6" foilRollUses="70" fillLitersPerSecond="1">
+                <foilNode index="0>15|1|0" order="1" />
+                <foilNode index="0>15|1|1" order="2" />
+                <foilNode index="0>15|1|2" order="3" />
+                <foilNode index="0>15|1|3" order="4" />
+                <foilNode index="0>15|1|4" order="5" />
+                <foilNode index="0>15|1|5" order="6" />
+                <foilNode index="0>15|1|6" order="7" />
+                <foilNode index="0>15|1|7" order="8" />
+                <foilNode index="0>15|1|8" order="9" />
+                <foilNode index="0>15|1|9" order="10" />
+                <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15" />
+            </balesFoil>
+            <outOfFoilSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.75" volume="0.5" volume3D="0.5" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
+            <wrapperStartSound file="sounds/baleWrappingStart.wav" pitchOffset="1.00" volume="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <wrapperStopSound file="sounds/baleWrappingStop.wav" pitchOffset="1.00" volume="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <wrapperSound file="$data/sounds/bale_wrapping.wav" pitchOffset="1.00" volume="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="50" />
+            <baleGrabber index="0>10|1|3|0" />
+            <roundBaleWrapper baleIndex="0>10|1|9|0" wrapperIndex="0>10|0" wrapperRotAxis="2" wrappingTime="15">
+                <animations>
+                    <moveToWrapper animName="moveBaleToWrapper" animSpeed="1" reverseAfterMove="true" />
+                    <dropFromWrapper animName="dropBaleFromWrapper" animSpeed="1" />
+                    <resetAfterDrop animName="resetWrapperAfterBaleDrop" animSpeed="1" />
+                    <wrapBale animName="wrapBale" animSpeed="1" />
+                </animations>
+                <baleTypes>
+                    <baleType fillType="grass_windrow" wrapperBaleFilename="bales/roundbaleGrassSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
+                    <baleType fillType="chaff" wrapperBaleFilename="bales/roundbaleChaffSilage_w112_d130.i3d" minBaleDiameter="1.1" maxBaleDiameter="1.3" minBaleWidth="1.1" maxBaleWidth="1.3" />
+                </baleTypes>
+                <wrapperAnimation>
+                    <key time="0" baleRot="0 0 0" wrapperRot="0 0 0" />
+                    <key time="0.085" baleRot="0 0 0" wrapperRot="0 -315 0" />
+                    <key time="0.114" baleRot="0 0 45" wrapperRot="0 -405 0" />
+                    <key time="0.178" baleRot="0 0 45" wrapperRot="0 -675 0" />
+                    <key time="0.207" baleRot="0 0 90" wrapperRot="0 -765 0" />
+                    <key time="0.271" baleRot="0 0 90" wrapperRot="0 -1035 0" />
+                    <key time="0.3" baleRot="0 0 135" wrapperRot="0 -1125 0" />
+                    <key time="0.366" baleRot="0 0 135" wrapperRot="0 -1395 0" />
+                    <key time="1" baleRot="0 0 540" wrapperRot="0 -4320 0" />
+                </wrapperAnimation>
+                <wrapNodes>
+                    <wrapNode index="0>10|0|4" wrapVisibility="true" emptyVisibility="false" maxWrapperRot="0"/>
+                </wrapNodes>
+            </roundBaleWrapper>
+        </wrapper>
+        <baler fillUnitIndex="2" knottingTime="5">
+            <balerSound file="sounds/balerSound.wav" pitchOffset="0.90" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
+            <balerIdleSound file="sounds/balerSoundIdle.wav" pitchOffset="0.90" volume="1.4" volume3D="1.4" indoorVolumeFactor="0.5" innerRadius="25" radius="75" />
+            <balerBaleEject file="sounds/baleEject.wav" pitchOffset="1.00" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <balerDoor file="sounds/balerDoor.wav" pitchOffset="1.00" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="10" radius="50" />
+            <knottingSound file="sounds/balerKnotting.wav" pitchOffset="0.90" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
+            <outOfNetSound file="$data/sounds/rollBelt150Alarm.wav" pitchOffset="0.50" volume="0.5" volume3D="0.5" indoorVolumeFactor="0.5" innerRadius="15" radius="75" />
             <baleAnimation node="0>23|0" scaleNode="0>23" baleNode="0>23|0" unloadAnimationName="unloadBale" closeAnimationName="closeDoor" />
             <balingAnimation name="" />
             <knottingAnimation name="" />
+            <knottingScrollParts>
+                <!--rotolo-->
+                <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="1.5" turnOffFadeTime="0" />
+            </knottingScrollParts>
+            <knottingRotatingParts>
+                <!--rotolo-->
+                <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="1.5" turnOffFadeTime="0" />
+            </knottingRotatingParts>
             <baleTypes>
                 <baleType width="1.12" diameter="1.3" />
             </baleTypes>
@@ -488,44 +512,48 @@
             </baleVolumes>
             <uvScrollParts>
                 <!--camera-->
-                <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|6" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|5" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|6" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|7" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera Ssecondaria-->
-                <uvScrollPart index="0>12|8|4" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|7" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|8" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|9" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>12|8|10" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>12|8|4" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|7" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|8" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|9" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>12|8|10" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera terza-->
-                <uvScrollPart index="0>13|0|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>13|0|2" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <uvScrollPart index="0>13|0|1" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <!--rotolo-->
-                <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2 0" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <uvScrollPart index="0>13|0|0" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>13|0|2" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <uvScrollPart index="0>13|0|1" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="3" turnOffFadeTime="1" />
             </uvScrollParts>
             <rotatingParts>
                 <!--camera-->
-                <rotatingPart index="0>12|1" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|3" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|4" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|1" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|3" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|4" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera secondaria-->
-                <rotatingPart index="0>12|8|0" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|8|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>12|8|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>12|8|0" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|8|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|8|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
                 <!--camera terza-->
-                <rotatingPart index="0>13|0|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|4" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|6" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|7" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|8" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <rotatingPart index="0>13|0|9" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
-                <!--rotolo-->
-                <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="5" />
+                <rotatingPart index="0>13|0|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|4" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|6" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|7" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|8" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|9" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
             </rotatingParts>
+            <balesNet fillUnitIndex="4" netRollMinScale="0.2" netRollIndex="0>15|10|0|0" netUVIndex="0>15|11|0" netRollUses="55" fillLitersPerSecond="1">
+                <netNode index="0>15|2|4" order="1" />
+                <netNode index="0>15|2|3" order="2" />
+                <netNode index="0>15|2|2" order="3" />
+                <netNode index="0>15|2|1" order="4" />
+                <netNode index="0>15|2|0" order="5" />
+                <fillSound file="$data/maps/sounds/flagFluttering.wav" pitchOffset="1.0" volume="1.0" volume3D="1.0" innerRadius="5" radius="15"/>
+            </balesNet>
         </baler>
-        <silageAdditive fillUnitIndex="5" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012">
+        <silageAdditive fillUnitIndex="3" fillTypes="chaff grass_windrow" gain="1.1" usage="0.0012" fillLitersPerSecond="20">
             <effects>
                 <effectNode effectNode="0>31|0" materialType="SPRAYER" />
                 <effectNode effectNode="0>31|1" materialType="SPRAYER" />
@@ -533,12 +561,61 @@
                 <effectNode effectNode="0>31|3" materialType="SPRAYER" />
                 <effectNode effectNode="0>31|4" materialType="SPRAYER" />
                 <effectNode effectNode="0>31|5" materialType="SPRAYER" />
+                <effectNode effectNode="0>31|6" materialType="SPRAYER" />
             </effects>
+            <fillSound file="$data/maps/sounds/refuel.wav" pitchOffset="1.00" volume="1" volume3D="1" indoorVolumeFactor="0.5" innerRadius="5" radius="15" />
         </silageAdditive>
+        <gauge>
+            <part index="0>14|0|0|0" fadeIn="5" fadeOut="2" axis="x" startRot="0" endRot="-110" condition="turnedOn" />
+            <part index="0>14|0|0|2" fadeIn="4" fadeOut="1" axis="x" startRot="0" endRot="-250" condition="isKnotting" />
+            <part index="0>14|0|0|3" fadeIn="1.5" fadeOut="0.5" axis="x" startRot="0" endRot="-70" condition="baleDoorOpening"/>
+            <part index="0>14|0|0|4" fadeIn="1" fadeOut="0.5" axis="x" startRot="0" endRot="-40" condition="baleDoorClosing" />
+            <part index="0>14|0|0|6" fade="2" axis="x" startRot="0" endRot="-60" condition="turnedOn" />
+            <part index="0>14|0|2" fadeIn="2" fadeOut="1" axis="x" startRot="0" endRot="120" condition="conveyorOn" />
+            <part index="0>14|0|1" fade="1" axis="x" startRot="110" endRot="0" condition="wrapperEnabled" />
+        </gauge>
     </LTMaster>
-    <washable dirtDuration="1" washDuration="1" workMultiplier="4" />
+    <silageAdditiveSystemConfigurations>
+        <silageAdditiveSystemConfiguration name="$l10n_ui_no" price="0">
+            <objectChange node="0>30" visibilityActive="false" />
+        </silageAdditiveSystemConfiguration>
+        <silageAdditiveSystemConfiguration name="$l10n_ui_yes" price="22100" dailyUpkeep="80" icon="hud/configurations/config_silageAdditive.dds">
+            <objectChange node="0>30" visibilityActive="true" visibilityInactive="false"/>
+        </silageAdditiveSystemConfiguration>
+    </silageAdditiveSystemConfigurations>
+    <conveyorFlowConfigurations>
+        <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_200" price="0" icon="hud/configurations/config_conveyorFlow.dds" />
+        <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_300" price="1800" dailyUpkeep="5" icon="hud/configurations/config_conveyorFlow.dds" />
+        <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_400" price="5400" dailyUpkeep="15" icon="hud/configurations/config_conveyorFlow.dds" />
+        <conveyorFlowConfiguration name="$l10n_gltm_config_conveyor_500" price="16200" dailyUpkeep="45" icon="hud/configurations/config_conveyorFlow.dds" />
+    </conveyorFlowConfigurations>
+    <dynamicChamberConfigurations>
+        <dynamicChamberConfiguration name="$l10n_ui_no" price="0" />
+        <dynamicChamberConfiguration name="$l10n_ui_yes" price="15600" dailyUpkeep="40" icon="hud/configurations/config_dynamicChamber.dds" />
+    </dynamicChamberConfigurations>
+    <monitorSystemConfigurations>
+        <monitorSystemConfiguration name="$l10n_ui_no" price="0">
+            <objectChange node="0>14|1" visibilityActive="false" />
+        </monitorSystemConfiguration>
+        <monitorSystemConfiguration name="$l10n_ui_yes" price="4900" dailyUpkeep="25" icon="hud/configurations/config_monitorSystem.dds">
+            <objectChange node="0>14|1" visibilityActive="true" visibilityInactive="false"/>
+        </monitorSystemConfiguration>
+    </monitorSystemConfigurations>
+    <remoteMonitorSystemConfigurations>
+        <remoteMonitorSystemConfiguration name="$l10n_ui_no" price="0">
+            <objectChange node="0>17|0" visibilityActive="false" />
+        </remoteMonitorSystemConfiguration >
+        <remoteMonitorSystemConfiguration name="$l10n_ui_yes" price="7300" dailyUpkeep="35" icon="hud/configurations/config_remoteMonitorSystem.dds">
+            <objectChange node="0>17|0" visibilityActive="true" visibilityInactive="false"/>
+        </remoteMonitorSystemConfiguration>
+    </remoteMonitorSystemConfigurations>
+    <rimColorConfigurations>
+        <rimColorConfiguration color="0.0000 0.0000 0.3875 1" />
+        <rimColorConfiguration color="0.8169 0.3119 0.0010 1" price="1800" icon="$dataS2/menu/hud/configurations/config_rimColor.png" />
+    </rimColorConfigurations>
+    <washable dirtDuration="120" washDuration="5" workMultiplier="5" fieldMultiplier="3" />
     <components count="1">
-        <component1 centerOfMass="0 0.6 0.2" solverIterationCount="10" />
+        <component1 centerOfMass="0 1.9 0.3" solverIterationCount="7" />
     </components>
     <schemaOverlay file="$dataS2/menu/schemas/implementSchema.png" fileSelected="$dataS2/menu/schemas/implementSchemaSelected.png" fileTurnedOn="$dataS2/menu/schemas/implementSchemaTurnedOn.png" fileSelectedTurnedOn="$dataS2/menu/schemas/implementSchemaSelectedTurnedOn.png" width="0.5" height="0.5" attacherJointPosition="0 0" />
 </vehicle>

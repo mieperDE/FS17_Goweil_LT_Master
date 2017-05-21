@@ -4,10 +4,10 @@
         <configuration index="basic" >
             <tire filename="wheels/wheels.i3d" indexLeft="0|0" indexRight="1|0" />
             <innerRim filename="wheels/wheels.i3d" indexLeft="0|1" indexRight="1|1" widthAndDiam="40 39.3" />
+			<hub filename="wheels/wheels.i3d" indexLeft="0|2" indexRight="1|2" />
         </configuration>
     </configurations>
-    <size radius="0.578" width="0.57" maxDeformation="0.08" />
+    <size radius="0.581" width="0.57" maxDeformation="0.04" />
     <physics mass="0.266" frictionScale="2" maxLongStiffness="11" maxLatStiffness="130" maxLatStiffnessLoad="2" />
     <tire type="mud" atlasIndex="1" />
 </wheel>
-
