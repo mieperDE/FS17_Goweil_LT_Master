@@ -6,11 +6,11 @@
   </Asset>
 
   <Files>
-    <File fileId="5" filename="../Texture/computer2.dds" relativePath="true"/>
-    <File fileId="6" filename="../Texture/computer_normal.dds" relativePath="true"/>
-    <File fileId="2" filename="../Texture/woolPallet_diffuse.png" relativePath="true"/>
-    <File fileId="3" filename="../Texture/woolPallet_normal.png" relativePath="true"/>
-    <File fileId="4" filename="../Texture/woolPallet_specular.png" relativePath="true"/>
+    <File fileId="5" filename="../textures/computer2.dds" relativePath="true"/>
+    <File fileId="6" filename="../textures/computer_normal.dds" relativePath="true"/>
+    <File fileId="2" filename="textures/woolPallet_diffuse.png" relativePath="true"/>
+    <File fileId="3" filename="textures/woolPallet_normal.png" relativePath="true"/>
+    <File fileId="4" filename="textures/woolPallet_specular.png" relativePath="true"/>
   </Files>
 
 

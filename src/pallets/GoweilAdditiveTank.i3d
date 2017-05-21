@@ -6,9 +6,9 @@
   </Asset>
 
   <Files>
-    <File fileId="2" filename="../Texture/GoweilAdditiveTank_diffuse.png" relativePath="true"/>
-    <File fileId="3" filename="../Texture/GoweilAdditiveTank_normal.png" relativePath="true"/>
-    <File fileId="4" filename="../Texture/GoweilAdditiveTank_specular.png" relativePath="true"/>
+    <File fileId="2" filename="textures/GoweilAdditiveTank_diffuse.png" relativePath="true"/>
+    <File fileId="3" filename="textures/GoweilAdditiveTank_normal.png" relativePath="true"/>
+    <File fileId="4" filename="textures/GoweilAdditiveTank_specular.png" relativePath="true"/>
   </Files>
 
 
