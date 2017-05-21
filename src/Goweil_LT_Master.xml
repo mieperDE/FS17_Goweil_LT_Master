@@ -393,7 +393,7 @@
             <sound file="sounds/hydraulic1.wav" pitchOffset="1.00" volume="0.8" volume3D="0.7" indoorVolumeFactor="0.5" innerRadius="5" radius="20" />
         </supports>
         <folding animationName="folding2">
-            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="0.8" volume3D="0.8" indoorVolumeFactor="0.5" innerRadius="15" radius="25" />
+            <sound file="sounds/hydraulic3.wav" pitchOffset="0.75" volume="0.9" volume3D="0.9" indoorVolumeFactor="0.5" innerRadius="15" radius="25" />
         </folding>
         <ladder animationName="ladder">
             <sound file="sounds/ladderSound.wav" pitchOffset="1.00" volume="1" volume3D="1.1" indoorVolumeFactor="0.5" innerRadius="5" radius="25" />
