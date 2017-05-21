@@ -163,8 +163,6 @@ function LTMaster:loadWrapper(savegame)
     self.LTMaster.wrapper.currentWrapper = {};
     self.LTMaster.wrapper.currentWrapper = self.roundBaleWrapper;
     self:updateWrapNodes(false, true, 0);
-    self.LTMaster.wrapper.currentWrapper = self.squareBaleWrapper;
-    self:updateWrapNodes(false, true, 0);
     self.LTMaster.wrapper.baleGrabber = {};
     self.LTMaster.wrapper.baleGrabber.grabNode = Utils.indexToObject(self.components, getXMLString(self.xmlFile, "vehicle.LTMaster.wrapper.baleGrabber#index"));
     self.LTMaster.wrapper.baleGrabber.origTrans = {getTranslation(self.LTMaster.wrapper.baleGrabber.grabNode)};
@@ -291,7 +289,7 @@ function LTMaster:readStreamWrapper(streamId, connection)
             elseif wrapperState ~= BaleWrapper.STATE_WRAPPER_RESETTING_PLATFORM then
                 local attachNode = self.LTMaster.wrapper.currentWrapper.baleNode;
                 self.LTMaster.wrapper.baleToMount = {serverId = baleServerId, linkNode = attachNode, trans = {0, 0, 0}, rot = {0, 0, 0}};
-                self:updateWrapNodes(true, false, 0);
+                self:updateWrapNodes(true, true, 0);
                 self.LTMaster.wrapper.currentWrapper.currentBale = baleServerId;
                 if wrapperState == BaleWrapper.STATE_WRAPPER_WRAPPING_BALE then
                     local wrapperTime = streamReadFloat32(streamId);
@@ -632,7 +630,7 @@ function LTMaster:doStateChange(id, nearestBaleServerId)
         self.LTMaster.wrapper.baleWrapperState = BaleWrapper.STATE_MOVING_GRABBER_TO_WORK;
     elseif id == BaleWrapper.CHANGE_WRAPPING_START then
         self.LTMaster.wrapper.baleWrapperState = BaleWrapper.STATE_WRAPPER_WRAPPING_BALE;
-        if self.isClient and self:getIsActiveForSound() then
+        if self.isClient then
             Sound3DUtil:playSample(self.LTMaster.wrapper.currentWrapperStartSound, 1, 0, nil, self:getIsActiveForSound());
         end
         if self.LTMaster.wrapper.currentWrapper.animations["wrapBale"].animName ~= nil then
@@ -651,7 +649,7 @@ function LTMaster:doStateChange(id, nearestBaleServerId)
             self.LTMaster.wrapper.baleWrapperState = BaleWrapper.STATE_WRAPPER_FINSIHED;
         end
     elseif id == BaleWrapper.CHANGE_WRAPPER_START_DROP_BALE then
-        self:updateWrapNodes(false, false, 0);
+        self:updateWrapNodes(false, true, 0);
         if self.LTMaster.wrapper.currentWrapper.animations["dropFromWrapper"].animName ~= nil then
             self:playAnimation(self.LTMaster.wrapper.currentWrapper.animations["dropFromWrapper"].animName, self.LTMaster.wrapper.currentWrapper.animations["dropFromWrapper"].animSpeed, nil, true);
         end
