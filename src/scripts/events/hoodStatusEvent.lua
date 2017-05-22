@@ -23,7 +23,7 @@ end
 
 function HoodStatusEvent:writeStream(streamId, connection)
     streamWriteUInt8(streamId, self.status);
-    streamWriteString(streamId, hood);
+    streamWriteString(streamId, self.hood);
     writeNetworkNodeObject(streamId, self.vehicle);
 end
 

@@ -594,13 +594,15 @@ function LTMaster:dropBale(baleIndex)
     g_currentMission.missionStats:updateStats("baleCount", 1);
 end
 
-function LTMaster:setBaleVolume(baleVolumesIndex)
+function LTMaster:setBaleVolume(baleVolumesIndex, noEventSend)
     if self.isServer then
         self.LTMaster.baler.baleVolumesIndex = baleVolumesIndex;
         local liters = self.LTMaster.baler.baleVolumes[self.LTMaster.baler.baleVolumesIndex];
         self:setUnitCapacity(self.LTMaster.baler.fillUnitIndex, liters);
     else
-        g_client:getServerConnection():sendEvent(BalerChangeVolumeEvent:new(baleVolumesIndex, self));
+        if noEventSend == nil or not noEventSend then
+            g_client:getServerConnection():sendEvent(BalerChangeVolumeEvent:new(baleVolumesIndex, self));
+        end
     end
 end
 

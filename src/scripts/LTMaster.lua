@@ -5,7 +5,7 @@
 --
 --18/04/2017
 LTMaster = {};
-LTMaster.debug = true
+LTMaster.debug = true;
 
 LTMaster.g_i18n = {};
 LTMaster.g_i18n["shop_messagePurchaseReady"] = g_i18n:getText("shop_messagePurchaseReady");
@@ -313,7 +313,7 @@ function LTMaster:finalizeLoad()
     self:updateFoldingStatus(self.LTMaster.folding.status, true);
     self:updateLadderStatus(self.LTMaster.ladder.status, true);
     self:updateBaleSlideStatus(self.LTMaster.baleSlide.status, true);
-    self:setBaleVolume(self.LTMaster.baler.baleVolumesIndex);
+    self:setBaleVolume(self.LTMaster.baler.baleVolumesIndex, true);
 end
 
 function LTMaster:delete()
