@@ -603,7 +603,6 @@ function LTMaster:doStateChange(id, nearestBaleServerId)
         if bale ~= nil then
             local x, y, z = localToLocal(bale.nodeId, getParent(self.LTMaster.wrapper.baleGrabber.grabNode), 0, 0, 0);
             setTranslation(self.LTMaster.wrapper.baleGrabber.grabNode, x, y, z);
-            bale:mount(self, self.LTMaster.wrapper.baleGrabber.grabNode, 0, 0, 0, 0, 0, 0);
             self.LTMaster.wrapper.baleToMount = nil;
             self:playMoveToWrapper(bale);
         else
