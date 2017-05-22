@@ -287,10 +287,14 @@
             <part node="0>14|0|6" startTime="15" duration="1" startRot="0 0 -18" endRot="0 0 0" />
             <part node="0>14|0|6|0" startTime="0" duration="0.5" startRot="0 0 0" endRot="0 0 18" />
             <part node="0>14|0|6|0" startTime="15" duration="1" startRot="0 0 18" endRot="0 0 0" />
-            <part node="0>10|2|0|0|0" startTime="13.3" duration="0.7" startRot="0 0 0" endRot="60 0 0" startTrans="0 -0.015 0.462" endTrans="0 0.411 0.682" />
-            <part node="0>10|2|0|0|0" startTime="14.5" duration="0.35" startRot="60 0 0" endRot="0 0 0" startTrans="0 0.411 0.682" endTrans="0 -0.015 0.462" />
-            <part node="0>10|2|1|0|0" startTime="13.3" duration="0.7" startRot="0 0 0" endRot="-60 0 0" startTrans="0 -0.015 0.462" endTrans="0 0.711 0.078" />
-            <part node="0>10|2|1|0|0" startTime="14.5" duration="0.35" startRot="-60 0 0" endRot="0 0 0" startTrans="0 0.711 0.078" endTrans="0 -0.015 0.462" />
+            <part node="0>10|2|0|0" startTime="13.3" duration="0.7" startRot="0 0 0" endRot="-69 0 0" />
+            <part node="0>10|2|0|0|0" startTime="13.3" duration="0.7" startRot="0 0 0" endRot="122 0 0" />
+            <part node="0>10|2|0|0" startTime="14.7" duration="0.5" startRot="-69 0 0" endRot="0 0 0" />
+            <part node="0>10|2|0|0|0" startTime="14.7" duration="0.5" startRot="122 0 0" endRot="0 0 0" />
+            <part node="0>10|2|1|0|0" startTime="13.3" duration="0.7" startRot="0 0 0" endRot="-69 0 0" />
+            <part node="0>10|2|1|0|0|0" startTime="13.3" duration="0.7" startRot="0 0 0" endRot="122 0 0" />
+            <part node="0>10|2|1|0|0" startTime="14.7" duration="0.5" startRot="-69 0 0" endRot="0 0 0" />
+            <part node="0>10|2|1|0|0|0" startTime="14.7" duration="0.5" startRot="122 0 0" endRot="0 0 0" />
             <part node="0>14|0|3" startTime="13.5" duration="0.25" startRot="0 0 0" endRot="0 0 18" />
             <part node="0>14|0|3" startTime="14.25" duration="0.5" startRot="0 0 18" endRot="0 0 -18" />
             <part node="0>14|0|3" startTime="15.5" duration="0.25" startRot="0 0 -18" endRot="0 0 0" />
@@ -520,12 +524,12 @@
                     <key time="0.3" baleRot="0 0 135" wrapperRot="0 -1125 0" />
                     <key time="0.366" baleRot="0 0 135" wrapperRot="0 -1395 0" />
                     <key time="0.8" baleRot="0 0 500" wrapperRot="0 -3150 0" />
-                    <key time="0.85" baleRot="0 0 527" wrapperRot="0 -3360 0" />
+                    <key time="0.85" baleRot="0 0 527" wrapperRot="0 -3340 0" />
                     <key time="0.9" baleRot="0 0 540" wrapperRot="0 -3465 0" />
                     <key time="0.925" baleRot="0 0 540" wrapperRot="0 -3525 0" />
                     <key time="0.95" baleRot="0 0 540" wrapperRot="0 -3555 0" />
-                    <key time="0.975" baleRot="0 0 540" wrapperRot="0 -3585 0" />
-                    <key time="1" baleRot="0 0 540" wrapperRot="0 -3600 0" />
+                    <key time="0.965" baleRot="0 0 540" wrapperRot="0 -3585 0" />
+                    <key time="0.98" baleRot="0 0 540" wrapperRot="0 -3600 0" />
                 </wrapperAnimation>
                 <wrapNodes>
                     <wrapNode index="0>10|0|1|1" wrapVisibility="true" emptyVisibility="false" />
