@@ -806,3 +806,10 @@ function LTMaster:getIsPowerTakeoffActive(superFunc)
     end
     return result;
 end
+
+function LTMaster:onAttach(attacherVehicle, implement)
+    local isAllowed, motorOff = PowerConsumer.getIsTurnedOnAllowed(self, nil, true);
+    if not isAllowed then
+        g_currentMission:showBlinkingWarning(self.powerConsumer.turnOnNotAllowedWarning, 2000);
+    end
+end
