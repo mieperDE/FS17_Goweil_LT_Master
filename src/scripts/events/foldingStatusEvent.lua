@@ -13,7 +13,7 @@ function FoldingStatusEvent:emptyNew()
     return self;
 end
 
-function FoldingStatusEvent:new(status, vehicle)
+function FoldingStatusEvent:new(vehicle, status)
     local self = FoldingStatusEvent:emptyNew();
     self.status = status;
     self.vehicle = vehicle;
@@ -32,5 +32,11 @@ function FoldingStatusEvent:readStream(streamId, connection)
 end
 
 function FoldingStatusEvent:run(connection)
-    self.vehicle.LTMaster.folding.status = self.status;
+    if not connection:getIsServer() then
+        LTMaster.print("[SERVER] -> self.vehicle.LTMaster.folding.status = self.status:%s", self.status);
+        LTMaster.updateFoldingStatus(self.vehicle, self.status);
+    else
+        LTMaster.print("[CLIENT] -> self.vehicle.LTMaster.folding.status = self.status:%s", self.status);
+        LTMaster.eventUpdateFoldingStatus(self.vehicle, self.status);
+    end
 end

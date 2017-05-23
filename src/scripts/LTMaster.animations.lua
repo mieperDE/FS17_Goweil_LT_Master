@@ -129,138 +129,245 @@ end
 
 function LTMaster:updateHoodStatus(hood, newStatus, noEventSend)
     local status = newStatus or hood.status;
-    if not self.isServer and (noEventSend == nil or not noEventSend) then
-        g_client:getServerConnection():sendEvent(HoodStatusEvent:new(status, hood.name, self));
-    end
-    if self.isServer then
+    if (noEventSend == nil or not noEventSend) then
+        if self.isServer then
+            LTMaster.eventUpdateHoodStatus(self, hood.name, status);
+            g_server:broadcastEvent(HoodStatusEvent:new(self, hood.name, status), false);
+        else
+            g_client:getServerConnection():sendEvent(HoodStatusEvent:new(self, hood.name, status));
+        end
+    else
         hood.status = status;
     end
-    if status == LTMaster.STATUS_OC_OPEN then
-        self:playAnimation(hood.animation, math.huge, nil, noEventSend);
+    if self.isServer or noEventSend then
+        if status == LTMaster.STATUS_OC_OPEN then
+            self:playAnimation(hood.animation, math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_OC_OPENING then
+            self:playAnimation(hood.animation, 1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_OPEN);
+            end
+        end
+        if status == LTMaster.STATUS_OC_CLOSED then
+            self:playAnimation(hood.animation, -math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_OC_CLOSING then
+            self:playAnimation(hood.animation, -1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_CLOSED);
+            end
+        end
     end
-    if status == LTMaster.STATUS_OC_OPENING then
+end
+
+function LTMaster:eventUpdateHoodStatus(hood, newStatus)
+    self.LTMaster.hoods[hood].status = newStatus;
+    if newStatus == LTMaster.STATUS_OC_OPENING then
         Sound3DUtil:playSample(self.LTMaster.hoods.openingSound, 1, 0, nil);
-        self:playAnimation(hood.animation, 1, nil, noEventSend);
-        self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_OPEN);
     end
-    if status == LTMaster.STATUS_OC_CLOSED then
-        self:playAnimation(hood.animation, -math.huge, nil, noEventSend);
-    end
-    if status == LTMaster.STATUS_OC_CLOSING then
+    if newStatus == LTMaster.STATUS_OC_CLOSING then
         Sound3DUtil:playSample(self.LTMaster.hoods.closingSound, 1, 0, nil);
-        self:playAnimation(hood.animation, -1, nil, noEventSend);
-        self.LTMaster.hoods.delayedUpdateHoodStatus:call(self:getAnimationDuration(hood.animation), hood, LTMaster.STATUS_OC_CLOSED);
     end
 end
 
 function LTMaster:updateSupportsStatus(newStatus, noEventSend)
     local status = newStatus or self.LTMaster.supports.status;
-    if not self.isServer and (noEventSend == nil or not noEventSend) then
-        g_client:getServerConnection():sendEvent(SupportsStatusEvent:new(status, self));
-    end
-    if self.isServer then
+    if (noEventSend == nil or not noEventSend) then
+        if self.isServer then
+            LTMaster.eventUpdateSupportsStatus(self, status);
+            g_server:broadcastEvent(SupportsStatusEvent:new(self, status), false);
+        else
+            g_client:getServerConnection():sendEvent(SupportsStatusEvent:new(self, status));
+        end
+    else
         self.LTMaster.supports.status = status;
     end
-    if status == LTMaster.STATUS_RL_LOWERED then
+    if self.isServer or noEventSend then
+        if status == LTMaster.STATUS_RL_LOWERED then
+            self:playAnimation(self.LTMaster.supports.animation, math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_RL_LOWERING then
+            self:playAnimation(self.LTMaster.supports.animation, 1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.supports.delayedUpdateSupportsStatus:call(self:getAnimationDuration(self.LTMaster.supports.animation), LTMaster.STATUS_RL_LOWERED);
+            end
+        end
+        if status == LTMaster.STATUS_RL_RAISED then
+            Sound3DUtil:stopSample(self.LTMaster.supports.sound, true);
+            self:playAnimation(self.LTMaster.supports.animation, -math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_RL_RAISING then
+            self:playAnimation(self.LTMaster.supports.animation, -1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.supports.delayedUpdateSupportsStatus:call(self:getAnimationDuration(self.LTMaster.supports.animation), LTMaster.STATUS_RL_RAISED);
+            end
+        end
+    end
+end
+
+function LTMaster:eventUpdateSupportsStatus(newStatus)
+    self.LTMaster.supports.status = newStatus;
+    if newStatus == LTMaster.STATUS_RL_LOWERED then
         Sound3DUtil:stopSample(self.LTMaster.supports.sound, true);
-        self:playAnimation(self.LTMaster.supports.animation, math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_RL_LOWERING then
+    if newStatus == LTMaster.STATUS_RL_LOWERING then
         Sound3DUtil:playSample(self.LTMaster.supports.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.supports.animation, 1, nil, noEventSend);
-        self.LTMaster.supports.delayedUpdateSupportsStatus:call(self:getAnimationDuration(self.LTMaster.supports.animation), LTMaster.STATUS_RL_LOWERED);
     end
-    if status == LTMaster.STATUS_RL_RAISED then
+    if newStatus == LTMaster.STATUS_RL_RAISED then
         Sound3DUtil:stopSample(self.LTMaster.supports.sound, true);
-        self:playAnimation(self.LTMaster.supports.animation, -math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_RL_RAISING then
+    if newStatus == LTMaster.STATUS_RL_RAISING then
         Sound3DUtil:playSample(self.LTMaster.supports.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.supports.animation, -1, nil, noEventSend);
-        self.LTMaster.supports.delayedUpdateSupportsStatus:call(self:getAnimationDuration(self.LTMaster.supports.animation), LTMaster.STATUS_RL_RAISED);
     end
 end
 
 function LTMaster:updateFoldingStatus(newStatus, noEventSend)
     local status = newStatus or self.LTMaster.folding.status;
-    if not self.isServer and (noEventSend == nil or not noEventSend) then
-        g_client:getServerConnection():sendEvent(FoldingStatusEvent:new(status, self));
-    end
-    if self.isServer then
+    if (noEventSend == nil or not noEventSend) then
+        if self.isServer then
+            LTMaster.eventUpdateFoldingStatus(self, status);
+            g_server:broadcastEvent(FoldingStatusEvent:new(self, status), false);
+        else
+            g_client:getServerConnection():sendEvent(FoldingStatusEvent:new(self, status));
+        end
+    else
         self.LTMaster.folding.status = status;
     end
-    if status == LTMaster.STATUS_FU_UNFOLDED then
+    if self.isServer or noEventSend then
+        if status == LTMaster.STATUS_FU_UNFOLDED then
+            self:playAnimation(self.LTMaster.folding.animation, math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_FU_UNFOLDING then
+            self:playAnimation(self.LTMaster.folding.animation, 1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.folding.delayedUpdateFoldingStatus:call(self:getAnimationDuration(self.LTMaster.folding.animation), LTMaster.STATUS_FU_UNFOLDED);
+            end
+        end
+        if status == LTMaster.STATUS_FU_FOLDED then
+            self:playAnimation(self.LTMaster.folding.animation, -math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_FU_FOLDING then
+            self:playAnimation(self.LTMaster.folding.animation, -1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.folding.delayedUpdateFoldingStatus:call(self:getAnimationDuration(self.LTMaster.folding.animation), LTMaster.STATUS_FU_FOLDED);
+            end
+        end
+    end
+end
+
+function LTMaster:eventUpdateFoldingStatus(newStatus)
+    self.LTMaster.folding.status = newStatus;
+    if newStatus == LTMaster.STATUS_FU_UNFOLDED then
         Sound3DUtil:stopSample(self.LTMaster.folding.sound, true);
-        self:playAnimation(self.LTMaster.folding.animation, math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_FU_UNFOLDING then
+    if newStatus == LTMaster.STATUS_FU_UNFOLDING then
         Sound3DUtil:playSample(self.LTMaster.folding.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.folding.animation, 1, nil, noEventSend);
-        self.LTMaster.folding.delayedUpdateFoldingStatus:call(self:getAnimationDuration(self.LTMaster.folding.animation), LTMaster.STATUS_FU_UNFOLDED);
     end
-    if status == LTMaster.STATUS_FU_FOLDED then
+    if newStatus == LTMaster.STATUS_FU_FOLDED then
         Sound3DUtil:stopSample(self.LTMaster.folding.sound, true);
-        self:playAnimation(self.LTMaster.folding.animation, -math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_FU_FOLDING then
+    if newStatus == LTMaster.STATUS_FU_FOLDING then
         Sound3DUtil:playSample(self.LTMaster.folding.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.folding.animation, -1, nil, noEventSend);
-        self.LTMaster.folding.delayedUpdateFoldingStatus:call(self:getAnimationDuration(self.LTMaster.folding.animation), LTMaster.STATUS_FU_FOLDED);
     end
 end
 
 function LTMaster:updateLadderStatus(newStatus, noEventSend)
     local status = newStatus or self.LTMaster.supports.status;
-    if not self.isServer and (noEventSend == nil or not noEventSend) then
-        g_client:getServerConnection():sendEvent(LadderStatusEvent:new(status, self));
-    end
-    if self.isServer then
+    if (noEventSend == nil or not noEventSend) then
+        if self.isServer then
+            LTMaster.eventUpdateLadderStatus(self, status);
+            g_server:broadcastEvent(LadderStatusEvent:new(self, status), false);
+        else
+            g_client:getServerConnection():sendEvent(LadderStatusEvent:new(self, status));
+        end
+    else
         self.LTMaster.ladder.status = status;
     end
-    if status == LTMaster.STATUS_RL_LOWERED then
+    if self.isServer or noEventSend then
+        if status == LTMaster.STATUS_RL_LOWERED then
+            self:playAnimation(self.LTMaster.ladder.animation, math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_RL_LOWERING then
+            self:playAnimation(self.LTMaster.ladder.animation, 1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.ladder.delayedUpdateLadderStatus:call(self:getAnimationDuration(self.LTMaster.ladder.animation), LTMaster.STATUS_RL_LOWERED);
+            end
+        end
+        if status == LTMaster.STATUS_RL_RAISED then
+            self:playAnimation(self.LTMaster.ladder.animation, -math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_RL_RAISING then
+            self:playAnimation(self.LTMaster.ladder.animation, -1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.ladder.delayedUpdateLadderStatus:call(self:getAnimationDuration(self.LTMaster.ladder.animation), LTMaster.STATUS_RL_RAISED);
+            end
+        end
+    end
+end
+
+function LTMaster:eventUpdateLadderStatus(newStatus)
+    self.LTMaster.ladder.status = newStatus;
+    if newStatus == LTMaster.STATUS_RL_LOWERED then
         Sound3DUtil:stopSample(self.LTMaster.ladder.sound, true);
-        self:playAnimation(self.LTMaster.ladder.animation, math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_RL_LOWERING then
+    if newStatus == LTMaster.STATUS_RL_LOWERING then
         Sound3DUtil:playSample(self.LTMaster.ladder.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.ladder.animation, 1, nil, noEventSend);
-        self.LTMaster.ladder.delayedUpdateLadderStatus:call(self:getAnimationDuration(self.LTMaster.ladder.animation), LTMaster.STATUS_RL_LOWERED);
     end
-    if status == LTMaster.STATUS_RL_RAISED then
+    if newStatus == LTMaster.STATUS_RL_RAISED then
         Sound3DUtil:stopSample(self.LTMaster.ladder.sound, true);
-        self:playAnimation(self.LTMaster.ladder.animation, -math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_RL_RAISING then
+    if newStatus == LTMaster.STATUS_RL_RAISING then
         Sound3DUtil:playSample(self.LTMaster.ladder.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.ladder.animation, -1, nil, noEventSend);
-        self.LTMaster.ladder.delayedUpdateLadderStatus:call(self:getAnimationDuration(self.LTMaster.ladder.animation), LTMaster.STATUS_RL_RAISED);
     end
 end
 
 function LTMaster:updateBaleSlideStatus(newStatus, noEventSend)
     local status = newStatus or self.LTMaster.baleSlide.status;
-    if not self.isServer and (noEventSend == nil or not noEventSend) then
-        g_client:getServerConnection():sendEvent(BaleSlideStatusEvent:new(status, self));
-    end
-    if self.isServer then
+    if (noEventSend == nil or not noEventSend) then
+        if self.isServer then
+            LTMaster.eventUpdateBaleSlideStatus(self, status);
+            g_server:broadcastEvent(BaleSlideStatusEvent:new(self, status), false);
+        else
+            g_client:getServerConnection():sendEvent(BaleSlideStatusEvent:new(self, status));
+        end
+    else
         self.LTMaster.baleSlide.status = status;
     end
-    if status == LTMaster.STATUS_RL_LOWERED then
+    if self.isServer or noEventSend then
+        if status == LTMaster.STATUS_RL_LOWERED then
+            self:playAnimation(self.LTMaster.baleSlide.animation, math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_RL_LOWERING then
+            self:playAnimation(self.LTMaster.baleSlide.animation, 1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_LOWERED);
+            end
+        end
+        if status == LTMaster.STATUS_RL_RAISED then
+            self:playAnimation(self.LTMaster.baleSlide.animation, -math.huge, nil, noEventSend);
+        end
+        if status == LTMaster.STATUS_RL_RAISING then
+            self:playAnimation(self.LTMaster.baleSlide.animation, -1, nil, noEventSend);
+            if self.isServer then
+                self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_RAISED);
+            end
+        end
+    end
+end
+
+function LTMaster:eventUpdateBaleSlideStatus(newStatus)
+    self.LTMaster.baleSlide.status = newStatus;
+    if newStatus == LTMaster.STATUS_RL_LOWERED then
         Sound3DUtil:stopSample(self.LTMaster.baleSlide.sound, true);
-        self:playAnimation(self.LTMaster.baleSlide.animation, math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_RL_LOWERING then
+    if newStatus == LTMaster.STATUS_RL_LOWERING then
         Sound3DUtil:playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.baleSlide.animation, 1, nil, noEventSend);
-        self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_LOWERED);
     end
-    if status == LTMaster.STATUS_RL_RAISED then
+    if newStatus == LTMaster.STATUS_RL_RAISED then
         Sound3DUtil:stopSample(self.LTMaster.baleSlide.sound, true);
-        self:playAnimation(self.LTMaster.baleSlide.animation, -math.huge, nil, noEventSend);
     end
-    if status == LTMaster.STATUS_RL_RAISING then
+    if newStatus == LTMaster.STATUS_RL_RAISING then
         Sound3DUtil:playSample(self.LTMaster.baleSlide.sound, 0, 0, nil);
-        self:playAnimation(self.LTMaster.baleSlide.animation, -1, nil, noEventSend);
-        self.LTMaster.baleSlide.delayedUpdateBaleSlideStatus:call(self:getAnimationDuration(self.LTMaster.baleSlide.animation), LTMaster.STATUS_RL_RAISED);
     end
 end

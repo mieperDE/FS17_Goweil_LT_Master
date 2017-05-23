@@ -13,7 +13,7 @@ function SupportsStatusEvent:emptyNew()
     return self;
 end
 
-function SupportsStatusEvent:new(status, vehicle)
+function SupportsStatusEvent:new(vehicle, status)
     local self = SupportsStatusEvent:emptyNew();
     self.status = status;
     self.vehicle = vehicle;
@@ -32,5 +32,11 @@ function SupportsStatusEvent:readStream(streamId, connection)
 end
 
 function SupportsStatusEvent:run(connection)
-    self.vehicle.LTMaster.supports.status = self.status;
+    if not connection:getIsServer() then
+        LTMaster.print("[SERVER] -> self.vehicle.LTMaster.supports.status = self.status:%s", self.status);
+        LTMaster.updateSupportsStatus(self.vehicle, self.status);
+    else
+        LTMaster.print("[CLIENT] -> self.vehicle.LTMaster.supports.status = self.status:%s", self.status);
+        LTMaster.eventUpdateSupportsStatus(self.vehicle, self.status);
+    end
 end

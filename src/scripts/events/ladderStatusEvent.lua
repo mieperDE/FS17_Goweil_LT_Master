@@ -13,7 +13,7 @@ function LadderStatusEvent:emptyNew()
     return self;
 end
 
-function LadderStatusEvent:new(status, vehicle)
+function LadderStatusEvent:new(vehicle, status)
     local self = LadderStatusEvent:emptyNew();
     self.status = status;
     self.vehicle = vehicle;
@@ -32,5 +32,11 @@ function LadderStatusEvent:readStream(streamId, connection)
 end
 
 function LadderStatusEvent:run(connection)
-    self.vehicle.LTMaster.ladder.status = self.status;
+    if not connection:getIsServer() then
+        LTMaster.print("[SERVER] -> self.vehicle.LTMaster.ladder.status = self.status:%s", self.status);
+        LTMaster.updateLadderStatus(self.vehicle, self.status);
+    else
+        LTMaster.print("[CLIENT] -> self.vehicle.LTMaster.ladder.status = self.status:%s", self.status);
+        LTMaster.eventUpdateLadderStatus(self.vehicle, self.status);
+    end
 end

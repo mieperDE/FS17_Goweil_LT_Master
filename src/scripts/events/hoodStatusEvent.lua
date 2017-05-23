@@ -13,7 +13,7 @@ function HoodStatusEvent:emptyNew()
     return self;
 end
 
-function HoodStatusEvent:new(status, hood, vehicle)
+function HoodStatusEvent:new(vehicle, hood, status)
     local self = HoodStatusEvent:emptyNew();
     self.status = status;
     self.hood = hood;
@@ -35,5 +35,11 @@ function HoodStatusEvent:readStream(streamId, connection)
 end
 
 function HoodStatusEvent:run(connection)
-    self.vehicle.LTMaster.hoods[self.hood].status = self.status;
+    if not connection:getIsServer() then
+        LTMaster.print("[SERVER] -> self.vehicle.LTMaster.hoods[self.hood:%s].status = self.status:%s", self.hood, self.status);
+        LTMaster.updateHoodStatus(self.vehicle, self.vehicle.LTMaster.hoods[self.hood], self.status);
+    else
+        LTMaster.print("[CLIENT] -> self.vehicle.LTMaster.hoods[self.hood:%s].status = self.status:%s", self.hood, self.status);
+        LTMaster.eventUpdateHoodStatus(self.vehicle, self.hood, self.status);
+    end
 end

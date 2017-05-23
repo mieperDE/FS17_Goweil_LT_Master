@@ -406,12 +406,6 @@ end
 
 function LTMaster:writeUpdateStream(streamId, connection, dirtyMask)
     if not connection:getIsServer() then
-        streamWriteUInt8(streamId, self.LTMaster.hoods["left"].status);
-        streamWriteUInt8(streamId, self.LTMaster.hoods["right"].status);
-        streamWriteUInt8(streamId, self.LTMaster.supports.status);
-        streamWriteUInt8(streamId, self.LTMaster.folding.status);
-        streamWriteUInt8(streamId, self.LTMaster.ladder.status);
-        streamWriteUInt8(streamId, self.LTMaster.baleSlide.status);
         streamWriteUInt8(streamId, self.LTMaster.baler.baleVolumesIndex);
         streamWriteInt32(streamId, self.LTMaster.baler.balesNet.netRollRemainingUses);
         streamWriteInt32(streamId, self.LTMaster.wrapper.balesFoil.foilRollRemainingUses);
@@ -427,12 +421,6 @@ end
 
 function LTMaster:readUpdateStream(streamId, timestamp, connection)
     if connection:getIsServer() then
-        self.LTMaster.hoods["left"].status = streamReadUInt8(streamId);
-        self.LTMaster.hoods["right"].status = streamReadUInt8(streamId);
-        self.LTMaster.supports.status = streamReadUInt8(streamId);
-        self.LTMaster.folding.status = streamReadUInt8(streamId);
-        self.LTMaster.ladder.status = streamReadUInt8(streamId);
-        self.LTMaster.ladder.baleSlide = streamReadUInt8(streamId);
         self.LTMaster.baler.baleVolumesIndex = streamReadUInt8(streamId);
         self.LTMaster.baler.balesNet.netRollRemainingUses = streamReadInt32(streamId);
         self.LTMaster.wrapper.balesFoil.foilRollRemainingUses = streamReadInt32(streamId);

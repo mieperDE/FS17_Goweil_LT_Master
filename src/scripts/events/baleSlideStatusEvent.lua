@@ -13,7 +13,7 @@ function BaleSlideStatusEvent:emptyNew()
     return self;
 end
 
-function BaleSlideStatusEvent:new(status, vehicle)
+function BaleSlideStatusEvent:new(vehicle, status)
     local self = BaleSlideStatusEvent:emptyNew();
     self.status = status;
     self.vehicle = vehicle;
@@ -32,5 +32,11 @@ function BaleSlideStatusEvent:readStream(streamId, connection)
 end
 
 function BaleSlideStatusEvent:run(connection)
-    self.vehicle.LTMaster.baleSlide.status = self.status;
+    if not connection:getIsServer() then
+        LTMaster.print("[SERVER] -> self.vehicle.LTMaster.baleSlide.status = self.status:%s", self.status);
+        LTMaster.updateBaleSlideStatus(self.vehicle, self.status);
+    else
+        LTMaster.print("[CLIENT] -> self.vehicle.LTMaster.baleSlide.status = self.status:%s", self.status);
+        LTMaster.eventUpdateBaleSlideStatus(self.vehicle, self.status);
+    end
 end
