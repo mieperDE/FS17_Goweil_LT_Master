@@ -236,7 +236,7 @@ function LTMaster:load(savegame)
             self.LTMaster.silageAdditive.acceptedFillTypes[fillType] = true;
         end
     end
-    self.LTMaster.silageAdditive.fillType = FillUtil.FILLTYPE_LIQUIDFERTILIZER;
+    self.LTMaster.silageAdditive.fillType = FillUtil.FILLTYPE_SILAGEADDITIVE;
     if self.isClient then
         self.LTMaster.silageAdditive.effects = EffectManager:loadEffect(self.xmlFile, "vehicle.LTMaster.silageAdditive.effects", self.components, self);
         self.LTMaster.silageAdditive.sampleFill = SoundUtil.loadSample(self.xmlFile, {}, "vehicle.LTMaster.silageAdditive.fillSound", nil, self.baseDirectory, self.components[1].node);

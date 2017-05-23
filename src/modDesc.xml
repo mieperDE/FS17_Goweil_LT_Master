@@ -81,6 +81,7 @@ Potenza consigliata: 190 cv
         <sourceFile filename="scripts/triggers/PlayerTrigger.lua" />
         <sourceFile filename="scripts/triggers/LTMasterTipTrigger.lua" />
         <sourceFile filename="scripts/helpers/delayedCallBack.lua" />
+        <sourceFile filename="scripts/helpers/Utils.lua" />
         <sourceFile filename="scripts/overwrites/AnimatedVehicle.lua" />
     </extraSourceFiles>
     <specializations>
