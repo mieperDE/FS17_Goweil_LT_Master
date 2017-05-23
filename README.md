@@ -12,6 +12,6 @@ The LT Master is a baler-wrapper combination wich can be process a great kind of
 The mod use scripts, so will not be available for console, however all scripts are made with care and performance in mind and are multiplayer ready.
 Here in GitHub the history and development of the mod, originally started in late 2016 from Peppe978 as original 3D model made from the ground, obtained from set of photo and video available from official brand Goweil web site and around the Internet from entusiast customers; In March 2017 fcelsa and TyKonKet started project on GitHub for the Lua script and in game work.
 
-**We accept contributions for language translation and better 2D images (FS17 stylish only), you can send your pull request and your work will be quoted in the credits.**
+**We accept contributions for language translation(even improvements to existing ones) and better 2D images (FS17 stylish only), you can send your pull request and your work will be quoted in the credits.**
 
 ---
