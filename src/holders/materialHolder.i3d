@@ -19,7 +19,7 @@
       <CustomParameter name="fadeProgress" value="1 1 0 0"/>
       <CustomParameter name="UVScaleSpeed" value="4 -4 1 7"/>
       <CustomParameter name="MaskChannels" value="0.1 0.7 0.1 0"/>
-      <CustomParameter name="ColorAlpha" value="2 0 0 5"/>
+      <CustomParameter name="ColorAlpha" value="0.85 0.95 1.1 2"/>
       <CustomParameter name="alphaRemap" value="0 1 0 0"/>
     </Material>
   </Materials>

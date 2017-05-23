@@ -14,111 +14,19 @@ ConfigurationUtil.registerConfigurationType("monitorSystem", g_i18n:getText("con
 ConfigurationUtil.registerConfigurationType("remoteMonitorSystem", g_i18n:getText("configuration_remoteMonitorSystem"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
 ConfigurationUtil.registerConfigurationType("starterKit", g_i18n:getText("configuration_starterKit"), nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION);
 
-FillUtil.registerFillType(
-    "silageAdditive",
-    g_i18n:getText("fillType_silageAdditive"),
-    FillUtil.FILLTYPE_CATEGORY_LIQUID,
-    5.000,
-    false,
-    g_currentModDirectory .. "hud/fillTypes/hud_fill_silageAdditive.png",
-    g_currentModDirectory .. "hud/fillTypes/hud_fill_silageAdditive_sml.png",
-    550 * 0.000001,
-    math.rad(0)
-);
-FillUtil.registerFillType(
-    "balesNet",
-    g_i18n:getText("fillType_balesNet"),
-    FillUtil.FILLTYPE_CATEGORY_PIECE,
-    75,
-    false,
-    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesNet.png",
-    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesNet_sml.png",
-    1500 * 0.000001,
-    math.rad(0)
-);
-FillUtil.registerFillType(
-    "balesFoil",
-    g_i18n:getText("fillType_balesFoil"),
-    FillUtil.FILLTYPE_CATEGORY_PIECE,
-    50,
-    false,
-    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesFoil.png",
-    g_currentModDirectory .. "hud/fillTypes/hud_fill_balesFoil_sml.png",
-    1800 * 0.000001,
-    math.rad(0)
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleGrass_w112_d130.i3d",
-    "grass_windrow",
-    1.12,
-    nil,
-    nil,
-    1.3,
-    true
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleGrassSilage_w112_d130.i3d",
-    "silage",
-    1.12,
-    nil,
-    nil,
-    1.3,
-    true
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleHay_w112_d130.i3d",
-    "dryGrass_windrow",
-    1.12,
-    nil,
-    nil,
-    1.3,
-    true
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleStraw_w112_d130.i3d",
-    "straw",
-    1.12,
-    nil,
-    nil,
-    1.3,
-    true
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleChaff_w112_d130.i3d",
-    "chaff",
-    1.12,
-    nil,
-    nil,
-    1.3,
-    true
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleChaffSilage_w112_d130.i3d",
-    "silage",
-    1.13,
-    nil,
-    nil,
-    1.3,
-    true
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleWoodChips_w112_d130.i3d",
-    "woodChips",
-    1.12,
-    nil,
-    nil,
-    1.3,
-    true
-);
-BaleUtil.registerBaleType(
-    "bales/roundbaleManure_w112_d130.i3d",
-    "manure",
-    1.12,
-    nil,
-    nil,
-    1.3,
-    true
-);
+FillUtil.registerFillType("silageAdditive", g_i18n:getText("fillType_silageAdditive"), FillUtil.FILLTYPE_CATEGORY_LIQUID, 5.000, false, g_currentModDirectory .. "hud/fillTypes/hud_fill_silageAdditive.png", g_currentModDirectory .. "hud/fillTypes/hud_fill_silageAdditive_sml.png", 550 * 0.000001, math.rad(0));
+FillUtil.registerFillType("balesNet", g_i18n:getText("fillType_balesNet"), FillUtil.FILLTYPE_CATEGORY_PIECE, 75, false, g_currentModDirectory .. "hud/fillTypes/hud_fill_balesNet.png", g_currentModDirectory .. "hud/fillTypes/hud_fill_balesNet_sml.png", 1500 * 0.000001, math.rad(0));
+FillUtil.registerFillType("balesFoil", g_i18n:getText("fillType_balesFoil"), FillUtil.FILLTYPE_CATEGORY_PIECE, 50, false, g_currentModDirectory .. "hud/fillTypes/hud_fill_balesFoil.png", g_currentModDirectory .. "hud/fillTypes/hud_fill_balesFoil_sml.png", 1800 * 0.000001, math.rad(0));
+
+BaleUtil.registerBaleType("bales/roundbaleGrass_w112_d130.i3d", "grass_windrow", 1.12, nil, nil, 1.3, true);
+BaleUtil.registerBaleType("bales/roundbaleGrassSilage_w112_d130.i3d", "silage", 1.12, nil, nil, 1.3, true);
+BaleUtil.registerBaleType("bales/roundbaleHay_w112_d130.i3d", "dryGrass_windrow", 1.12, nil, nil, 1.3, true);
+BaleUtil.registerBaleType("bales/roundbaleStraw_w112_d130.i3d", "straw", 1.12, nil, nil, 1.3, true);
+BaleUtil.registerBaleType("bales/roundbaleChaff_w112_d130.i3d", "chaff", 1.12, nil, nil, 1.3, true);
+BaleUtil.registerBaleType("bales/roundbaleChaffSilage_w112_d130.i3d", "silage", 1.13, nil, nil, 1.3, true);
+BaleUtil.registerBaleType("bales/roundbaleWoodChips_w112_d130.i3d", "woodChips", 1.12, nil, nil, 1.3, true);
+BaleUtil.registerBaleType("bales/roundbaleManure_w112_d130.i3d", "manure", 1.12, nil, nil, 1.3, true);
+
 function register:loadMap(name)
     for k, v in pairs(g_i18n.texts) do
         local nv = v;
