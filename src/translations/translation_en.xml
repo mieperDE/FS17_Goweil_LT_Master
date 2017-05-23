@@ -48,8 +48,8 @@ You can fetch your purchase at the store." />
         <text name="GLTM_TURNON_NOT_ALLOWED_BALESLIDE"      text="Set bale slide lower first!" />
         <text name="GLTM_WRAPPER_SET_ON"                    text="Turn on wrapper" />
         <text name="GLTM_WRAPPER_SET_OFF"                   text="Turn off wrapper" />
-        <text name="GLTM_UNLOAD_THEN_TIP"                   text="Prima di scaricare %s, svuota il cassone da %s" />
-        <text name="GLTM_WASH_THEN_TIP"                     text="Dopo aver imballato %s, prima di scaricare %s, lava il macchinario" />        
+        <text name="GLTM_UNLOAD_THEN_TIP"                   text="Before unload %s, clear from the %s " />
+        <text name="GLTM_WASH_THEN_TIP"                     text="After work with %s, you need to wash machine before unload %s " />
         <!-- HelpLine texts -->
         <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master" />
         <text name="GLTM_HL_TITLE_00"                       text="General description" />

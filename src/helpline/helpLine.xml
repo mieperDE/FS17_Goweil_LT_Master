@@ -13,9 +13,8 @@
         </helpLine>
         <helpLine title="GLTM_HL_TITLE_01">
             <item type="image" value="helpline/GLTM_HEADER.dds" heightScale="0.0625"/>
-            <item type="text" value="GLTM_HL_TEXT_01_00"/>
             <item type="image" value="helpline/GLTM_SIZE.dds" heightScale="2"/>
-            <!-- <item type="image" value="hl_CT_IMAGE_01_00.dds"/> -->
+            <item type="text" value="GLTM_HL_TEXT_01_00"/>
             <item type="text" value="GLTM_HL_TEXT_01_01"/>
             <item type="text" value="GLTM_HL_TEXT_01_02"/>
             <item type="text" value="GLTM_HL_TEXT_01_03"/>
