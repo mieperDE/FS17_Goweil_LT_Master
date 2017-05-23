@@ -46,6 +46,7 @@ source(g_currentModDirectory .. "scripts/events/conveyorStatusEvent.lua");
 source(g_currentModDirectory .. "scripts/events/balerCreateBaleEvent.lua");
 source(g_currentModDirectory .. "scripts/events/balerChangeVolumeEvent.lua");
 source(g_currentModDirectory .. "scripts/events/wrapperChangeStatus.lua");
+source(g_currentModDirectory .. "scripts/events/balerSetIsUnloadingBaleEvent.lua");
 
 function LTMaster.print(text, ...)
     if LTMaster.debug then

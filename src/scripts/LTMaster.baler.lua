@@ -510,7 +510,7 @@ function LTMaster:setIsBalerUnloadingBale(isUnloadingBale, noEventSend)
     if self.LTMaster.baler.baleUnloadAnimationName ~= nil and self.LTMaster.baler.baleCloseAnimationName ~= nil then
         if isUnloadingBale then
             if self.LTMaster.baler.unloadingState ~= Baler.UNLOADING_OPENING then
-                BalerSetIsUnloadingBaleEvent.sendEvent(self, isUnloadingBale, noEventSend);
+                LTMBalerSetIsUnloadingBaleEvent.sendEvent(self, isUnloadingBale, noEventSend);
                 self.LTMaster.baler.unloadingState = Baler.UNLOADING_OPENING;
                 if self.isClient then
                     Sound3DUtil:playSample(self.LTMaster.baler.sampleBalerEject, 1, 0, nil, self:getIsActiveForSound());
@@ -520,7 +520,7 @@ function LTMaster:setIsBalerUnloadingBale(isUnloadingBale, noEventSend)
             end
         else
             if self.LTMaster.baler.unloadingState ~= Baler.UNLOADING_CLOSING then
-                BalerSetIsUnloadingBaleEvent.sendEvent(self, isUnloadingBale, noEventSend);
+                LTMBalerSetIsUnloadingBaleEvent.sendEvent(self, isUnloadingBale, noEventSend);
                 self.LTMaster.baler.unloadingState = Baler.UNLOADING_CLOSING;
                 if self.isClient then
                     Sound3DUtil:playSample(self.LTMaster.baler.sampleBalerDoor, 1, 0, nil, self:getIsActiveForSound());
@@ -560,8 +560,10 @@ function LTMaster:createBale(baleFillType, fillLevel, firstTimeRun)
     bale.filename = Utils.getFilename(baleType.filename, self.baseDirectory);
     bale.time = 0;
     bale.fillType = baleFillType;
-    local randomFillLevel = math.random(0, fillLevel * 0.06) - fillLevel * 0.03;
-    bale.fillLevel = fillLevel + randomFillLevel;
+    if self.isServer then
+        local randomFillLevel = math.random(0, fillLevel * 0.06) - fillLevel * 0.03;
+        bale.fillLevel = fillLevel + randomFillLevel;
+    end
     if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
         local baleRoot = Utils.loadSharedI3DFile(baleType.filename, self.baseDirectory, false, false);
         local baleId = getChildAt(baleRoot, 0);
