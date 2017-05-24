@@ -471,7 +471,7 @@ function LTMaster:setUnitFillLevel(fillUnitIndex, fillLevel, fillType, force, fi
             end
             local t = self.LTMaster.baler.baleTypes[self.LTMaster.baler.currentBaleTypeId];
             local baleType = BaleUtil.getBale(fillType, t.width, t.height, t.length, t.diameter, t.isRoundBale);
-            local baleRoot = Utils.loadSharedI3DFile(baleType.filename, self.baseDirectory, false, false);
+            local baleRoot = Utils.loadSharedI3DFile(baleType.filename, "", false, false);
             local baleId = getChildAt(baleRoot, 0);
             setRigidBodyType(baleId, "NoRigidBody");
             link(self.LTMaster.baler.dummyBale.baleNode, baleId);
@@ -559,7 +559,7 @@ function LTMaster:createBale(baleFillType, fillLevel, firstTimeRun)
     local t = self.LTMaster.baler.baleTypes[self.LTMaster.baler.currentBaleTypeId];
     local baleType = BaleUtil.getBale(baleFillType, t.width, t.height, t.length, t.diameter, t.isRoundBale);
     local bale = {};
-    bale.filename = Utils.getFilename(baleType.filename, self.baseDirectory);
+    bale.filename = Utils.getFilename(baleType.filename, "");
     bale.time = 0;
     bale.fillType = baleFillType;
     if self.isServer then
@@ -567,7 +567,7 @@ function LTMaster:createBale(baleFillType, fillLevel, firstTimeRun)
         bale.fillLevel = fillLevel + randomFillLevel;
     end
     if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
-        local baleRoot = Utils.loadSharedI3DFile(baleType.filename, self.baseDirectory, false, false);
+        local baleRoot = Utils.loadSharedI3DFile(baleType.filename, "", false, false);
         local baleId = getChildAt(baleRoot, 0);
         link(self.LTMaster.baler.baleAnimRoot, baleId);
         delete(baleRoot);
