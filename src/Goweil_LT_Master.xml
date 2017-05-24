@@ -630,11 +630,11 @@
             <knottingAnimation name="leverKnotting" />
             <knottingScrollParts>
                 <!--rotolo-->
-                <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="3" shaderParameterComponent="1" turnOnFadeTime="1.5" turnOffFadeTime="0" />
+                <uvScrollPart index="0>15|11|0" shaderParameterName="offsetUV" scrollSpeed="2" shaderParameterComponent="1" turnOnFadeTime="2" turnOffFadeTime="0.5" />
             </knottingScrollParts>
             <knottingRotatingParts>
                 <!--rotolo-->
-                <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="200" rotAxis="1" turnOnFadeTime="1.5" turnOffFadeTime="0" />
+                <rotatingPart index="0>15|10|0" type="LTMaster.baler" rotSpeed="250" rotAxis="1" turnOnFadeTime="2" turnOffFadeTime="0.5" />
             </knottingRotatingParts>
             <baleTypes>
                 <baleType width="1.12" diameter="1.3" />
