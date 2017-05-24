@@ -54,7 +54,7 @@ function HudManager:update(dt)
 end
 
 function HudManager:draw()
-    if self.missionIsStarted then
+    if self.missionIsStarted and g_currentMission.showVehicleInfo then
         for _, h in pairs(self.huds) do
             if h.render ~= nil then
                 h:render();
