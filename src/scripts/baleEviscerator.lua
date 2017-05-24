@@ -32,14 +32,9 @@ end
 function BaleEviscerator:update(dt)
     self.baleObject = nil;
     self.eviHud:setIsVisible(false, true);
-    if g_currentMission.player ~= nil then
-        if g_currentMission.player.isObjectInRange and g_currentMission.controlledVehicle == nil then
-            local object = g_currentMission:getNodeObject(g_currentMission.player.lastFoundObject);
-            if object ~= nil and object:isa(Bale) then
-                self.baleObject = object;
-                self.eviHud:setIsVisible(true, true);
-            end
-        end
+    if g_currentMission.player ~= nil and g_currentMission.controlledVehicle == nil and g_currentMission.player.lastFoundBale ~= nil then
+        self.baleObject = g_currentMission.player.lastFoundBale;
+        self.eviHud:setIsVisible(true, true);
     end
     if self.baleObject ~= nil then
         g_currentMission:addHelpButtonText(g_i18n:getText("input_EVIBALE"), InputBinding.ACTIVATE_OBJECT, nil, GS_PRIO_VERY_HIGH);

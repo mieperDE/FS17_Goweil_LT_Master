@@ -83,6 +83,7 @@ Potenza consigliata: 190 cv
         <sourceFile filename="scripts/helpers/delayedCallBack.lua" />
         <sourceFile filename="scripts/helpers/Utils.lua" />
         <sourceFile filename="scripts/overwrites/AnimatedVehicle.lua" />
+        <sourceFile filename="scripts/overwrites/Player.lua" />
     </extraSourceFiles>
     <specializations>
         <specialization name="ltmaster" className="LTMaster" filename="scripts/LTMaster.lua" />

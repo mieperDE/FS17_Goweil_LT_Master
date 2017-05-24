@@ -281,7 +281,9 @@ function LTMaster:updateTickBaler(dt, normalizedDt)
         local percent = self.LTMaster.baler.balesNet.netRollMinScale + (1 - self.LTMaster.baler.balesNet.netRollMinScale) * (self.LTMaster.baler.balesNet.netRollRemainingUses / self.LTMaster.baler.balesNet.netRollUses);
         setScale(self.LTMaster.baler.balesNet.netRollIndex, 1, percent, percent);
     end
-    self.LTMaster.conveyor.isOverloading = false;
+    if self.isServer then
+        self.LTMaster.conveyor.isOverloading = false;
+    end
     self.LTMaster.baler.isWorking = false;
     if self:getIsActive() then
         if self:getIsTurnedOn() then
