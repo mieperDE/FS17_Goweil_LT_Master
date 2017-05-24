@@ -75,7 +75,7 @@ Puoi ritirare il tuo acquisto nel negozio." />
         <text name="GLTM_HL_TEXT_03_01"                     text="I pallet devono essere avvicinati alla macchina uno alla volta, usare il $input_ACTIVATE_OBJECT; per ricaricare." />
         <text name="GLTM_HL_TEXT_03_02"                     text=" " />
         <text name="GLTM_HL_TITLE_04"                       text="Altre funzioni" />
-        <text name="GLTM_HL_TEXT_04_00"                     text="La mod aggiunge due cose utili: " />
+        <text name="GLTM_HL_TEXT_04_00"                     text="La mod aggiunge un&apos;utilità: " />
         <text name="GLTM_HL_TEXT_04_01"                     text="A piedi è possibile vedere le informazioni su contenuto e valori di ogni balla e con il $input_ACTIVATE_OBJECT; è possibile aprire la balla riversando il contenuto a terra." />
         <text name="GLTM_HL_TEXT_04_02"                     text=" " />
         <text name="GLTM_HL_TEXT_04_03"                     text="Optional configurabili:" />
