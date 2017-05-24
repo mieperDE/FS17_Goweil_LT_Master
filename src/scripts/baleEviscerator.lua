@@ -32,7 +32,7 @@ end
 function BaleEviscerator:update(dt)
     self.baleObject = nil;
     self.eviHud:setIsVisible(false, true);
-    if g_currentMission.player ~= nil and g_currentMission.controlledVehicle == nil and g_currentMission.player.lastFoundBale ~= nil then
+    if g_currentMission.player ~= nil and g_currentMission.controlledVehicle == nil and g_currentMission.player.lastFoundBale ~= nil and g_currentMission.player.currentToolId == 0 then
         self.baleObject = g_currentMission.player.lastFoundBale;
         self.eviHud:setIsVisible(true, true);
     end
