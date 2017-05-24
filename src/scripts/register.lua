@@ -37,7 +37,7 @@ function register:loadMap(name)
         g_i18n.globalI18N:setText(k, nv);
     end
     Utils.loadHelpLine(self.dir .. "helpline/helpLine.xml", g_inGameMenu.helpLineCategories, g_inGameMenu.helpLineCategorySelectorElement, self.dir);
-    g_currentMission:loadI3D(self.dir .. "holders/materialHolder.i3d");
+    Utils.loadI3D(self.dir .. "holders/materialHolder.i3d");
 end
 
 function register:deleteMap()

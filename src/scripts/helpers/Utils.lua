@@ -64,6 +64,21 @@ function Utils.loadHelpLine(xml, helpLineCategories, helpLineCategorySelectorEle
     delete(xml);
 end
 
+function Utils.loadI3D(i3dFilename, parent)
+    local filename = i3dFilename;
+    local i3dNode = loadI3DFile(filename, false, true, false);
+    for i = getNumOfChildren(i3dNode) - 1, 0, -1 do
+        local child = getChildAt(i3dNode, i);
+        if parent ~= nil then
+            link(parent, child);
+        else
+            unlink(child);
+        end
+        table.insert(g_currentMission.dynamicallyLoadedObjects, child);
+    end
+    delete(i3dNode);
+end
+
 function InputBinding.getKeysNamesOfDigitalAction(actionIndex)
     local actionData = InputBinding.actions[actionIndex];
     local k1, k2, m1 = nil;
