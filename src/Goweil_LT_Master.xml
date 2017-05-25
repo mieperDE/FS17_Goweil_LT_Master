@@ -663,21 +663,22 @@
             </uvScrollParts>
             <rotatingParts>
                 <!--camera-->
-                <rotatingPart index="0>12|1" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>12|3" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>12|4" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|1" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|3" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|4" type="LTMaster.baler" rotSpeed="1200" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
                 <!--camera secondaria-->
-                <rotatingPart index="0>12|8|0" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>12|8|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>12|8|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|8|0" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|8|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>12|8|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
                 <!--camera terza-->
-                <rotatingPart index="0>13|0|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>13|0|4" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>13|0|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>13|0|6" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>13|0|7" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>13|0|8" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
-                <rotatingPart index="0>13|0|9" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="3" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|3" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|4" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|5" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|6" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|7" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|8" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>13|0|9" type="LTMaster.baler" rotSpeed="600" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
+                <rotatingPart index="0>23" type="LTMaster.baler" rotSpeed="-100" rotAxis="1" turnOnFadeTime="4" turnOffFadeTime="1" />
             </rotatingParts>
             <balesNet fillUnitIndex="4" netRollMinScale="0.2" netRollIndex="0>15|10|0|0" netUVIndex="0>15|11|0" netRollUses="55" fillLitersPerSecond="1">
                 <netNode index="0>15|2|4" order="1" />
