@@ -34,6 +34,7 @@ function BaleInfos:mouseEvent(posX, posY, isDown, isUp, button)
 end
 
 function BaleInfos:update(dt)
+    self.textBaleInfos = nil;
     if g_currentMission.player ~= nil and g_currentMission.controlledVehicle == nil then
         if g_currentMission.player.lastFoundBale ~= nil then
             local desc = FillUtil.fillTypeIndexToDesc[g_currentMission.player.lastFoundBale.fillType];
@@ -42,8 +43,6 @@ function BaleInfos:update(dt)
             local baseValue = g_currentMission.player.lastFoundBale:getValue();
             local realWeight = (fLevel * desc.massPerLiter) * 1000;
             self.textBaleInfos = iName .. " (" .. string.format("%0.f l)", fLevel) .. "\n" .. string.format("%0.f kg", realWeight) .. "\n" .. g_i18n.globalI18N:formatMoney(baseValue, 0, true);
-        else
-            self.textBaleInfos = nil;
         end
     end
 end
