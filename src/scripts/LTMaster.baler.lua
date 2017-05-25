@@ -566,32 +566,24 @@ function LTMaster:createBale(baleFillType, fillLevel, firstTimeRun)
         local randomFillLevel = math.random(0, fillLevel * 0.06) - fillLevel * 0.03;
         bale.fillLevel = fillLevel + randomFillLevel;
     end
-    if self.LTMaster.baler.baleUnloadAnimationName ~= nil then
-        local baleRoot = Utils.loadSharedI3DFile(baleType.filename, "", false, false);
-        local baleId = getChildAt(baleRoot, 0);
-        link(self.LTMaster.baler.baleAnimRoot, baleId);
-        delete(baleRoot);
-        bale.id = baleId;
-    end
+    local baleRoot = Utils.loadSharedI3DFile(baleType.filename, "", false, false);
+    local baleId = getChildAt(baleRoot, 0);
+    link(self.LTMaster.baler.baleAnimRoot, baleId);
+    delete(baleRoot);
+    bale.id = baleId;
     table.insert(self.LTMaster.baler.bales, bale);
 end
 
 function LTMaster:dropBale(baleIndex)
     local bale = self.LTMaster.baler.bales[baleIndex];
+    local x, y, z = getWorldTranslation(bale.id);
+    local rx, ry, rz = getWorldRotation(bale.id);
+    delete(bale.id);
     if self.isServer then
         local baleObject = Bale:new(self.isServer, self.isClient);
-        local x, y, z = getWorldTranslation(bale.id);
-        local rx, ry, rz = getWorldRotation(bale.id);
         baleObject:load(bale.filename, x, y, z, rx, ry, rz, bale.fillLevel);
         baleObject:register();
-        delete(bale.id);
-        if (not self.hasBaleWrapper or self.moveBaleToWrapper == nil) and baleObject.nodeId ~= nil then
-            local x, y, z = getWorldTranslation(baleObject.nodeId);
-            local vx, vy, vz = getVelocityAtWorldPos(self.LTMaster.baler.baleAnimRootComponent, x, y, z);
-            setLinearVelocity(baleObject.nodeId, vx, vy, vz);
-        elseif self.moveBaleToWrapper ~= nil then
-            self:moveBaleToWrapper(baleObject);
-        end
+        self:moveBaleToWrapper(baleObject);
     end
     Utils.releaseSharedI3DFile(bale.filename, nil, true);
     table.remove(self.LTMaster.baler.bales, baleIndex);
