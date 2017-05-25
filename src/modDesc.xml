@@ -108,6 +108,6 @@ Potenza consigliata: 190 cv
     </vehicleTypes>
     <inputBindings></inputBindings>
     
-    <l10n filenamePrefix="translations/translation"/>
+    <l10n filenamePrefix="translations/l10n"/>
 
 </modDesc>
