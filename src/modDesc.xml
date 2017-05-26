@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="37">
+<modDesc descVersion="38">
     <author>Team FSI Modding</author>
     <version>1.0.0</version>
     <title>
@@ -12,15 +12,16 @@
     </title>
     <description>
         <de>
-            <![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
-Chaff, grass, hay, straw, wood chips and manure can be fully pressed into bales and wrapped, for convenient storage purpose and better yield.
-All type of bales can be sold to default sell trigger.
+            <![CDATA[Goweil LT Master ist DIE Ballenpressen-Kombination. 
+Häckselgut, Gras, Heu, Stroh, Hackschnitzel und Gülle können für eine bequeme Ablage und bessere Ausbeute vollständig in Ballen gepresst und eingewickelt werden.
+Alle Arten von Ballen können an allen Annahmestellen verkauft werden.
+Dieser Mod lässt dich Ballen wieder öffnen und an beliebiger Stelle auskippen.
 
-Bale net and wrap foil pallet available in the store, also pallet tank with silage additive can be bought for a better silage quality.
+Ballennetze und Wickelfolie sind im Laden erhältlich. Auch kann ein Palettentank mit Silagezusatz für eine bessere Silagequalität gekauft werden.
 
-Price: 253700 €
-Maintenance: 200 € / day
-Suggested power: 190 hp
+Preis: 253700 €
+Unterhalt: 200 € / Tag
+Empfohlene Leistung: 190 PS / 140 kW
 ]]>
         </de>
         <en>
@@ -134,4 +135,14 @@ Zalecana moc: 190 KM
     </vehicleTypes>
     <inputBindings></inputBindings>
     <l10n filenamePrefix="translations/l10n"/>
+    
+    <translatedBy>
+        <en>fcelsa</en>
+        <it>fcelsa</it>
+        <de>mieperDE</de>
+        <fr>fcelsa</fr>
+        <nl>FarmingVidsHD</nl>
+        <pl>Dzi4d3k</pl>
+    </translatedBy>
 </modDesc>
+
