@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <l10n>
-    <translationContributors></translationContributors>
+    <translationContributors>mieperDE</translationContributors>
     <texts>
-<text name="shop_overwrite_messageLeasingReady"     text="A complete user manual available in game help. 
+<text name="shop_overwrite_messageLeasingReady"     text="Die komplette Anleitung findest du in der Spielhilfe. 
  
-You can pick up your leased vehicle from the store." />
+Sie können Ihr Mietfahrzeug nun im Shop abholen." />
  
-        <text name="shop_overwrite_messagePurchaseReady"    text="A complete user manual available in game help. 
+        <text name="shop_overwrite_messagePurchaseReady"    text="Die komplette Anleitung findest du in der Spielhilfe. 
  
-You can fetch your purchase at the store." />
+Sie können Ihren Erwerb nun im Shop abholen." />
 
         <text name="configuration_valueWheelPremium"        text="Premium" />
-        <text name="configuration_silageAdditiveSystem"     text="Additive injection system" />
-        <text name="configuration_dynamicChamber"           text="Dynamic density chamber" />
-        <text name="configuration_conveyorFlow"             text="Variable conveyor flow" />
-        <text name="configuration_monitorSystem"            text="Monitor system" />
-        <text name="configuration_remoteMonitorSystem"      text="Remote hud" />
+        <text name="configuration_silageAdditiveSystem"     text="Additive Einspritzanlage" />
+        <text name="configuration_dynamicChamber"           text="Dynamische Dichtekammer" />
+        <text name="configuration_conveyorFlow"             text="Variabler Förderstrom" />
+        <text name="configuration_monitorSystem"            text="Monitor-System" />
+        <text name="configuration_remoteMonitorSystem"      text="Fernsteuerung HUD" />
         <text name="configuration_starterKit"               text="Starter Kit" />
         <text name="gltm_config_conveyor_200"               text="200 liter/s." />
         <text name="gltm_config_conveyor_300"               text="300 liter/s." />
         <text name="gltm_config_conveyor_400"               text="400 liter/s." />
         <text name="gltm_config_conveyor_500"               text="500 liter/s." />
-        <text name="input_EVIBALE"                          text="Open and fade bale" />
+        <text name="input_EVIBALE"                          text="Öffnen und Ballen fallen lassen" />
         <text name="typeDesc_ltmaster"                      text="LT-Master" />
-        <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - baler wrapper combination " />
-        <text name="function_silageAdditiveTank"            text="Silage Additives is used to get higher resolution." />
-        <text name="function_foilPallet"                    text="High quality foil wrap pallet." />
-        <text name="function_netPallet"                     text="Bale net pallet." />
-        <text name="fillType_silageAdditive"                text="Silage Additives" />
-        <text name="fillType_balesNet"                      text="Bales Net" />
-        <text name="fillType_balesFoil"                     text="Wrap foil" />
-        <text name="GLTM_TEMP_INFO"                         text="A complete user manual available in game help." />
-        <text name="GLTM_OPEN_HOOD"                         text="Open hood" />
-        <text name="GLTM_CLOSE_HOOD"                        text="Close hood" />
-        <text name="GLTM_LOWER_SUPPORTS"                    text="Lower standing support" />
-        <text name="GLTM_RAISE_SUPPORTS"                    text="Raise standing support" />
-        <text name="GLTM_LOWER_LADDER"                      text="Lower ladder" />
-        <text name="GLTM_RAISE_LADDER"                      text="Raise ladder" />
-        <text name="GLTM_LOWER_BALE_SLIDE"                  text="Lower bale slide" />
-        <text name="GLTM_RAISE_BALE_SLIDE"                  text="Raise bale slide" />
-        <text name="GLTM_UNLOAD_SIDE"                       text="Unload and clean sides" />
-        <text name="GLTM_TURNON_CONVEYOR"                   text="Turn on conveyor belt" />
-        <text name="GLTM_TURNOFF_CONVEYOR"                  text="Turn off conveyor belt" />
-        <text name="GLTM_CHANGE_BALE_VOLUME"                text="Change bale density - from %s to %s" />
-        <text name="GLTM_TURNON_VEHICLE"                    text="Turn on vehicle for work" />
-        <text name="GLTM_TURNON_NOT_ALLOWED_UNFOLD"         text="Set machinery in work position first!" />
-        <text name="GLTM_TURNON_NOT_ALLOWED_BALESLIDE"      text="Set bale slide lower first!" />
-        <text name="GLTM_WRAPPER_SET_ON"                    text="Turn on wrapper" />
-        <text name="GLTM_WRAPPER_SET_OFF"                   text="Turn off wrapper" />
+        <text name="function_ltmasterbalerwrapper"          text="Goweil LT Master - Ballenwickler-Kombination " />
+        <text name="function_silageAdditiveTank"            text="Silagemittel werden verwendet, um eine höhere qualität zu erhalten." />
+        <text name="function_foilPallet"                    text="Qualitäts Wickelfolie" />
+        <text name="function_netPallet"                     text="Palette Ballennetz." />
+        <text name="fillType_silageAdditive"                text="Silagemittel" />
+        <text name="fillType_balesNet"                      text="Ballennetz" />
+        <text name="fillType_balesFoil"                     text="Wickelfolie" />
+        <text name="GLTM_TEMP_INFO"                         text="Die komplette Anleitung findest du in der Spielhilfe." />
+        <text name="GLTM_OPEN_HOOD"                         text="Öffne Abdeckung" />
+        <text name="GLTM_CLOSE_HOOD"                        text="Schließe Abdeckung" />
+        <text name="GLTM_LOWER_SUPPORTS"                    text="Stützen senken" />
+        <text name="GLTM_RAISE_SUPPORTS"                    text="Stützen heben" />
+        <text name="GLTM_LOWER_LADDER"                      text="Leiter senken" />
+        <text name="GLTM_RAISE_LADDER"                      text="Leiter heben" />
+        <text name="GLTM_LOWER_BALE_SLIDE"                  text="Ballenrutsche senken" />
+        <text name="GLTM_RAISE_BALE_SLIDE"                  text="Ballenrutsche heben" />
+        <text name="GLTM_UNLOAD_SIDE"                       text="Seiten entladen und reinigen" />
+        <text name="GLTM_TURNON_CONVEYOR"                   text="Förderband einschalten" />
+        <text name="GLTM_TURNOFF_CONVEYOR"                  text="Förderband abschalten" />
+        <text name="GLTM_CHANGE_BALE_VOLUME"                text="Ballendichte ändern - von %s bis %s" />
+        <text name="GLTM_TURNON_VEHICLE"                    text="Fahrzeug einschalten" />
+        <text name="GLTM_TURNON_NOT_ALLOWED_UNFOLD"         text="Maschine in Arbeitsstellung bringen!" />
+        <text name="GLTM_TURNON_NOT_ALLOWED_BALESLIDE"      text="Die Ballenrutsche senken!" />
+        <text name="GLTM_WRAPPER_SET_ON"                    text="Gerät einschalten" />
+        <text name="GLTM_WRAPPER_SET_OFF"                   text="Gerät abschalten" />
         <text name="GLTM_UNLOAD_THEN_TIP"                   text="Before unload %s, clear from the %s " />
         <text name="GLTM_WASH_THEN_TIP"                     text="After work with %s, you need to wash machine before unload %s " />
         <!-- HelpLine texts -->
         <text name="GLTM_HL_CATEGORY"                       text="Goweil LT Master" />
-        <text name="GLTM_HL_TITLE_00"                       text="General description" />
+        <text name="GLTM_HL_TITLE_00"                       text="Beschreibung" />
         <text name="GLTM_HL_TEXT_00_00"                     text="The LT Master is a baler-wrapper combination wich can be process a great kind of material, not only mais chaff or grass; in the perspective of the game FS17, this machine can work on fields or in farm, and can process a wide variety of material greatly faster than a conventional baler and wrapper:" />
         <text name="GLTM_HL_TEXT_00_01"                     text="Chaff and grass can be pressed and wrapped for silage fermentation" />
         <text name="GLTM_HL_TEXT_00_02"                     text="Hay and straw can be pressed, and optional wrapped for weather protection" />
