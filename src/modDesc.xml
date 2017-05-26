@@ -72,8 +72,8 @@ Netten voor balen en wikkelfolie op pallet zijn verkrijgbaar in de winkel, ook t
 Prijs: 280000 €
 Onderhoud: 350 € / day
 Aanbevolen vermogen: 190 hp
-            
-           
+]]>
+        </nl>
     </description>
     <iconFilename>icon.dds</iconFilename>
     <multiplayer supported="true" />
@@ -121,7 +121,5 @@ Aanbevolen vermogen: 190 hp
         </type>
     </vehicleTypes>
     <inputBindings></inputBindings>
-    
     <l10n filenamePrefix="translations/l10n"/>
-
 </modDesc>
