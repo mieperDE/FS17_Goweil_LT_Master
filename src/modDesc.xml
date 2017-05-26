@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="37">
+<modDesc descVersion="38">
     <author>Team FSI Modding</author>
     <version>1.0.0</version>
     <title>
@@ -12,15 +12,16 @@
     </title>
     <description>
         <de>
-            <![CDATA[Goweil LT Master is THE Baler-Wrapper combination. 
-Chaff, grass, hay, straw, wood chips and manure can be fully pressed into bales and wrapped, for convenient storage purpose and better yield.
-All type of bales can be sold to default sell trigger.
+            <![CDATA[Goweil LT Master ist DIE Ballenpressen-Kombination. 
+Häckselgut, Gras, Heu, Stroh, Hackschnitzel und Gülle können für eine bequeme Ablage und bessere Ausbeute vollständig in Ballen gepresst und eingewickelt werden.
+Alle Arten von Ballen können an allen Annahmestellen verkauft werden.
+Dieser Mod lässt dich Ballen wieder öffnen und an beliebiger Stelle auskippen.
 
-Bale net and wrap foil pallet available in the store, also pallet tank with silage additive can be bought for a better silage quality.
+Ballennetze und Wickelfolie sind im Laden erhältlich. Auch kann ein Palettentank mit Silagezusatz für eine bessere Silagequalität gekauft werden.
 
-Price: 253700 €
-Maintenance: 200 € / day
-Suggested power: 190 hp
+Preis: 280000 €
+Unterhalt: 350 € / Tag
+Empfohlene Leistung: 190 PS / 140 kW
 ]]>
         </de>
         <en>
@@ -31,8 +32,8 @@ This mod add global function to open bales and tip to ground the materials.
 
 Bale net and wrap foil pallet available in the store, also pallet tank with silage additive can be bought for a better silage quality.
 
-Price: 253700 €
-Maintenance: 200 € / day
+Price: 280000 €
+Maintenance: 350 € / day
 Suggested power: 190 hp
 ]]>
         </en>
@@ -44,8 +45,8 @@ This mod add global function to open bales and tip to ground the materials.
 
 Bale net and wrap foil pallet available in the store, also pallet tank with silage additive can be bought for a better silage quality.
 
-Price: 253700 €
-Maintenance: 200 € / day
+Price: 280000 €
+Maintenance: 350 € / day
 Suggested power: 190 hp
 ]]>
         </fr>
@@ -57,8 +58,8 @@ Questa mod aggiunge una funzione per aprire le balle lasciando il contenuto orig
 
 La rete per le balle ed il film estensibile per il wrapper deve essere acquistato allo shop, in più può essere comprata la cisterna di additivo per migliorare la resa e la qualità degli insilati.
 
-Prezzo: 253700 €
-Manutenzione: 200 € / giorno
+Prezzo: 280000 €
+Manutenzione: 350 € / giorno
 Potenza consigliata: 190 cv
 ]]>
         </it>
@@ -70,8 +71,8 @@ Deze mod voegt globale functies toe om balen te openen en deze te kunnen vermale
 
 Netten voor balen en wikkelfolie op pallet zijn verkrijgbaar in de winkel, ook tanks op pallet met silageadditief kunnen worden gekocht voor een betere silage kwaliteit.
 
-Prijs: 253700 €
-Onderhoud: 200 € / day
+Prijs: 280000 €
+Onderhoud: 350 € / day
 Aanbevolen vermogen: 190 hp
 ]]>
         </nl>
@@ -81,8 +82,8 @@ Sieczka, trwa, siano, słoma, wióry i obornik mogą być sprasowane w bele i ow
 Wszystkie typy bel mogą być sprzedawana w dotychczasowych punktach sprzedaży.
 Mod ten dodaje globalną funkcję otwierania bel i wysypywania ich zawartości na ziemię.
 Siatka do bel i folia do owijania znajdują się w sklepie, kupić można również pojemnik z dodatkami do kiszonki dla osiągnięcia jej lepszej jakości.
-Cena: 253700 €
-Utrzymanie: 200 € / day
+Cena: 280000 €
+Utrzymanie: 350 € / day
 Zalecana moc: 190 KM
 ]]>
         </pl>
@@ -134,4 +135,14 @@ Zalecana moc: 190 KM
     </vehicleTypes>
     <inputBindings></inputBindings>
     <l10n filenamePrefix="translations/l10n"/>
+    
+    <translatedBy>
+        <en>TyKonKet</en>
+        <it>TyKonKet</it>
+        <de>mieperDE</de>
+        <fr>TyKonKet</fr>
+        <nl>?</nl>
+        <pl>?</pl>
+    </translatedBy>
 </modDesc>
+
