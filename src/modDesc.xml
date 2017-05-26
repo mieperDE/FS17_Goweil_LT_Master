@@ -19,8 +19,8 @@ Dieser Mod lässt dich Ballen wieder öffnen und an beliebiger Stelle auskippen.
 
 Ballennetze und Wickelfolie sind im Laden erhältlich. Auch kann ein Palettentank mit Silagezusatz für eine bessere Silagequalität gekauft werden.
 
-Preis: 280000 €
-Unterhalt: 350 € / Tag
+Preis: 253700 €
+Unterhalt: 200 € / Tag
 Empfohlene Leistung: 190 PS / 140 kW
 ]]>
         </de>
@@ -32,8 +32,8 @@ This mod add global function to open bales and tip to ground the materials.
 
 Bale net and wrap foil pallet available in the store, also pallet tank with silage additive can be bought for a better silage quality.
 
-Price: 280000 €
-Maintenance: 350 € / day
+Price: 253700 €
+Maintenance: 200 € / day
 Suggested power: 190 hp
 ]]>
         </en>
@@ -45,8 +45,8 @@ This mod add global function to open bales and tip to ground the materials.
 
 Bale net and wrap foil pallet available in the store, also pallet tank with silage additive can be bought for a better silage quality.
 
-Price: 280000 €
-Maintenance: 350 € / day
+Price: 253700 €
+Maintenance: 200 € / day
 Suggested power: 190 hp
 ]]>
         </fr>
@@ -58,8 +58,8 @@ Questa mod aggiunge una funzione per aprire le balle lasciando il contenuto orig
 
 La rete per le balle ed il film estensibile per il wrapper deve essere acquistato allo shop, in più può essere comprata la cisterna di additivo per migliorare la resa e la qualità degli insilati.
 
-Prezzo: 280000 €
-Manutenzione: 350 € / giorno
+Prezzo: 253700 €
+Manutenzione: 200 € / giorno
 Potenza consigliata: 190 cv
 ]]>
         </it>
@@ -71,8 +71,8 @@ Deze mod voegt globale functies toe om balen te openen en deze te kunnen vermale
 
 Netten voor balen en wikkelfolie op pallet zijn verkrijgbaar in de winkel, ook tanks op pallet met silageadditief kunnen worden gekocht voor een betere silage kwaliteit.
 
-Prijs: 280000 €
-Onderhoud: 350 € / day
+Prijs: 253700 €
+Onderhoud: 200 € / day
 Aanbevolen vermogen: 190 hp
 ]]>
         </nl>
@@ -82,8 +82,8 @@ Sieczka, trwa, siano, słoma, wióry i obornik mogą być sprasowane w bele i ow
 Wszystkie typy bel mogą być sprzedawana w dotychczasowych punktach sprzedaży.
 Mod ten dodaje globalną funkcję otwierania bel i wysypywania ich zawartości na ziemię.
 Siatka do bel i folia do owijania znajdują się w sklepie, kupić można również pojemnik z dodatkami do kiszonki dla osiągnięcia jej lepszej jakości.
-Cena: 280000 €
-Utrzymanie: 350 € / day
+Cena: 253700 €
+Utrzymanie: 200 € / day
 Zalecana moc: 190 KM
 ]]>
         </pl>
@@ -137,12 +137,12 @@ Zalecana moc: 190 KM
     <l10n filenamePrefix="translations/l10n"/>
     
     <translatedBy>
-        <en>TyKonKet</en>
-        <it>TyKonKet</it>
+        <en>fcelsa</en>
+        <it>fcelsa</it>
         <de>mieperDE</de>
-        <fr>TyKonKet</fr>
-        <nl>?</nl>
-        <pl>?</pl>
+        <fr>fcelsa</fr>
+        <nl>FarmingVidsHD</nl>
+        <pl>Dzi4d3k</pl>
     </translatedBy>
 </modDesc>
 
